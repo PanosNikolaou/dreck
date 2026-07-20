@@ -1,0 +1,43 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [WatchUi,2,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 4; @symbol_classdef = [gsensrosDelegate,4,6,22]; @symbol_extends<0> = [WatchUi,4,31,38]; @symbol_extends<1> = [BehaviorDelegate,4,39,55]; ]
+class gsensrosDelegate extends WatchUi.BehaviorDelegate {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 4; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 4; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 6; @symbol_functiondef = [initialize,6,13,23]; ]
+    function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_6_26_8_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 7 8 ]
+        symbol [ BehaviorDelegate %tmp.2 7 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 7 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_6_26_8_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 11; @symbol_functiondef = [onSelect,11,13,21]; @symbol_return<0> = [Boolean,11,27,34]; ]
+    function onSelect() as Boolean {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_11_35_14_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 12 8 ]
+        symbol [ System %tmp.2 12 8 14 ];
+        %tmp.2 = getv ? :System;
+        symbol [ println %tmp.3 12 15 22 ];
+        %tmp.3 = getv function %tmp.2 :println;
+        %tmp.4 = "Delegate: onSelect called";
+        invoke %tmp.2 %tmp.3(%tmp.4);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 13 8 ]
+        %tmp.5 = false;
+        ret %tmp.5;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_11_35_14_4_stop:
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 1; ]
+<init> {
+}

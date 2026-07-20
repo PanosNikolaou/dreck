@@ -1,0 +1,1692 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
+using Toybox.Graphics;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
+module Rez {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
+    module Drawables {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 8; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,9,27,39]; @symbol_type<0> = [ResourceId,9,43,53]; ]
+        var LauncherIcon as ResourceId;
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 12; @symbol_moduledef = [Layouts,12,11,18]; ]
+    module Layouts {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 12; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 13; @symbol_functiondef = [MainLayout,13,17,27]; @symbol_param<0> = [dc,13,28,30]; @symbol_param<0>_type<0> = [Graphics,13,34,42]; @symbol_param<0>_type<1> = [Dc,13,43,45]; @symbol_return<0> = [Array,13,50,55]; @symbol_return<1> = [WatchUi,13,56,63]; @symbol_return<2> = [Drawable,13,64,72]; ]
+        function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_13_74_17_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 14 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_13_74_17_8_start" "_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_13_74_17_8_stop" ]
+            %rez_cmp_local_text_1193959466.1 = local;
+            symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.1 14 16 45 ];
+            symbol [ WatchUi %tmp.3 14 52 59 ];
+            %tmp.3 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.4 14 60 64 ];
+            %tmp.4 = getv function ? %tmp.3 :Text;
+            %tmp.5 = newd 6;
+            %tmp.7 = const :color;
+            symbol [ color %tmp.7 14 67 72 const ];
+            symbol [ Graphics %tmp.8 14 74 82 ];
+            %tmp.8 = getm $.Toybox.Graphics;
+            symbol [ COLOR_WHITE %tmp.9 14 83 94 ];
+            %tmp.9 = getv %tmp.8 :COLOR_WHITE;
+            %tmp.10 = dup %tmp.5;
+            %tmp.11 = aputv %tmp.10 %tmp.7 %tmp.9;
+            %tmp.13 = const :locX;
+            symbol [ locX %tmp.13 14 97 101 const ];
+            %tmp.14 = lgetv %dc;
+            symbol [ dc %tmp.14 14 104 106 ];
+            symbol [ getWidth %tmp.15 14 107 115 ];
+            %tmp.15 = getv function %tmp.14 :getWidth;
+            %tmp.16 = invoke %tmp.14 %tmp.15();
+            %tmp.17 = 0.5;
+            %tmp.18 = mul %tmp.16 %tmp.17;
+            %tmp.19 = dup %tmp.11;
+            %tmp.20 = aputv %tmp.19 %tmp.13 %tmp.18;
+            %tmp.22 = const :locY;
+            symbol [ locY %tmp.22 14 127 131 const ];
+            %tmp.23 = 5;
+            %tmp.24 = dup %tmp.20;
+            %tmp.25 = aputv %tmp.24 %tmp.22 %tmp.23;
+            %tmp.27 = const :text;
+            symbol [ text %tmp.27 14 137 141 const ];
+            symbol [ $ %tmp.28 14 143 144 ];
+            %tmp.28 = getm $;
+            symbol [ Rez %tmp.29 14 145 148 ];
+            %tmp.29 = getv %tmp.28 :Rez;
+            symbol [ Strings %tmp.30 14 149 156 ];
+            %tmp.30 = getv %tmp.29 :Strings;
+            symbol [ prompt %tmp.31 14 157 163 ];
+            %tmp.31 = getv %tmp.30 :prompt;
+            %tmp.32 = dup %tmp.25;
+            %tmp.33 = aputv %tmp.32 %tmp.27 %tmp.31;
+            %tmp.35 = const :justification;
+            symbol [ justification %tmp.35 14 166 179 const ];
+            symbol [ Graphics %tmp.36 14 181 189 ];
+            %tmp.36 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_CENTER %tmp.37 14 190 209 ];
+            %tmp.37 = getv %tmp.36 :TEXT_JUSTIFY_CENTER;
+            %tmp.38 = dup %tmp.33;
+            %tmp.39 = aputv %tmp.38 %tmp.35 %tmp.37;
+            %tmp.41 = const :font;
+            symbol [ font %tmp.41 14 212 216 const ];
+            symbol [ Graphics %tmp.42 14 218 226 ];
+            %tmp.42 = getm $.Toybox.Graphics;
+            symbol [ FONT_MEDIUM %tmp.43 14 227 238 ];
+            %tmp.43 = getv %tmp.42 :FONT_MEDIUM;
+            %tmp.44 = dup %tmp.39;
+            %tmp.45 = aputv %tmp.44 %tmp.41 %tmp.43;
+            %tmp.1 = newc %tmp.4 (%tmp.45);
+            lputv %rez_cmp_local_text_1193959466.1 %tmp.1;
+            symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.1 14 16 45 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 16 12 ]
+            %tmp.46 = newa 1 Array<WatchUi.Drawable>;
+            symbol [ Array %tmp.46 16 54 59 ];
+            symbol [ WatchUi %tmp.46 16 60 67 ];
+            symbol [ Drawable %tmp.46 16 68 76 ];
+            %tmp.47 = lgetv %rez_cmp_local_text_1193959466.1;
+            symbol [ rez_cmp_local_text_1193959466 %tmp.47 16 20 49 ];
+            %tmp.48 = dup %tmp.46;
+            %tmp.49 = aputv %tmp.48 0 %tmp.47;
+            ret %tmp.49;
+_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_13_74_17_8_stop:
+        }
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 20; @symbol_moduledef = [Menus,20,11,16]; ]
+    module Menus {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 20; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 21; @symbol_classdef = [MainMenu,21,14,22]; @symbol_extends<0> = [WatchUi,21,31,38]; @symbol_extends<1> = [Menu,21,39,43]; ]
+        class MainMenu extends WatchUi.Menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 21; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 21; ]
+            static
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 22; @symbol_functiondef = [initialize,22,21,31]; ]
+            function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_22_34_26_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 23 16 ]
+                symbol [ Menu %tmp.2 23 16 20 ];
+                %tmp.2 = getv ? :Menu;
+                symbol [ initialize %tmp.3 23 21 31 ];
+                %tmp.3 = getv function %tmp.2 :initialize;
+                invoke %tmp.2 %tmp.3();
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 24 16 ]
+                %tmp.4 = self;
+                symbol [ addItem %tmp.5 24 16 23 ];
+                %tmp.5 = getv function %tmp.4 :addItem;
+                symbol [ WatchUi %tmp.6 24 25 32 ];
+                %tmp.6 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.7 24 33 45 ];
+                %tmp.7 = getv function %tmp.6 :loadResource;
+                symbol [ $ %tmp.8 24 46 47 ];
+                %tmp.8 = getm $;
+                symbol [ Rez %tmp.9 24 48 51 ];
+                %tmp.9 = getv %tmp.8 :Rez;
+                symbol [ Strings %tmp.10 24 52 59 ];
+                %tmp.10 = getv %tmp.9 :Strings;
+                symbol [ menu_label_1 %tmp.11 24 60 72 ];
+                %tmp.11 = getv %tmp.10 :menu_label_1;
+                %tmp.12 = invoke %tmp.6 %tmp.7(%tmp.11);
+                %tmp.13 = as %tmp.12 String;
+                symbol [ String %tmp.13 24 77 83 ];
+                %tmp.15 = const :item_1;
+                symbol [ item_1 %tmp.15 24 87 93 const ];
+                invoke %tmp.4 %tmp.5(%tmp.13, %tmp.15);
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 25 16 ]
+                %tmp.16 = self;
+                symbol [ addItem %tmp.17 25 16 23 ];
+                %tmp.17 = getv function %tmp.16 :addItem;
+                symbol [ WatchUi %tmp.18 25 25 32 ];
+                %tmp.18 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.19 25 33 45 ];
+                %tmp.19 = getv function %tmp.18 :loadResource;
+                symbol [ $ %tmp.20 25 46 47 ];
+                %tmp.20 = getm $;
+                symbol [ Rez %tmp.21 25 48 51 ];
+                %tmp.21 = getv %tmp.20 :Rez;
+                symbol [ Strings %tmp.22 25 52 59 ];
+                %tmp.22 = getv %tmp.21 :Strings;
+                symbol [ menu_label_2 %tmp.23 25 60 72 ];
+                %tmp.23 = getv %tmp.22 :menu_label_2;
+                %tmp.24 = invoke %tmp.18 %tmp.19(%tmp.23);
+                %tmp.25 = as %tmp.24 String;
+                symbol [ String %tmp.25 25 77 83 ];
+                %tmp.27 = const :item_2;
+                symbol [ item_2 %tmp.27 25 87 93 const ];
+                invoke %tmp.16 %tmp.17(%tmp.25, %tmp.27);
+_home_panagiotis_Documents_gsensors_gsensros_bin_gen_006_B4394_00_source_Rez_mcgen_22_34_26_12_stop:
+            }
+        }
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 30; @symbol_moduledef = [Strings,30,11,18]; ]
+    module Strings {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 30; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 31; @position = 27; initialized = true; @symbol_vardef = [menu_label_1,31,27,39]; @symbol_type<0> = [ResourceId,31,43,53]; ]
+        var menu_label_1 as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 32; @position = 27; initialized = true; @symbol_vardef = [menu_label_2,32,27,39]; @symbol_type<0> = [ResourceId,32,43,53]; ]
+        var menu_label_2 as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 33; @position = 27; initialized = true; @symbol_vardef = [prompt,33,27,33]; @symbol_type<0> = [ResourceId,33,37,47]; ]
+        var prompt as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 34; @position = 27; initialized = true; @symbol_vardef = [AppName,34,27,34]; @symbol_type<0> = [ResourceId,34,38,48]; ]
+        var AppName as ResourceId;
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 37; @symbol_moduledef = [Styles,37,11,17]; ]
+    module Styles {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 37; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 38; @symbol_moduledef = [prompt_font_enhanced_readability__body_with_title,38,15,64]; ]
+        module prompt_font_enhanced_readability__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 38; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 39; @position = 18; @symbol_constdef = [exclude,39,18,25]; @symbol_type<0> = [Boolean,39,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 42; @symbol_moduledef = [system_size__menu_header,42,15,39]; ]
+        module system_size__menu_header {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 42; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 43; @position = 18; @symbol_constdef = [width,43,18,23]; @symbol_type<0> = [Number,43,27,33]; ]
+            const width as Number = 175;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 44; @position = 18; @symbol_constdef = [height,44,18,24]; @symbol_type<0> = [Number,44,28,34]; ]
+            const height as Number = 62;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 47; @symbol_moduledef = [system_loc__hint_button_left_bottom,47,15,50]; ]
+        module system_loc__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 47; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 48; @position = 18; @symbol_constdef = [exclude,48,18,25]; @symbol_type<0> = [Boolean,48,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 51; @symbol_moduledef = [prompt_font_enhanced_readability__body_no_title,51,15,62]; ]
+        module prompt_font_enhanced_readability__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 51; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 52; @position = 18; @symbol_constdef = [exclude,52,18,25]; @symbol_type<0> = [Boolean,52,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 55; @symbol_moduledef = [prompt_loc__body_no_title,55,15,40]; ]
+        module prompt_loc__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 55; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 56; @position = 18; @symbol_constdef = [x,56,18,19]; @symbol_type<0> = [Number,56,23,29]; ]
+            const x as Number = 5;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 57; @position = 18; @symbol_constdef = [y,57,18,19]; @symbol_type<0> = [Number,57,23,29]; ]
+            const y as Number = 77;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 60; @symbol_moduledef = [system_icon_dark__about,60,15,38]; ]
+        module system_icon_dark__about {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 60; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 61; @position = 18; @symbol_constdef = [filename,61,18,26]; @symbol_type<0> = [String,61,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__about.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 62; @position = 18; @symbol_constdef = [disableTransparency,62,18,37]; @symbol_type<0> = [Boolean,62,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 63; @position = 18; @symbol_constdef = [dithering,63,18,27]; @symbol_type<0> = [String,63,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 64; @position = 18; @symbol_constdef = [automaticPalette,64,18,34]; @symbol_type<0> = [Boolean,64,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 67; @symbol_moduledef = [system_icon_light__question,67,15,42]; ]
+        module system_icon_light__question {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 67; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 68; @position = 18; @symbol_constdef = [filename,68,18,26]; @symbol_type<0> = [String,68,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__question.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 69; @position = 18; @symbol_constdef = [disableTransparency,69,18,37]; @symbol_type<0> = [Boolean,69,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 70; @position = 18; @symbol_constdef = [dithering,70,18,27]; @symbol_type<0> = [String,70,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 71; @position = 18; @symbol_constdef = [automaticPalette,71,18,34]; @symbol_type<0> = [Boolean,71,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 74; @symbol_moduledef = [system_loc__hint_button_left_top,74,15,47]; ]
+        module system_loc__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 74; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 75; @position = 18; @symbol_constdef = [exclude,75,18,25]; @symbol_type<0> = [Boolean,75,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 78; @symbol_moduledef = [prompt_font__title,78,15,33]; ]
+        module prompt_font__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 78; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 79 18 ]
+                symbol [ Graphics %tmp.28 79 34 42 ];
+                %tmp.28 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_RIGHT %tmp.29 79 43 61 ];
+                %tmp.29 = getv %tmp.28 :TEXT_JUSTIFY_RIGHT;
+                symbol [ Graphics %tmp.30 79 62 70 ];
+                %tmp.30 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.31 79 71 91 ];
+                %tmp.31 = getv %tmp.30 :TEXT_JUSTIFY_VCENTER;
+                %tmp.32 = bitor %tmp.29 %tmp.31;
+                putv self :justification %tmp.32;
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 80 18 ]
+                symbol [ Graphics %tmp.33 80 25 33 ];
+                %tmp.33 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.34 80 34 43 ];
+                %tmp.34 = getv %tmp.33 :FONT_TINY;
+                putv self :font %tmp.34;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 79; @position = 18; @symbol_constdef = [justification,79,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 80; @position = 18; @symbol_constdef = [font,80,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 83; @symbol_moduledef = [system_icon_dark__discard,83,15,40]; ]
+        module system_icon_dark__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 83; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 84; @position = 18; @symbol_constdef = [filename,84,18,26]; @symbol_type<0> = [String,84,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 85; @position = 18; @symbol_constdef = [disableTransparency,85,18,37]; @symbol_type<0> = [Boolean,85,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 86; @position = 18; @symbol_constdef = [dithering,86,18,27]; @symbol_type<0> = [String,86,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 87; @position = 18; @symbol_constdef = [automaticPalette,87,18,34]; @symbol_type<0> = [Boolean,87,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 90; @symbol_moduledef = [system_size__menu_item,90,15,37]; ]
+        module system_size__menu_item {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 90; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 91; @position = 18; @symbol_constdef = [width,91,18,23]; @symbol_type<0> = [Number,91,27,33]; ]
+            const width as Number = 175;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 92; @position = 18; @symbol_constdef = [height,92,18,24]; @symbol_type<0> = [Number,92,28,34]; ]
+            const height as Number = 58;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 95; @symbol_moduledef = [system_color_dark__text,95,15,38]; ]
+        module system_color_dark__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 95; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 97 18 ]
+                symbol [ Graphics %tmp.35 97 31 39 ];
+                %tmp.35 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.36 97 40 57 ];
+                %tmp.36 = getv %tmp.35 :COLOR_TRANSPARENT;
+                putv self :background %tmp.36;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 96; @position = 18; @symbol_constdef = [color,96,18,23]; @symbol_type<0> = [Number,96,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 97; @position = 18; @symbol_constdef = [background,97,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 100; @symbol_moduledef = [system_icon_destructive__discard,100,15,47]; ]
+        module system_icon_destructive__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 100; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 101; @position = 18; @symbol_constdef = [filename,101,18,26]; @symbol_type<0> = [String,101,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 102; @position = 18; @symbol_constdef = [disableTransparency,102,18,37]; @symbol_type<0> = [Boolean,102,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 103; @position = 18; @symbol_constdef = [dithering,103,18,27]; @symbol_type<0> = [String,103,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 104; @position = 18; @symbol_constdef = [automaticPalette,104,18,34]; @symbol_type<0> = [Boolean,104,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 107; @symbol_moduledef = [system_icon_dark__hint_action_menu,107,15,49]; ]
+        module system_icon_dark__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 107; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 108; @position = 18; @symbol_constdef = [filename,108,18,26]; @symbol_type<0> = [String,108,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 109; @position = 18; @symbol_constdef = [disableTransparency,109,18,37]; @symbol_type<0> = [Boolean,109,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 110; @position = 18; @symbol_constdef = [dithering,110,18,27]; @symbol_type<0> = [String,110,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 111; @position = 18; @symbol_constdef = [automaticPalette,111,18,34]; @symbol_type<0> = [Boolean,111,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 114; @symbol_moduledef = [prompt_size__title,114,15,33]; ]
+        module prompt_size__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 114; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 115; @position = 18; @symbol_constdef = [width,115,18,23]; @symbol_type<0> = [Number,115,27,33]; ]
+            const width as Number = 67;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 116; @position = 18; @symbol_constdef = [height,116,18,24]; @symbol_type<0> = [Number,116,28,34]; ]
+            const height as Number = 60;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 119; @symbol_moduledef = [confirmation_font__body,119,15,38]; ]
+        module confirmation_font__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 119; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 120 18 ]
+                symbol [ Graphics %tmp.37 120 34 42 ];
+                %tmp.37 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.38 120 43 62 ];
+                %tmp.38 = getv %tmp.37 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.38;
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 121 18 ]
+                symbol [ Graphics %tmp.39 121 25 33 ];
+                %tmp.39 = getm $.Toybox.Graphics;
+                symbol [ FONT_XTINY %tmp.40 121 34 44 ];
+                %tmp.40 = getv %tmp.39 :FONT_XTINY;
+                putv self :font %tmp.40;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 120; @position = 18; @symbol_constdef = [justification,120,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 121; @position = 18; @symbol_constdef = [font,121,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 124; @symbol_moduledef = [system_color_dark__background,124,15,44]; ]
+        module system_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 124; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 125; @position = 18; @symbol_constdef = [color,125,18,23]; @symbol_type<0> = [Number,125,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 126; @position = 18; @symbol_constdef = [background,126,18,28]; @symbol_type<0> = [Number,126,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 129; @symbol_moduledef = [system_icon_destructive__hint_button_left_top,129,15,60]; ]
+        module system_icon_destructive__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 129; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 130; @position = 18; @symbol_constdef = [exclude,130,18,25]; @symbol_type<0> = [Boolean,130,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 133; @symbol_moduledef = [system_size__launch_icon,133,15,39]; ]
+        module system_size__launch_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 133; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 134; @position = 18; @symbol_constdef = [scaleX,134,18,24]; @symbol_type<0> = [Number,134,28,34]; ]
+            const scaleX as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 135; @position = 18; @symbol_constdef = [scaleY,135,18,24]; @symbol_type<0> = [Number,135,28,34]; ]
+            const scaleY as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 136; @position = 18; @symbol_constdef = [scaleRelativeTo,136,18,33]; @symbol_type<0> = [String,136,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 139; @symbol_moduledef = [confirmation_input__confirm,139,15,42]; ]
+        module confirmation_input__confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 139; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 140 18 ]
+                symbol [ WatchUi %tmp.41 140 27 34 ];
+                %tmp.41 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.42 140 35 44 ];
+                %tmp.42 = getv %tmp.41 :KEY_ENTER;
+                putv self :button %tmp.42;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 140; @position = 18; @symbol_constdef = [button,140,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 143; @symbol_moduledef = [prompt_font__body_with_title,143,15,43]; ]
+        module prompt_font__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 143; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 144 18 ]
+                symbol [ Graphics %tmp.43 144 34 42 ];
+                %tmp.43 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.44 144 43 62 ];
+                %tmp.44 = getv %tmp.43 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.44;
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 145 18 ]
+                symbol [ Graphics %tmp.45 145 25 33 ];
+                %tmp.45 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.46 145 34 43 ];
+                %tmp.46 = getv %tmp.45 :FONT_TINY;
+                putv self :font %tmp.46;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 144; @position = 18; @symbol_constdef = [justification,144,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 145; @position = 18; @symbol_constdef = [font,145,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 148; @symbol_moduledef = [confirmation_loc__body,148,15,37]; ]
+        module confirmation_loc__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 148; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 149; @position = 18; @symbol_constdef = [x,149,18,19]; @symbol_type<0> = [Number,149,23,29]; ]
+            const x as Number = 2;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 150; @position = 18; @symbol_constdef = [y,150,18,19]; @symbol_type<0> = [Number,150,23,29]; ]
+            const y as Number = 81;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 153; @symbol_moduledef = [system_icon_destructive__hint_button_left_bottom,153,15,63]; ]
+        module system_icon_destructive__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 153; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 154; @position = 18; @symbol_constdef = [exclude,154,18,25]; @symbol_type<0> = [Boolean,154,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 157; @symbol_moduledef = [prompt_color_dark__background,157,15,44]; ]
+        module prompt_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 157; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 158; @position = 18; @symbol_constdef = [background,158,18,28]; @symbol_type<0> = [Number,158,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 161; @symbol_moduledef = [system_icon_destructive__hint_action_menu,161,15,56]; ]
+        module system_icon_destructive__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 161; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 162; @position = 18; @symbol_constdef = [filename,162,18,26]; @symbol_type<0> = [String,162,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 163; @position = 18; @symbol_constdef = [disableTransparency,163,18,37]; @symbol_type<0> = [Boolean,163,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 164; @position = 18; @symbol_constdef = [dithering,164,18,27]; @symbol_type<0> = [String,164,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 165; @position = 18; @symbol_constdef = [automaticPalette,165,18,34]; @symbol_type<0> = [Boolean,165,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 168; @symbol_moduledef = [system_loc__hint_action_menu,168,15,43]; ]
+        module system_loc__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 168; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 169; @position = 18; @symbol_constdef = [x,169,18,19]; @symbol_type<0> = [Number,169,23,29]; ]
+            const x as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 170; @position = 18; @symbol_constdef = [y,170,18,19]; @symbol_type<0> = [Number,170,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 171; @position = 18; @symbol_constdef = [horizontalJustification,171,18,41]; @symbol_type<0> = [String,171,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 172; @position = 18; @symbol_constdef = [verticalJustification,172,18,39]; @symbol_type<0> = [String,172,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 175; @symbol_moduledef = [confirmation_icon__hint_confirm,175,15,46]; ]
+        module confirmation_icon__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 175; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 176; @position = 18; @symbol_constdef = [filename,176,18,26]; @symbol_type<0> = [String,176,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 177; @position = 18; @symbol_constdef = [disableTransparency,177,18,37]; @symbol_type<0> = [Boolean,177,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 178; @position = 18; @symbol_constdef = [dithering,178,18,27]; @symbol_type<0> = [String,178,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 179; @position = 18; @symbol_constdef = [automaticPalette,179,18,34]; @symbol_type<0> = [Boolean,179,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 182; @symbol_moduledef = [system_loc__hint_button_left_middle,182,15,50]; ]
+        module system_loc__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 182; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 183; @position = 18; @symbol_constdef = [exclude,183,18,25]; @symbol_type<0> = [Boolean,183,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 186; @symbol_moduledef = [prompt_size__body_no_title,186,15,41]; ]
+        module prompt_size__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 186; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 187; @position = 18; @symbol_constdef = [width,187,18,23]; @symbol_type<0> = [Number,187,27,33]; ]
+            const width as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 188; @position = 18; @symbol_constdef = [height,188,18,24]; @symbol_type<0> = [Number,188,28,34]; ]
+            const height as Number = 99;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 191; @symbol_moduledef = [system_icon_light__hint_button_left_top,191,15,54]; ]
+        module system_icon_light__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 191; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 192; @position = 18; @symbol_constdef = [exclude,192,18,25]; @symbol_type<0> = [Boolean,192,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 195; @symbol_moduledef = [prompt_color_light__background,195,15,45]; ]
+        module prompt_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 195; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 196; @position = 18; @symbol_constdef = [background,196,18,28]; @symbol_type<0> = [Number,196,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 199; @symbol_moduledef = [confirmation_input__delete,199,15,41]; ]
+        module confirmation_input__delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 199; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 200 18 ]
+                symbol [ WatchUi %tmp.47 200 27 34 ];
+                %tmp.47 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.48 200 35 44 ];
+                %tmp.48 = getv %tmp.47 :KEY_ENTER;
+                putv self :button %tmp.48;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 200; @position = 18; @symbol_constdef = [button,200,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 203; @symbol_moduledef = [system_icon_dark__hint_button_left_top,203,15,53]; ]
+        module system_icon_dark__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 203; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 204; @position = 18; @symbol_constdef = [exclude,204,18,25]; @symbol_type<0> = [Boolean,204,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 207; @symbol_moduledef = [system_input__action_menu,207,15,40]; ]
+        module system_input__action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 207; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 208 18 ]
+                symbol [ WatchUi %tmp.49 208 27 34 ];
+                %tmp.49 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.50 208 35 44 ];
+                %tmp.50 = getv %tmp.49 :KEY_ENTER;
+                putv self :button %tmp.50;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 208; @position = 18; @symbol_constdef = [button,208,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 211; @symbol_moduledef = [system_icon_light__save,211,15,38]; ]
+        module system_icon_light__save {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 211; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 212; @position = 18; @symbol_constdef = [filename,212,18,26]; @symbol_type<0> = [String,212,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__save.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 213; @position = 18; @symbol_constdef = [disableTransparency,213,18,37]; @symbol_type<0> = [Boolean,213,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 214; @position = 18; @symbol_constdef = [dithering,214,18,27]; @symbol_type<0> = [String,214,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 215; @position = 18; @symbol_constdef = [automaticPalette,215,18,34]; @symbol_type<0> = [Boolean,215,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 218; @symbol_moduledef = [prompt_color_light__body,218,15,39]; ]
+        module prompt_color_light__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 218; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 220 18 ]
+                symbol [ Graphics %tmp.51 220 31 39 ];
+                %tmp.51 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.52 220 40 57 ];
+                %tmp.52 = getv %tmp.51 :COLOR_TRANSPARENT;
+                putv self :background %tmp.52;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 219; @position = 18; @symbol_constdef = [color,219,18,23]; @symbol_type<0> = [Number,219,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 220; @position = 18; @symbol_constdef = [background,220,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 223; @symbol_moduledef = [system_loc__subwindow,223,15,36]; ]
+        module system_loc__subwindow {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 223; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 224; @position = 18; @symbol_constdef = [x,224,18,19]; @symbol_type<0> = [Number,224,23,29]; ]
+            const x as Number = 114;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 225; @position = 18; @symbol_constdef = [y,225,18,19]; @symbol_type<0> = [Number,225,23,29]; ]
+            const y as Number = 0;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 228; @symbol_moduledef = [system_icon_light__warning,228,15,41]; ]
+        module system_icon_light__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 228; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 229; @position = 18; @symbol_constdef = [filename,229,18,26]; @symbol_type<0> = [String,229,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 230; @position = 18; @symbol_constdef = [disableTransparency,230,18,37]; @symbol_type<0> = [Boolean,230,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 231; @position = 18; @symbol_constdef = [dithering,231,18,27]; @symbol_type<0> = [String,231,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 232; @position = 18; @symbol_constdef = [automaticPalette,232,18,34]; @symbol_type<0> = [Boolean,232,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 235; @symbol_moduledef = [confirmation_color_light__body,235,15,45]; ]
+        module confirmation_color_light__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 235; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 237 18 ]
+                symbol [ Graphics %tmp.53 237 31 39 ];
+                %tmp.53 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.54 237 40 57 ];
+                %tmp.54 = getv %tmp.53 :COLOR_TRANSPARENT;
+                putv self :background %tmp.54;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 236; @position = 18; @symbol_constdef = [color,236,18,23]; @symbol_type<0> = [Number,236,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 237; @position = 18; @symbol_constdef = [background,237,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 240; @symbol_moduledef = [confirmation_icon_light__hint_keep,240,15,49]; ]
+        module confirmation_icon_light__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 240; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 241; @position = 18; @symbol_constdef = [filename,241,18,26]; @symbol_type<0> = [String,241,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 242; @position = 18; @symbol_constdef = [disableTransparency,242,18,37]; @symbol_type<0> = [Boolean,242,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 243; @position = 18; @symbol_constdef = [dithering,243,18,27]; @symbol_type<0> = [String,243,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 244; @position = 18; @symbol_constdef = [automaticPalette,244,18,34]; @symbol_type<0> = [Boolean,244,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 247; @symbol_moduledef = [activity_color_light__background,247,15,47]; ]
+        module activity_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 247; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 248; @position = 18; @symbol_constdef = [color,248,18,23]; @symbol_type<0> = [Number,248,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 249; @position = 18; @symbol_constdef = [background,249,18,28]; @symbol_type<0> = [Number,249,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 252; @symbol_moduledef = [system_icon_positive__hint_button_right_top,252,15,58]; ]
+        module system_icon_positive__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 252; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 253; @position = 18; @symbol_constdef = [filename,253,18,26]; @symbol_type<0> = [String,253,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 254; @position = 18; @symbol_constdef = [disableTransparency,254,18,37]; @symbol_type<0> = [Boolean,254,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 255; @position = 18; @symbol_constdef = [dithering,255,18,27]; @symbol_type<0> = [String,255,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 256; @position = 18; @symbol_constdef = [automaticPalette,256,18,34]; @symbol_type<0> = [Boolean,256,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 259; @symbol_moduledef = [system_size__screen,259,15,34]; ]
+        module system_size__screen {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 259; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 260; @position = 18; @symbol_constdef = [width,260,18,23]; @symbol_type<0> = [Number,260,27,33]; ]
+            const width as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 261; @position = 18; @symbol_constdef = [height,261,18,24]; @symbol_type<0> = [Number,261,28,34]; ]
+            const height as Number = 176;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 264; @symbol_moduledef = [system_icon_destructive__hint_button_right_bottom,264,15,64]; ]
+        module system_icon_destructive__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 264; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 265; @position = 18; @symbol_constdef = [exclude,265,18,25]; @symbol_type<0> = [Boolean,265,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 268; @symbol_moduledef = [system_color_light__background,268,15,45]; ]
+        module system_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 268; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 269; @position = 18; @symbol_constdef = [color,269,18,23]; @symbol_type<0> = [Number,269,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 270; @position = 18; @symbol_constdef = [background,270,18,28]; @symbol_type<0> = [Number,270,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 273; @symbol_moduledef = [system_icon_destructive__hint_button_right_top,273,15,61]; ]
+        module system_icon_destructive__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 273; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 274; @position = 18; @symbol_constdef = [filename,274,18,26]; @symbol_type<0> = [String,274,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 275; @position = 18; @symbol_constdef = [disableTransparency,275,18,37]; @symbol_type<0> = [Boolean,275,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 276; @position = 18; @symbol_constdef = [dithering,276,18,27]; @symbol_type<0> = [String,276,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 277; @position = 18; @symbol_constdef = [automaticPalette,277,18,34]; @symbol_type<0> = [Boolean,277,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 280; @symbol_moduledef = [confirmation_loc__hint_confirm,280,15,45]; ]
+        module confirmation_loc__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 280; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 281; @position = 18; @symbol_constdef = [x,281,18,19]; @symbol_type<0> = [Number,281,23,29]; ]
+            const x as Number = 113;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 282; @position = 18; @symbol_constdef = [y,282,18,19]; @symbol_type<0> = [Number,282,23,29]; ]
+            const y as Number = 1;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 285; @symbol_moduledef = [activity_color_dark__text,285,15,40]; ]
+        module activity_color_dark__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 285; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 287 18 ]
+                symbol [ Graphics %tmp.55 287 31 39 ];
+                %tmp.55 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.56 287 40 57 ];
+                %tmp.56 = getv %tmp.55 :COLOR_TRANSPARENT;
+                putv self :background %tmp.56;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 286; @position = 18; @symbol_constdef = [color,286,18,23]; @symbol_type<0> = [Number,286,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 287; @position = 18; @symbol_constdef = [background,287,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 290; @symbol_moduledef = [confirmation_input__keep,290,15,39]; ]
+        module confirmation_input__keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 290; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 291 18 ]
+                symbol [ WatchUi %tmp.57 291 27 34 ];
+                %tmp.57 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.58 291 35 43 ];
+                %tmp.58 = getv %tmp.57 :KEY_DOWN;
+                putv self :button %tmp.58;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 291; @position = 18; @symbol_constdef = [button,291,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 294; @symbol_moduledef = [prompt_loc__body_with_title,294,15,42]; ]
+        module prompt_loc__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 294; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 295; @position = 18; @symbol_constdef = [x,295,18,19]; @symbol_type<0> = [Number,295,23,29]; ]
+            const x as Number = 5;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 296; @position = 18; @symbol_constdef = [y,296,18,19]; @symbol_type<0> = [Number,296,23,29]; ]
+            const y as Number = 77;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 299; @symbol_moduledef = [system_icon_dark__search,299,15,39]; ]
+        module system_icon_dark__search {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 299; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 300; @position = 18; @symbol_constdef = [filename,300,18,26]; @symbol_type<0> = [String,300,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__search.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 301; @position = 18; @symbol_constdef = [disableTransparency,301,18,37]; @symbol_type<0> = [Boolean,301,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 302; @position = 18; @symbol_constdef = [dithering,302,18,27]; @symbol_type<0> = [String,302,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 303; @position = 18; @symbol_constdef = [automaticPalette,303,18,34]; @symbol_type<0> = [Boolean,303,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 306; @symbol_moduledef = [activity_color_light__text,306,15,41]; ]
+        module activity_color_light__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 306; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 308 18 ]
+                symbol [ Graphics %tmp.59 308 31 39 ];
+                %tmp.59 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.60 308 40 57 ];
+                %tmp.60 = getv %tmp.59 :COLOR_TRANSPARENT;
+                putv self :background %tmp.60;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 307; @position = 18; @symbol_constdef = [color,307,18,23]; @symbol_type<0> = [Number,307,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 308; @position = 18; @symbol_constdef = [background,308,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 311; @symbol_moduledef = [confirmation_icon__hint_keep,311,15,43]; ]
+        module confirmation_icon__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 311; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 312; @position = 18; @symbol_constdef = [filename,312,18,26]; @symbol_type<0> = [String,312,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 313; @position = 18; @symbol_constdef = [disableTransparency,313,18,37]; @symbol_type<0> = [Boolean,313,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 314; @position = 18; @symbol_constdef = [dithering,314,18,27]; @symbol_type<0> = [String,314,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 315; @position = 18; @symbol_constdef = [automaticPalette,315,18,34]; @symbol_type<0> = [Boolean,315,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 318; @symbol_moduledef = [system_icon_dark__save,318,15,37]; ]
+        module system_icon_dark__save {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 318; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 319; @position = 18; @symbol_constdef = [filename,319,18,26]; @symbol_type<0> = [String,319,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__save.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 320; @position = 18; @symbol_constdef = [disableTransparency,320,18,37]; @symbol_type<0> = [Boolean,320,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 321; @position = 18; @symbol_constdef = [dithering,321,18,27]; @symbol_type<0> = [String,321,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 322; @position = 18; @symbol_constdef = [automaticPalette,322,18,34]; @symbol_type<0> = [Boolean,322,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 325; @symbol_moduledef = [system_icon_destructive__hint_button_left_middle,325,15,63]; ]
+        module system_icon_destructive__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 325; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 326; @position = 18; @symbol_constdef = [exclude,326,18,25]; @symbol_type<0> = [Boolean,326,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 329; @symbol_moduledef = [system_icon_light__search,329,15,40]; ]
+        module system_icon_light__search {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 329; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 330; @position = 18; @symbol_constdef = [filename,330,18,26]; @symbol_type<0> = [String,330,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__search.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 331; @position = 18; @symbol_constdef = [disableTransparency,331,18,37]; @symbol_type<0> = [Boolean,331,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 332; @position = 18; @symbol_constdef = [dithering,332,18,27]; @symbol_type<0> = [String,332,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 333; @position = 18; @symbol_constdef = [automaticPalette,333,18,34]; @symbol_type<0> = [Boolean,333,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 336; @symbol_moduledef = [system_icon_dark__hint_button_left_bottom,336,15,56]; ]
+        module system_icon_dark__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 336; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 337; @position = 18; @symbol_constdef = [exclude,337,18,25]; @symbol_type<0> = [Boolean,337,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 340; @symbol_moduledef = [system_icon_positive__hint_button_left_top,340,15,57]; ]
+        module system_icon_positive__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 340; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 341; @position = 18; @symbol_constdef = [exclude,341,18,25]; @symbol_type<0> = [Boolean,341,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 344; @symbol_moduledef = [system_loc__hint_button_right_bottom,344,15,51]; ]
+        module system_loc__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 344; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 345; @position = 18; @symbol_constdef = [exclude,345,18,25]; @symbol_type<0> = [Boolean,345,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 348; @symbol_moduledef = [confirmation_icon_dark__hint_reject,348,15,50]; ]
+        module confirmation_icon_dark__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 348; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 349; @position = 18; @symbol_constdef = [filename,349,18,26]; @symbol_type<0> = [String,349,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 350; @position = 18; @symbol_constdef = [disableTransparency,350,18,37]; @symbol_type<0> = [Boolean,350,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 351; @position = 18; @symbol_constdef = [dithering,351,18,27]; @symbol_type<0> = [String,351,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 352; @position = 18; @symbol_constdef = [automaticPalette,352,18,34]; @symbol_type<0> = [Boolean,352,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 355; @symbol_moduledef = [confirmation_color_dark__body,355,15,44]; ]
+        module confirmation_color_dark__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 355; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 357 18 ]
+                symbol [ Graphics %tmp.61 357 31 39 ];
+                %tmp.61 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.62 357 40 57 ];
+                %tmp.62 = getv %tmp.61 :COLOR_TRANSPARENT;
+                putv self :background %tmp.62;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 356; @position = 18; @symbol_constdef = [color,356,18,23]; @symbol_type<0> = [Number,356,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 357; @position = 18; @symbol_constdef = [background,357,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 360; @symbol_moduledef = [confirmation_icon_light__hint_confirm,360,15,52]; ]
+        module confirmation_icon_light__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 360; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 361; @position = 18; @symbol_constdef = [filename,361,18,26]; @symbol_type<0> = [String,361,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 362; @position = 18; @symbol_constdef = [disableTransparency,362,18,37]; @symbol_type<0> = [Boolean,362,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 363; @position = 18; @symbol_constdef = [dithering,363,18,27]; @symbol_type<0> = [String,363,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 364; @position = 18; @symbol_constdef = [automaticPalette,364,18,34]; @symbol_type<0> = [Boolean,364,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 367; @symbol_moduledef = [prompt_color_dark__title,367,15,39]; ]
+        module prompt_color_dark__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 367; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 369 18 ]
+                symbol [ Graphics %tmp.63 369 31 39 ];
+                %tmp.63 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.64 369 40 57 ];
+                %tmp.64 = getv %tmp.63 :COLOR_TRANSPARENT;
+                putv self :background %tmp.64;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 368; @position = 18; @symbol_constdef = [color,368,18,23]; @symbol_type<0> = [Number,368,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 369; @position = 18; @symbol_constdef = [background,369,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 372; @symbol_moduledef = [system_icon_destructive__cancel,372,15,46]; ]
+        module system_icon_destructive__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 372; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 373; @position = 18; @symbol_constdef = [filename,373,18,26]; @symbol_type<0> = [String,373,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 374; @position = 18; @symbol_constdef = [disableTransparency,374,18,37]; @symbol_type<0> = [Boolean,374,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 375; @position = 18; @symbol_constdef = [dithering,375,18,27]; @symbol_type<0> = [String,375,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 376; @position = 18; @symbol_constdef = [automaticPalette,376,18,34]; @symbol_type<0> = [Boolean,376,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 379; @symbol_moduledef = [system_icon_light__hint_button_right_bottom,379,15,58]; ]
+        module system_icon_light__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 379; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 380; @position = 18; @symbol_constdef = [exclude,380,18,25]; @symbol_type<0> = [Boolean,380,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 383; @symbol_moduledef = [prompt_loc__title,383,15,32]; ]
+        module prompt_loc__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 383; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 384; @position = 18; @symbol_constdef = [x,384,18,19]; @symbol_type<0> = [Number,384,23,29]; ]
+            const x as Number = 25;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 385; @position = 18; @symbol_constdef = [y,385,18,19]; @symbol_type<0> = [Number,385,23,29]; ]
+            const y as Number = 9;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 388; @symbol_moduledef = [confirmation_font_enhanced_readability__body,388,15,59]; ]
+        module confirmation_font_enhanced_readability__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 388; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 389; @position = 18; @symbol_constdef = [exclude,389,18,25]; @symbol_type<0> = [Boolean,389,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 392; @symbol_moduledef = [prompt_color_light__title,392,15,40]; ]
+        module prompt_color_light__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 392; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 394 18 ]
+                symbol [ Graphics %tmp.65 394 31 39 ];
+                %tmp.65 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.66 394 40 57 ];
+                %tmp.66 = getv %tmp.65 :COLOR_TRANSPARENT;
+                putv self :background %tmp.66;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 393; @position = 18; @symbol_constdef = [color,393,18,23]; @symbol_type<0> = [Number,393,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 394; @position = 18; @symbol_constdef = [background,394,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 397; @symbol_moduledef = [system_icon_dark__hint_button_right_top,397,15,54]; ]
+        module system_icon_dark__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 397; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 398; @position = 18; @symbol_constdef = [filename,398,18,26]; @symbol_type<0> = [String,398,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 399; @position = 18; @symbol_constdef = [disableTransparency,399,18,37]; @symbol_type<0> = [Boolean,399,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 400; @position = 18; @symbol_constdef = [dithering,400,18,27]; @symbol_type<0> = [String,400,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 401; @position = 18; @symbol_constdef = [automaticPalette,401,18,34]; @symbol_type<0> = [Boolean,401,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 404; @symbol_moduledef = [system_icon_dark__hint_button_left_middle,404,15,56]; ]
+        module system_icon_dark__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 404; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 405; @position = 18; @symbol_constdef = [exclude,405,18,25]; @symbol_type<0> = [Boolean,405,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 408; @symbol_moduledef = [confirmation_icon_dark__hint_keep,408,15,48]; ]
+        module confirmation_icon_dark__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 408; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 409; @position = 18; @symbol_constdef = [filename,409,18,26]; @symbol_type<0> = [String,409,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 410; @position = 18; @symbol_constdef = [disableTransparency,410,18,37]; @symbol_type<0> = [Boolean,410,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 411; @position = 18; @symbol_constdef = [dithering,411,18,27]; @symbol_type<0> = [String,411,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 412; @position = 18; @symbol_constdef = [automaticPalette,412,18,34]; @symbol_type<0> = [Boolean,412,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 415; @symbol_moduledef = [system_icon_light__cancel,415,15,40]; ]
+        module system_icon_light__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 415; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 416; @position = 18; @symbol_constdef = [filename,416,18,26]; @symbol_type<0> = [String,416,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 417; @position = 18; @symbol_constdef = [disableTransparency,417,18,37]; @symbol_type<0> = [Boolean,417,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 418; @position = 18; @symbol_constdef = [dithering,418,18,27]; @symbol_type<0> = [String,418,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 419; @position = 18; @symbol_constdef = [automaticPalette,419,18,34]; @symbol_type<0> = [Boolean,419,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 422; @symbol_moduledef = [confirmation_icon_light__hint_reject,422,15,51]; ]
+        module confirmation_icon_light__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 422; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 423; @position = 18; @symbol_constdef = [filename,423,18,26]; @symbol_type<0> = [String,423,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 424; @position = 18; @symbol_constdef = [disableTransparency,424,18,37]; @symbol_type<0> = [Boolean,424,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 425; @position = 18; @symbol_constdef = [dithering,425,18,27]; @symbol_type<0> = [String,425,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 426; @position = 18; @symbol_constdef = [automaticPalette,426,18,34]; @symbol_type<0> = [Boolean,426,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 429; @symbol_moduledef = [system_icon_light__about,429,15,39]; ]
+        module system_icon_light__about {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 429; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 430; @position = 18; @symbol_constdef = [filename,430,18,26]; @symbol_type<0> = [String,430,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__about.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 431; @position = 18; @symbol_constdef = [disableTransparency,431,18,37]; @symbol_type<0> = [Boolean,431,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 432; @position = 18; @symbol_constdef = [dithering,432,18,27]; @symbol_type<0> = [String,432,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 433; @position = 18; @symbol_constdef = [automaticPalette,433,18,34]; @symbol_type<0> = [Boolean,433,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 436; @symbol_moduledef = [system_size__toast_icon,436,15,38]; ]
+        module system_size__toast_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 436; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 437; @position = 18; @symbol_constdef = [width,437,18,23]; @symbol_type<0> = [Number,437,27,33]; ]
+            const width as Number = 40;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 438; @position = 18; @symbol_constdef = [scaleRelativeTo,438,18,33]; @symbol_type<0> = [String,438,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 441; @symbol_moduledef = [system_icon_dark__hint_button_right_middle,441,15,57]; ]
+        module system_icon_dark__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 441; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 442; @position = 18; @symbol_constdef = [exclude,442,18,25]; @symbol_type<0> = [Boolean,442,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 445; @symbol_moduledef = [confirmation_icon__hint_reject,445,15,45]; ]
+        module confirmation_icon__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 445; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 446; @position = 18; @symbol_constdef = [filename,446,18,26]; @symbol_type<0> = [String,446,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 447; @position = 18; @symbol_constdef = [disableTransparency,447,18,37]; @symbol_type<0> = [Boolean,447,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 448; @position = 18; @symbol_constdef = [dithering,448,18,27]; @symbol_type<0> = [String,448,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 449; @position = 18; @symbol_constdef = [automaticPalette,449,18,34]; @symbol_type<0> = [Boolean,449,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 452; @symbol_moduledef = [system_icon_light__hint_action_menu,452,15,50]; ]
+        module system_icon_light__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 452; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 453; @position = 18; @symbol_constdef = [filename,453,18,26]; @symbol_type<0> = [String,453,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 454; @position = 18; @symbol_constdef = [disableTransparency,454,18,37]; @symbol_type<0> = [Boolean,454,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 455; @position = 18; @symbol_constdef = [dithering,455,18,27]; @symbol_type<0> = [String,455,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 456; @position = 18; @symbol_constdef = [automaticPalette,456,18,34]; @symbol_type<0> = [Boolean,456,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 459; @symbol_moduledef = [system_icon_light__hint_button_right_middle,459,15,58]; ]
+        module system_icon_light__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 459; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 460; @position = 18; @symbol_constdef = [exclude,460,18,25]; @symbol_type<0> = [Boolean,460,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 463; @symbol_moduledef = [system_icon_destructive__hint_button_right_middle,463,15,64]; ]
+        module system_icon_destructive__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 463; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 464; @position = 18; @symbol_constdef = [exclude,464,18,25]; @symbol_type<0> = [Boolean,464,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 467; @symbol_moduledef = [confirmation_loc__hint_reject,467,15,44]; ]
+        module confirmation_loc__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 467; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 468; @position = 18; @symbol_constdef = [x,468,18,19]; @symbol_type<0> = [Number,468,23,29]; ]
+            const x as Number = 0;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 469; @position = 18; @symbol_constdef = [y,469,18,19]; @symbol_type<0> = [Number,469,23,29]; ]
+            const y as Number = 138;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 472; @symbol_moduledef = [confirmation_icon_dark__hint_delete,472,15,50]; ]
+        module confirmation_icon_dark__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 472; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 473; @position = 18; @symbol_constdef = [filename,473,18,26]; @symbol_type<0> = [String,473,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 474; @position = 18; @symbol_constdef = [disableTransparency,474,18,37]; @symbol_type<0> = [Boolean,474,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 475; @position = 18; @symbol_constdef = [dithering,475,18,27]; @symbol_type<0> = [String,475,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 476; @position = 18; @symbol_constdef = [automaticPalette,476,18,34]; @symbol_type<0> = [Boolean,476,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 479; @symbol_moduledef = [activity_color_dark__background,479,15,46]; ]
+        module activity_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 479; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 480; @position = 18; @symbol_constdef = [color,480,18,23]; @symbol_type<0> = [Number,480,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 481; @position = 18; @symbol_constdef = [background,481,18,28]; @symbol_type<0> = [Number,481,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 484; @symbol_moduledef = [system_icon_light__hint_button_left_bottom,484,15,57]; ]
+        module system_icon_light__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 484; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 485; @position = 18; @symbol_constdef = [exclude,485,18,25]; @symbol_type<0> = [Boolean,485,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 488; @symbol_moduledef = [system_icon_positive__hint_button_left_middle,488,15,60]; ]
+        module system_icon_positive__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 488; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 489; @position = 18; @symbol_constdef = [exclude,489,18,25]; @symbol_type<0> = [Boolean,489,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 492; @symbol_moduledef = [system_size__menu_icon,492,15,37]; ]
+        module system_size__menu_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 492; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 493; @position = 18; @symbol_constdef = [scaleX,493,18,24]; @symbol_type<0> = [Number,493,28,34]; ]
+            const scaleX as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 494; @position = 18; @symbol_constdef = [scaleY,494,18,24]; @symbol_type<0> = [Number,494,28,34]; ]
+            const scaleY as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 495; @position = 18; @symbol_constdef = [scaleRelativeTo,495,18,33]; @symbol_type<0> = [String,495,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 498; @symbol_moduledef = [system_icon_destructive__warning,498,15,47]; ]
+        module system_icon_destructive__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 498; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 499; @position = 18; @symbol_constdef = [filename,499,18,26]; @symbol_type<0> = [String,499,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 500; @position = 18; @symbol_constdef = [disableTransparency,500,18,37]; @symbol_type<0> = [Boolean,500,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 501; @position = 18; @symbol_constdef = [dithering,501,18,27]; @symbol_type<0> = [String,501,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 502; @position = 18; @symbol_constdef = [automaticPalette,502,18,34]; @symbol_type<0> = [Boolean,502,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 505; @symbol_moduledef = [system_loc__hint_button_right_middle,505,15,51]; ]
+        module system_loc__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 505; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 506; @position = 18; @symbol_constdef = [exclude,506,18,25]; @symbol_type<0> = [Boolean,506,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 509; @symbol_moduledef = [system_icon_dark__cancel,509,15,39]; ]
+        module system_icon_dark__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 509; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 510; @position = 18; @symbol_constdef = [filename,510,18,26]; @symbol_type<0> = [String,510,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 511; @position = 18; @symbol_constdef = [disableTransparency,511,18,37]; @symbol_type<0> = [Boolean,511,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 512; @position = 18; @symbol_constdef = [dithering,512,18,27]; @symbol_type<0> = [String,512,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 513; @position = 18; @symbol_constdef = [automaticPalette,513,18,34]; @symbol_type<0> = [Boolean,513,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 516; @symbol_moduledef = [prompt_size__body_with_title,516,15,43]; ]
+        module prompt_size__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 516; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 517; @position = 18; @symbol_constdef = [width,517,18,23]; @symbol_type<0> = [Number,517,27,33]; ]
+            const width as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 518; @position = 18; @symbol_constdef = [height,518,18,24]; @symbol_type<0> = [Number,518,28,34]; ]
+            const height as Number = 99;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 521; @symbol_moduledef = [system_loc__hint_button_right_top,521,15,48]; ]
+        module system_loc__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 521; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 522; @position = 18; @symbol_constdef = [x,522,18,19]; @symbol_type<0> = [Number,522,23,29]; ]
+            const x as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 523; @position = 18; @symbol_constdef = [y,523,18,19]; @symbol_type<0> = [Number,523,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 524; @position = 18; @symbol_constdef = [horizontalJustification,524,18,41]; @symbol_type<0> = [String,524,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 525; @position = 18; @symbol_constdef = [verticalJustification,525,18,39]; @symbol_type<0> = [String,525,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 528; @symbol_moduledef = [system_color_light__text,528,15,39]; ]
+        module system_color_light__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 528; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 530 18 ]
+                symbol [ Graphics %tmp.67 530 31 39 ];
+                %tmp.67 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.68 530 40 57 ];
+                %tmp.68 = getv %tmp.67 :COLOR_TRANSPARENT;
+                putv self :background %tmp.68;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 529; @position = 18; @symbol_constdef = [color,529,18,23]; @symbol_type<0> = [Number,529,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 530; @position = 18; @symbol_constdef = [background,530,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 533; @symbol_moduledef = [system_icon_light__check,533,15,39]; ]
+        module system_icon_light__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 533; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 534; @position = 18; @symbol_constdef = [filename,534,18,26]; @symbol_type<0> = [String,534,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 535; @position = 18; @symbol_constdef = [disableTransparency,535,18,37]; @symbol_type<0> = [Boolean,535,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 536; @position = 18; @symbol_constdef = [dithering,536,18,27]; @symbol_type<0> = [String,536,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 537; @position = 18; @symbol_constdef = [automaticPalette,537,18,34]; @symbol_type<0> = [Boolean,537,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 540; @symbol_moduledef = [confirmation_input__reject,540,15,41]; ]
+        module confirmation_input__reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 540; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 541 18 ]
+                symbol [ WatchUi %tmp.69 541 27 34 ];
+                %tmp.69 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.70 541 35 43 ];
+                %tmp.70 = getv %tmp.69 :KEY_DOWN;
+                putv self :button %tmp.70;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 541; @position = 18; @symbol_constdef = [button,541,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 544; @symbol_moduledef = [system_icon_light__revert,544,15,40]; ]
+        module system_icon_light__revert {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 544; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 545; @position = 18; @symbol_constdef = [filename,545,18,26]; @symbol_type<0> = [String,545,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__revert.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 546; @position = 18; @symbol_constdef = [disableTransparency,546,18,37]; @symbol_type<0> = [Boolean,546,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 547; @position = 18; @symbol_constdef = [dithering,547,18,27]; @symbol_type<0> = [String,547,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 548; @position = 18; @symbol_constdef = [automaticPalette,548,18,34]; @symbol_type<0> = [Boolean,548,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 551; @symbol_moduledef = [system_size__subwindow,551,15,37]; ]
+        module system_size__subwindow {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 551; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 552; @position = 18; @symbol_constdef = [width,552,18,23]; @symbol_type<0> = [Number,552,27,33]; ]
+            const width as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 553; @position = 18; @symbol_constdef = [height,553,18,24]; @symbol_type<0> = [Number,553,28,34]; ]
+            const height as Number = 62;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 556; @symbol_moduledef = [system_icon_positive__hint_button_left_bottom,556,15,60]; ]
+        module system_icon_positive__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 556; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 557; @position = 18; @symbol_constdef = [exclude,557,18,25]; @symbol_type<0> = [Boolean,557,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 560; @symbol_moduledef = [system_icon_dark__check,560,15,38]; ]
+        module system_icon_dark__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 560; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 561; @position = 18; @symbol_constdef = [filename,561,18,26]; @symbol_type<0> = [String,561,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 562; @position = 18; @symbol_constdef = [disableTransparency,562,18,37]; @symbol_type<0> = [Boolean,562,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 563; @position = 18; @symbol_constdef = [dithering,563,18,27]; @symbol_type<0> = [String,563,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 564; @position = 18; @symbol_constdef = [automaticPalette,564,18,34]; @symbol_type<0> = [Boolean,564,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 567; @symbol_moduledef = [confirmation_loc__hint_keep,567,15,42]; ]
+        module confirmation_loc__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 567; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 568; @position = 18; @symbol_constdef = [x,568,18,19]; @symbol_type<0> = [Number,568,23,29]; ]
+            const x as Number = 0;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 569; @position = 18; @symbol_constdef = [y,569,18,19]; @symbol_type<0> = [Number,569,23,29]; ]
+            const y as Number = 138;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 572; @symbol_moduledef = [confirmation_loc__hint_delete,572,15,44]; ]
+        module confirmation_loc__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 572; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 573; @position = 18; @symbol_constdef = [verticallJustification,573,18,40]; @symbol_type<0> = [String,573,44,50]; ]
+            const verticallJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 574; @position = 18; @symbol_constdef = [x,574,18,19]; @symbol_type<0> = [Number,574,23,29]; ]
+            const x as Number = 146;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 575; @position = 18; @symbol_constdef = [y,575,18,19]; @symbol_type<0> = [Number,575,23,29]; ]
+            const y as Number = 15;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 576; @position = 18; @symbol_constdef = [horizontalJustification,576,18,41]; @symbol_type<0> = [String,576,45,51]; ]
+            const horizontalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 579; @symbol_moduledef = [system_icon_positive__hint_action_menu,579,15,53]; ]
+        module system_icon_positive__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 579; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 580; @position = 18; @symbol_constdef = [filename,580,18,26]; @symbol_type<0> = [String,580,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 581; @position = 18; @symbol_constdef = [disableTransparency,581,18,37]; @symbol_type<0> = [Boolean,581,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 582; @position = 18; @symbol_constdef = [dithering,582,18,27]; @symbol_type<0> = [String,582,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 583; @position = 18; @symbol_constdef = [automaticPalette,583,18,34]; @symbol_type<0> = [Boolean,583,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 586; @symbol_moduledef = [system_icon_positive__hint_button_right_middle,586,15,61]; ]
+        module system_icon_positive__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 586; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 587; @position = 18; @symbol_constdef = [exclude,587,18,25]; @symbol_type<0> = [Boolean,587,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 590; @symbol_moduledef = [system_icon_light__hint_button_left_middle,590,15,57]; ]
+        module system_icon_light__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 590; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 591; @position = 18; @symbol_constdef = [exclude,591,18,25]; @symbol_type<0> = [Boolean,591,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 594; @symbol_moduledef = [system_icon_dark__hint_button_right_bottom,594,15,57]; ]
+        module system_icon_dark__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 594; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 595; @position = 18; @symbol_constdef = [exclude,595,18,25]; @symbol_type<0> = [Boolean,595,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 598; @symbol_moduledef = [system_icon_positive__hint_button_right_bottom,598,15,61]; ]
+        module system_icon_positive__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 598; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 599; @position = 18; @symbol_constdef = [exclude,599,18,25]; @symbol_type<0> = [Boolean,599,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 602; @symbol_moduledef = [system_icon_dark__revert,602,15,39]; ]
+        module system_icon_dark__revert {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 602; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 603; @position = 18; @symbol_constdef = [filename,603,18,26]; @symbol_type<0> = [String,603,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__revert.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 604; @position = 18; @symbol_constdef = [disableTransparency,604,18,37]; @symbol_type<0> = [Boolean,604,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 605; @position = 18; @symbol_constdef = [dithering,605,18,27]; @symbol_type<0> = [String,605,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 606; @position = 18; @symbol_constdef = [automaticPalette,606,18,34]; @symbol_type<0> = [Boolean,606,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 609; @symbol_moduledef = [confirmation_icon_light__hint_delete,609,15,51]; ]
+        module confirmation_icon_light__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 609; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 610; @position = 18; @symbol_constdef = [filename,610,18,26]; @symbol_type<0> = [String,610,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 611; @position = 18; @symbol_constdef = [disableTransparency,611,18,37]; @symbol_type<0> = [Boolean,611,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 612; @position = 18; @symbol_constdef = [dithering,612,18,27]; @symbol_type<0> = [String,612,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 613; @position = 18; @symbol_constdef = [automaticPalette,613,18,34]; @symbol_type<0> = [Boolean,613,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 616; @symbol_moduledef = [system_icon_dark__question,616,15,41]; ]
+        module system_icon_dark__question {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 616; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 617; @position = 18; @symbol_constdef = [filename,617,18,26]; @symbol_type<0> = [String,617,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__question.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 618; @position = 18; @symbol_constdef = [disableTransparency,618,18,37]; @symbol_type<0> = [Boolean,618,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 619; @position = 18; @symbol_constdef = [dithering,619,18,27]; @symbol_type<0> = [String,619,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 620; @position = 18; @symbol_constdef = [automaticPalette,620,18,34]; @symbol_type<0> = [Boolean,620,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 623; @symbol_moduledef = [system_icon_light__discard,623,15,41]; ]
+        module system_icon_light__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 623; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 624; @position = 18; @symbol_constdef = [filename,624,18,26]; @symbol_type<0> = [String,624,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 625; @position = 18; @symbol_constdef = [disableTransparency,625,18,37]; @symbol_type<0> = [Boolean,625,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 626; @position = 18; @symbol_constdef = [dithering,626,18,27]; @symbol_type<0> = [String,626,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 627; @position = 18; @symbol_constdef = [automaticPalette,627,18,34]; @symbol_type<0> = [Boolean,627,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 630; @symbol_moduledef = [device_info,630,15,26]; ]
+        module device_info {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 630; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 632 18 ]
+                symbol [ Toybox %tmp.72 632 32 38 ];
+                %tmp.72 = getv ? :Toybox;
+                symbol [ System %tmp.73 632 39 45 ];
+                %tmp.73 = getv %tmp.72 :System;
+                symbol [ SCREEN_SHAPE_SEMI_OCTAGON %tmp.74 632 46 71 ];
+                %tmp.74 = getv %tmp.73 :SCREEN_SHAPE_SEMI_OCTAGON;
+                putv self :screenShape %tmp.74;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 631; @position = 18; @symbol_constdef = [screenWidth,631,18,29]; @symbol_type<0> = [Number,631,33,39]; ]
+            const screenWidth as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 632; @position = 18; @symbol_constdef = [screenShape,632,18,29]; ]
+            const screenShape;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 633; @position = 18; @symbol_constdef = [hasNightMode,633,18,30]; @symbol_type<0> = [Boolean,633,34,41]; ]
+            const hasNightMode as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 634; @position = 18; @symbol_constdef = [hasGpu,634,18,24]; @symbol_type<0> = [Boolean,634,28,35]; ]
+            const hasGpu as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 635; @position = 18; @symbol_constdef = [screenHeight,635,18,30]; @symbol_type<0> = [Number,635,34,40]; ]
+            const screenHeight as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 636; @position = 18; @symbol_constdef = [hasTouchScreen,636,18,32]; @symbol_type<0> = [Boolean,636,36,43]; ]
+            const hasTouchScreen as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 637; @position = 18; @symbol_constdef = [hasEnhancedReadabilityMode,637,18,44]; @symbol_type<0> = [Boolean,637,48,55]; ]
+            const hasEnhancedReadabilityMode as Boolean = false;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 640; @symbol_moduledef = [confirmation_icon_dark__hint_confirm,640,15,51]; ]
+        module confirmation_icon_dark__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 640; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 641; @position = 18; @symbol_constdef = [filename,641,18,26]; @symbol_type<0> = [String,641,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 642; @position = 18; @symbol_constdef = [disableTransparency,642,18,37]; @symbol_type<0> = [Boolean,642,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 643; @position = 18; @symbol_constdef = [dithering,643,18,27]; @symbol_type<0> = [String,643,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 644; @position = 18; @symbol_constdef = [automaticPalette,644,18,34]; @symbol_type<0> = [Boolean,644,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 647; @symbol_moduledef = [prompt_font__body_no_title,647,15,41]; ]
+        module prompt_font__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 647; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 648 18 ]
+                symbol [ Graphics %tmp.75 648 34 42 ];
+                %tmp.75 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.76 648 43 62 ];
+                %tmp.76 = getv %tmp.75 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.76;
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 649 18 ]
+                symbol [ Graphics %tmp.77 649 25 33 ];
+                %tmp.77 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.78 649 34 43 ];
+                %tmp.78 = getv %tmp.77 :FONT_TINY;
+                putv self :font %tmp.78;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 648; @position = 18; @symbol_constdef = [justification,648,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 649; @position = 18; @symbol_constdef = [font,649,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 652; @symbol_moduledef = [prompt_size__title_icon,652,15,38]; ]
+        module prompt_size__title_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 652; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 653; @position = 18; @symbol_constdef = [scaleX,653,18,24]; @symbol_type<0> = [Number,653,28,34]; ]
+            const scaleX as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 654; @position = 18; @symbol_constdef = [scaleY,654,18,24]; @symbol_type<0> = [Number,654,28,34]; ]
+            const scaleY as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 655; @position = 18; @symbol_constdef = [scaleRelativeTo,655,18,33]; @symbol_type<0> = [String,655,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 658; @symbol_moduledef = [system_icon_dark__warning,658,15,40]; ]
+        module system_icon_dark__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 658; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 659; @position = 18; @symbol_constdef = [filename,659,18,26]; @symbol_type<0> = [String,659,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 660; @position = 18; @symbol_constdef = [disableTransparency,660,18,37]; @symbol_type<0> = [Boolean,660,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 661; @position = 18; @symbol_constdef = [dithering,661,18,27]; @symbol_type<0> = [String,661,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 662; @position = 18; @symbol_constdef = [automaticPalette,662,18,34]; @symbol_type<0> = [Boolean,662,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 665; @symbol_moduledef = [prompt_loc__title_icon,665,15,37]; ]
+        module prompt_loc__title_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 665; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 666; @position = 18; @symbol_constdef = [x,666,18,19]; @symbol_type<0> = [Number,666,23,29]; ]
+            const x as Number = 145;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 667; @position = 18; @symbol_constdef = [y,667,18,19]; @symbol_type<0> = [Number,667,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 668; @position = 18; @symbol_constdef = [horizontalJustification,668,18,41]; @symbol_type<0> = [String,668,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 669; @position = 18; @symbol_constdef = [verticalJustification,669,18,39]; @symbol_type<0> = [String,669,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 672; @symbol_moduledef = [prompt_font_enhanced_readability__title,672,15,54]; ]
+        module prompt_font_enhanced_readability__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 672; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 673; @position = 18; @symbol_constdef = [exclude,673,18,25]; @symbol_type<0> = [Boolean,673,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 676; @symbol_moduledef = [prompt_color_dark__body,676,15,38]; ]
+        module prompt_color_dark__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 676; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen" 678 18 ]
+                symbol [ Graphics %tmp.79 678 31 39 ];
+                %tmp.79 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.80 678 40 57 ];
+                %tmp.80 = getv %tmp.79 :COLOR_TRANSPARENT;
+                putv self :background %tmp.80;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 677; @position = 18; @symbol_constdef = [color,677,18,23]; @symbol_type<0> = [Number,677,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 678; @position = 18; @symbol_constdef = [background,678,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 681; @symbol_moduledef = [confirmation_icon__hint_delete,681,15,45]; ]
+        module confirmation_icon__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 681; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 682; @position = 18; @symbol_constdef = [filename,682,18,26]; @symbol_type<0> = [String,682,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 683; @position = 18; @symbol_constdef = [disableTransparency,683,18,37]; @symbol_type<0> = [Boolean,683,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 684; @position = 18; @symbol_constdef = [dithering,684,18,27]; @symbol_type<0> = [String,684,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 685; @position = 18; @symbol_constdef = [automaticPalette,685,18,34]; @symbol_type<0> = [Boolean,685,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 688; @symbol_moduledef = [system_icon_light__hint_button_right_top,688,15,55]; ]
+        module system_icon_light__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 688; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 689; @position = 18; @symbol_constdef = [filename,689,18,26]; @symbol_type<0> = [String,689,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 690; @position = 18; @symbol_constdef = [disableTransparency,690,18,37]; @symbol_type<0> = [Boolean,690,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 691; @position = 18; @symbol_constdef = [dithering,691,18,27]; @symbol_type<0> = [String,691,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 692; @position = 18; @symbol_constdef = [automaticPalette,692,18,34]; @symbol_type<0> = [Boolean,692,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 695; @symbol_moduledef = [confirmation_size__body,695,15,38]; ]
+        module confirmation_size__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 695; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 696; @position = 18; @symbol_constdef = [width,696,18,23]; @symbol_type<0> = [Number,696,27,33]; ]
+            const width as Number = 173;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 697; @position = 18; @symbol_constdef = [height,697,18,24]; @symbol_type<0> = [Number,697,28,34]; ]
+            const height as Number = 63;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 700; @symbol_moduledef = [system_icon_positive__check,700,15,42]; ]
+        module system_icon_positive__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 700; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 701; @position = 18; @symbol_constdef = [filename,701,18,26]; @symbol_type<0> = [String,701,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 702; @position = 18; @symbol_constdef = [disableTransparency,702,18,37]; @symbol_type<0> = [Boolean,702,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 703; @position = 18; @symbol_constdef = [dithering,703,18,27]; @symbol_type<0> = [String,703,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 704; @position = 18; @symbol_constdef = [automaticPalette,704,18,34]; @symbol_type<0> = [Boolean,704,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/bin/gen/006-B4394-00/source/Rez.mcgen"; @line = 1; ]
+<init> {
+}
