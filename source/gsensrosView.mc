@@ -276,56 +276,38 @@ class gsensrosView extends WatchUi.View {
         return true;
     }
 
-function onBack() as Boolean {
-    System.println("=== BACK BUTTON - Starting safe exit ===");
+    function onBack() as Boolean {
+        System.println("=== BACK BUTTON - CLEAN EXIT ===");
 
-    try {
-        // 1) Stop timer first
-        if (updateTimer != null) {
-            try {
-                updateTimer.stop();
-                updateTimer = null;
-            } catch (e) {
-                System.println("Timer stop error in onBack: " + e.getErrorMessage());
-            }
-        }
-
-        // 2) Stop and save session once
-        if (session != null) {
-            try {
-                if (session.isRecording()) {
-                    session.stop();
-                }
-                session.save();
-                System.println("FIT FILE SAVED SUCCESSFULLY (onBack)!");
-            } catch (e) {
-                System.println("Session stop/save error in onBack: " + e.getErrorMessage());
-            }
-            session = null;
-            isRecording = false;
-            drEastField = null;
-            drNorthField = null;
-            depthField = null;
-        }
-
-        // 3) Clear state
-        isUnderwater = false;
-
-        // 4) Pop view once
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
-
-    } catch (e) {
-        System.println("onBack crash prevented: " + e.getErrorMessage());
-        // Last resort: still try to pop
         try {
-            WatchUi.popView(WatchUi.SLIDE_DOWN);
-        } catch (ex) {
-            System.println("Final popView failed: " + ex.getErrorMessage());
+            // Stop timer first
+            if (updateTimer != null) {
+                try {
+                    updateTimer.stop();
+                } catch (e) {
+                    System.println("Timer stop error: " + errorToString(e));
+                }
+                updateTimer = null;
+            }
+
+            // Stop recording safely
+            try {
+                shutdownSession();
+            } catch (e) {
+                System.println("shutdownSession error: " + errorToString(e));
+            }
+
+            isUnderwater = false;
+
+        } catch (e) {
+            System.println("onBack error: " + errorToString(e));
         }
+
+        // IMPORTANT:
+        // Return false so Garmin performs the default pop itself.
+        return false;
     }
 
-    return true;
-}
     function startDive() as Void {
         try {
             if (isRecording) {
@@ -543,45 +525,41 @@ function onBack() as Boolean {
         }
     }
 
-function onHide() as Void {
-    try {
-        System.println("=== HIDING VIEW ===");
+    function prepareToExit() as Void {
+        try {
+            System.println("=== PREPARE TO EXIT ===");
 
-        // Stop timer
-        if (updateTimer != null) {
-            try {
-                updateTimer.stop();
-                updateTimer = null;
-            } catch (e) {
-                System.println("Timer stop error in onHide: " + e.getErrorMessage());
-            }
-        }
-
-        // Stop and save session
-        if (session != null) {
-            try {
-                if (session.isRecording()) {
-                    session.stop();
+            if (updateTimer != null) {
+                try {
+                    updateTimer.stop();
+                } catch (e) {
+                    System.println("Timer stop error: " + errorToString(e));
                 }
-                session.save();
-                System.println("FIT FILE SAVED SUCCESSFULLY (onHide)!");
-            } catch (e) {
-                System.println("Session stop/save error in onHide: " + e.getErrorMessage());
+                updateTimer = null;
             }
-            session = null;
-            isRecording = false;
-            drEastField = null;
-            drNorthField = null;
-            depthField = null;
+
+            try {
+                shutdownSession();
+            } catch (e) {
+                System.println("shutdownSession error: " + errorToString(e));
+            }
+
+            isUnderwater = false;
+
+        } catch (e) {
+            System.println("prepareToExit error: " + errorToString(e));
         }
-
-        isUnderwater = false;
-
-    } catch (e) {
-        System.println("onHide error: " + e.getErrorMessage());
     }
-}
 
+    function onHide() as Void {
+        try {
+            System.println("=== HIDING VIEW ===");
+            prepareToExit();
+        } catch (e) {
+            System.println("onHide error: " + errorToString(e));
+        }
+    }
+    
     function onUpdate(dc as Dc) as Void {
         try {
             View.onUpdate(dc);
