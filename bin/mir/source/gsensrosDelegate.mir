@@ -11,31 +11,55 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
     static
     <init> {
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 6; @symbol_functiondef = [initialize,6,13,23]; ]
-    function initialize() as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_6_26_8_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 7 8 ]
-        symbol [ BehaviorDelegate %tmp.2 7 8 24 ];
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 6; @position = 8; @symbol_vardef = [view,6,8,12]; @symbol_type<0> = [gsensrosView,6,16,28]; ]
+    var view as gsensrosView;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 8; @symbol_functiondef = [initialize,8,13,23]; @symbol_param<0> = [view,8,24,28]; @symbol_param<0>_type<0> = [gsensrosView,8,32,44]; ]
+    function initialize(view as gsensrosView) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_8_46_11_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 9 8 ]
+        symbol [ BehaviorDelegate %tmp.2 9 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 7 25 35 ];
+        symbol [ initialize %tmp.3 9 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_6_26_8_4_stop:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 10 8 ]
+        symbol [ self %self 10 8 12 ];
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 10 20 24 ];
+        symbol [ view ? 10 13 17 ];
+        putv self :view %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_8_46_11_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 11; @symbol_functiondef = [onSelect,11,13,21]; @symbol_return<0> = [Boolean,11,27,34]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 13; @symbol_functiondef = [onSelect,13,13,21]; @symbol_return<0> = [Boolean,13,27,34]; ]
     function onSelect() as Boolean {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_11_35_14_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 12 8 ]
-        symbol [ System %tmp.2 12 8 14 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_13_35_15_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 14 8 ]
+        symbol [ view %tmp.2 14 15 19 ];
+        %tmp.2 = getv ? :view;
+        symbol [ onSelect %tmp.3 14 20 28 ];
+        %tmp.3 = getv function %tmp.2 :onSelect;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        ret %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_13_35_15_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 18; @symbol_functiondef = [onBack,18,13,19]; @symbol_return<0> = [Boolean,18,25,32]; ]
+    function onBack() as Boolean {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_18_33_21_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 19 8 ]
+        symbol [ System %tmp.2 19 8 14 ];
         %tmp.2 = getv ? :System;
-        symbol [ println %tmp.3 12 15 22 ];
+        symbol [ println %tmp.3 19 15 22 ];
         %tmp.3 = getv function %tmp.2 :println;
-        %tmp.4 = "Delegate: onSelect called";
+        %tmp.4 = "Delegate: onBack called";
         invoke %tmp.2 %tmp.3(%tmp.4);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 13 8 ]
-        %tmp.5 = false;
-        ret %tmp.5;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_11_35_14_4_stop:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 20 8 ]
+        symbol [ view %tmp.6 20 15 19 ];
+        %tmp.6 = getv ? :view;
+        symbol [ onBack %tmp.7 20 20 26 ];
+        %tmp.7 = getv function %tmp.6 :onBack;
+        %tmp.8 = invoke %tmp.6 %tmp.7();
+        ret %tmp.8;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_18_33_21_4_stop:
     }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 1; ]

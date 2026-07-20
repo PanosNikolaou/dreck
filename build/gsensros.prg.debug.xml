@@ -3,241 +3,382 @@
     <manifest filename="/home/panagiotis/Documents/gsensors/gsensros/manifest.xml"/>
     <pcToLineNum>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="1" lineNum="5" parent="globals/gsensrosApp" pc="268435460" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="26" parent="globals" pc="268435479" symbol="getApp"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="27" parent="globals" pc="268435489" symbol="getApp"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="27" parent="globals" pc="268435479" symbol="getApp"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="28" parent="globals" pc="268435489" symbol="getApp"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="3" lineNum="4" parent="globals/gsensrosDelegate" pc="268435505" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="4" lineNum="11" parent="globals/gsensrosView" pc="268435524" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="5" lineNum="7" parent="globals/Rez" pc="268435543" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="6" lineNum="5" parent="globals/gsensrosMenuDelegate" pc="268435567" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="7" lineNum="12" parent="globals/gsensrosApp" pc="268435586" symbol="onStart"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="20" parent="globals/gsensrosApp" pc="268435589" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="21" parent="globals/gsensrosApp" pc="268435591" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="7" parent="globals/gsensrosApp" pc="268435658" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="8" parent="globals/gsensrosApp" pc="268435660" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="10" lineNum="16" parent="globals/gsensrosApp" pc="268435679" symbol="onStop"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="11" lineNum="6" parent="globals/gsensrosDelegate" pc="268435682" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="11" lineNum="7" parent="globals/gsensrosDelegate" pc="268435684" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="11" parent="globals/gsensrosDelegate" pc="268435703" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="12" parent="globals/gsensrosDelegate" pc="268435705" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="13" parent="globals/gsensrosDelegate" pc="268435726" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="33" parent="globals/gsensrosView" pc="268435729" symbol="onShow"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="34" parent="globals/gsensrosView" pc="268435731" symbol="onShow"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="35" parent="globals/gsensrosView" pc="268435752" symbol="onShow"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="36" parent="globals/gsensrosView" pc="268435786" symbol="onShow"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="29" parent="globals/gsensrosView" pc="268435828" symbol="onLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="30" parent="globals/gsensrosView" pc="268435832" symbol="onLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="30" parent="globals/gsensrosView" pc="268435879" symbol="onLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="49" parent="globals/gsensrosView" pc="268435896" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="51" parent="globals/gsensrosView" pc="268435900" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="52" parent="globals/gsensrosView" pc="268435917" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="53" parent="globals/gsensrosView" pc="268435941" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="53" parent="globals/gsensrosView" pc="268435963" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="53" parent="globals/gsensrosView" pc="268435985" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="55" parent="globals/gsensrosView" pc="268436010" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="56" parent="globals/gsensrosView" pc="268436028" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="57" parent="globals/gsensrosView" pc="268436044" symbol="timerCallback"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="72" parent="globals/gsensrosView" pc="268436061" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="73" parent="globals/gsensrosView" pc="268436065" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="75" parent="globals/gsensrosView" pc="268436086" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="76" parent="globals/gsensrosView" pc="268436097" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="78" parent="globals/gsensrosView" pc="268436112" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="80" parent="globals/gsensrosView" pc="268436130" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="81" parent="globals/gsensrosView" pc="268436134" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="82" parent="globals/gsensrosView" pc="268436167" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="83" parent="globals/gsensrosView" pc="268436177" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="85" parent="globals/gsensrosView" pc="268436198" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="60" parent="globals/gsensrosView" pc="268436201" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="62" parent="globals/gsensrosView" pc="268436205" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="63" parent="globals/gsensrosView" pc="268436222" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="64" parent="globals/gsensrosView" pc="268436242" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="65" parent="globals/gsensrosView" pc="268436261" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="66" parent="globals/gsensrosView" pc="268436277" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="67" parent="globals/gsensrosView" pc="268436293" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="69" parent="globals/gsensrosView" pc="268436339" symbol="updateGPS"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="88" parent="globals/gsensrosView" pc="268436356" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="89" parent="globals/gsensrosView" pc="268436358" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="90" parent="globals/gsensrosView" pc="268436369" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="92" parent="globals/gsensrosView" pc="268436384" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="93" parent="globals/gsensrosView" pc="268436405" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="96" parent="globals/gsensrosView" pc="268436408" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="97" parent="globals/gsensrosView" pc="268436412" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="99" parent="globals/gsensrosView" pc="268436433" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="100" parent="globals/gsensrosView" pc="268436446" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="103" parent="globals/gsensrosView" pc="268436458" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="109" parent="globals/gsensrosView" pc="268436526" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="110" parent="globals/gsensrosView" pc="268436539" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="111" parent="globals/gsensrosView" pc="268436557" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="112" parent="globals/gsensrosView" pc="268436567" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="114" parent="globals/gsensrosView" pc="268436591" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="116" parent="globals/gsensrosView" pc="268436618" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="117" parent="globals/gsensrosView" pc="268436622" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="118" parent="globals/gsensrosView" pc="268436655" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="119" parent="globals/gsensrosView" pc="268436665" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="121" parent="globals/gsensrosView" pc="268436686" symbol="startRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="25" parent="globals/gsensrosView" pc="268436703" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="26" parent="globals/gsensrosView" pc="268436705" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="39" parent="globals/gsensrosView" pc="268436724" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="40" parent="globals/gsensrosView" pc="268436726" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="41" parent="globals/gsensrosView" pc="268436747" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="42" parent="globals/gsensrosView" pc="268436758" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="44" parent="globals/gsensrosView" pc="268436773" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="45" parent="globals/gsensrosView" pc="268436786" symbol="onHide"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="140" parent="globals/gsensrosView" pc="268436808" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="142" parent="globals/gsensrosView" pc="268436812" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="144" parent="globals/gsensrosView" pc="268436832" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="145" parent="globals/gsensrosView" pc="268436854" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="147" parent="globals/gsensrosView" pc="268436903" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="148" parent="globals/gsensrosView" pc="268436944" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="149" parent="globals/gsensrosView" pc="268437012" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="151" parent="globals/gsensrosView" pc="268437034" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="152" parent="globals/gsensrosView" pc="268437122" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="154" parent="globals/gsensrosView" pc="268437252" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="155" parent="globals/gsensrosView" pc="268437324" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="156" parent="globals/gsensrosView" pc="268437396" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="158" parent="globals/gsensrosView" pc="268437480" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="159" parent="globals/gsensrosView" pc="268437572" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="160" parent="globals/gsensrosView" pc="268437576" symbol="onUpdate"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="124" parent="globals/gsensrosView" pc="268437622" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="125" parent="globals/gsensrosView" pc="268437626" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="126" parent="globals/gsensrosView" pc="268437647" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="128" parent="globals/gsensrosView" pc="268437660" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="129" parent="globals/gsensrosView" pc="268437678" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="130" parent="globals/gsensrosView" pc="268437696" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="131" parent="globals/gsensrosView" pc="268437723" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="132" parent="globals/gsensrosView" pc="268437727" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="134" parent="globals/gsensrosView" pc="268437772" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="135" parent="globals/gsensrosView" pc="268437781" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="137" parent="globals/gsensrosView" pc="268437794" symbol="stopRecording"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="24" lineNum="11" parent="globals/gsensrosMenuDelegate" pc="268437811" symbol="onMenuItem"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="24" lineNum="12" parent="globals/gsensrosMenuDelegate" pc="268437813" symbol="onMenuItem"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="24" lineNum="13" parent="globals/gsensrosMenuDelegate" pc="268437824" symbol="onMenuItem"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="24" lineNum="14" parent="globals/gsensrosMenuDelegate" pc="268437848" symbol="onMenuItem"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="24" lineNum="15" parent="globals/gsensrosMenuDelegate" pc="268437859" symbol="onMenuItem"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="25" lineNum="7" parent="globals/gsensrosMenuDelegate" pc="268437884" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="25" lineNum="8" parent="globals/gsensrosMenuDelegate" pc="268437886" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="26" lineNum="13" parent="globals/Rez/Layouts" pc="268437905" symbol="MainLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="26" lineNum="14" parent="globals/Rez/Layouts" pc="268437917" symbol="MainLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="26" lineNum="16" parent="globals/Rez/Layouts" pc="268438060" symbol="MainLayout"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="27" lineNum="21" parent="globals/Rez/Menus/MainMenu" pc="268438077" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="28" lineNum="22" parent="globals/Rez/Menus/MainMenu" pc="268438096" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="28" lineNum="23" parent="globals/Rez/Menus/MainMenu" pc="268438098" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="28" lineNum="24" parent="globals/Rez/Menus/MainMenu" pc="268438116" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="28" lineNum="25" parent="globals/Rez/Menus/MainMenu" pc="268438172" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="4" lineNum="14" parent="globals/gsensrosView" pc="268435524" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="4" lineNum="34" parent="globals/gsensrosView" pc="268435542" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="5" lineNum="7" parent="globals/Rez" pc="268435573" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="6" lineNum="5" parent="globals/gsensrosMenuDelegate" pc="268435597" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="7" lineNum="12" parent="globals/gsensrosApp" pc="268435616" symbol="onStart"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="20" parent="globals/gsensrosApp" pc="268435619" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="21" parent="globals/gsensrosApp" pc="268435623" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="22" parent="globals/gsensrosApp" pc="268435647" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="7" parent="globals/gsensrosApp" pc="268435696" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="8" parent="globals/gsensrosApp" pc="268435698" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="10" lineNum="16" parent="globals/gsensrosApp" pc="268435717" symbol="onStop"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="11" lineNum="8" parent="globals/gsensrosDelegate" pc="268435720" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="11" lineNum="9" parent="globals/gsensrosDelegate" pc="268435722" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="11" lineNum="10" parent="globals/gsensrosDelegate" pc="268435740" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="13" parent="globals/gsensrosDelegate" pc="268435751" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="14" parent="globals/gsensrosDelegate" pc="268435753" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="12" lineNum="15" parent="globals/gsensrosDelegate" pc="268435774" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="171" parent="globals/gsensrosView" pc="268435792" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="172" parent="globals/gsensrosView" pc="268435796" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="173" parent="globals/gsensrosView" pc="268435817" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="174" parent="globals/gsensrosView" pc="268435834" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="175" parent="globals/gsensrosView" pc="268435854" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="176" parent="globals/gsensrosView" pc="268435873" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="177" parent="globals/gsensrosView" pc="268435889" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="180" parent="globals/gsensrosView" pc="268435908" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="181" parent="globals/gsensrosView" pc="268435918" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="183" parent="globals/gsensrosView" pc="268435930" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="184" parent="globals/gsensrosView" pc="268435943" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="185" parent="globals/gsensrosView" pc="268435956" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="13" lineNum="186" parent="globals/gsensrosView" pc="268435969" symbol="endDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="65" parent="globals/gsensrosView" pc="268435986" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="67" parent="globals/gsensrosView" pc="268435990" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="70" parent="globals/gsensrosView" pc="268436007" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="71" parent="globals/gsensrosView" pc="268436057" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="72" parent="globals/gsensrosView" pc="268436079" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="73" parent="globals/gsensrosView" pc="268436101" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="76" parent="globals/gsensrosView" pc="268436126" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="77" parent="globals/gsensrosView" pc="268436176" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="78" parent="globals/gsensrosView" pc="268436198" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="79" parent="globals/gsensrosView" pc="268436220" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="82" parent="globals/gsensrosView" pc="268436245" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="83" parent="globals/gsensrosView" pc="268436295" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="87" parent="globals/gsensrosView" pc="268436367" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="88" parent="globals/gsensrosView" pc="268436391" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="90" parent="globals/gsensrosView" pc="268436401" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="91" parent="globals/gsensrosView" pc="268436418" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="92" parent="globals/gsensrosView" pc="268436434" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="93" parent="globals/gsensrosView" pc="268436453" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="94" parent="globals/gsensrosView" pc="268436470" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="95" parent="globals/gsensrosView" pc="268436489" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="97" parent="globals/gsensrosView" pc="268436522" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="99" parent="globals/gsensrosView" pc="268436538" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="100" parent="globals/gsensrosView" pc="268436551" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="101" parent="globals/gsensrosView" pc="268436582" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="105" parent="globals/gsensrosView" pc="268436626" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="108" parent="globals/gsensrosView" pc="268436638" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="109" parent="globals/gsensrosView" pc="268436684" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="110" parent="globals/gsensrosView" pc="268436699" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="111" parent="globals/gsensrosView" pc="268436727" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="115" parent="globals/gsensrosView" pc="268436742" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="116" parent="globals/gsensrosView" pc="268436764" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="117" parent="globals/gsensrosView" pc="268436790" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="118" parent="globals/gsensrosView" pc="268436818" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="119" parent="globals/gsensrosView" pc="268436834" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="122" parent="globals/gsensrosView" pc="268436903" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="123" parent="globals/gsensrosView" pc="268436907" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="14" lineNum="125" parent="globals/gsensrosView" pc="268436952" symbol="timerCallback"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="140" parent="globals/gsensrosView" pc="268436969" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="141" parent="globals/gsensrosView" pc="268436971" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="142" parent="globals/gsensrosView" pc="268436982" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="144" parent="globals/gsensrosView" pc="268436997" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="15" lineNum="146" parent="globals/gsensrosView" pc="268437009" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="230" parent="globals/gsensrosView" pc="268437012" symbol="onHide"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="231" parent="globals/gsensrosView" pc="268437014" symbol="onHide"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="231" parent="globals/gsensrosView" pc="268437025" symbol="onHide"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="232" parent="globals/gsensrosView" pc="268437040" symbol="onHide"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="16" lineNum="232" parent="globals/gsensrosView" pc="268437053" symbol="onHide"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="213" parent="globals/gsensrosView" pc="268437075" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="214" parent="globals/gsensrosView" pc="268437079" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="216" parent="globals/gsensrosView" pc="268437092" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="217" parent="globals/gsensrosView" pc="268437110" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="218" parent="globals/gsensrosView" pc="268437128" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="219" parent="globals/gsensrosView" pc="268437155" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="220" parent="globals/gsensrosView" pc="268437159" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="222" parent="globals/gsensrosView" pc="268437204" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="223" parent="globals/gsensrosView" pc="268437213" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="224" parent="globals/gsensrosView" pc="268437223" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="225" parent="globals/gsensrosView" pc="268437232" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="17" lineNum="226" parent="globals/gsensrosView" pc="268437241" symbol="stopRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="55" parent="globals/gsensrosView" pc="268437254" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="56" parent="globals/gsensrosView" pc="268437256" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="57" parent="globals/gsensrosView" pc="268437277" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="58" parent="globals/gsensrosView" pc="268437290" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="59" parent="globals/gsensrosView" pc="268437303" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="61" parent="globals/gsensrosView" pc="268437316" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="18" lineNum="62" parent="globals/gsensrosView" pc="268437350" symbol="onShow"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="51" parent="globals/gsensrosView" pc="268437392" symbol="onLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="52" parent="globals/gsensrosView" pc="268437396" symbol="onLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="19" lineNum="52" parent="globals/gsensrosView" pc="268437443" symbol="onLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="128" parent="globals/gsensrosView" pc="268437460" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="130" parent="globals/gsensrosView" pc="268437464" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="131" parent="globals/gsensrosView" pc="268437481" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="132" parent="globals/gsensrosView" pc="268437501" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="133" parent="globals/gsensrosView" pc="268437520" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="134" parent="globals/gsensrosView" pc="268437536" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="135" parent="globals/gsensrosView" pc="268437552" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="20" lineNum="137" parent="globals/gsensrosView" pc="268437598" symbol="updateGPS"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="149" parent="globals/gsensrosView" pc="268437615" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="150" parent="globals/gsensrosView" pc="268437617" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="150" parent="globals/gsensrosView" pc="268437628" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="151" parent="globals/gsensrosView" pc="268437643" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="21" lineNum="152" parent="globals/gsensrosView" pc="268437664" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="189" parent="globals/gsensrosView" pc="268437667" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="191" parent="globals/gsensrosView" pc="268437671" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="191" parent="globals/gsensrosView" pc="268437684" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="193" parent="globals/gsensrosView" pc="268437696" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="199" parent="globals/gsensrosView" pc="268437764" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="200" parent="globals/gsensrosView" pc="268437777" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="201" parent="globals/gsensrosView" pc="268437836" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="202" parent="globals/gsensrosView" pc="268437895" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="204" parent="globals/gsensrosView" pc="268437954" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="205" parent="globals/gsensrosView" pc="268437972" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="206" parent="globals/gsensrosView" pc="268437982" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="208" parent="globals/gsensrosView" pc="268438012" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="22" lineNum="209" parent="globals/gsensrosView" pc="268438016" symbol="startRecording"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="155" parent="globals/gsensrosView" pc="268438062" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="156" parent="globals/gsensrosView" pc="268438066" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="157" parent="globals/gsensrosView" pc="268438087" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="159" parent="globals/gsensrosView" pc="268438099" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="160" parent="globals/gsensrosView" pc="268438116" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="161" parent="globals/gsensrosView" pc="268438136" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="162" parent="globals/gsensrosView" pc="268438155" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="163" parent="globals/gsensrosView" pc="268438171" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="166" parent="globals/gsensrosView" pc="268438190" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="167" parent="globals/gsensrosView" pc="268438200" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="23" lineNum="168" parent="globals/gsensrosView" pc="268438218" symbol="startDive"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="24" lineNum="47" parent="globals/gsensrosView" pc="268438235" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="24" lineNum="48" parent="globals/gsensrosView" pc="268438237" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="235" parent="globals/gsensrosView" pc="268438256" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="237" parent="globals/gsensrosView" pc="268438260" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="239" parent="globals/gsensrosView" pc="268438280" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="240" parent="globals/gsensrosView" pc="268438302" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="242" parent="globals/gsensrosView" pc="268438351" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="243" parent="globals/gsensrosView" pc="268438392" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="245" parent="globals/gsensrosView" pc="268438460" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="246" parent="globals/gsensrosView" pc="268438482" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="248" parent="globals/gsensrosView" pc="268438560" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="249" parent="globals/gsensrosView" pc="268438579" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="250" parent="globals/gsensrosView" pc="268438657" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="252" parent="globals/gsensrosView" pc="268438735" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="254" parent="globals/gsensrosView" pc="268438802" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="255" parent="globals/gsensrosView" pc="268438806" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="258" parent="globals/gsensrosView" pc="268438851" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="259" parent="globals/gsensrosView" pc="268438888" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="260" parent="globals/gsensrosView" pc="268438907" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="261" parent="globals/gsensrosView" pc="268438933" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="25" lineNum="262" parent="globals/gsensrosView" pc="268438959" symbol="onUpdate"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="31" parent="globals/DeadReckoning" pc="268438989" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="32" parent="globals/DeadReckoning" pc="268438993" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="32" parent="globals/DeadReckoning" pc="268439015" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="34" parent="globals/DeadReckoning" pc="268439019" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="35" parent="globals/DeadReckoning" pc="268439041" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="36" parent="globals/DeadReckoning" pc="268439063" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="38" parent="globals/DeadReckoning" pc="268439094" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="39" parent="globals/DeadReckoning" pc="268439113" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="41" parent="globals/DeadReckoning" pc="268439132" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="42" parent="globals/DeadReckoning" pc="268439199" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="44" parent="globals/DeadReckoning" pc="268439266" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="45" parent="globals/DeadReckoning" pc="268439285" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="47" parent="globals/DeadReckoning" pc="268439304" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="26" lineNum="49" parent="globals/DeadReckoning" pc="268439332" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="27" lineNum="52" parent="globals/DeadReckoning" pc="268439343" symbol="getDRData"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="27" lineNum="53" parent="globals/DeadReckoning" pc="268439345" symbol="getDRData"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="22" parent="globals/DeadReckoning" pc="268439428" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="23" parent="globals/DeadReckoning" pc="268439430" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="24" parent="globals/DeadReckoning" pc="268439443" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="25" parent="globals/DeadReckoning" pc="268439456" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="26" parent="globals/DeadReckoning" pc="268439469" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="27" parent="globals/DeadReckoning" pc="268439482" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="28" lineNum="28" parent="globals/DeadReckoning" pc="268439495" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="29" lineNum="18" parent="globals/DeadReckoning" pc="268439528" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" id="29" lineNum="19" parent="globals/DeadReckoning" pc="268439530" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="30" lineNum="11" parent="globals/gsensrosMenuDelegate" pc="268439543" symbol="onMenuItem"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="30" lineNum="12" parent="globals/gsensrosMenuDelegate" pc="268439545" symbol="onMenuItem"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="30" lineNum="13" parent="globals/gsensrosMenuDelegate" pc="268439556" symbol="onMenuItem"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="30" lineNum="14" parent="globals/gsensrosMenuDelegate" pc="268439580" symbol="onMenuItem"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="30" lineNum="15" parent="globals/gsensrosMenuDelegate" pc="268439591" symbol="onMenuItem"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="31" lineNum="7" parent="globals/gsensrosMenuDelegate" pc="268439616" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="31" lineNum="8" parent="globals/gsensrosMenuDelegate" pc="268439618" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="32" lineNum="13" parent="globals/Rez/Layouts" pc="268439637" symbol="MainLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="32" lineNum="14" parent="globals/Rez/Layouts" pc="268439649" symbol="MainLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="32" lineNum="16" parent="globals/Rez/Layouts" pc="268439773" symbol="MainLayout"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="33" lineNum="21" parent="globals/Rez/Menus/MainMenu" pc="268439790" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="34" lineNum="22" parent="globals/Rez/Menus/MainMenu" pc="268439809" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="34" lineNum="23" parent="globals/Rez/Menus/MainMenu" pc="268439811" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="34" lineNum="24" parent="globals/Rez/Menus/MainMenu" pc="268439829" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="34" lineNum="25" parent="globals/Rez/Menus/MainMenu" pc="268439885" symbol="initialize"/>
     </pcToLineNum>
     <symbolTable>
         <entry id="8388639" module="true" symbol="Graphics"/>
         <entry field="true" id="8389346" symbol="text"/>
+        <entry field="true" id="19" symbol="depthFilter"/>
+        <entry field="true" id="17" symbol="currentDepth"/>
+        <entry field="true" id="43" symbol="accelScale"/>
+        <entry id="7" object="true" symbol="DeadReckoning"/>
         <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
-        <entry field="true" id="16" symbol="gyroZ"/>
-        <entry field="true" id="15" symbol="gyroY"/>
-        <entry field="true" id="14" symbol="gyroX"/>
+        <entry field="true" id="27" symbol="exitLon"/>
+        <entry field="true" id="30" symbol="gyroZ"/>
+        <entry field="true" id="29" symbol="gyroY"/>
+        <entry field="true" id="28" symbol="gyroX"/>
         <entry id="5" module="true" symbol="globals/Rez/Menus"/>
-        <entry id="19" method="true" symbol="stopRecording"/>
-        <entry id="18" method="true" symbol="startRecording"/>
+        <entry id="36" method="true" symbol="stopRecording"/>
+        <entry id="35" method="true" symbol="startRecording"/>
         <entry id="8388638" module="true" symbol="ActivityRecording"/>
-        <entry id="26" method="true" symbol="MainLayout"/>
+        <entry id="53" method="true" symbol="MainLayout"/>
+        <entry id="45" method="true" symbol="getDRData"/>
         <entry field="true" id="8388890" symbol="sport"/>
+        <entry field="true" id="26" symbol="exitLat"/>
         <entry field="true" id="8389605" symbol="accel"/>
+        <entry id="60" symbol="north"/>
+        <entry field="true" id="21" symbol="drEastField"/>
         <entry field="true" id="8388611" module="true" symbol="Toybox"/>
-        <entry field="true" id="28" symbol="AppName"/>
+        <entry field="true" id="31" symbol="isUnderwater"/>
+        <entry id="8392382" method="true" symbol="reset"/>
+        <entry field="true" id="32" symbol="magHeading"/>
+        <entry field="true" id="55" symbol="AppName"/>
+        <entry field="true" id="8388963" symbol="altitude"/>
         <entry id="6" module="true" symbol="globals/Rez/Strings"/>
         <entry id="8388631" module="true" symbol="Activity"/>
         <entry id="8388648" module="true" symbol="WatchUi"/>
         <entry id="8389081" method="true" symbol="onBack"/>
+        <entry field="true" id="18" symbol="depthField"/>
         <entry id="2" module="true" symbol="globals/Rez"/>
-        <entry field="true" id="31" symbol="prompt"/>
+        <entry field="true" id="37" symbol="surfaceAltitude"/>
+        <entry field="true" id="44" symbol="depth"/>
         <entry id="8389124" method="true" symbol="onUpdate"/>
         <entry field="true" id="8389065" symbol="locY"/>
         <entry field="true" id="8389064" symbol="locX"/>
-        <entry id="10" object="true" symbol="gsensrosView"/>
+        <entry id="61" symbol="headingDeg"/>
+        <entry id="11" object="true" symbol="gsensrosView"/>
         <entry id="8388771" module="true" object="true" symbol="Drawables"/>
         <entry field="true" id="8389314" symbol="latitude"/>
         <entry id="8389348" symbol="font"/>
-        <entry id="33" symbol="item_2"/>
-        <entry id="32" symbol="item_1"/>
-        <entry id="8" object="true" symbol="gsensrosDelegate"/>
-        <entry id="24" module="true" symbol="Menus"/>
+        <entry id="63" symbol="item_2"/>
+        <entry id="62" symbol="item_1"/>
+        <entry id="9" object="true" symbol="gsensrosDelegate"/>
+        <entry id="42" module="true" symbol="Menus"/>
         <entry id="8389275" method="true" symbol="getApp"/>
+        <entry id="59" symbol="east"/>
         <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+        <entry field="true" id="8389606" symbol="mag"/>
         <entry id="8389122" method="true" symbol="onLayout"/>
         <entry id="8389349" symbol="justification"/>
+        <entry field="true" id="46" symbol="gravity"/>
+        <entry id="23" method="true" symbol="endDive"/>
+        <entry field="true" id="20" symbol="dr"/>
         <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
-        <entry id="27" object="true" symbol="MainMenu"/>
-        <entry id="21" method="true" symbol="updateGPS"/>
+        <entry field="true" id="49" symbol="prevTime"/>
+        <entry id="54" object="true" symbol="MainMenu"/>
+        <entry id="39" method="true" symbol="updateGPS"/>
         <entry id="8388644" module="true" symbol="System"/>
         <entry field="true" id="8389315" symbol="longitude"/>
-        <entry field="true" id="13" symbol="accelZ"/>
-        <entry field="true" id="12" symbol="accelY"/>
-        <entry field="true" id="11" symbol="accelX"/>
+        <entry field="true" id="15" symbol="accelZ"/>
+        <entry field="true" id="14" symbol="accelY"/>
+        <entry field="true" id="13" symbol="accelX"/>
+        <entry id="34" method="true" symbol="startDive"/>
         <entry id="8389619" method="true" symbol="onSelect"/>
+        <entry id="8388645" module="true" symbol="Time"/>
         <entry id="8388769" module="true" object="true" symbol="Rez"/>
-        <entry id="20" method="true" symbol="timerCallback"/>
+        <entry id="38" method="true" symbol="timerCallback"/>
+        <entry field="true" id="51" symbol="velocityY"/>
+        <entry field="true" id="50" symbol="velocityX"/>
+        <entry field="true" id="8388965" symbol="heading"/>
+        <entry field="true" id="25" symbol="entryLon"/>
         <entry id="8388640" module="true" symbol="Lang"/>
         <entry field="true" id="8388881" method="true" symbol="isRecording"/>
-        <entry field="true" id="25" symbol="LauncherIcon"/>
+        <entry field="true" id="52" symbol="LauncherIcon"/>
         <entry id="8388610" symbol="statics"/>
         <entry id="8389123" method="true" symbol="onShow"/>
         <entry id="8388643" module="true" symbol="Sensor"/>
-        <entry field="true" id="22" symbol="updateTimer"/>
+        <entry field="true" id="40" symbol="updateTimer"/>
         <entry id="8389350" module="true" symbol="globals"/>
+        <entry field="true" id="24" symbol="entryLat"/>
         <entry field="true" id="8388958" symbol="speed"/>
         <entry id="8388770" module="true" object="true" symbol="Strings"/>
         <entry id="8388702" method="true" symbol="initialize"/>
         <entry id="8389279" method="true" symbol="onStart"/>
         <entry field="true" id="8388891" symbol="subSport"/>
+        <entry id="8389780" module="true" symbol="FitContributor"/>
+        <entry field="true" id="12" symbol="view"/>
         <entry field="true" id="8388892" symbol="name"/>
-        <entry id="7" object="true" symbol="gsensrosApp"/>
+        <entry id="8388641" module="true" symbol="Math"/>
+        <entry id="8" object="true" symbol="gsensrosApp"/>
         <entry id="8389280" method="true" symbol="getInitialView"/>
         <entry id="8389281" method="true" symbol="onStop"/>
+        <entry field="true" id="22" symbol="drNorthField"/>
         <entry id="8389109" method="true" symbol="onMenuItem"/>
+        <entry id="8389847" symbol="mesgType"/>
         <entry field="true" id="8389347" symbol="color"/>
-        <entry id="9" object="true" symbol="gsensrosMenuDelegate"/>
+        <entry id="10" object="true" symbol="gsensrosMenuDelegate"/>
+        <entry field="true" id="48" symbol="posY"/>
+        <entry field="true" id="47" symbol="posX"/>
         <entry id="8388646" module="true" object="true" symbol="Timer"/>
-        <entry id="23" module="true" symbol="Layouts"/>
+        <entry id="41" module="true" symbol="Layouts"/>
+        <entry field="true" id="16" symbol="calibrationSamples"/>
         <entry id="8388642" module="true" symbol="Position"/>
         <entry id="8389125" method="true" symbol="onHide"/>
-        <entry field="true" id="17" symbol="session"/>
+        <entry id="8390514" method="true" symbol="update"/>
+        <entry field="true" id="33" symbol="session"/>
+        <entry id="58" symbol="gyro"/>
         <entry id="8388635" module="true" symbol="Application"/>
-        <entry field="true" id="30" symbol="menu_label_2"/>
-        <entry field="true" id="29" symbol="menu_label_1"/>
+        <entry field="true" id="57" symbol="menu_label_2"/>
+        <entry field="true" id="56" symbol="menu_label_1"/>
     </symbolTable>
     <localVars>
-        <entry arg="true" endPc="268435895" name="dc" stackId="1" startPc="268435828"/>
-        <entry endPc="268435889" name="e" stackId="2" startPc="268435879"/>
-        <entry endPc="268436021" name="info" stackId="1" startPc="268435900"/>
-        <entry endPc="268436038" name="e" stackId="2" startPc="268436028"/>
-        <entry endPc="268436192" name="e" stackId="1" startPc="268436130"/>
-        <entry endPc="268436332" name="loc" stackId="1" startPc="268436205"/>
-        <entry endPc="268436329" name="coords" stackId="2" startPc="268436242"/>
-        <entry endPc="268436349" name="e" stackId="3" startPc="268436339"/>
-        <entry endPc="268436680" name="e" stackId="1" startPc="268436618"/>
-        <entry arg="true" endPc="268437621" name="dc" stackId="1" startPc="268436808"/>
-        <entry endPc="268437615" name="e" stackId="2" startPc="268437572"/>
-        <entry endPc="268437766" name="e" stackId="1" startPc="268437723"/>
-        <entry arg="true" endPc="268437883" name="item" stackId="1" startPc="268437811"/>
-        <entry arg="true" endPc="268438076" name="dc" stackId="1" startPc="268437905"/>
-        <entry endPc="268438076" name="rez_cmp_local_text_1193959466" stackId="2" startPc="268437917"/>
+        <entry endPc="268435695" name="view" stackId="1" startPc="268435623"/>
+        <entry arg="true" endPc="268435750" name="view" stackId="1" startPc="268435720"/>
+        <entry endPc="268435984" name="loc" stackId="1" startPc="268435796"/>
+        <entry endPc="268435904" name="coords" stackId="2" startPc="268435854"/>
+        <entry endPc="268436896" name="info" stackId="1" startPc="268435990"/>
+        <entry endPc="268436622" name="rawAlt" stackId="2" startPc="268436391"/>
+        <entry endPc="268436622" name="rawDepth" stackId="3" startPc="268436538"/>
+        <entry endPc="268436893" name="now" stackId="4" startPc="268436764"/>
+        <entry endPc="268436893" name="dt" stackId="5" startPc="268436764"/>
+        <entry endPc="268436946" name="e" stackId="6" startPc="268436903"/>
+        <entry endPc="268437198" name="e" stackId="1" startPc="268437155"/>
+        <entry arg="true" endPc="268437459" name="dc" stackId="1" startPc="268437392"/>
+        <entry endPc="268437453" name="e" stackId="2" startPc="268437443"/>
+        <entry endPc="268437591" name="loc" stackId="1" startPc="268437464"/>
+        <entry endPc="268437588" name="coords" stackId="2" startPc="268437501"/>
+        <entry endPc="268437608" name="e" stackId="3" startPc="268437598"/>
+        <entry endPc="268438055" name="e" stackId="1" startPc="268438012"/>
+        <entry endPc="268438233" name="loc" stackId="1" startPc="268438066"/>
+        <entry endPc="268438186" name="coords" stackId="2" startPc="268438136"/>
+        <entry arg="true" endPc="268438988" name="dc" stackId="1" startPc="268438256"/>
+        <entry endPc="268438795" name="drData" stackId="2" startPc="268438260"/>
+        <entry endPc="268438845" name="e" stackId="3" startPc="268438802"/>
+        <entry endPc="268438984" name="drData" stackId="4" startPc="268438888"/>
+        <entry arg="true" endPc="268439342" name="accelX" stackId="1" startPc="268438989"/>
+        <entry arg="true" endPc="268439342" name="accelY" stackId="2" startPc="268438989"/>
+        <entry arg="true" endPc="268439342" name="accelZ" stackId="3" startPc="268438989"/>
+        <entry arg="true" endPc="268439342" name="gyroZ" stackId="4" startPc="268438989"/>
+        <entry arg="true" endPc="268439342" name="magHeading" stackId="5" startPc="268438989"/>
+        <entry arg="true" endPc="268439342" name="dt" stackId="6" startPc="268438989"/>
+        <entry endPc="268439341" name="ax" stackId="7" startPc="268438993"/>
+        <entry endPc="268439341" name="ay" stackId="8" startPc="268438993"/>
+        <entry endPc="268439341" name="az" stackId="9" startPc="268438993"/>
+        <entry endPc="268439341" name="vx" stackId="10" startPc="268438993"/>
+        <entry endPc="268439341" name="vy" stackId="11" startPc="268438993"/>
+        <entry arg="true" endPc="268439615" name="item" stackId="1" startPc="268439543"/>
+        <entry arg="true" endPc="268439789" name="dc" stackId="1" startPc="268439637"/>
+        <entry endPc="268439789" name="rez_cmp_local_text_1193959466" stackId="2" startPc="268439649"/>
     </localVars>
     <deviceInfo deviceVersion="45fe3cbb0de8ea0a70e12628d2697915f1272301" partNumber="006-B4394-00"/>
     <annotations>
         <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
         <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_2"/>
         <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_1"/>
-        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="prompt"/>
         <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
     </annotations>
     <dataEntryOffsetMappings>
         <dataEntry label="globals" offset="71" parentId="" symbolId="globals" type="module"/>
-        <dataEntry label="globals/gsensrosApp" offset="158" parentId="globals" symbolId="gsensrosApp" type="class"/>
-        <dataEntry label="globals/gsensrosDelegate" offset="229" parentId="globals" symbolId="gsensrosDelegate" type="class"/>
-        <dataEntry label="globals/gsensrosView" offset="284" parentId="globals" symbolId="gsensrosView" type="class"/>
-        <dataEntry label="globals/Rez" offset="507" parentId="globals" symbolId="Rez" type="module"/>
-        <dataEntry label="globals/gsensrosMenuDelegate" offset="570" parentId="globals" symbolId="gsensrosMenuDelegate" type="class"/>
-        <dataEntry label="globals/Rez/Drawables" offset="625" parentId="Rez" symbolId="Drawables" type="module"/>
-        <dataEntry label="globals/Rez/Layouts" offset="664" parentId="Rez" symbolId="Layouts" type="module"/>
-        <dataEntry label="globals/Rez/Menus" offset="703" parentId="Rez" symbolId="Menus" type="module"/>
-        <dataEntry label="globals/Rez/Strings" offset="742" parentId="Rez" symbolId="Strings" type="module"/>
-        <dataEntry label="globals/Rez/Menus/MainMenu" offset="805" parentId="Menus" symbolId="MainMenu" type="class"/>
+        <dataEntry label="globals/gsensrosApp" offset="166" parentId="globals" symbolId="gsensrosApp" type="class"/>
+        <dataEntry label="globals/gsensrosDelegate" offset="237" parentId="globals" symbolId="gsensrosDelegate" type="class"/>
+        <dataEntry label="globals/gsensrosView" offset="300" parentId="globals" symbolId="gsensrosView" type="class"/>
+        <dataEntry label="globals/Rez" offset="651" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/DeadReckoning" offset="714" parentId="globals" symbolId="DeadReckoning" type="class"/>
+        <dataEntry label="globals/gsensrosMenuDelegate" offset="857" parentId="globals" symbolId="gsensrosMenuDelegate" type="class"/>
+        <dataEntry label="globals/Rez/Drawables" offset="912" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Layouts" offset="951" parentId="Rez" symbolId="Layouts" type="module"/>
+        <dataEntry label="globals/Rez/Menus" offset="990" parentId="Rez" symbolId="Menus" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="1029" parentId="Rez" symbolId="Strings" type="module"/>
+        <dataEntry label="globals/Rez/Menus/MainMenu" offset="1084" parentId="Menus" symbolId="MainMenu" type="class"/>
     </dataEntryOffsetMappings>
     <functions>
         <functionEntry accessMode="public" endPc="268435478" name="&lt;init&gt;" parent="gsensrosApp" startPc="268435460">
@@ -249,68 +390,78 @@
         <functionEntry accessMode="public" endPc="268435523" name="&lt;init&gt;" parent="gsensrosDelegate" startPc="268435505">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435542" name="&lt;init&gt;" parent="gsensrosView" startPc="268435524">
+        <functionEntry accessMode="public" endPc="268435572" name="&lt;init&gt;" parent="gsensrosView" startPc="268435524">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435566" name="&lt;init&gt;" parent="Rez" startPc="268435543">
+        <functionEntry accessMode="public" endPc="268435596" name="&lt;init&gt;" parent="Rez" startPc="268435573">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435585" name="&lt;init&gt;" parent="gsensrosMenuDelegate" startPc="268435567">
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="DeadReckoning">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435588" name="onStart" parent="gsensrosApp" startPc="268435586">
+        <functionEntry accessMode="public" endPc="268435615" name="&lt;init&gt;" parent="gsensrosMenuDelegate" startPc="268435597">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435618" name="onStart" parent="gsensrosApp" startPc="268435616">
             <param id="state"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435657" name="getInitialView" parent="gsensrosApp" startPc="268435589">
+        <functionEntry accessMode="public" endPc="268435695" name="getInitialView" parent="gsensrosApp" startPc="268435619">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435678" name="initialize" parent="gsensrosApp" startPc="268435658">
+        <functionEntry accessMode="public" endPc="268435716" name="initialize" parent="gsensrosApp" startPc="268435696">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435681" name="onStop" parent="gsensrosApp" startPc="268435679">
+        <functionEntry accessMode="public" endPc="268435719" name="onStop" parent="gsensrosApp" startPc="268435717">
             <param id="state"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435702" name="initialize" parent="gsensrosDelegate" startPc="268435682">
+        <functionEntry accessMode="public" endPc="268435750" name="initialize" parent="gsensrosDelegate" startPc="268435720">
+            <param id="view"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435728" name="onSelect" parent="gsensrosDelegate" startPc="268435703">
+        <functionEntry accessMode="public" endPc="268435791" name="onSelect" parent="gsensrosDelegate" startPc="268435751">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435827" name="onShow" parent="gsensrosView" startPc="268435729">
+        <functionEntry accessMode="public" endPc="268435985" name="endDive" parent="gsensrosView" startPc="268435792">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435895" name="onLayout" parent="gsensrosView" startPc="268435828">
+        <functionEntry accessMode="public" endPc="268436968" name="timerCallback" parent="gsensrosView" startPc="268435986">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437011" name="onSelect" parent="gsensrosView" startPc="268436969">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437074" name="onHide" parent="gsensrosView" startPc="268437012">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437253" name="stopRecording" parent="gsensrosView" startPc="268437075">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437391" name="onShow" parent="gsensrosView" startPc="268437254">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437459" name="onLayout" parent="gsensrosView" startPc="268437392">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436060" name="timerCallback" parent="gsensrosView" startPc="268435896">
+        <functionEntry accessMode="public" endPc="268437614" name="updateGPS" parent="gsensrosView" startPc="268437460">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436200" name="onSelect" parent="gsensrosView" startPc="268436061">
+        <functionEntry accessMode="public" endPc="268437666" name="onBack" parent="gsensrosView" startPc="268437615">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436355" name="updateGPS" parent="gsensrosView" startPc="268436201">
+        <functionEntry accessMode="public" endPc="268438061" name="startRecording" parent="gsensrosView" startPc="268437667">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436407" name="onBack" parent="gsensrosView" startPc="268436356">
+        <functionEntry accessMode="public" endPc="268438234" name="startDive" parent="gsensrosView" startPc="268438062">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436702" name="startRecording" parent="gsensrosView" startPc="268436408">
+        <functionEntry accessMode="public" endPc="268438255" name="initialize" parent="gsensrosView" startPc="268438235">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436723" name="initialize" parent="gsensrosView" startPc="268436703">
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268436807" name="onHide" parent="gsensrosView" startPc="268436724">
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268437621" name="onUpdate" parent="gsensrosView" startPc="268436808">
+        <functionEntry accessMode="public" endPc="268438988" name="onUpdate" parent="gsensrosView" startPc="268438256">
             <param id="dc"/>
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268437810" name="stopRecording" parent="gsensrosView" startPc="268437622">
             <documentation/>
         </functionEntry>
         <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
@@ -325,21 +476,39 @@
         <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268437883" name="onMenuItem" parent="gsensrosMenuDelegate" startPc="268437811">
+        <functionEntry accessMode="public" endPc="268439342" name="update" parent="DeadReckoning" startPc="268438989">
+            <param id="accelX"/>
+            <param id="accelY"/>
+            <param id="accelZ"/>
+            <param id="gyroZ"/>
+            <param id="magHeading"/>
+            <param id="dt"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268439427" name="getDRData" parent="DeadReckoning" startPc="268439343">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268439527" name="reset" parent="DeadReckoning" startPc="268439428">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268439542" name="initialize" parent="DeadReckoning" startPc="268439528">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268439615" name="onMenuItem" parent="gsensrosMenuDelegate" startPc="268439543">
             <param id="item"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268437904" name="initialize" parent="gsensrosMenuDelegate" startPc="268437884">
+        <functionEntry accessMode="public" endPc="268439636" name="initialize" parent="gsensrosMenuDelegate" startPc="268439616">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268438076" name="MainLayout" parent="Layouts" startPc="268437905">
+        <functionEntry accessMode="public" endPc="268439789" name="MainLayout" parent="Layouts" startPc="268439637">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268438095" name="&lt;init&gt;" parent="MainMenu" startPc="268438077">
+        <functionEntry accessMode="public" endPc="268439808" name="&lt;init&gt;" parent="MainMenu" startPc="268439790">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268438228" name="initialize" parent="MainMenu" startPc="268438096">
+        <functionEntry accessMode="public" endPc="268439941" name="initialize" parent="MainMenu" startPc="268439809">
             <documentation/>
         </functionEntry>
     </functions>

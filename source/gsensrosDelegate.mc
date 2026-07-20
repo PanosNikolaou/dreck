@@ -3,13 +3,20 @@ import Toybox.WatchUi;
 
 class gsensrosDelegate extends WatchUi.BehaviorDelegate {
 
-    function initialize() {
+    var view as gsensrosView;
+
+    function initialize(view as gsensrosView) {
         BehaviorDelegate.initialize();
+        self.view = view;
     }
 
-    // Forward Select to the View
     function onSelect() as Boolean {
-        System.println("Delegate: onSelect called");
-        return false; // Let View handle it
+        return view.onSelect();
+    }
+
+    // Explicitly handle Back button
+    function onBack() as Boolean {
+        System.println("Delegate: onBack called");
+        return view.onBack();
     }
 }

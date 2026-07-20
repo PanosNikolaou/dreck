@@ -1,0 +1,365 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Math,2,14,18]; ]
+import Toybox.Math;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Time,3,14,18]; ]
+import Toybox.Time;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 5; @symbol_classdef = [DeadReckoning,5,6,19]; ]
+class DeadReckoning {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 5; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 6; @position = 8; @symbol_vardef = [posX,6,8,12]; ]
+    var posX = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 7; @position = 8; @symbol_vardef = [posY,7,8,12]; ]
+    var posY = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 8; @position = 8; @symbol_vardef = [depth,8,8,13]; ]
+    var depth = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 9; @position = 8; @symbol_vardef = [heading,9,8,15]; ]
+    var heading = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 11; @position = 8; @symbol_vardef = [velocityX,11,8,17]; ]
+    var velocityX = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 12; @position = 8; @symbol_vardef = [velocityY,12,8,17]; ]
+    var velocityY = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 14; @position = 8; @symbol_vardef = [prevTime,14,8,16]; ]
+    var prevTime = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 15; @position = 8; @symbol_vardef = [gravity,15,8,15]; ]
+    var gravity = 9.81f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 16; @position = 8; @symbol_vardef = [accelScale,16,8,18]; ]
+    var accelScale = 0.0012f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 18; @position = 8; @symbol_vardef = [totalDistance,18,8,21]; ]
+    var totalDistance = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 20; @symbol_functiondef = [initialize,20,13,23]; ]
+    function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_20_26_22_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 21 8 ]
+        %tmp.1 = self;
+        symbol [ reset %tmp.2 21 8 13 ];
+        %tmp.2 = getv function %tmp.1 :reset;
+        invoke %tmp.1 %tmp.2();
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_20_26_22_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 24; @symbol_functiondef = [reset,24,13,18]; ]
+    function reset() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_24_29_32_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 25 8 ]
+        %tmp.1 = 0.0f;
+        symbol [ posX ? 25 8 12 ];
+        putv self :posX %tmp.1;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 26 8 ]
+        %tmp.2 = 0.0f;
+        symbol [ posY ? 26 8 12 ];
+        putv self :posY %tmp.2;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 27 8 ]
+        %tmp.3 = 0.0f;
+        symbol [ depth ? 27 8 13 ];
+        putv self :depth %tmp.3;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 28 8 ]
+        %tmp.4 = 0.0f;
+        symbol [ velocityX ? 28 8 17 ];
+        putv self :velocityX %tmp.4;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 29 8 ]
+        %tmp.5 = 0.0f;
+        symbol [ velocityY ? 29 8 17 ];
+        putv self :velocityY %tmp.5;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 30 8 ]
+        %tmp.6 = 0.0f;
+        symbol [ totalDistance ? 30 8 21 ];
+        putv self :totalDistance %tmp.6;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 31 8 ]
+        symbol [ Time %tmp.7 31 19 23 ];
+        %tmp.7 = getm $.Toybox.Time;
+        symbol [ now %tmp.8 31 24 27 ];
+        %tmp.8 = getv function %tmp.7 :now;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        symbol [ value %tmp.10 31 30 35 ];
+        %tmp.10 = getv function %tmp.9 :value;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        symbol [ prevTime ? 31 8 16 ];
+        putv self :prevTime %tmp.11;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_24_29_32_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 34; @symbol_functiondef = [update,34,13,19]; @symbol_param<0> = [accelX,34,20,26]; @symbol_param<0>_type<0> = [Number,34,30,36]; @symbol_param<1> = [accelY,34,38,44]; @symbol_param<1>_type<0> = [Number,34,48,54]; @symbol_param<2> = [accelZ,34,56,62]; @symbol_param<2>_type<0> = [Number,34,66,72]; @symbol_param<3> = [gyroZ,34,74,79]; @symbol_param<3>_type<0> = [Float,34,83,88]; @symbol_param<4> = [magHeading,34,90,100]; @symbol_param<4>_type<0> = [Float,34,104,109]; @symbol_param<5> = [dt,34,111,113]; @symbol_param<5>_type<0> = [Float,34,117,122]; ]
+    function update(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float, dt as Float) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 35 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_12_35_28_begin:
+        %tmp.1 = lgetv %dt;
+        symbol [ dt %tmp.1 35 12 14 ];
+        %tmp.2 = 0;
+        %tmp.3 = lte %tmp.1 %tmp.2;
+        bt %tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_true;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_23_35_28_false:
+        %tmp.4 = lgetv %dt;
+        symbol [ dt %tmp.4 35 23 25 ];
+        %tmp.5 = 2;
+        %tmp.6 = gt %tmp.4 %tmp.5;
+        push %tmp.6;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_23_35_28_end:
+        %tmp.7 = phi [%tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_12_35_28_begin] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_23_35_28_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_23_35_28_end];
+        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_31_35_41_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 35 33 ]
+        ret ?;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_31_35_41_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_35_8_35_41_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 37 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %ax.1 = local;
+        symbol [ ax %ax.1 37 12 14 ];
+        %tmp.8 = lgetv %accelX;
+        symbol [ accelX %tmp.8 37 17 23 ];
+        symbol [ toFloat %tmp.9 37 24 31 ];
+        %tmp.9 = getv function %tmp.8 :toFloat;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        symbol [ accelScale %tmp.12 37 36 46 ];
+        %tmp.12 = getv ? :accelScale;
+        %tmp.13 = mul %tmp.10 %tmp.12;
+        lputv %ax.1 %tmp.13;
+        symbol [ ax %ax.1 37 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 38 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %ay.2 = local;
+        symbol [ ay %ay.2 38 12 14 ];
+        %tmp.14 = lgetv %accelY;
+        symbol [ accelY %tmp.14 38 17 23 ];
+        symbol [ toFloat %tmp.15 38 24 31 ];
+        %tmp.15 = getv function %tmp.14 :toFloat;
+        %tmp.16 = invoke %tmp.14 %tmp.15();
+        symbol [ accelScale %tmp.18 38 36 46 ];
+        %tmp.18 = getv ? :accelScale;
+        %tmp.19 = mul %tmp.16 %tmp.18;
+        lputv %ay.2 %tmp.19;
+        symbol [ ay %ay.2 38 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 39 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %az.3 = local;
+        symbol [ az %az.3 39 12 14 ];
+        %tmp.20 = lgetv %accelZ;
+        symbol [ accelZ %tmp.20 39 17 23 ];
+        symbol [ toFloat %tmp.21 39 24 31 ];
+        %tmp.21 = getv function %tmp.20 :toFloat;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        symbol [ accelScale %tmp.24 39 36 46 ];
+        %tmp.24 = getv ? :accelScale;
+        %tmp.25 = mul %tmp.22 %tmp.24;
+        symbol [ gravity %tmp.27 39 49 56 ];
+        %tmp.27 = getv ? :gravity;
+        %tmp.28 = sub %tmp.25 %tmp.27;
+        lputv %az.3 %tmp.28;
+        symbol [ az %az.3 39 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 41 8 ]
+        symbol [ velocityX %tmp.29 41 8 17 ];
+        %tmp.29 = getv self :velocityX;
+        %tmp.30 = lgetv %ax.1;
+        symbol [ ax %tmp.30 41 21 23 ];
+        %tmp.31 = lgetv %dt;
+        symbol [ dt %tmp.31 41 26 28 ];
+        %tmp.32 = mul %tmp.30 %tmp.31;
+        %tmp.33 = add %tmp.29 %tmp.32;
+        symbol [ velocityX ? 41 8 17 ];
+        putv self :velocityX dup %tmp.33;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 42 8 ]
+        symbol [ velocityY %tmp.34 42 8 17 ];
+        %tmp.34 = getv self :velocityY;
+        %tmp.35 = lgetv %ay.2;
+        symbol [ ay %tmp.35 42 21 23 ];
+        %tmp.36 = lgetv %dt;
+        symbol [ dt %tmp.36 42 26 28 ];
+        %tmp.37 = mul %tmp.35 %tmp.36;
+        %tmp.38 = add %tmp.34 %tmp.37;
+        symbol [ velocityY ? 42 8 17 ];
+        putv self :velocityY dup %tmp.38;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 45 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %vx.4 = local;
+        symbol [ vx %vx.4 45 12 14 ];
+        symbol [ velocityX %tmp.40 45 17 26 ];
+        %tmp.40 = getv ? :velocityX;
+        symbol [ Math %tmp.41 45 29 33 ];
+        %tmp.41 = getm $.Toybox.Math;
+        symbol [ cos %tmp.42 45 34 37 ];
+        %tmp.42 = getv function %tmp.41 :cos;
+        symbol [ heading %tmp.44 45 38 45 ];
+        %tmp.44 = getv ? :heading;
+        %tmp.45 = invoke %tmp.41 %tmp.42(%tmp.44);
+        %tmp.46 = mul %tmp.40 %tmp.45;
+        symbol [ velocityY %tmp.48 45 49 58 ];
+        %tmp.48 = getv ? :velocityY;
+        symbol [ Math %tmp.49 45 61 65 ];
+        %tmp.49 = getm $.Toybox.Math;
+        symbol [ sin %tmp.50 45 66 69 ];
+        %tmp.50 = getv function %tmp.49 :sin;
+        symbol [ heading %tmp.52 45 70 77 ];
+        %tmp.52 = getv ? :heading;
+        %tmp.53 = invoke %tmp.49 %tmp.50(%tmp.52);
+        %tmp.54 = mul %tmp.48 %tmp.53;
+        %tmp.55 = sub %tmp.46 %tmp.54;
+        lputv %vx.4 %tmp.55;
+        symbol [ vx %vx.4 45 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 46 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %vy.5 = local;
+        symbol [ vy %vy.5 46 12 14 ];
+        symbol [ velocityX %tmp.57 46 17 26 ];
+        %tmp.57 = getv ? :velocityX;
+        symbol [ Math %tmp.58 46 29 33 ];
+        %tmp.58 = getm $.Toybox.Math;
+        symbol [ sin %tmp.59 46 34 37 ];
+        %tmp.59 = getv function %tmp.58 :sin;
+        symbol [ heading %tmp.61 46 38 45 ];
+        %tmp.61 = getv ? :heading;
+        %tmp.62 = invoke %tmp.58 %tmp.59(%tmp.61);
+        %tmp.63 = mul %tmp.57 %tmp.62;
+        symbol [ velocityY %tmp.65 46 49 58 ];
+        %tmp.65 = getv ? :velocityY;
+        symbol [ Math %tmp.66 46 61 65 ];
+        %tmp.66 = getm $.Toybox.Math;
+        symbol [ cos %tmp.67 46 66 69 ];
+        %tmp.67 = getv function %tmp.66 :cos;
+        symbol [ heading %tmp.69 46 70 77 ];
+        %tmp.69 = getv ? :heading;
+        %tmp.70 = invoke %tmp.66 %tmp.67(%tmp.69);
+        %tmp.71 = mul %tmp.65 %tmp.70;
+        %tmp.72 = add %tmp.63 %tmp.71;
+        lputv %vy.5 %tmp.72;
+        symbol [ vy %vy.5 46 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 48 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %dx.6 = local;
+        symbol [ dx %dx.6 48 12 14 ];
+        %tmp.73 = lgetv %vx.4;
+        symbol [ vx %tmp.73 48 17 19 ];
+        %tmp.74 = lgetv %dt;
+        symbol [ dt %tmp.74 48 22 24 ];
+        %tmp.75 = mul %tmp.73 %tmp.74;
+        lputv %dx.6 %tmp.75;
+        symbol [ dx %dx.6 48 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 49 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop" ]
+        %dy.7 = local;
+        symbol [ dy %dy.7 49 12 14 ];
+        %tmp.76 = lgetv %vy.5;
+        symbol [ vy %tmp.76 49 17 19 ];
+        %tmp.77 = lgetv %dt;
+        symbol [ dt %tmp.77 49 22 24 ];
+        %tmp.78 = mul %tmp.76 %tmp.77;
+        lputv %dy.7 %tmp.78;
+        symbol [ dy %dy.7 49 12 14 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 51 8 ]
+        symbol [ posX %tmp.79 51 8 12 ];
+        %tmp.79 = getv self :posX;
+        %tmp.80 = lgetv %dx.6;
+        symbol [ dx %tmp.80 51 16 18 ];
+        %tmp.81 = add %tmp.79 %tmp.80;
+        symbol [ posX ? 51 8 12 ];
+        putv self :posX dup %tmp.81;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 52 8 ]
+        symbol [ posY %tmp.82 52 8 12 ];
+        %tmp.82 = getv self :posY;
+        %tmp.83 = lgetv %dy.7;
+        symbol [ dy %tmp.83 52 16 18 ];
+        %tmp.84 = add %tmp.82 %tmp.83;
+        symbol [ posY ? 52 8 12 ];
+        putv self :posY dup %tmp.84;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 55 8 ]
+        symbol [ totalDistance %tmp.85 55 8 21 ];
+        %tmp.85 = getv self :totalDistance;
+        symbol [ Math %tmp.86 55 25 29 ];
+        %tmp.86 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.87 55 30 34 ];
+        %tmp.87 = getv function %tmp.86 :sqrt;
+        %tmp.88 = lgetv %dx.6;
+        symbol [ dx %tmp.88 55 35 37 ];
+        %tmp.89 = lgetv %dx.6;
+        symbol [ dx %tmp.89 55 38 40 ];
+        %tmp.90 = mul %tmp.88 %tmp.89;
+        %tmp.91 = lgetv %dy.7;
+        symbol [ dy %tmp.91 55 43 45 ];
+        %tmp.92 = lgetv %dy.7;
+        symbol [ dy %tmp.92 55 46 48 ];
+        %tmp.93 = mul %tmp.91 %tmp.92;
+        %tmp.94 = add %tmp.90 %tmp.93;
+        %tmp.95 = invoke %tmp.86 %tmp.87(%tmp.94);
+        %tmp.96 = add %tmp.85 %tmp.95;
+        symbol [ totalDistance ? 55 8 21 ];
+        putv self :totalDistance dup %tmp.96;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 57 8 ]
+        symbol [ depth %tmp.97 57 8 13 ];
+        %tmp.97 = getv self :depth;
+        %tmp.98 = lgetv %az.3;
+        symbol [ az %tmp.98 57 17 19 ];
+        %tmp.99 = lgetv %dt;
+        symbol [ dt %tmp.99 57 22 24 ];
+        %tmp.100 = mul %tmp.98 %tmp.99;
+        %tmp.101 = lgetv %dt;
+        symbol [ dt %tmp.101 57 27 29 ];
+        %tmp.102 = mul %tmp.100 %tmp.101;
+        %tmp.103 = 0.5f;
+        %tmp.104 = mul %tmp.102 %tmp.103;
+        %tmp.105 = add %tmp.97 %tmp.104;
+        symbol [ depth ? 57 8 13 ];
+        putv self :depth dup %tmp.105;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 59 8 ]
+        %tmp.106 = lgetv %magHeading;
+        symbol [ magHeading %tmp.106 59 18 28 ];
+        symbol [ heading ? 59 8 15 ];
+        putv self :heading %tmp.106;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_34_132_60_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 62; @symbol_functiondef = [getDRData,62,13,22]; @symbol_return<0> = [Dictionary,62,28,38]; ]
+    function getDRData() as Dictionary {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_62_39_70_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 63 8 ]
+        %tmp.1 = newd 5;
+        %tmp.3 = const :east;
+        symbol [ east %tmp.3 64 13 17 const ];
+        symbol [ posX %tmp.5 64 21 25 ];
+        %tmp.5 = getv ? :posX;
+        %tmp.6 = dup %tmp.1;
+        %tmp.7 = aputv %tmp.6 %tmp.3 %tmp.5;
+        %tmp.9 = const :north;
+        symbol [ north %tmp.9 65 13 18 const ];
+        symbol [ posY %tmp.11 65 22 26 ];
+        %tmp.11 = getv ? :posY;
+        %tmp.12 = dup %tmp.7;
+        %tmp.13 = aputv %tmp.12 %tmp.9 %tmp.11;
+        %tmp.15 = const :depth;
+        symbol [ depth %tmp.15 66 13 18 const ];
+        symbol [ depth %tmp.17 66 22 27 ];
+        %tmp.17 = getv ? :depth;
+        %tmp.18 = dup %tmp.13;
+        %tmp.19 = aputv %tmp.18 %tmp.15 %tmp.17;
+        %tmp.21 = const :headingDeg;
+        symbol [ headingDeg %tmp.21 67 13 23 const ];
+        symbol [ heading %tmp.23 67 27 34 ];
+        %tmp.23 = getv ? :heading;
+        %tmp.24 = 180;
+        %tmp.25 = mul %tmp.23 %tmp.24;
+        symbol [ Math %tmp.26 67 43 47 ];
+        %tmp.26 = getm $.Toybox.Math;
+        symbol [ PI %tmp.27 67 48 50 ];
+        %tmp.27 = getv %tmp.26 :PI;
+        %tmp.28 = div %tmp.25 %tmp.27;
+        %tmp.29 = dup %tmp.19;
+        %tmp.30 = aputv %tmp.29 %tmp.21 %tmp.28;
+        %tmp.32 = const :distance;
+        symbol [ distance %tmp.32 68 13 21 const ];
+        symbol [ totalDistance %tmp.34 68 25 38 ];
+        %tmp.34 = getv ? :totalDistance;
+        %tmp.35 = dup %tmp.30;
+        %tmp.36 = aputv %tmp.35 %tmp.32 %tmp.34;
+        ret %tmp.36;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_62_39_70_4_stop:
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 1; ]
+<init> {
+}
