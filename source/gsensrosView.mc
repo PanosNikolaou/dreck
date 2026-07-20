@@ -9,258 +9,297 @@ import Toybox.Position;
 import Toybox.Activity;
 import Toybox.FitContributor;
 import Toybox.Math;
-import Toybox.Time;
 
 class gsensrosView extends WatchUi.View {
 
-    var accelX = 0, accelY = 0, accelZ = 0;
-    var gyroX = 0.0f, gyroY = 0.0f, gyroZ = 0.0f;
+    // Sensor snapshot values
+    var accelX = 0;
+    var accelY = 0;
+    var accelZ = 0;
+
+    var gyroX = 0.0f;
+    var gyroY = 0.0f;
+    var gyroZ = 0.0f;
+
     var magHeading = 0.0f;
 
-    var latitude = 0.0;
-    var longitude = 0.0;
-    var speed = 0.0;
+    // GPS / position
+    var latitude = 0.0f;
+    var longitude = 0.0f;
+    var speed = 0.0f;
 
-    var entryLat = 0.0;
-    var entryLon = 0.0;
-    var exitLat = 0.0;
-    var exitLon = 0.0;
+    var entryLat = 0.0f;
+    var entryLon = 0.0f;
+    var exitLat = 0.0f;
+    var exitLon = 0.0f;
 
+    // Recording
     var session = null;
     var isRecording = false;
     var isUnderwater = false;
 
+    // Timing / DR
     var updateTimer = null;
     var dr = null;
+    var lastUpdateMs = 0;
 
+    // FIT fields
     var drEastField = null;
     var drNorthField = null;
     var depthField = null;
 
     // Depth handling
-    var surfaceAltitude = 0.0;
-    var depthFilter = 0.0;
+    var surfaceAltitudeSum = 0.0f;
+    var surfaceAltitude = 0.0f;
+    var depthFilter = 0.0f;
     var calibrationSamples = 0;
     const CALIBRATION_COUNT = 30;
-    var currentDepth = 0.0;
+    var currentDepth = 0.0f;
+
+    // Thresholds
+    const AUTO_START_DEPTH_M = 3.0f;
+    const AUTO_STOP_DEPTH_M = 1.0f;
+    const TIMER_PERIOD_MS = 500;
+    const FALLBACK_SWIM_SPEED_MPS = 0.6f;
+    const MIN_VALID_GPS_SPEED_MPS = 0.05f;
+
+    // Last FIT values to avoid redundant setData()
+    var lastFitEast = null;
+    var lastFitNorth = null;
+    var lastFitDepth = null;
 
     function initialize() {
         View.initialize();
+
         try {
             dr = new DeadReckoning();
         } catch (e) {
-            System.println("DeadReckoning init failed: " + e.getErrorMessage());
+            System.println("DeadReckoning init failed: " + errorToString(e));
         }
     }
 
     function onLayout(dc as Dc) as Void {
-        try { 
-            setLayout(Rez.Layouts.MainLayout(dc)); 
+        try {
+            setLayout(Rez.Layouts.MainLayout(dc));
         } catch (e) {
-            System.println("Layout error: " + e.getErrorMessage());
+            System.println("Layout error: " + errorToString(e));
         }
     }
 
     function onShow() as Void {
         try {
             System.println("=== Auto Dive DR App Started ===");
-            surfaceAltitude = 0.0;
-            calibrationSamples = 0;
-            depthFilter = 0.0;
-            
+
+            resetDepthCalibration();
+            lastUpdateMs = System.getTimer();
+
+            if (updateTimer != null) {
+                updateTimer.stop();
+            }
+
             updateTimer = new Timer.Timer();
-            updateTimer.start(method(:timerCallback), 500, true);
+            updateTimer.start(method(:timerCallback), TIMER_PERIOD_MS, true);
+
         } catch (e) {
-            System.println("onShow error: " + e.getErrorMessage());
+            System.println("onShow error: " + errorToString(e));
         }
     }
 
     function timerCallback() as Void {
         try {
+            var nowMs = System.getTimer();
+            var dt = (nowMs - lastUpdateMs).toFloat() / 1000.0f;
+            lastUpdateMs = nowMs;
+
+            if (dt <= 0.0f || dt > 2.0f) {
+                WatchUi.requestUpdate();
+                return;
+            }
+
+            readSensors();
+            updateDepth();
+            updateGPS();
+            processDiveState();
+
+            if (isUnderwater && isRecording && dr != null) {
+                var estSpeed = getEstimatedSpeedMps();
+                dr.updateWithSpeed(accelX, accelY, accelZ, gyroZ, magHeading, dt, estSpeed);
+                writeFitFieldsIfNeeded();
+            }
+
+        } catch (e) {
+            System.println("CRITICAL Timer Error: " + errorToString(e));
+        }
+
+        WatchUi.requestUpdate();
+    }
+
+    function readSensors() as Void {
+        try {
             var info = Sensor.getInfo();
-            
+            if (info == null) {
+                return;
+            }
+
             if (info has :accel && info.accel != null && info.accel.size() >= 3) {
                 accelX = info.accel[0];
                 accelY = info.accel[1];
                 accelZ = info.accel[2];
             }
-            
+
             if (info has :gyro && info.gyro != null && info.gyro.size() >= 3) {
-                gyroX = info.gyro[0];
-                gyroY = info.gyro[1];
-                gyroZ = info.gyro[2];
+                gyroX = info.gyro[0].toFloat();
+                gyroY = info.gyro[1].toFloat();
+                gyroZ = info.gyro[2].toFloat();
             }
-            
+
             if (info has :mag && info.mag != null && info.mag.size() >= 2) {
                 magHeading = Math.atan2(info.mag[1].toFloat(), info.mag[0].toFloat());
             }
 
-            // Depth with calibration
-            if (info has :altitude && info.altitude != null) {
-                var rawAlt = info.altitude;
-                if (calibrationSamples < CALIBRATION_COUNT) {
-                    surfaceAltitude += rawAlt;
-                    calibrationSamples++;
-                    if (calibrationSamples == CALIBRATION_COUNT) {
-                        surfaceAltitude /= CALIBRATION_COUNT;
-                    }
-                    currentDepth = 0.0;
-                } else {
-                    var rawDepth = surfaceAltitude - rawAlt;
-                    depthFilter = depthFilter * 0.75 + rawDepth * 0.25;
-                    currentDepth = depthFilter > 0 ? depthFilter : 0.0;
+        } catch (e) {
+            System.println("readSensors error: " + errorToString(e));
+        }
+    }
+
+    function updateDepth() as Void {
+        try {
+            var info = Sensor.getInfo();
+            if (info == null || !(info has :altitude) || info.altitude == null) {
+                return;
+            }
+
+            var rawAlt = info.altitude.toFloat();
+
+            if (calibrationSamples < CALIBRATION_COUNT) {
+                surfaceAltitudeSum += rawAlt;
+                calibrationSamples += 1;
+
+                if (calibrationSamples == CALIBRATION_COUNT) {
+                    surfaceAltitude = surfaceAltitudeSum / CALIBRATION_COUNT.toFloat();
+                    depthFilter = 0.0f;
                 }
+
+                currentDepth = 0.0f;
+                return;
             }
 
-            updateGPS();
+            var rawDepth = surfaceAltitude - rawAlt;
+            depthFilter = (depthFilter * 0.75f) + (rawDepth * 0.25f);
 
-            // Auto dive detection
-            if (!isRecording && currentDepth > 3.0 && calibrationSamples >= CALIBRATION_COUNT) {
-                startDive();
-            } else if (isRecording && currentDepth < 1.0) {
-                endDive();
+            if (depthFilter < 0.0f) {
+                depthFilter = 0.0f;
             }
 
-            if (isUnderwater && isRecording && dr != null) {
-                var now = Time.now().value();
-                var dt = (now - dr.prevTime).toFloat();
-                dr.prevTime = now;
-                if (dt > 0 && dt < 2) {
-                    dr.update(accelX, accelY, accelZ, gyroZ, magHeading, dt);
-                }
-            }
+            currentDepth = depthFilter;
 
         } catch (e) {
-            System.println("CRITICAL Timer Error: " + e.getErrorMessage());
+            System.println("updateDepth error: " + errorToString(e));
         }
-        WatchUi.requestUpdate();
     }
 
     function updateGPS() as Void {
         try {
             var loc = Position.getInfo();
-            if (loc != null && loc.position != null) {
-                var coords = loc.position.toDegrees();
-                latitude = coords[0];
-                longitude = coords[1];
-                speed = loc.speed != null ? loc.speed : 0.0;
+            if (loc == null) {
+                return;
             }
-        } catch (e) {}
+
+            if (loc.position != null) {
+                var coords = loc.position.toDegrees();
+                latitude = coords[0].toFloat();
+                longitude = coords[1].toFloat();
+            }
+
+            if (loc has :speed && loc.speed != null) {
+                speed = loc.speed.toFloat();
+            } else {
+                speed = 0.0f;
+            }
+
+        } catch (e) {
+            System.println("updateGPS error: " + errorToString(e));
+        }
+    }
+
+    var shallowSampleCount = 0;
+    const SHALLOW_SAMPLES_TO_STOP = 5; // 5 x 500ms = 2.5s
+
+    function processDiveState() as Void {
+        if (!isRecording && calibrationSamples >= CALIBRATION_COUNT && currentDepth >= AUTO_START_DEPTH_M) {
+            startDive();
+            shallowSampleCount = 0;
+            return;
+        }
+
+        if (isRecording) {
+            if (currentDepth <= 0.5f) {
+                shallowSampleCount += 1;
+                if (shallowSampleCount >= SHALLOW_SAMPLES_TO_STOP) {
+                    endDive();
+                    shallowSampleCount = 0;
+                }
+            } else {
+                shallowSampleCount = 0;
+            }
+        }
+    }
+
+    function getEstimatedSpeedMps() as Float {
+        if (speed > MIN_VALID_GPS_SPEED_MPS) {
+            return speed.toFloat();
+        }
+
+        if (isUnderwater) {
+            return FALLBACK_SWIM_SPEED_MPS;
+        }
+
+        return 0.0f;
     }
 
     function onSelect() as Boolean {
         try {
             System.println("=== SELECT BUTTON PRESSED ===");
+
             if (isRecording) {
-                System.println("→ Stopping dive (manual)");
+                System.println("Manual stop requested");
                 endDive();
             } else {
-                System.println("→ Starting dive (manual)");
+                System.println("Manual start requested");
                 startDive();
             }
+
         } catch (e) {
-            System.println("Select button error: " + e.getErrorMessage());
+            System.println("Select button error: " + errorToString(e));
         }
+
         return true;
     }
 
-    function onBack() as Boolean {
-        System.println("=== BACK BUTTON - Starting safe exit ===");
-        
-        try {
-            if (isRecording) {
-                System.println("Stopping recording before exit");
-                stopRecording();   // Use direct stop instead of endDive()
-            }
-            
-            // Direct pop without delay
-            WatchUi.popView(WatchUi.SLIDE_DOWN);
-            
-        } catch (e) {
-            System.println("Back button crash prevented: " + e.getErrorMessage());
-            // Last resort
+function onBack() as Boolean {
+    System.println("=== BACK BUTTON - Starting safe exit ===");
+
+    try {
+        // 1) Stop timer first
+        if (updateTimer != null) {
             try {
-                stopRecording();
-            } catch (ex) {}
-            WatchUi.popView(WatchUi.SLIDE_DOWN);
-        }
-        return true;
-    }
-
-    function startDive() as Void {
-        try {
-            System.println("AUTO DIVE START DETECTED");
-            startRecording();
-            
-            var loc = Position.getInfo();
-            if (loc != null && loc.position != null) {
-                var coords = loc.position.toDegrees();
-                entryLat = coords[0];
-                entryLon = coords[1];
+                updateTimer.stop();
+                updateTimer = null;
+            } catch (e) {
+                System.println("Timer stop error in onBack: " + e.getErrorMessage());
             }
-            
-            isUnderwater = true;
-            if (dr != null) { dr.reset(); }
-            WatchUi.requestUpdate();
-        } catch (e) {
-            System.println("startDive error: " + e.getErrorMessage());
         }
-    }
 
-    function endDive() as Void {
-        try {
-            System.println("AUTO SURFACE DETECTED - Saving FIT");
-            var loc = Position.getInfo();
-            if (loc != null && loc.position != null) {
-                var coords = loc.position.toDegrees();
-                exitLat = coords[0];
-                exitLon = coords[1];
-            }
-            
-            isUnderwater = false;
-            stopRecording();
-            
-            surfaceAltitude = 0.0;
-            calibrationSamples = 0;
-            depthFilter = 0.0;
-            WatchUi.requestUpdate();
-        } catch (e) {
-            System.println("endDive error: " + e.getErrorMessage());
-        }
-    }
-
-    function startRecording() as Void {
-        try {
-            if (session != null) { session = null; }
-
-            session = ActivityRecording.createSession({
-                :name => "Auto_Dive_DR",
-                :sport => Activity.SPORT_SWIMMING,
-                :subSport => Activity.SUB_SPORT_OPEN_WATER
-            });
-
-            if (session != null) {
-                drEastField = session.createField("DR_East_m", 101, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-                drNorthField = session.createField("DR_North_m", 102, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-                depthField = session.createField("Depth_m", 103, FitContributor.DATA_TYPE_FLOAT, {:mesgType => FitContributor.MESG_TYPE_RECORD});
-
-                session.start();
-                isRecording = true;
-                System.println("Recording STARTED");
-            }
-        } catch (e) {
-            System.println("Start recording error: " + e.getErrorMessage());
-        }
-    }
-
-    function stopRecording() as Void {
+        // 2) Stop and save session once
         if (session != null) {
             try {
-                session.stop();
+                if (session.isRecording()) {
+                    session.stop();
+                }
                 session.save();
-                System.println("FIT FILE SAVED SUCCESSFULLY!");
+                System.println("FIT FILE SAVED SUCCESSFULLY (onBack)!");
             } catch (e) {
-                System.println("Save error: " + e.getErrorMessage());
+                System.println("Session stop/save error in onBack: " + e.getErrorMessage());
             }
             session = null;
             isRecording = false;
@@ -268,53 +307,360 @@ class gsensrosView extends WatchUi.View {
             drNorthField = null;
             depthField = null;
         }
-    }
 
-    function onHide() as Void {
+        // 3) Clear state
+        isUnderwater = false;
+
+        // 4) Pop view once
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+
+    } catch (e) {
+        System.println("onBack crash prevented: " + e.getErrorMessage());
+        // Last resort: still try to pop
         try {
-            if (isRecording) { endDive(); }
-            if (updateTimer != null) { updateTimer.stop(); }
-        } catch (e) {
-            System.println("onHide error: " + e.getErrorMessage());
+            WatchUi.popView(WatchUi.SLIDE_DOWN);
+        } catch (ex) {
+            System.println("Final popView failed: " + ex.getErrorMessage());
         }
     }
+
+    return true;
+}
+    function startDive() as Void {
+        try {
+            if (isRecording) {
+                return;
+            }
+
+            System.println("DIVE START");
+
+            captureEntryPosition();
+            startRecording();
+
+            isUnderwater = true;
+
+            if (dr != null) {
+                dr.resetWithHeading(magHeading);
+            }
+
+            lastUpdateMs = System.getTimer();
+            WatchUi.requestUpdate();
+
+        } catch (e) {
+            System.println("startDive error: " + errorToString(e));
+        }
+    }
+
+    function endDive() as Void {
+        try {
+            if (!isRecording) {
+                isUnderwater = false;
+                return;
+            }
+
+            System.println("SURFACE DETECTED - Saving FIT");
+
+            captureExitPosition();
+
+            isUnderwater = false;
+            shutdownSession();
+
+            resetDepthCalibration();
+            WatchUi.requestUpdate();
+
+        } catch (e) {
+            System.println("endDive error: " + errorToString(e));
+        }
+    }
+
+    function captureEntryPosition() as Void {
+        try {
+            var loc = Position.getInfo();
+            if (loc != null && loc.position != null) {
+                var coords = loc.position.toDegrees();
+                entryLat = coords[0].toFloat();
+                entryLon = coords[1].toFloat();
+            }
+        } catch (e) {
+            System.println("captureEntryPosition error: " + errorToString(e));
+        }
+    }
+
+    function captureExitPosition() as Void {
+        try {
+            var loc = Position.getInfo();
+            if (loc != null && loc.position != null) {
+                var coords = loc.position.toDegrees();
+                exitLat = coords[0].toFloat();
+                exitLon = coords[1].toFloat();
+            }
+        } catch (e) {
+            System.println("captureExitPosition error: " + errorToString(e));
+        }
+    }
+
+    function startRecording() as Void {
+        try {
+            shutdownSession();
+
+            session = ActivityRecording.createSession({
+                :name => "Auto_Dive_DR",
+                :sport => Activity.SPORT_SWIMMING,
+                :subSport => Activity.SUB_SPORT_OPEN_WATER
+            });
+
+            if (session == null) {
+                System.println("createSession returned null");
+                return;
+            }
+
+            drEastField = session.createField(
+                "DR_East_m",
+                101,
+                FitContributor.DATA_TYPE_FLOAT,
+                { :mesgType => FitContributor.MESG_TYPE_RECORD, :units => "m" }
+            );
+
+            drNorthField = session.createField(
+                "DR_North_m",
+                102,
+                FitContributor.DATA_TYPE_FLOAT,
+                { :mesgType => FitContributor.MESG_TYPE_RECORD, :units => "m" }
+            );
+
+            depthField = session.createField(
+                "Depth_m",
+                103,
+                FitContributor.DATA_TYPE_FLOAT,
+                { :mesgType => FitContributor.MESG_TYPE_RECORD, :units => "m" }
+            );
+
+            var started = session.start();
+            if (started) {
+                isRecording = true;
+                lastFitEast = null;
+                lastFitNorth = null;
+                lastFitDepth = null;
+                System.println("Recording STARTED");
+            } else {
+                System.println("session.start() failed");
+                session = null;
+            }
+
+        } catch (e) {
+            System.println("Start recording error: " + errorToString(e));
+            session = null;
+            isRecording = false;
+        }
+    }
+
+    function shutdownSession() as Void {
+        if (session == null) {
+            isRecording = false;
+            drEastField = null;
+            drNorthField = null;
+            depthField = null;
+            return;
+        }
+
+        try {
+            if (session.isRecording()) {
+                session.stop();
+            }
+        } catch (e) {
+            System.println("session.stop error: " + errorToString(e));
+        }
+
+        try {
+            session.save();
+            System.println("FIT FILE SAVED SUCCESSFULLY!");
+        } catch (e) {
+            System.println("session.save error: " + errorToString(e));
+        }
+
+        session = null;
+        isRecording = false;
+        drEastField = null;
+        drNorthField = null;
+        depthField = null;
+        lastFitEast = null;
+        lastFitNorth = null;
+        lastFitDepth = null;
+    }
+
+    function resetDepthCalibration() as Void {
+        surfaceAltitudeSum = 0.0f;
+        surfaceAltitude = 0.0f;
+        depthFilter = 0.0f;
+        calibrationSamples = 0;
+        currentDepth = 0.0f;
+    }
+
+    function writeFitFieldsIfNeeded() as Void {
+        try {
+            if (!isRecording || session == null || dr == null) {
+                return;
+            }
+
+            var drData = dr.getDRData();
+            var eastVal = drData[:east];
+            var northVal = drData[:north];
+            var depthVal = currentDepth;
+
+            if (drEastField != null && (lastFitEast == null || !floatEquals(lastFitEast, eastVal, 0.01f))) {
+                drEastField.setData(eastVal);
+                lastFitEast = eastVal;
+            }
+
+            if (drNorthField != null && (lastFitNorth == null || !floatEquals(lastFitNorth, northVal, 0.01f))) {
+                drNorthField.setData(northVal);
+                lastFitNorth = northVal;
+            }
+
+            if (depthField != null && (lastFitDepth == null || !floatEquals(lastFitDepth, depthVal, 0.01f))) {
+                depthField.setData(depthVal);
+                lastFitDepth = depthVal;
+            }
+
+        } catch (e) {
+            System.println("FIT write error: " + errorToString(e));
+        }
+    }
+
+    function floatEquals(a as Float, b as Float, eps as Float) as Boolean {
+        var diff = a - b;
+        if (diff < 0.0f) {
+            diff = -diff;
+        }
+        return diff <= eps;
+    }
+
+    function errorToString(e) as String {
+        try {
+            return e.getErrorMessage();
+        } catch (ex) {
+            return "unknown error";
+        }
+    }
+
+function onHide() as Void {
+    try {
+        System.println("=== HIDING VIEW ===");
+
+        // Stop timer
+        if (updateTimer != null) {
+            try {
+                updateTimer.stop();
+                updateTimer = null;
+            } catch (e) {
+                System.println("Timer stop error in onHide: " + e.getErrorMessage());
+            }
+        }
+
+        // Stop and save session
+        if (session != null) {
+            try {
+                if (session.isRecording()) {
+                    session.stop();
+                }
+                session.save();
+                System.println("FIT FILE SAVED SUCCESSFULLY (onHide)!");
+            } catch (e) {
+                System.println("Session stop/save error in onHide: " + e.getErrorMessage());
+            }
+            session = null;
+            isRecording = false;
+            drEastField = null;
+            drNorthField = null;
+            depthField = null;
+        }
+
+        isUnderwater = false;
+
+    } catch (e) {
+        System.println("onHide error: " + e.getErrorMessage());
+    }
+}
 
     function onUpdate(dc as Dc) as Void {
         try {
             View.onUpdate(dc);
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dc.getWidth()/2, 8, Graphics.FONT_SMALL, "Auto Dive DR", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(dc.getWidth() / 2, 8, Graphics.FONT_SMALL, "Auto Dive DR", Graphics.TEXT_JUSTIFY_CENTER);
 
             dc.setColor(isRecording ? Graphics.COLOR_GREEN : Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dc.getWidth()/2, 35, Graphics.FONT_SMALL, isRecording ? "● DIVING" : "Surface", Graphics.TEXT_JUSTIFY_CENTER);
-            
+            dc.drawText(
+                dc.getWidth() / 2,
+                35,
+                Graphics.FONT_SMALL,
+                isRecording ? "DIVING" : "Surface",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dc.getWidth()/2, 55, Graphics.FONT_XTINY, "Depth: " + currentDepth.format("%.1f") + "m", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(
+                dc.getWidth() / 2,
+                55,
+                Graphics.FONT_XTINY,
+                "Depth: " + currentDepth.format("%.1f") + "m",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
 
             if (dr != null) {
                 var drData = dr.getDRData();
-                dc.drawText(dc.getWidth()/2, 73, Graphics.FONT_XTINY, "DR E: " + drData[:east].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_CENTER);
-                dc.drawText(dc.getWidth()/2, 88, Graphics.FONT_XTINY, "DR N: " + drData[:north].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_CENTER);
-                dc.drawText(dc.getWidth()/2, 103, Graphics.FONT_XTINY, "Dist: " + drData[:distance].format("%.0f") + "m", Graphics.TEXT_JUSTIFY_CENTER);
-                dc.drawText(dc.getWidth()/2, 118, Graphics.FONT_XTINY, "Hdg: " + drData[:headingDeg].format("%.0f") + "°", Graphics.TEXT_JUSTIFY_CENTER);
+
+                dc.drawText(
+                    dc.getWidth() / 2,
+                    73,
+                    Graphics.FONT_XTINY,
+                    "DR E: " + drData[:east].format("%.1f") + "m",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
+
+                dc.drawText(
+                    dc.getWidth() / 2,
+                    88,
+                    Graphics.FONT_XTINY,
+                    "DR N: " + drData[:north].format("%.1f") + "m",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
+
+                dc.drawText(
+                    dc.getWidth() / 2,
+                    103,
+                    Graphics.FONT_XTINY,
+                    "Dist: " + drData[:distance].format("%.0f") + "m",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
+
+                dc.drawText(
+                    dc.getWidth() / 2,
+                    118,
+                    Graphics.FONT_XTINY,
+                    "Hdg: " + drData[:headingDeg].format("%.0f") + " deg",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
+
+                dc.drawText(
+                    dc.getWidth() / 2,
+                    133,
+                    Graphics.FONT_XTINY,
+                    "Spd: " + drData[:speed].format("%.2f") + "m/s",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
             }
 
-            dc.drawText(dc.getWidth()/2, dc.getHeight() - 25, Graphics.FONT_XTINY, "Select: Manual Toggle", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(
+                dc.getWidth() / 2,
+                dc.getHeight() - 25,
+                Graphics.FONT_XTINY,
+                "Select: Manual Toggle",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
 
         } catch (e) {
-            System.println("Draw error: " + e.getErrorMessage());
-        }
-
-        try {
-            if (isRecording && session != null && drEastField != null && dr != null) {
-                var drData = dr.getDRData();
-                drEastField.setData(drData[:east]);
-                drNorthField.setData(drData[:north]);
-                depthField.setData(currentDepth);
-            }
-        } catch (e) {
-            System.println("FIT write error: " + e.getErrorMessage());
+            System.println("Draw error: " + errorToString(e));
         }
     }
 }
