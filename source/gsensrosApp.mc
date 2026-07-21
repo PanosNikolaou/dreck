@@ -12,6 +12,10 @@ class gsensrosApp extends Application.AppBase {
     }
 
     function onStop(state as Dictionary?) as Void {
+        var view = getInitialView()[0];
+        if (view != null && view has :prepareToExit) {
+            view.prepareToExit();
+        }
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {

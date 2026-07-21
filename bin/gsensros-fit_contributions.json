@@ -1,0 +1,72 @@
+{
+  "datafields" : [ {
+    "id" : 101,
+    "chart-visible" : true,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : "dr_east_chart",
+    "label-key" : "dr_east_label",
+    "unit-label-key" : "meters_units",
+    "sort-order" : 0,
+    "precision" : 2,
+    "fill-color" : "rgba(0, 160, 255, 1.0)"
+  }, {
+    "id" : 102,
+    "chart-visible" : true,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : "dr_north_chart",
+    "label-key" : "dr_north_label",
+    "unit-label-key" : "meters_units",
+    "sort-order" : 1,
+    "precision" : 2,
+    "fill-color" : "rgba(0, 200, 83, 1.0)"
+  }, {
+    "id" : 103,
+    "chart-visible" : true,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : "depth_chart",
+    "label-key" : "depth_label",
+    "unit-label-key" : "meters_units",
+    "sort-order" : 2,
+    "precision" : 2,
+    "fill-color" : "rgba(255, 109, 0, 1.0)"
+  }, {
+    "id" : 104,
+    "chart-visible" : false,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : null,
+    "label-key" : "gps_lat_label",
+    "unit-label-key" : "degrees_units",
+    "sort-order" : 3,
+    "precision" : 6,
+    "fill-color" : "rgba(170, 0, 255, 1.0)"
+  }, {
+    "id" : 105,
+    "chart-visible" : false,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : null,
+    "label-key" : "gps_lon_label",
+    "unit-label-key" : "degrees_units",
+    "sort-order" : 4,
+    "precision" : 6,
+    "fill-color" : "rgba(213, 0, 0, 1.0)"
+  } ],
+  "strings" : {
+    "default" : {
+      "dr_east_chart" : "Dead Reckoning East",
+      "dr_east_label" : "DR East",
+      "meters_units" : "m",
+      "dr_north_chart" : "Dead Reckoning North",
+      "dr_north_label" : "DR North",
+      "depth_chart" : "Depth",
+      "depth_label" : "Depth",
+      "gps_lat_label" : "GPS Latitude",
+      "degrees_units" : "deg",
+      "gps_lon_label" : "GPS Longitude"
+    }
+  }
+}

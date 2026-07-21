@@ -26,9 +26,21 @@ module Rez {
     } // Menus
 
     module Strings {
-        (:initialized) var menu_label_1 as ResourceId;
-        (:initialized) var menu_label_2 as ResourceId;
+        (:initialized) var meters_units as ResourceId;
+        (:initialized) var dr_north_label as ResourceId;
+        (:initialized) var dr_east_label as ResourceId;
+        (:initialized) var dr_east_chart as ResourceId;
+        (:initialized) var gps_lon_chart as ResourceId;
         (:initialized) var AppName as ResourceId;
+        (:initialized) var depth_chart as ResourceId;
+        (:initialized) var gps_lat_label as ResourceId;
+        (:initialized) var depth_label as ResourceId;
+        (:initialized) var degrees_units as ResourceId;
+        (:initialized) var menu_label_1 as ResourceId;
+        (:initialized) var gps_lat_chart as ResourceId;
+        (:initialized) var menu_label_2 as ResourceId;
+        (:initialized) var gps_lon_label as ResourceId;
+        (:initialized) var dr_north_chart as ResourceId;
     } // Strings
 
     module Styles {

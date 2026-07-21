@@ -1,5 +1,74 @@
-<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <string id="AppName">gsensros</string>
-    <string id="menu_label_1">Item 1</string>
-    <string id="menu_label_2">Item 2</string>
-</strings>
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <strings>
+        <string id="AppName">gsensros</string>
+
+        <string id="menu_label_1">Start Dive</string>
+        <string id="menu_label_2">Stop Dive</string>
+
+        <string id="dr_east_label">DR East</string>
+        <string id="dr_east_chart">Dead Reckoning East</string>
+
+        <string id="dr_north_label">DR North</string>
+        <string id="dr_north_chart">Dead Reckoning North</string>
+
+        <string id="depth_label">Depth</string>
+        <string id="depth_chart">Depth</string>
+
+        <string id="gps_lat_label">GPS Latitude</string>
+        <string id="gps_lat_chart">GPS Latitude</string>
+
+        <string id="gps_lon_label">GPS Longitude</string>
+        <string id="gps_lon_chart">GPS Longitude</string>
+
+        <string id="meters_units">m</string>
+        <string id="degrees_units">deg</string>
+    </strings>
+
+    <fitContributions>
+        <fitField id="101"
+            displayInChart="true"
+            sortOrder="0"
+            precision="2"
+            chartTitle="@Strings.dr_east_chart"
+            dataLabel="@Strings.dr_east_label"
+            unitLabel="@Strings.meters_units"
+            fillColor="#00A0FF" />
+
+        <fitField id="102"
+            displayInChart="true"
+            sortOrder="1"
+            precision="2"
+            chartTitle="@Strings.dr_north_chart"
+            dataLabel="@Strings.dr_north_label"
+            unitLabel="@Strings.meters_units"
+            fillColor="#00C853" />
+
+        <fitField id="103"
+            displayInChart="true"
+            sortOrder="2"
+            precision="2"
+            chartTitle="@Strings.depth_chart"
+            dataLabel="@Strings.depth_label"
+            unitLabel="@Strings.meters_units"
+            fillColor="#FF6D00" />
+
+        <fitField id="104"
+            displayInChart="false"
+            sortOrder="3"
+            precision="6"
+            dataLabel="@Strings.gps_lat_label"
+            unitLabel="@Strings.degrees_units"
+            fillColor="#AA00FF" />
+
+        <fitField id="105"
+            displayInChart="false"
+            sortOrder="4"
+            precision="6"
+            dataLabel="@Strings.gps_lon_label"
+            unitLabel="@Strings.degrees_units"
+            fillColor="#D50000" />
+    </fitContributions>
+
+</resources>

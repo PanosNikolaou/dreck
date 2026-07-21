@@ -24,39 +24,84 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_7_26_9_4_star
         invoke %tmp.2 %tmp.3();
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_7_26_9_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 12; @symbol_functiondef = [onStart,12,13,20]; @symbol_param<0> = [state,12,21,26]; @symbol_param<0>_type<0> = [Dictionary,12,30,40]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 11; @symbol_functiondef = [onStart,11,13,20]; @symbol_param<0> = [state,11,21,26]; @symbol_param<0>_type<0> = [Dictionary,11,30,40]; ]
     function onStart(state as Dictionary or Null) as Void {
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 16; @symbol_functiondef = [onStop,16,13,19]; @symbol_param<0> = [state,16,20,25]; @symbol_param<0>_type<0> = [Dictionary,16,29,39]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 14; @symbol_functiondef = [onStop,14,13,19]; @symbol_param<0> = [state,14,20,25]; @symbol_param<0>_type<0> = [Dictionary,14,29,39]; ]
     function onStop(state as Dictionary or Null) as Void {
-    }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 20; @symbol_functiondef = [getInitialView,20,13,27]; @symbol_return<0> = [Views,20,34,39]; @symbol_return<1> = [Views,20,45,50]; @symbol_return<2> = [InputDelegates,20,52,66]; ]
-    function getInitialView() as [Views] or [Views, InputDelegates] {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_20_68_23_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 21 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_20_68_23_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_20_68_23_4_stop" ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_14_50_19_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 15 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_14_50_19_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_14_50_19_4_stop" ]
         %view.1 = local;
-        symbol [ view %view.1 21 12 16 ];
-        symbol [ gsensrosView %tmp.4 21 23 35 ];
+        symbol [ view %view.1 15 12 16 ];
+        %tmp.1 = self;
+        symbol [ getInitialView %tmp.2 15 19 33 ];
+        %tmp.2 = getv function %tmp.1 :getInitialView;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        %tmp.4 = 0;
+        %tmp.5 = agetv %tmp.3 %tmp.4;
+        lputv %view.1 %tmp.5;
+        symbol [ view %view.1 15 12 16 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 16 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_12_16_38_begin:
+        %tmp.6 = lgetv %view.1;
+        symbol [ view %tmp.6 16 12 16 ];
+        %tmp.7 = null;
+        %tmp.8 = ne %tmp.6 %tmp.7;
+        bf %tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_28_16_38_true:
+        %tmp.9 = lgetv %view.1;
+        symbol [ view %tmp.9 16 28 32 ];
+        %tmp.10 = as %tmp.9 { (!Null) };
+        %tmp.12 = const :prepareToExit;
+        symbol [ prepareToExit %tmp.12 16 38 51 const ];
+        %tmp.13 = canhazplz %tmp.10 %tmp.12;
+        push %tmp.13;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_28_16_38_end:
+        %tmp.14 = phi [%tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_12_16_38_begin] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_28_16_38_true] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_28_16_38_end];
+        bf %tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_53_18_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 17 12 ]
+        %tmp.15 = lgetv %view.1;
+        symbol [ view %tmp.15 17 12 16 ];
+        %tmp.16 = as %tmp.15 { (interface { var prepareToExit; }) && (!Null) };
+        symbol [ prepareToExit %tmp.17 17 17 30 ];
+        %tmp.17 = getv function %tmp.16 :prepareToExit;
+        invoke %tmp.16 %tmp.17();
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_53_18_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_16_8_18_8_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_14_50_19_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 21; @symbol_functiondef = [getInitialView,21,13,27]; @symbol_return<0> = [Views,21,34,39]; @symbol_return<1> = [Views,21,45,50]; @symbol_return<2> = [InputDelegates,21,52,66]; ]
+    function getInitialView() as [Views] or [Views, InputDelegates] {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_21_68_24_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 22 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_21_68_24_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_21_68_24_4_stop" ]
+        %view.1 = local;
+        symbol [ view %view.1 22 12 16 ];
+        symbol [ gsensrosView %tmp.4 22 23 35 ];
         %tmp.4 = getv ? :gsensrosView;
         %tmp.1 = newc %tmp.4 ();
         lputv %view.1 %tmp.1;
-        symbol [ view %view.1 21 12 16 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 22 8 ]
+        symbol [ view %view.1 22 12 16 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 23 8 ]
         %tmp.5 = newa 2;
         %tmp.6 = lgetv %view.1;
-        symbol [ view %tmp.6 22 17 21 ];
+        symbol [ view %tmp.6 23 17 21 ];
         %tmp.7 = dup %tmp.5;
         %tmp.8 = aputv %tmp.7 0 %tmp.6;
-        symbol [ gsensrosDelegate %tmp.12 22 27 43 ];
+        symbol [ gsensrosDelegate %tmp.12 23 27 43 ];
         %tmp.12 = getv ? :gsensrosDelegate;
         %tmp.13 = lgetv %view.1;
-        symbol [ view %tmp.13 22 44 48 ];
+        symbol [ view %tmp.13 23 44 48 ];
         %tmp.9 = newc %tmp.12 (%tmp.13);
         %tmp.14 = dup %tmp.8;
         %tmp.15 = aputv %tmp.14 1 %tmp.9;
         ret %tmp.15;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_20_68_23_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_21_68_24_4_stop:
     }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 27; @symbol_functiondef = [getApp,27,9,15]; @symbol_return<0> = [gsensrosApp,27,21,32]; ]

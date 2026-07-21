@@ -47,21 +47,26 @@ class DeadReckoning {
 
     // Main update when caller already knows dt in seconds
     // accel params kept only for signature compatibility with your existing code path
-    function update(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float, dt as Float) as Void {
+    function update(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float or Null, dt as Float) as Void {
         updateWithSpeed(accelX, accelY, accelZ, gyroZ, magHeading, dt, speedMps);
     }
 
     // Preferred update path: caller supplies dt in seconds and a speed estimate in m/s
-    function updateWithSpeed(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float, dt as Float, newSpeedMps as Float) as Void {
+    function updateWithSpeed(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float or Null, dt as Float, newSpeedMps as Float) as Void {
         if (dt <= 0.0f || dt > MAX_DT_SEC) {
             return;
         }
 
         // 1) Fuse heading:
         // - integrate gyroZ as yaw-rate if caller provides rad/s
-        // - nudge toward magnetic heading with low-pass angle blend
+        // - nudge toward measured heading if available
         var predictedHeading = normalizeAngle(heading + (gyroZ * dt));
-        heading = blendAngle(predictedHeading, normalizeAngle(magHeading), HEADING_ALPHA);
+
+        if (magHeading != null) {
+            heading = blendAngle(predictedHeading, normalizeAngle(magHeading), HEADING_ALPHA);
+        } else {
+            heading = predictedHeading;
+        }
 
         // 2) Smooth speed input and clamp
         var clampedSpeed = clampFloat(newSpeedMps, MIN_SPEED_MPS, MAX_SPEED_MPS);
@@ -77,7 +82,7 @@ class DeadReckoning {
     }
 
     // Convenience overload when you do not want to compute dt outside
-    function updateAutoDt(magHeading as Float, gyroZ as Float, newSpeedMps as Float) as Void {
+    function updateAutoDt(magHeading as Float or Null, gyroZ as Float, newSpeedMps as Float) as Void {
         var nowMs = System.getTimer();
         var dt = (nowMs - prevMs).toFloat() / 1000.0f;
         prevMs = nowMs;
@@ -116,9 +121,8 @@ class DeadReckoning {
         return {
             :east => posX,
             :north => posY,
-            :depth => 0.0f, // keep compatibility; use pressure/altitude depth elsewhere
             :headingRad => heading,
-            :headingDeg => radiansToDegrees(heading),
+            :headingDeg => Math.toDegrees(heading),
             :distance => totalDistance,
             :speed => speedMps
         };
@@ -155,9 +159,5 @@ class DeadReckoning {
     function blendAngle(current as Float, target as Float, alpha as Float) as Float {
         var delta = normalizeAngle(target - current);
         return normalizeAngle(current + (delta * alpha));
-    }
-
-    function radiansToDegrees(rad as Float) as Float {
-        return rad * 180.0f / Math.PI;
     }
 }

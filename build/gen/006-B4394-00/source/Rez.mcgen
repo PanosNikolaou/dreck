@@ -11,9 +11,7 @@ module Rez {
 
     module Layouts {
         function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
-            var rez_cmp_local_text_1193959466 = new WatchUi.Text({:color=>Graphics.COLOR_WHITE, :locX=>(dc.getWidth() * 0.5), :locY=>5, :text=>"Dive DR", :justification=>Graphics.TEXT_JUSTIFY_CENTER, :font=>Graphics.FONT_MEDIUM});
-
-            return [rez_cmp_local_text_1193959466] as Array<WatchUi.Drawable>;
+            return [] as Array<WatchUi.Drawable>;
         }
     } // Layouts
 
@@ -28,9 +26,21 @@ module Rez {
     } // Menus
 
     module Strings {
-        (:initialized) var menu_label_1 as ResourceId;
-        (:initialized) var menu_label_2 as ResourceId;
+        (:initialized) var meters_units as ResourceId;
+        (:initialized) var dr_north_label as ResourceId;
+        (:initialized) var dr_east_label as ResourceId;
+        (:initialized) var dr_east_chart as ResourceId;
+        (:initialized) var gps_lon_chart as ResourceId;
         (:initialized) var AppName as ResourceId;
+        (:initialized) var depth_chart as ResourceId;
+        (:initialized) var gps_lat_label as ResourceId;
+        (:initialized) var depth_label as ResourceId;
+        (:initialized) var degrees_units as ResourceId;
+        (:initialized) var menu_label_1 as ResourceId;
+        (:initialized) var gps_lat_chart as ResourceId;
+        (:initialized) var menu_label_2 as ResourceId;
+        (:initialized) var gps_lon_label as ResourceId;
+        (:initialized) var dr_north_chart as ResourceId;
     } // Strings
 
     module Styles {
