@@ -1,0 +1,724 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Math,2,14,18]; ]
+import Toybox.Math;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [System,3,14,20]; ]
+import Toybox.System;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 5; @symbol_classdef = [KalmanDR,5,6,14]; ]
+class KalmanDR {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 5; ]
+    <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 7 8 ]
+        %tmp.1 = newa 4;
+        %tmp.2 = 0.0f;
+        %tmp.3 = dup %tmp.1;
+        %tmp.4 = aputv %tmp.3 0 %tmp.2;
+        %tmp.5 = 0.0f;
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 1 %tmp.5;
+        %tmp.8 = 0.0f;
+        %tmp.9 = dup %tmp.7;
+        %tmp.10 = aputv %tmp.9 2 %tmp.8;
+        %tmp.11 = 0.0f;
+        %tmp.12 = dup %tmp.10;
+        %tmp.13 = aputv %tmp.12 3 %tmp.11;
+        putv self :x %tmp.13;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 9 8 ]
+        %tmp.14 = newa 16;
+        %tmp.15 = 1000.0f;
+        %tmp.16 = dup %tmp.14;
+        %tmp.17 = aputv %tmp.16 0 %tmp.15;
+        %tmp.18 = 0.0f;
+        %tmp.19 = dup %tmp.17;
+        %tmp.20 = aputv %tmp.19 1 %tmp.18;
+        %tmp.21 = 0.0f;
+        %tmp.22 = dup %tmp.20;
+        %tmp.23 = aputv %tmp.22 2 %tmp.21;
+        %tmp.24 = 0.0f;
+        %tmp.25 = dup %tmp.23;
+        %tmp.26 = aputv %tmp.25 3 %tmp.24;
+        %tmp.27 = 0.0f;
+        %tmp.28 = dup %tmp.26;
+        %tmp.29 = aputv %tmp.28 4 %tmp.27;
+        %tmp.30 = 1000.0f;
+        %tmp.31 = dup %tmp.29;
+        %tmp.32 = aputv %tmp.31 5 %tmp.30;
+        %tmp.33 = 0.0f;
+        %tmp.34 = dup %tmp.32;
+        %tmp.35 = aputv %tmp.34 6 %tmp.33;
+        %tmp.36 = 0.0f;
+        %tmp.37 = dup %tmp.35;
+        %tmp.38 = aputv %tmp.37 7 %tmp.36;
+        %tmp.39 = 0.0f;
+        %tmp.40 = dup %tmp.38;
+        %tmp.41 = aputv %tmp.40 8 %tmp.39;
+        %tmp.42 = 0.0f;
+        %tmp.43 = dup %tmp.41;
+        %tmp.44 = aputv %tmp.43 9 %tmp.42;
+        %tmp.45 = 100.0f;
+        %tmp.46 = dup %tmp.44;
+        %tmp.47 = aputv %tmp.46 10 %tmp.45;
+        %tmp.48 = 0.0f;
+        %tmp.49 = dup %tmp.47;
+        %tmp.50 = aputv %tmp.49 11 %tmp.48;
+        %tmp.51 = 0.0f;
+        %tmp.52 = dup %tmp.50;
+        %tmp.53 = aputv %tmp.52 12 %tmp.51;
+        %tmp.54 = 0.0f;
+        %tmp.55 = dup %tmp.53;
+        %tmp.56 = aputv %tmp.55 13 %tmp.54;
+        %tmp.57 = 0.0f;
+        %tmp.58 = dup %tmp.56;
+        %tmp.59 = aputv %tmp.58 14 %tmp.57;
+        %tmp.60 = 100.0f;
+        %tmp.61 = dup %tmp.59;
+        %tmp.62 = aputv %tmp.61 15 %tmp.60;
+        putv self :P %tmp.62;
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 7; @position = 8; @symbol_vardef = [x,7,8,9]; @symbol_type<0> = [Array,7,13,18]; @symbol_type<1> = [Float,7,19,24]; ]
+    var x as Array<Float>;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 9; @position = 8; @symbol_vardef = [P,9,8,9]; @symbol_type<0> = [Array,9,13,18]; @symbol_type<1> = [Float,9,19,24]; ]
+    var P as Array<Float>;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 16; @position = 10; @symbol_constdef = [STATE_SIZE,16,10,20]; ]
+    const STATE_SIZE = 4;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 18; @position = 10; @symbol_constdef = [Q_PROCESS,18,10,19]; ]
+    const Q_PROCESS = 0.08f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 19; @position = 10; @symbol_constdef = [R_GPS_POS,19,10,19]; ]
+    const R_GPS_POS = 8.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 21; @position = 8; @symbol_vardef = [referenceLat,21,8,20]; ]
+    var referenceLat = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 22; @position = 8; @symbol_vardef = [referenceLon,22,8,20]; ]
+    var referenceLon = 0.0f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 23; @position = 8; @symbol_vardef = [hasReference,23,8,20]; ]
+    var hasReference = false;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 25; @symbol_functiondef = [initialize,25,13,23]; ]
+    function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_25_26_27_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 26 8 ]
+        %tmp.1 = self;
+        symbol [ reset %tmp.2 26 8 13 ];
+        %tmp.2 = getv function %tmp.1 :reset;
+        invoke %tmp.1 %tmp.2();
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_25_26_27_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 29; @symbol_functiondef = [reset,29,13,18]; ]
+    function reset() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_29_29_38_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 30 8 ]
+        %tmp.1 = newa 4;
+        %tmp.2 = 0.0f;
+        %tmp.3 = dup %tmp.1;
+        %tmp.4 = aputv %tmp.3 0 %tmp.2;
+        %tmp.5 = 0.0f;
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 1 %tmp.5;
+        %tmp.8 = 0.0f;
+        %tmp.9 = dup %tmp.7;
+        %tmp.10 = aputv %tmp.9 2 %tmp.8;
+        %tmp.11 = 0.0f;
+        %tmp.12 = dup %tmp.10;
+        %tmp.13 = aputv %tmp.12 3 %tmp.11;
+        symbol [ x ? 30 8 9 ];
+        putv self :x %tmp.13;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 31 8 ]
+        %tmp.14 = newa 16;
+        %tmp.15 = 1000.0f;
+        %tmp.16 = dup %tmp.14;
+        %tmp.17 = aputv %tmp.16 0 %tmp.15;
+        %tmp.18 = 0.0f;
+        %tmp.19 = dup %tmp.17;
+        %tmp.20 = aputv %tmp.19 1 %tmp.18;
+        %tmp.21 = 0.0f;
+        %tmp.22 = dup %tmp.20;
+        %tmp.23 = aputv %tmp.22 2 %tmp.21;
+        %tmp.24 = 0.0f;
+        %tmp.25 = dup %tmp.23;
+        %tmp.26 = aputv %tmp.25 3 %tmp.24;
+        %tmp.27 = 0.0f;
+        %tmp.28 = dup %tmp.26;
+        %tmp.29 = aputv %tmp.28 4 %tmp.27;
+        %tmp.30 = 1000.0f;
+        %tmp.31 = dup %tmp.29;
+        %tmp.32 = aputv %tmp.31 5 %tmp.30;
+        %tmp.33 = 0.0f;
+        %tmp.34 = dup %tmp.32;
+        %tmp.35 = aputv %tmp.34 6 %tmp.33;
+        %tmp.36 = 0.0f;
+        %tmp.37 = dup %tmp.35;
+        %tmp.38 = aputv %tmp.37 7 %tmp.36;
+        %tmp.39 = 0.0f;
+        %tmp.40 = dup %tmp.38;
+        %tmp.41 = aputv %tmp.40 8 %tmp.39;
+        %tmp.42 = 0.0f;
+        %tmp.43 = dup %tmp.41;
+        %tmp.44 = aputv %tmp.43 9 %tmp.42;
+        %tmp.45 = 100.0f;
+        %tmp.46 = dup %tmp.44;
+        %tmp.47 = aputv %tmp.46 10 %tmp.45;
+        %tmp.48 = 0.0f;
+        %tmp.49 = dup %tmp.47;
+        %tmp.50 = aputv %tmp.49 11 %tmp.48;
+        %tmp.51 = 0.0f;
+        %tmp.52 = dup %tmp.50;
+        %tmp.53 = aputv %tmp.52 12 %tmp.51;
+        %tmp.54 = 0.0f;
+        %tmp.55 = dup %tmp.53;
+        %tmp.56 = aputv %tmp.55 13 %tmp.54;
+        %tmp.57 = 0.0f;
+        %tmp.58 = dup %tmp.56;
+        %tmp.59 = aputv %tmp.58 14 %tmp.57;
+        %tmp.60 = 100.0f;
+        %tmp.61 = dup %tmp.59;
+        %tmp.62 = aputv %tmp.61 15 %tmp.60;
+        symbol [ P ? 31 8 9 ];
+        putv self :P %tmp.62;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 37 8 ]
+        %tmp.63 = false;
+        symbol [ hasReference ? 37 8 20 ];
+        putv self :hasReference %tmp.63;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_29_29_38_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 40; @symbol_functiondef = [setReference,40,13,25]; @symbol_param<0> = [lat,40,26,29]; @symbol_param<0>_type<0> = [Float,40,33,38]; @symbol_param<1> = [lon,40,40,43]; @symbol_param<1>_type<0> = [Float,40,47,52]; ]
+    function setReference(lat as Float, lon as Float) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_40_62_46_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 41 8 ]
+        %tmp.1 = lgetv %lat;
+        symbol [ lat %tmp.1 41 23 26 ];
+        symbol [ referenceLat ? 41 8 20 ];
+        putv self :referenceLat %tmp.1;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 42 8 ]
+        %tmp.2 = lgetv %lon;
+        symbol [ lon %tmp.2 42 23 26 ];
+        symbol [ referenceLon ? 42 8 20 ];
+        putv self :referenceLon %tmp.2;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 43 8 ]
+        %tmp.3 = true;
+        symbol [ hasReference ? 43 8 20 ];
+        putv self :hasReference %tmp.3;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 44 8 ]
+        symbol [ x %tmp.4 44 8 9 ];
+        %tmp.4 = getv self :x;
+        %tmp.5 = 0.0f;
+        %tmp.6 = 0;
+        aputv %tmp.4 %tmp.6 %tmp.5;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 45 8 ]
+        symbol [ x %tmp.7 45 8 9 ];
+        %tmp.7 = getv self :x;
+        %tmp.8 = 0.0f;
+        %tmp.9 = 1;
+        aputv %tmp.7 %tmp.9 %tmp.8;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_40_62_46_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 48; @symbol_functiondef = [getP,48,21,25]; @symbol_param<0> = [i,48,26,27]; @symbol_param<0>_type<0> = [Number,48,31,37]; @symbol_param<1> = [j,48,39,40]; @symbol_param<1>_type<0> = [Number,48,44,50]; @symbol_return<0> = [Float,48,55,60]; ]
+    private
+    function getP(i as Number, j as Number) as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_48_61_50_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 49 8 ]
+        symbol [ P %tmp.2 49 15 16 ];
+        %tmp.2 = getv ? :P;
+        %tmp.3 = lgetv %i;
+        symbol [ i %tmp.3 49 17 18 ];
+        symbol [ STATE_SIZE %tmp.5 49 21 31 ];
+        %tmp.5 = getv ? :STATE_SIZE;
+        %tmp.6 = mul %tmp.3 %tmp.5;
+        %tmp.7 = lgetv %j;
+        symbol [ j %tmp.7 49 34 35 ];
+        %tmp.8 = add %tmp.6 %tmp.7;
+        %tmp.9 = agetv %tmp.2 %tmp.8;
+        ret %tmp.9;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_48_61_50_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 52; @symbol_functiondef = [setP,52,21,25]; @symbol_param<0> = [i,52,26,27]; @symbol_param<0>_type<0> = [Number,52,31,37]; @symbol_param<1> = [j,52,39,40]; @symbol_param<1>_type<0> = [Number,52,44,50]; @symbol_param<2> = [value,52,52,57]; @symbol_param<2>_type<0> = [Float,52,61,66]; ]
+    private
+    function setP(i as Number, j as Number, value as Float) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_52_76_54_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 53 8 ]
+        symbol [ P %tmp.1 53 8 9 ];
+        %tmp.1 = getv self :P;
+        %tmp.2 = lgetv %value;
+        symbol [ value %tmp.2 53 32 37 ];
+        %tmp.3 = lgetv %i;
+        symbol [ i %tmp.3 53 10 11 ];
+        symbol [ STATE_SIZE %tmp.5 53 14 24 ];
+        %tmp.5 = getv ? :STATE_SIZE;
+        %tmp.6 = mul %tmp.3 %tmp.5;
+        %tmp.7 = lgetv %j;
+        symbol [ j %tmp.7 53 27 28 ];
+        %tmp.8 = add %tmp.6 %tmp.7;
+        aputv %tmp.1 %tmp.8 %tmp.2;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_52_76_54_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 56; @symbol_functiondef = [predict,56,13,20]; @symbol_param<0> = [speedMps,56,21,29]; @symbol_param<0>_type<0> = [Float,56,33,38]; @symbol_param<1> = [headingRad,56,40,50]; @symbol_param<1>_type<0> = [Float,56,54,59]; @symbol_param<2> = [dt,56,61,63]; @symbol_param<2>_type<0> = [Float,56,67,72]; ]
+    function predict(speedMps as Float, headingRad as Float, dt as Float) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 57 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_12_57_51_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_12_57_31_begin:
+        %tmp.1 = lgetv %dt;
+        symbol [ dt %tmp.1 57 12 14 ];
+        %tmp.2 = 0.0f;
+        %tmp.3 = lte %tmp.1 %tmp.2;
+        bt %tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_true;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_26_57_31_false:
+        %tmp.4 = lgetv %dt;
+        symbol [ dt %tmp.4 57 26 28 ];
+        %tmp.5 = 2.0f;
+        %tmp.6 = gt %tmp.4 %tmp.5;
+        push %tmp.6;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_26_57_31_end:
+        %tmp.7 = phi [%tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_12_57_31_begin] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_26_57_31_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_26_57_31_end];
+        bt %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_true;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_39_57_51_false:
+        %tmp.8 = lgetv %speedMps;
+        symbol [ speedMps %tmp.8 57 39 47 ];
+        %tmp.9 = 0.0f;
+        %tmp.10 = lte %tmp.8 %tmp.9;
+        push %tmp.10;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_39_57_51_end:
+        %tmp.11 = phi [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_12_57_51_begin] [%tmp.10 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_39_57_51_false] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_39_57_51_end];
+        bf %tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_57_59_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 58 12 ]
+        ret ?;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_57_59_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_57_8_59_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 61 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_stop" ]
+        %velEast.1 = local;
+        symbol [ velEast %velEast.1 61 12 19 ];
+        %tmp.12 = lgetv %speedMps;
+        symbol [ speedMps %tmp.12 61 22 30 ];
+        symbol [ Math %tmp.13 61 33 37 ];
+        %tmp.13 = getm $.Toybox.Math;
+        symbol [ sin %tmp.14 61 38 41 ];
+        %tmp.14 = getv function %tmp.13 :sin;
+        %tmp.15 = lgetv %headingRad;
+        symbol [ headingRad %tmp.15 61 42 52 ];
+        %tmp.16 = invoke %tmp.13 %tmp.14(%tmp.15);
+        %tmp.17 = mul %tmp.12 %tmp.16;
+        lputv %velEast.1 %tmp.17;
+        symbol [ velEast %velEast.1 61 12 19 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 62 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_stop" ]
+        %velNorth.2 = local;
+        symbol [ velNorth %velNorth.2 62 12 20 ];
+        %tmp.18 = lgetv %speedMps;
+        symbol [ speedMps %tmp.18 62 23 31 ];
+        symbol [ Math %tmp.19 62 34 38 ];
+        %tmp.19 = getm $.Toybox.Math;
+        symbol [ cos %tmp.20 62 39 42 ];
+        %tmp.20 = getv function %tmp.19 :cos;
+        %tmp.21 = lgetv %headingRad;
+        symbol [ headingRad %tmp.21 62 43 53 ];
+        %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
+        %tmp.23 = mul %tmp.18 %tmp.22;
+        lputv %velNorth.2 %tmp.23;
+        symbol [ velNorth %velNorth.2 62 12 20 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 64 8 ]
+        symbol [ x %tmp.24 64 8 9 ];
+        %tmp.24 = getv self :x;
+        symbol [ x %tmp.25 64 8 9 ];
+        %tmp.25 = getv self :x;
+        %tmp.26 = 0;
+        %tmp.27 = agetv %tmp.25 %tmp.26;
+        %tmp.28 = lgetv %velEast.1;
+        symbol [ velEast %tmp.28 64 16 23 ];
+        %tmp.29 = lgetv %dt;
+        symbol [ dt %tmp.29 64 26 28 ];
+        %tmp.30 = mul %tmp.28 %tmp.29;
+        %tmp.31 = add %tmp.27 %tmp.30;
+        %tmp.32 = 0;
+        aputv %tmp.24 %tmp.32 dup %tmp.31;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 65 8 ]
+        symbol [ x %tmp.33 65 8 9 ];
+        %tmp.33 = getv self :x;
+        symbol [ x %tmp.34 65 8 9 ];
+        %tmp.34 = getv self :x;
+        %tmp.35 = 1;
+        %tmp.36 = agetv %tmp.34 %tmp.35;
+        %tmp.37 = lgetv %velNorth.2;
+        symbol [ velNorth %tmp.37 65 16 24 ];
+        %tmp.38 = lgetv %dt;
+        symbol [ dt %tmp.38 65 27 29 ];
+        %tmp.39 = mul %tmp.37 %tmp.38;
+        %tmp.40 = add %tmp.36 %tmp.39;
+        %tmp.41 = 1;
+        aputv %tmp.33 %tmp.41 dup %tmp.40;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 66 8 ]
+        symbol [ x %tmp.42 66 8 9 ];
+        %tmp.42 = getv self :x;
+        %tmp.43 = lgetv %velEast.1;
+        symbol [ velEast %tmp.43 66 15 22 ];
+        %tmp.44 = 2;
+        aputv %tmp.42 %tmp.44 %tmp.43;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 67 8 ]
+        symbol [ x %tmp.45 67 8 9 ];
+        %tmp.45 = getv self :x;
+        %tmp.46 = lgetv %velNorth.2;
+        symbol [ velNorth %tmp.46 67 15 23 ];
+        %tmp.47 = 3;
+        aputv %tmp.45 %tmp.47 %tmp.46;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 69 8 ]
+        for @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_test @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_incr @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_init:
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_begin" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_end" ]
+        %i.3 = local;
+        symbol [ i %i.3 69 17 18 ];
+        %tmp.48 = 0;
+        lputv %i.3 %tmp.48;
+        symbol [ i %i.3 69 17 18 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_test:
+        %tmp.49 = lgetv %i.3;
+        symbol [ i %tmp.49 69 24 25 ];
+        symbol [ STATE_SIZE %tmp.51 69 28 38 ];
+        %tmp.51 = getv ? :STATE_SIZE;
+        %tmp.52 = lt %tmp.49 %tmp.51;
+        bf %tmp.52 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_45_71_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 70 12 ]
+        %tmp.53 = self;
+        symbol [ setP %tmp.54 70 12 16 ];
+        %tmp.54 = getv function %tmp.53 :setP;
+        %tmp.55 = lgetv %i.3;
+        symbol [ i %tmp.55 70 17 18 ];
+        %tmp.56 = lgetv %i.3;
+        symbol [ i %tmp.56 70 20 21 ];
+        %tmp.57 = self;
+        symbol [ getP %tmp.58 70 23 27 ];
+        %tmp.58 = getv function %tmp.57 :getP;
+        %tmp.59 = lgetv %i.3;
+        symbol [ i %tmp.59 70 28 29 ];
+        %tmp.60 = lgetv %i.3;
+        symbol [ i %tmp.60 70 31 32 ];
+        %tmp.61 = invoke %tmp.57 %tmp.58(%tmp.59, %tmp.60);
+        symbol [ Q_PROCESS %tmp.63 70 36 45 ];
+        %tmp.63 = getv ? :Q_PROCESS;
+        %tmp.64 = lgetv %dt;
+        symbol [ dt %tmp.64 70 48 50 ];
+        %tmp.65 = mul %tmp.63 %tmp.64;
+        %tmp.66 = add %tmp.61 %tmp.65;
+        invoke %tmp.53 %tmp.54(%tmp.55, %tmp.56, %tmp.66);
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_45_71_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_incr:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 69 ]
+        %tmp.69 = lgetv %i.3;
+        symbol [ i %tmp.69 69 40 41 ];
+        %tmp.70 = add %tmp.69 1;
+        lputv %i.3 %tmp.70;
+        symbol [ i %i.3 69 40 41 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_test;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_69_8_71_8_for_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_56_82_72_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 74; @symbol_functiondef = [updateGps,74,13,22]; @symbol_param<0> = [lat,74,23,26]; @symbol_param<0>_type<0> = [Float,74,30,35]; @symbol_param<1> = [lon,74,37,40]; @symbol_param<1>_type<0> = [Float,74,44,49]; ]
+    function updateGps(lat as Float, lon as Float) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 75 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_8_78_8_if_stmt:
+        symbol [ hasReference %tmp.2 75 13 25 ];
+        %tmp.2 = getv ? :hasReference;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_8_78_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_8_78_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_27_78_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 76 12 ]
+        %tmp.4 = self;
+        symbol [ setReference %tmp.5 76 12 24 ];
+        %tmp.5 = getv function %tmp.4 :setReference;
+        %tmp.6 = lgetv %lat;
+        symbol [ lat %tmp.6 76 25 28 ];
+        %tmp.7 = lgetv %lon;
+        symbol [ lon %tmp.7 76 30 33 ];
+        invoke %tmp.4 %tmp.5(%tmp.6, %tmp.7);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 77 12 ]
+        ret ?;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_27_78_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_8_78_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_75_8_78_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 80 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_stop" ]
+        %eastGps.1 = local;
+        symbol [ eastGps %eastGps.1 80 12 19 ];
+        %tmp.8 = lgetv %lon;
+        symbol [ lon %tmp.8 80 23 26 ];
+        symbol [ referenceLon %tmp.10 80 29 41 ];
+        %tmp.10 = getv ? :referenceLon;
+        %tmp.11 = sub %tmp.8 %tmp.10;
+        %tmp.12 = 111000.0f;
+        %tmp.13 = mul %tmp.11 %tmp.12;
+        symbol [ Math %tmp.14 80 57 61 ];
+        %tmp.14 = getm $.Toybox.Math;
+        symbol [ cos %tmp.15 80 62 65 ];
+        %tmp.15 = getv function %tmp.14 :cos;
+        symbol [ referenceLat %tmp.17 80 66 78 ];
+        %tmp.17 = getv ? :referenceLat;
+        symbol [ Math %tmp.18 80 81 85 ];
+        %tmp.18 = getm $.Toybox.Math;
+        symbol [ PI %tmp.19 80 86 88 ];
+        %tmp.19 = getv %tmp.18 :PI;
+        %tmp.20 = mul %tmp.17 %tmp.19;
+        %tmp.21 = 180.0f;
+        %tmp.22 = div %tmp.20 %tmp.21;
+        %tmp.23 = invoke %tmp.14 %tmp.15(%tmp.22);
+        %tmp.24 = mul %tmp.13 %tmp.23;
+        lputv %eastGps.1 %tmp.24;
+        symbol [ eastGps %eastGps.1 80 12 19 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 81 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_stop" ]
+        %northGps.2 = local;
+        symbol [ northGps %northGps.2 81 12 20 ];
+        %tmp.25 = lgetv %lat;
+        symbol [ lat %tmp.25 81 24 27 ];
+        symbol [ referenceLat %tmp.27 81 30 42 ];
+        %tmp.27 = getv ? :referenceLat;
+        %tmp.28 = sub %tmp.25 %tmp.27;
+        %tmp.29 = 111000.0f;
+        %tmp.30 = mul %tmp.28 %tmp.29;
+        lputv %northGps.2 %tmp.30;
+        symbol [ northGps %northGps.2 81 12 20 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 84 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_stop" ]
+        %innovation.3 = local;
+        symbol [ innovation %innovation.3 84 12 22 ];
+        %tmp.31 = lgetv %eastGps.1;
+        symbol [ eastGps %tmp.31 84 25 32 ];
+        symbol [ x %tmp.33 84 35 36 ];
+        %tmp.33 = getv ? :x;
+        %tmp.34 = 0;
+        %tmp.35 = agetv %tmp.33 %tmp.34;
+        %tmp.36 = sub %tmp.31 %tmp.35;
+        lputv %innovation.3 %tmp.36;
+        symbol [ innovation %innovation.3 84 12 22 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 85 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_stop" ]
+        %gain.4 = local;
+        symbol [ gain %gain.4 85 12 16 ];
+        %tmp.37 = self;
+        symbol [ getP %tmp.38 85 19 23 ];
+        %tmp.38 = getv function %tmp.37 :getP;
+        %tmp.39 = 0;
+        %tmp.40 = 0;
+        %tmp.41 = invoke %tmp.37 %tmp.38(%tmp.39, %tmp.40);
+        %tmp.42 = self;
+        symbol [ getP %tmp.43 85 33 37 ];
+        %tmp.43 = getv function %tmp.42 :getP;
+        %tmp.44 = 0;
+        %tmp.45 = 0;
+        %tmp.46 = invoke %tmp.42 %tmp.43(%tmp.44, %tmp.45);
+        symbol [ R_GPS_POS %tmp.48 85 46 55 ];
+        %tmp.48 = getv ? :R_GPS_POS;
+        %tmp.49 = add %tmp.46 %tmp.48;
+        %tmp.50 = div %tmp.41 %tmp.49;
+        lputv %gain.4 %tmp.50;
+        symbol [ gain %gain.4 85 12 16 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 86 8 ]
+        symbol [ x %tmp.51 86 8 9 ];
+        %tmp.51 = getv self :x;
+        symbol [ x %tmp.52 86 8 9 ];
+        %tmp.52 = getv self :x;
+        %tmp.53 = 0;
+        %tmp.54 = agetv %tmp.52 %tmp.53;
+        %tmp.55 = lgetv %gain.4;
+        symbol [ gain %tmp.55 86 16 20 ];
+        %tmp.56 = lgetv %innovation.3;
+        symbol [ innovation %tmp.56 86 23 33 ];
+        %tmp.57 = mul %tmp.55 %tmp.56;
+        %tmp.58 = add %tmp.54 %tmp.57;
+        %tmp.59 = 0;
+        aputv %tmp.51 %tmp.59 dup %tmp.58;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 87 8 ]
+        %tmp.60 = self;
+        symbol [ setP %tmp.61 87 8 12 ];
+        %tmp.61 = getv function %tmp.60 :setP;
+        %tmp.62 = 0;
+        %tmp.63 = 0;
+        %tmp.64 = self;
+        symbol [ getP %tmp.65 87 19 23 ];
+        %tmp.65 = getv function %tmp.64 :getP;
+        %tmp.66 = 0;
+        %tmp.67 = 0;
+        %tmp.68 = invoke %tmp.64 %tmp.65(%tmp.66, %tmp.67);
+        %tmp.69 = 1.0f;
+        %tmp.70 = lgetv %gain.4;
+        symbol [ gain %tmp.70 87 40 44 ];
+        %tmp.71 = sub %tmp.69 %tmp.70;
+        %tmp.72 = mul %tmp.68 %tmp.71;
+        invoke %tmp.60 %tmp.61(%tmp.62, %tmp.63, %tmp.72);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 90 8 ]
+        %tmp.73 = lgetv %northGps.2;
+        symbol [ northGps %tmp.73 90 21 29 ];
+        symbol [ x %tmp.75 90 32 33 ];
+        %tmp.75 = getv ? :x;
+        %tmp.76 = 1;
+        %tmp.77 = agetv %tmp.75 %tmp.76;
+        %tmp.78 = sub %tmp.73 %tmp.77;
+        lputv %innovation.3 %tmp.78;
+        symbol [ innovation %innovation.3 90 8 18 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 91 8 ]
+        %tmp.79 = self;
+        symbol [ getP %tmp.80 91 15 19 ];
+        %tmp.80 = getv function %tmp.79 :getP;
+        %tmp.81 = 1;
+        %tmp.82 = 1;
+        %tmp.83 = invoke %tmp.79 %tmp.80(%tmp.81, %tmp.82);
+        %tmp.84 = self;
+        symbol [ getP %tmp.85 91 29 33 ];
+        %tmp.85 = getv function %tmp.84 :getP;
+        %tmp.86 = 1;
+        %tmp.87 = 1;
+        %tmp.88 = invoke %tmp.84 %tmp.85(%tmp.86, %tmp.87);
+        symbol [ R_GPS_POS %tmp.90 91 42 51 ];
+        %tmp.90 = getv ? :R_GPS_POS;
+        %tmp.91 = add %tmp.88 %tmp.90;
+        %tmp.92 = div %tmp.83 %tmp.91;
+        lputv %gain.4 %tmp.92;
+        symbol [ gain %gain.4 91 8 12 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 92 8 ]
+        symbol [ x %tmp.93 92 8 9 ];
+        %tmp.93 = getv self :x;
+        symbol [ x %tmp.94 92 8 9 ];
+        %tmp.94 = getv self :x;
+        %tmp.95 = 1;
+        %tmp.96 = agetv %tmp.94 %tmp.95;
+        %tmp.97 = lgetv %gain.4;
+        symbol [ gain %tmp.97 92 16 20 ];
+        %tmp.98 = lgetv %innovation.3;
+        symbol [ innovation %tmp.98 92 23 33 ];
+        %tmp.99 = mul %tmp.97 %tmp.98;
+        %tmp.100 = add %tmp.96 %tmp.99;
+        %tmp.101 = 1;
+        aputv %tmp.93 %tmp.101 dup %tmp.100;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 93 8 ]
+        %tmp.102 = self;
+        symbol [ setP %tmp.103 93 8 12 ];
+        %tmp.103 = getv function %tmp.102 :setP;
+        %tmp.104 = 1;
+        %tmp.105 = 1;
+        %tmp.106 = self;
+        symbol [ getP %tmp.107 93 19 23 ];
+        %tmp.107 = getv function %tmp.106 :getP;
+        %tmp.108 = 1;
+        %tmp.109 = 1;
+        %tmp.110 = invoke %tmp.106 %tmp.107(%tmp.108, %tmp.109);
+        %tmp.111 = 1.0f;
+        %tmp.112 = lgetv %gain.4;
+        symbol [ gain %tmp.112 93 40 44 ];
+        %tmp.113 = sub %tmp.111 %tmp.112;
+        %tmp.114 = mul %tmp.110 %tmp.113;
+        invoke %tmp.102 %tmp.103(%tmp.104, %tmp.105, %tmp.114);
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_74_59_94_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 96; @symbol_functiondef = [getEast,96,13,20]; @symbol_return<0> = [Float,96,26,31]; ]
+    function getEast() as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_96_32_96_47_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 96 34 ]
+        symbol [ x %tmp.2 96 41 42 ];
+        %tmp.2 = getv ? :x;
+        %tmp.3 = 0;
+        %tmp.4 = agetv %tmp.2 %tmp.3;
+        ret %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_96_32_96_47_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 97; @symbol_functiondef = [getNorth,97,13,21]; @symbol_return<0> = [Float,97,27,32]; ]
+    function getNorth() as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_97_33_97_48_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 97 35 ]
+        symbol [ x %tmp.2 97 42 43 ];
+        %tmp.2 = getv ? :x;
+        %tmp.3 = 1;
+        %tmp.4 = agetv %tmp.2 %tmp.3;
+        ret %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_97_33_97_48_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 99; @symbol_functiondef = [getDRData,99,13,22]; @symbol_return<0> = [Dictionary,99,28,38]; ]
+    function getDRData() as Dictionary {
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_99_39_106_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc" 100 8 ]
+        %tmp.1 = newd 4;
+        %tmp.3 = const :east;
+        symbol [ east %tmp.3 101 13 17 const ];
+        symbol [ x %tmp.5 101 21 22 ];
+        %tmp.5 = getv ? :x;
+        %tmp.6 = 0;
+        %tmp.7 = agetv %tmp.5 %tmp.6;
+        %tmp.8 = dup %tmp.1;
+        %tmp.9 = aputv %tmp.8 %tmp.3 %tmp.7;
+        %tmp.11 = const :north;
+        symbol [ north %tmp.11 102 13 18 const ];
+        symbol [ x %tmp.13 102 22 23 ];
+        %tmp.13 = getv ? :x;
+        %tmp.14 = 1;
+        %tmp.15 = agetv %tmp.13 %tmp.14;
+        %tmp.16 = dup %tmp.9;
+        %tmp.17 = aputv %tmp.16 %tmp.11 %tmp.15;
+        %tmp.19 = const :distance;
+        symbol [ distance %tmp.19 103 13 21 const ];
+        symbol [ Math %tmp.20 103 25 29 ];
+        %tmp.20 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.21 103 30 34 ];
+        %tmp.21 = getv function %tmp.20 :sqrt;
+        symbol [ x %tmp.23 103 35 36 ];
+        %tmp.23 = getv ? :x;
+        %tmp.24 = 0;
+        %tmp.25 = agetv %tmp.23 %tmp.24;
+        symbol [ x %tmp.27 103 40 41 ];
+        %tmp.27 = getv ? :x;
+        %tmp.28 = 0;
+        %tmp.29 = agetv %tmp.27 %tmp.28;
+        %tmp.30 = mul %tmp.25 %tmp.29;
+        symbol [ x %tmp.32 103 47 48 ];
+        %tmp.32 = getv ? :x;
+        %tmp.33 = 1;
+        %tmp.34 = agetv %tmp.32 %tmp.33;
+        symbol [ x %tmp.36 103 52 53 ];
+        %tmp.36 = getv ? :x;
+        %tmp.37 = 1;
+        %tmp.38 = agetv %tmp.36 %tmp.37;
+        %tmp.39 = mul %tmp.34 %tmp.38;
+        %tmp.40 = add %tmp.30 %tmp.39;
+        %tmp.41 = invoke %tmp.20 %tmp.21(%tmp.40);
+        %tmp.42 = dup %tmp.17;
+        %tmp.43 = aputv %tmp.42 %tmp.19 %tmp.41;
+        %tmp.45 = const :speed;
+        symbol [ speed %tmp.45 104 13 18 const ];
+        symbol [ Math %tmp.46 104 22 26 ];
+        %tmp.46 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.47 104 27 31 ];
+        %tmp.47 = getv function %tmp.46 :sqrt;
+        symbol [ x %tmp.49 104 32 33 ];
+        %tmp.49 = getv ? :x;
+        %tmp.50 = 2;
+        %tmp.51 = agetv %tmp.49 %tmp.50;
+        symbol [ x %tmp.53 104 37 38 ];
+        %tmp.53 = getv ? :x;
+        %tmp.54 = 2;
+        %tmp.55 = agetv %tmp.53 %tmp.54;
+        %tmp.56 = mul %tmp.51 %tmp.55;
+        symbol [ x %tmp.58 104 44 45 ];
+        %tmp.58 = getv ? :x;
+        %tmp.59 = 3;
+        %tmp.60 = agetv %tmp.58 %tmp.59;
+        symbol [ x %tmp.62 104 49 50 ];
+        %tmp.62 = getv ? :x;
+        %tmp.63 = 3;
+        %tmp.64 = agetv %tmp.62 %tmp.63;
+        %tmp.65 = mul %tmp.60 %tmp.64;
+        %tmp.66 = add %tmp.56 %tmp.65;
+        %tmp.67 = invoke %tmp.46 %tmp.47(%tmp.66);
+        %tmp.68 = dup %tmp.43;
+        %tmp.69 = aputv %tmp.68 %tmp.45 %tmp.67;
+        ret %tmp.69;
+_home_panagiotis_Documents_gsensors_gsensros_source_KalmanDR_mc_99_39_106_4_stop:
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/KalmanDR.mc"; @line = 1; ]
+<init> {
+}

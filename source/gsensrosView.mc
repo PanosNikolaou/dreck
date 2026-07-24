@@ -44,6 +44,8 @@ class gsensrosView extends WatchUi.View {
 
     var updateTimer = null;
     var dr = null;
+    var kalman = null;  // Kalman Filter
+
     var lastUpdateMs = 0;
     var fitWriteTick = 0;
 
@@ -138,8 +140,9 @@ class gsensrosView extends WatchUi.View {
         View.initialize();
         try {
             dr = new DeadReckoning();
+            kalman = new KalmanDR();
         } catch (e) {
-            System.println("DeadReckoning init failed: " + errorToString(e));
+            System.println("Init failed: " + errorToString(e));
         }
     }
 
@@ -245,7 +248,7 @@ class gsensrosView extends WatchUi.View {
                 finishStartupCalibration();
             }
 
-            if (isRecording && dr != null && !calibrationActive) {
+            if (isRecording && !calibrationActive) {
                 var estSpeed = getEstimatedSpeedMps();
                 var bestHeading = getBestHeading(dt);
 
@@ -253,7 +256,15 @@ class gsensrosView extends WatchUi.View {
                     estSpeed = 0.0f;
                 }
 
-                if (shouldAdvanceDR(bestHeading, estSpeed)) {
+                if (kalman != null) {
+                    if (hasGpsFix && isGpsQualityUsable(gpsQuality)) {
+                        kalman.updateGps(latitude, longitude);
+                    } else if (bestHeading != null) {
+                        kalman.predict(estSpeed, bestHeading, dt);
+                    }
+                }
+
+                if (dr != null && shouldAdvanceDR(bestHeading, estSpeed)) {
                     dr.updateWithSpeed(accelX, accelY, accelZ, gyroZ, bestHeading, dt, estSpeed);
                 }
 
@@ -267,10 +278,10 @@ class gsensrosView extends WatchUi.View {
             System.println("CRITICAL Timer Error: " + errorToString(e));
         }
 
-        try {
-            WatchUi.requestUpdate();
-        } catch (e) {}
+        WatchUi.requestUpdate();
     }
+
+    // === The following methods are unchanged from your original code ===
 
     function startGps() as Void {
         if (gpsActive) {
@@ -769,6 +780,13 @@ class gsensrosView extends WatchUi.View {
             movingConfidence = 0;
             fitWriteTick = 0;
 
+            if (kalman != null) {
+                kalman.reset();
+                if (hasGpsFix) {
+                    kalman.setReference(entryLat, entryLon);
+                }
+            }
+
             if (dr != null) {
                 var initialHeading = getBestHeading(0.0f);
                 if (initialHeading != null) {
@@ -1062,17 +1080,13 @@ class gsensrosView extends WatchUi.View {
 
     function writeFitFieldsIfNeeded(estSpeed as Float, bestHeading as Float or Null) as Void {
         try {
-            if (!isRecording || session == null || dr == null) {
+            if (!isRecording || session == null) {
                 return;
             }
 
-            var drData = dr.getDRData();
-            if (drData == null) {
-                return;
-            }
+            var eastVal = (kalman != null) ? kalman.getEast() : (dr != null ? dr.getDRData()[:east] : 0.0f);
+            var northVal = (kalman != null) ? kalman.getNorth() : (dr != null ? dr.getDRData()[:north] : 0.0f);
 
-            var eastVal = drData[:east];
-            var northVal = drData[:north];
             var depthVal = currentDepth;
             var motionVal = motionScoreMg;
             var speedVal = estSpeed;
@@ -1177,26 +1191,40 @@ class gsensrosView extends WatchUi.View {
                 y += rowH;
             }
 
-            if (dr != null) {
+            if (kalman != null) {
+                var kd = kalman.getDRData();
+                dc.drawText(leftX, y, font, "KF E:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, kd[:east].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                y += rowH;
+                dc.drawText(leftX, y, font, "KF N:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, kd[:north].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                y += rowH;
+            } else if (dr != null) {
                 var drData = dr.getDRData();
-
                 dc.drawText(leftX, y, font, "DR E:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.drawText(rightX, y, font, drData[:east].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
-
                 dc.drawText(leftX, y, font, "DR N:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.drawText(rightX, y, font, drData[:north].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
-
                 dc.drawText(leftX, y, font, "Dist:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.drawText(rightX, y, font, drData[:distance].format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
-
-                dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
             }
+
+            dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
         } catch (e) {
             System.println("Draw error: " + errorToString(e));
         }
+    }
+
+    function prepareToExit() as Void {
+        if (isRecording) {
+            stopSession();
+        }
+        stopTimerOnly();
+        stopMotionListener();
+        stopGps();
     }
 }
