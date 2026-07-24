@@ -54,6 +54,28 @@
     "sort-order" : 4,
     "precision" : 6,
     "fill-color" : "rgba(213, 0, 0, 1.0)"
+  }, {
+    "id" : 106,
+    "chart-visible" : true,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : "motion_score_chart",
+    "label-key" : "motion_score_label",
+    "unit-label-key" : "mg_units",
+    "sort-order" : 5,
+    "precision" : 0,
+    "fill-color" : "rgba(255, 214, 0, 1.0)"
+  }, {
+    "id" : 107,
+    "chart-visible" : true,
+    "activity-visible" : false,
+    "lap-visible" : false,
+    "chart-title-key" : "motion_state_chart",
+    "label-key" : "motion_state_label",
+    "unit-label-key" : "flag_units",
+    "sort-order" : 6,
+    "precision" : 0,
+    "fill-color" : "rgba(124, 77, 255, 1.0)"
   } ],
   "strings" : {
     "default" : {
@@ -66,7 +88,13 @@
       "depth_label" : "Depth",
       "gps_lat_label" : "GPS Latitude",
       "degrees_units" : "deg",
-      "gps_lon_label" : "GPS Longitude"
+      "gps_lon_label" : "GPS Longitude",
+      "motion_score_chart" : "Motion Score",
+      "motion_score_label" : "Motion Score",
+      "mg_units" : "mg",
+      "motion_state_chart" : "Motion State",
+      "motion_state_label" : "Motion State",
+      "flag_units" : "flag"
     }
   }
 }

@@ -22,8 +22,16 @@
         <string id="gps_lon_label">GPS Longitude</string>
         <string id="gps_lon_chart">GPS Longitude</string>
 
+        <string id="motion_score_label">Motion Score</string>
+        <string id="motion_score_chart">Motion Score</string>
+
+        <string id="motion_state_label">Motion State</string>
+        <string id="motion_state_chart">Motion State</string>
+
         <string id="meters_units">m</string>
         <string id="degrees_units">deg</string>
+        <string id="mg_units">mg</string>
+        <string id="flag_units">flag</string>
     </strings>
 
     <fitContributions>
@@ -69,6 +77,24 @@
             dataLabel="@Strings.gps_lon_label"
             unitLabel="@Strings.degrees_units"
             fillColor="#D50000" />
+
+        <fitField id="106"
+            displayInChart="true"
+            sortOrder="5"
+            precision="0"
+            chartTitle="@Strings.motion_score_chart"
+            dataLabel="@Strings.motion_score_label"
+            unitLabel="@Strings.mg_units"
+            fillColor="#FFD600" />
+
+        <fitField id="107"
+            displayInChart="true"
+            sortOrder="6"
+            precision="0"
+            chartTitle="@Strings.motion_state_chart"
+            dataLabel="@Strings.motion_state_label"
+            unitLabel="@Strings.flag_units"
+            fillColor="#7C4DFF" />
     </fitContributions>
 
 </resources>

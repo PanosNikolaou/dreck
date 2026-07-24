@@ -4,128 +4,285 @@ import Toybox.System;
 
 class DeadReckoning {
 
-    // East / North position in meters
-    var posX = 0.0f;
-    var posY = 0.0f;
+    var eastMeters = 0.0f;
+    var northMeters = 0.0f;
 
-    // Radians, normalized to [-PI, PI]
-    var heading = 0.0f;
-
-    // Optional last known speed estimate in m/s
+    var headingRad = 0.0f;
     var speedMps = 0.0f;
 
-    // Cumulative horizontal distance
-    var totalDistance = 0.0f;
+    var totalDistanceMeters = 0.0f;
+    var lastStepDistanceMeters = 0.0f;
+    var lastAcceptedDx = 0.0f;
+    var lastAcceptedDy = 0.0f;
 
-    // Millisecond timer source
     var prevMs = 0;
 
-    // Tuning
+    var hasHeadingLock = false;
+    var lastMeasuredHeadingRad = null;
+    var lastPredictedHeadingRad = 0.0f;
+    var lastHeadingErrorRad = 0.0f;
+    var movementAccepted = false;
+
     const MAX_DT_SEC = 2.0f;
-    const HEADING_ALPHA = 0.15f;
-    const SPEED_ALPHA = 0.20f;
+    const MIN_DT_SEC = 0.01f;
+
+    const HEADING_ALPHA_SLOW = 0.10f;
+    const HEADING_ALPHA_FAST = 0.22f;
+    const MAX_HEADING_CORRECTION_RAD = 0.35f;
+
+    const SPEED_ALPHA_RISE = 0.30f;
+    const SPEED_ALPHA_FALL = 0.18f;
+    const SPEED_DECAY_WHEN_STOPPED = 0.75f;
+
     const MIN_SPEED_MPS = 0.0f;
     const MAX_SPEED_MPS = 3.0f;
+    const SPEED_DEADBAND_MPS = 0.08f;
+
+    const MIN_STEP_DISTANCE_M = 0.015f;
+    const MAX_STEP_DISTANCE_M = 10.0f;
+
+    const MAX_REASONABLE_YAW_RATE_RAD_S = 4.5f;
 
     function initialize() {
         reset();
     }
 
     function reset() as Void {
-        posX = 0.0f;
-        posY = 0.0f;
-        heading = 0.0f;
+        eastMeters = 0.0f;
+        northMeters = 0.0f;
+        headingRad = 0.0f;
         speedMps = 0.0f;
-        totalDistance = 0.0f;
+        totalDistanceMeters = 0.0f;
+        lastStepDistanceMeters = 0.0f;
+        lastAcceptedDx = 0.0f;
+        lastAcceptedDy = 0.0f;
         prevMs = System.getTimer();
+        hasHeadingLock = false;
+        lastMeasuredHeadingRad = null;
+        lastPredictedHeadingRad = 0.0f;
+        lastHeadingErrorRad = 0.0f;
+        movementAccepted = false;
     }
 
     function resetWithHeading(initialHeading as Float) as Void {
         reset();
-        heading = normalizeAngle(initialHeading);
+        headingRad = normalizeAngle(initialHeading);
+        hasHeadingLock = true;
+        lastMeasuredHeadingRad = headingRad;
     }
 
-    // Main update when caller already knows dt in seconds
-    // accel params kept only for signature compatibility with your existing code path
-    function update(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float or Null, dt as Float) as Void {
-        updateWithSpeed(accelX, accelY, accelZ, gyroZ, magHeading, dt, speedMps);
+    function setHeading(newHeading as Float) as Void {
+        headingRad = normalizeAngle(newHeading);
+        hasHeadingLock = true;
+        lastMeasuredHeadingRad = headingRad;
     }
 
-    // Preferred update path: caller supplies dt in seconds and a speed estimate in m/s
-    function updateWithSpeed(accelX as Number, accelY as Number, accelZ as Number, gyroZ as Float, magHeading as Float or Null, dt as Float, newSpeedMps as Float) as Void {
-        if (dt <= 0.0f || dt > MAX_DT_SEC) {
+    function setSpeedEstimate(newSpeedMps as Float) as Void {
+        speedMps = sanitizeSpeed(newSpeedMps);
+    }
+
+    function update(accelX as Float, accelY as Float, accelZ as Float, gyroZ as Float, measuredHeadingRad as Float or Null, dt as Float) as Void {
+        updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, measuredHeadingRad, dt, speedMps, true, 1.0f);
+    }
+
+    function updateWithSpeed(accelX as Float, accelY as Float, accelZ as Float, gyroZ as Float, measuredHeadingRad as Float or Null, dt as Float, newSpeedMps as Float) as Void {
+        updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, measuredHeadingRad, dt, newSpeedMps, true, 1.0f);
+    }
+
+    function updateWithSpeedAndConfidence(
+        accelX as Float,
+        accelY as Float,
+        accelZ as Float,
+        gyroZ as Float,
+        measuredHeadingRad as Float or Null,
+        dt as Float,
+        newSpeedMps as Float,
+        movementAllowed as Boolean,
+        headingConfidence as Float
+    ) as Void {
+
+        movementAccepted = false;
+        lastStepDistanceMeters = 0.0f;
+        lastAcceptedDx = 0.0f;
+        lastAcceptedDy = 0.0f;
+
+        if (dt < MIN_DT_SEC || dt > MAX_DT_SEC) {
             return;
         }
 
-        // 1) Fuse heading:
-        // - integrate gyroZ as yaw-rate if caller provides rad/s
-        // - nudge toward measured heading if available
-        var predictedHeading = normalizeAngle(heading + (gyroZ * dt));
-
-        if (magHeading != null) {
-            heading = blendAngle(predictedHeading, normalizeAngle(magHeading), HEADING_ALPHA);
-        } else {
-            heading = predictedHeading;
+        var safeGyroZ = gyroZ;
+        if (safeGyroZ > MAX_REASONABLE_YAW_RATE_RAD_S) {
+            safeGyroZ = MAX_REASONABLE_YAW_RATE_RAD_S;
+        } else if (safeGyroZ < -MAX_REASONABLE_YAW_RATE_RAD_S) {
+            safeGyroZ = -MAX_REASONABLE_YAW_RATE_RAD_S;
         }
 
-        // 2) Smooth speed input and clamp
-        var clampedSpeed = clampFloat(newSpeedMps, MIN_SPEED_MPS, MAX_SPEED_MPS);
-        speedMps = lowPass(speedMps, clampedSpeed, SPEED_ALPHA);
+        var predictedHeading = normalizeAngle(headingRad + (safeGyroZ * dt));
+        lastPredictedHeadingRad = predictedHeading;
 
-        // 3) Advance in world frame using heading + speed
-        var dx = speedMps * Math.cos(heading) * dt;
-        var dy = speedMps * Math.sin(heading) * dt;
+        var correctedHeading = predictedHeading;
 
-        posX += dx;
-        posY += dy;
-        totalDistance += Math.sqrt((dx * dx) + (dy * dy));
+        if (measuredHeadingRad != null) {
+            var targetHeading = normalizeAngle(measuredHeadingRad);
+            lastMeasuredHeadingRad = targetHeading;
+
+            if (!hasHeadingLock) {
+                correctedHeading = targetHeading;
+                hasHeadingLock = true;
+            } else {
+                var alpha = chooseHeadingAlpha(speedMps, headingConfidence);
+                var error = normalizeAngle(targetHeading - predictedHeading);
+                error = clampFloat(error, -MAX_HEADING_CORRECTION_RAD, MAX_HEADING_CORRECTION_RAD);
+                lastHeadingErrorRad = error;
+                correctedHeading = normalizeAngle(predictedHeading + (error * alpha));
+            }
+        } else {
+            lastHeadingErrorRad = 0.0f;
+        }
+
+        headingRad = correctedHeading;
+
+        var clampedInputSpeed = sanitizeSpeed(newSpeedMps);
+
+        if (!movementAllowed || clampedInputSpeed <= SPEED_DEADBAND_MPS) {
+            speedMps = speedMps * SPEED_DECAY_WHEN_STOPPED;
+            if (speedMps < SPEED_DEADBAND_MPS) {
+                speedMps = 0.0f;
+            }
+            return;
+        }
+
+        if (clampedInputSpeed > speedMps) {
+            speedMps = lowPass(speedMps, clampedInputSpeed, SPEED_ALPHA_RISE);
+        } else {
+            speedMps = lowPass(speedMps, clampedInputSpeed, SPEED_ALPHA_FALL);
+        }
+
+        if (speedMps <= SPEED_DEADBAND_MPS) {
+            speedMps = 0.0f;
+            return;
+        }
+
+        var stepEast = speedMps * Math.sin(headingRad) * dt;
+        var stepNorth = speedMps * Math.cos(headingRad) * dt;
+        var stepDistance = Math.sqrt((stepEast * stepEast) + (stepNorth * stepNorth));
+
+        if (stepDistance < MIN_STEP_DISTANCE_M || stepDistance > MAX_STEP_DISTANCE_M) {
+            return;
+        }
+
+        eastMeters += stepEast;
+        northMeters += stepNorth;
+        totalDistanceMeters += stepDistance;
+
+        lastAcceptedDx = stepEast;
+        lastAcceptedDy = stepNorth;
+        lastStepDistanceMeters = stepDistance;
+        movementAccepted = true;
     }
 
-    // Convenience overload when you do not want to compute dt outside
-    function updateAutoDt(magHeading as Float or Null, gyroZ as Float, newSpeedMps as Float) as Void {
+    function updateAutoDt(measuredHeadingRad as Float or Null, gyroZ as Float, newSpeedMps as Float) as Void {
         var nowMs = System.getTimer();
         var dt = (nowMs - prevMs).toFloat() / 1000.0f;
         prevMs = nowMs;
 
-        if (dt <= 0.0f || dt > MAX_DT_SEC) {
+        if (dt < MIN_DT_SEC || dt > MAX_DT_SEC) {
             return;
         }
 
-        updateWithSpeed(0, 0, 0, gyroZ, magHeading, dt, newSpeedMps);
+        updateWithSpeed(0.0f, 0.0f, 0.0f, gyroZ, measuredHeadingRad, dt, newSpeedMps);
     }
 
-    function setSpeedEstimate(newSpeedMps as Float) as Void {
-        speedMps = clampFloat(newSpeedMps, MIN_SPEED_MPS, MAX_SPEED_MPS);
-    }
-
-    function setHeading(newHeading as Float) as Void {
-        heading = normalizeAngle(newHeading);
-    }
-
-    function addDistanceStep(distanceMeters as Float, courseHeading as Float) as Void {
+    function addDistanceStep(distanceMeters as Float, courseHeadingRad as Float) as Void {
         if (distanceMeters <= 0.0f) {
             return;
         }
 
-        var h = normalizeAngle(courseHeading);
-        var dx = distanceMeters * Math.cos(h);
-        var dy = distanceMeters * Math.sin(h);
+        var d = clampFloat(distanceMeters, 0.0f, MAX_STEP_DISTANCE_M);
+        if (d < MIN_STEP_DISTANCE_M) {
+            return;
+        }
 
-        posX += dx;
-        posY += dy;
-        totalDistance += distanceMeters;
-        heading = h;
+        var h = normalizeAngle(courseHeadingRad);
+
+        var stepEast = d * Math.sin(h);
+        var stepNorth = d * Math.cos(h);
+
+        eastMeters += stepEast;
+        northMeters += stepNorth;
+        totalDistanceMeters += d;
+        headingRad = h;
+        hasHeadingLock = true;
+        lastMeasuredHeadingRad = h;
+        lastPredictedHeadingRad = h;
+        lastHeadingErrorRad = 0.0f;
+        lastAcceptedDx = stepEast;
+        lastAcceptedDy = stepNorth;
+        lastStepDistanceMeters = d;
+        movementAccepted = true;
     }
 
     function getDRData() as Dictionary {
         return {
-            :east => posX,
-            :north => posY,
-            :headingRad => heading,
-            :headingDeg => Math.toDegrees(heading),
-            :distance => totalDistance,
-            :speed => speedMps
+            :east => eastMeters,
+            :north => northMeters,
+            :headingRad => headingRad,
+            :headingDeg => normalizeDegrees(Math.toDegrees(headingRad)),
+            :distance => totalDistanceMeters,
+            :speed => speedMps,
+            :stepDistance => lastStepDistanceMeters,
+            :stepEast => lastAcceptedDx,
+            :stepNorth => lastAcceptedDy,
+            :movementAccepted => movementAccepted,
+            :hasHeadingLock => hasHeadingLock,
+            :headingErrorDeg => Math.toDegrees(lastHeadingErrorRad)
         };
+    }
+
+    function getEastMeters() as Float {
+        return eastMeters;
+    }
+
+    function getNorthMeters() as Float {
+        return northMeters;
+    }
+
+    function getHeadingRad() as Float {
+        return headingRad;
+    }
+
+    function getHeadingDeg() as Float {
+        return normalizeDegrees(Math.toDegrees(headingRad));
+    }
+
+    function getSpeedMps() as Float {
+        return speedMps;
+    }
+
+    function getTotalDistanceMeters() as Float {
+        return totalDistanceMeters;
+    }
+
+    function hasValidHeading() as Boolean {
+        return hasHeadingLock;
+    }
+
+    function chooseHeadingAlpha(currentSpeedMps as Float, headingConfidence as Float) as Float {
+        var conf = clampFloat(headingConfidence, 0.0f, 1.0f);
+
+        if (currentSpeedMps >= 0.7f) {
+            return HEADING_ALPHA_FAST * conf;
+        }
+
+        return HEADING_ALPHA_SLOW * conf;
+    }
+
+    function sanitizeSpeed(value as Float) as Float {
+        var v = clampFloat(value, MIN_SPEED_MPS, MAX_SPEED_MPS);
+        if (v < SPEED_DEADBAND_MPS) {
+            return 0.0f;
+        }
+        return v;
     }
 
     function lowPass(current as Float, incoming as Float, alpha as Float) as Float {
@@ -154,6 +311,20 @@ class DeadReckoning {
         }
 
         return angle;
+    }
+
+    function normalizeDegrees(deg as Float) as Float {
+        var d = deg;
+
+        while (d >= 360.0f) {
+            d -= 360.0f;
+        }
+
+        while (d < 0.0f) {
+            d += 360.0f;
+        }
+
+        return d;
     }
 
     function blendAngle(current as Float, target as Float, alpha as Float) as Float {
