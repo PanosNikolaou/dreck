@@ -27,25 +27,30 @@ module Rez {
 
     module Strings {
         (:initialized) var motion_score_chart as ResourceId;
-        (:initialized) var meters_units as ResourceId;
         (:initialized) var dr_north_label as ResourceId;
         (:initialized) var dr_east_label as ResourceId;
-        (:initialized) var dr_east_chart as ResourceId;
         (:initialized) var mg_units as ResourceId;
         (:initialized) var gps_lon_chart as ResourceId;
-        (:initialized) var motion_state_chart as ResourceId;
         (:initialized) var flag_units as ResourceId;
         (:initialized) var AppName as ResourceId;
-        (:initialized) var depth_chart as ResourceId;
         (:initialized) var gps_lat_label as ResourceId;
-        (:initialized) var depth_label as ResourceId;
-        (:initialized) var motion_state_label as ResourceId;
         (:initialized) var degrees_units as ResourceId;
-        (:initialized) var menu_label_1 as ResourceId;
         (:initialized) var gps_lat_chart as ResourceId;
-        (:initialized) var menu_label_2 as ResourceId;
         (:initialized) var motion_score_label as ResourceId;
+        (:initialized) var speed_est_chart as ResourceId;
+        (:initialized) var meters_units as ResourceId;
+        (:initialized) var dr_east_chart as ResourceId;
+        (:initialized) var motion_state_chart as ResourceId;
+        (:initialized) var speed_est_label as ResourceId;
+        (:initialized) var heading_label as ResourceId;
+        (:initialized) var depth_chart as ResourceId;
+        (:initialized) var depth_label as ResourceId;
+        (:initialized) var mps_units as ResourceId;
+        (:initialized) var motion_state_label as ResourceId;
+        (:initialized) var menu_label_1 as ResourceId;
+        (:initialized) var menu_label_2 as ResourceId;
         (:initialized) var gps_lon_label as ResourceId;
+        (:initialized) var heading_chart as ResourceId;
         (:initialized) var dr_north_chart as ResourceId;
     } // Strings
 

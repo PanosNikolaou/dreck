@@ -32,6 +32,11 @@
         <string id="degrees_units">deg</string>
         <string id="mg_units">mg</string>
         <string id="flag_units">flag</string>
+        <string id="speed_est_chart">Speed Est</string>
+        <string id="speed_est_label">Speed Est</string>
+        <string id="mps_units">m/s</string>
+        <string id="heading_chart">Heading</string>
+        <string id="heading_label">Heading</string>
     </strings>
 
     <fitContributions>
