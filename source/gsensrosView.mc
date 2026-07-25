@@ -88,6 +88,11 @@ class gsensrosView extends WatchUi.View {
     // Heart-rate (health data)
     var heartRate = 0;                        // NEW
 
+    const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface altitude adapts on land (0.01–0.05)
+    const DEPTH_NOISE_FLOOR_M   = 0.4f;    // ignore anything below this
+    const DIVE_START_DEPTH_M    = 1.5f;    // keep your existing values
+    const SURFACE_STOP_DEPTH_M  = 0.5f;
+
     // FIT field IDs
     const FIELD_DR_EAST    = 101;
     const FIELD_DR_NORTH   = 102;
@@ -157,9 +162,6 @@ class gsensrosView extends WatchUi.View {
     const MOTION_ON_THRESHOLD_MG = 25.0f;
     const MOTION_OFF_THRESHOLD_MG = 12.0f;
     const MOTION_FILTER_ALPHA = 0.7f;
-
-    const DIVE_START_DEPTH_M = 1.5f;
-    const SURFACE_STOP_DEPTH_M = 0.5f;
 
     var lastFitEast = null as Float or Null;
     var lastFitNorth = null as Float or Null;
@@ -713,6 +715,7 @@ class gsensrosView extends WatchUi.View {
 
             var rawAlt = info.altitude.toFloat();
 
+            // ---------- Initial hard calibration (first few samples) ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
                 surfaceAltitudeSum += rawAlt;
                 calibrationSamples += 1;
@@ -721,15 +724,25 @@ class gsensrosView extends WatchUi.View {
                     surfaceAltitude = surfaceAltitudeSum / CALIBRATION_COUNT.toFloat();
                     depthFilter = 0.0f;
                 }
-
                 currentDepth = 0.0f;
                 return;
             }
 
+            // ---------- Continuous surface recalibration ----------
+            // Only adapt while clearly on the surface
+            if (!isUnderwater && currentDepth <= DEPTH_NOISE_FLOOR_M) {
+                surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
+                                + SURFACE_RECAL_ALPHA * rawAlt;
+            }
+
+            // ---------- Depth calculation ----------
             var rawDepth = surfaceAltitude - rawAlt;
+
+            // Low-pass filter
             depthFilter = (depthFilter * 0.75f) + (rawDepth * 0.25f);
 
-            if (depthFilter < 0.0f) {
+            // Noise floor + clamp
+            if (depthFilter < DEPTH_NOISE_FLOOR_M) {
                 depthFilter = 0.0f;
             }
 
@@ -781,9 +794,9 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
-            if (currentDepth > DIVE_START_DEPTH_M) {
+            if (!isUnderwater && currentDepth > DIVE_START_DEPTH_M) {
                 isUnderwater = true;
-            } else if (currentDepth <= SURFACE_STOP_DEPTH_M) {
+            } else if (isUnderwater && currentDepth <= SURFACE_STOP_DEPTH_M) {
                 isUnderwater = false;
             }
         } catch (e) {
