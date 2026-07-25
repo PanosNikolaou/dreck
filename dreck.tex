@@ -6,6 +6,20 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray}
+}
 
 \title{Dead Reckoning Navigation System with IMU/GPS Sensor Fusion Using Kalman Filter for Garmin Wearables}
 
@@ -20,164 +34,241 @@ Email: panagiotisnikolaou1982@gmail.com}
 \maketitle
 
 \begin{abstract}
-This report presents the complete design, implementation, and evaluation of a robust dead reckoning navigation system for Garmin Instinct 2X wearables. The system fuses high-rate inertial data (accelerometer and gyroscope), magnetometer heading, barometric depth estimation, and periodic GPS corrections using a lightweight 2D Kalman filter. The goal is reliable positioning in GPS-denied environments such as underwater diving, dense canopy, or indoor scenarios. The application supports manual session recording with custom FIT fields for Garmin Connect analysis, real-time UI feedback, and automatic dive mode detection. Implemented in Monkey C, the system respects strict wearable constraints while delivering meaningful accuracy improvements over pure dead reckoning.
+This report presents the complete design, implementation, and evaluation of a robust dead reckoning (DR) navigation system for Garmin Instinct 2X (and compatible Connect IQ) wearables. The system fuses high-rate inertial data (accelerometer and gyroscope), magnetometer heading, barometric depth estimation, and intermittent GPS corrections using a lightweight 2D Kalman filter. Implemented entirely in Monkey~C, the application delivers reliable relative positioning in GPS-denied environments such as underwater diving, dense canopy, or indoor scenarios. Key features include automatic gyro/magnetometer bias calibration, hysteresis-based motion detection, adaptive speed estimation (GPS-priority with motion-score fallbacks), dive-mode detection via barometric depth, real-time UI feedback, and custom FIT contributor fields for post-session analysis in Garmin Connect. The design strictly respects wearable constraints (memory, CPU, power, and sample-rate limits) while achieving meaningful drift reduction compared with pure inertial integration.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Dead Reckoning, Kalman Filter, IMU/GPS Fusion, Wearable Navigation, Garmin Connect IQ, Sensor Fusion, Embedded Systems
+Dead Reckoning, Kalman Filter, IMU/GPS Fusion, Wearable Navigation, Garmin Connect IQ, Sensor Fusion, Embedded Systems, Monkey C
 \end{IEEEkeywords}
 
 \section{Introduction}
 
 \subsection{Background and Motivation}
-Garmin wearables provide rich sensors but lack built-in advanced dead reckoning for extended GPS outages. This project fills that gap by creating a custom application that combines inertial navigation, heading estimation, depth sensing, and Kalman-based correction.
+Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, magnetometer, barometer, and GPS) through the Connect IQ API, yet they lack a built-in advanced dead-reckoning engine capable of bridging extended GPS outages. Underwater diving, forest canopy, urban canyons, and indoor environments routinely degrade or completely deny satellite positioning. This project fills that gap by implementing a custom Monkey~C application that continuously estimates relative East--North displacement via inertial integration, corrects heading with magnetometer and gyroscope, estimates depth from barometric altitude, and applies intermittent GPS updates through a lightweight 2-D Kalman filter.
 
 \subsection{Objectives}
 \begin{itemize}
-\item Reliable position tracking when GPS is unavailable
-\item Accurate depth estimation for diving
-\item Custom FIT logging for post-session analysis
-\item Low power consumption and real-time performance
-\item Robustness to sensor noise and bias
+\item Reliable relative position tracking when GPS is unavailable or of low quality.
+\item Accurate barometric depth estimation suitable for recreational diving.
+\item Custom FIT logging of navigation and sensor state for post-session analysis.
+\item Low power consumption and real-time performance on constrained hardware.
+\item Robustness to sensor bias, noise, and intermittent GPS availability.
 \end{itemize}
 
 \subsection{Contributions}
 \begin{itemize}
-\item Hybrid DR + Kalman filter optimized for Monkey C
-\item Comprehensive sensor calibration and motion detection
-\item Real-time UI and FIT recording
-\item Full source code and integration guide
+\item Hybrid DR + 2-D Kalman filter optimized for Monkey~C memory and timing constraints.
+\item Comprehensive startup calibration of gyroscope and magnetometer biases.
+\item Multi-source heading estimation with priority ordering and gyro integration fallback.
+\item Hysteresis-based motion detection using accelerometer power and gyro magnitude.
+\item Adaptive speed estimation that prioritizes GPS and falls back to motion-score heuristics differentiated by land/underwater mode.
+\item Automatic dive-mode detection from filtered barometric depth.
+\item Real-time UI with scrollable status and safe session lifecycle management.
+\item Eleven custom FIT contributor fields written at approximately 1~Hz.
 \end{itemize}
 
 \section{System Architecture}
 
-\subsection{Hardware}
+\subsection{Hardware Platform}
 \begin{itemize}
-\item \textbf{Device:} Garmin Instinct 2X
-\item \textbf{Sensors:} 3-axis accelerometer, gyroscope, magnetometer, barometer, GPS
+\item \textbf{Primary device:} Garmin Instinct 2X (and other Connect IQ devices supporting the required sensors).
+\item \textbf{Sensors utilized:} 3-axis accelerometer, 3-axis gyroscope, 3-axis magnetometer, barometric altimeter, GPS.
 \end{itemize}
 
 \subsection{Software Components}
 \begin{itemize}
-\item \texttt{DeadReckoning.mc} — Base inertial integration
-\item \texttt{KalmanDR.mc} — 2D Kalman filter
-\item \texttt{gsensrosView.mc} — UI, state machine, logging
-\item Sensor listeners — High-rate data acquisition
+\item \texttt{DeadReckoning.mc} --- Base inertial integration (East/North displacement, heading).
+\item \texttt{KalmanDR.mc} --- Lightweight 2-D Kalman filter operating in a local East--North frame.
+\item \texttt{dreckView.mc} --- Main view class containing the complete state machine, sensor pipeline, UI, FIT logging, and session control.
+\item High-rate sensor data listener (accelerometer power at up to 10~Hz) and periodic timer (500~ms).
 \end{itemize}
 
 \subsection{Data Flow}
-Raw sensors $\rightarrow$ Calibration $\rightarrow$ Bias removal $\rightarrow$ Heading \& motion estimation $\rightarrow$ Kalman predict/update $\rightarrow$ Position output $\rightarrow$ UI + FIT logging
+Raw sensor samples $\rightarrow$ startup bias calibration $\rightarrow$ bias removal $\rightarrow$ heading estimation \& motion scoring $\rightarrow$ speed estimation $\rightarrow$ Kalman predict / GPS update $\rightarrow$ DR integration (when motion is confirmed) $\rightarrow$ UI refresh + FIT field writes.
 
 \section{Kalman Filter Design}
 
 \subsection{State Vector}
-The filter maintains the following state vector:
+The filter maintains a four-element state vector expressed in a local tangent-plane (East--North) coordinate system:
 \begin{equation}
-\mathbf{x} = \begin{bmatrix} 
-east \\
-north \\
-v_{east} \\
-v_{north}
+\mathbf{x} = \begin{bmatrix}
+e \\
+n \\
+v_e \\
+v_n
 \end{bmatrix}
 \end{equation}
+where $e$ and $n$ are East and North displacements (metres) relative to a reference point, and $v_e$, $v_n$ are the corresponding velocity components.
 
 \subsection{Process Model (Prediction Step)}
-Position is propagated using estimated velocity:
+When a usable GPS fix is unavailable, the filter propagates position using an externally estimated speed and heading:
+\begin{align}
+e_k &= e_{k-1} + v_e\cdot\Delta t, \\
+n_k &= n_{k-1} + v_n\cdot\Delta t,
+\end{align}
+with
 \begin{equation}
-east_k = east_{k-1} + v_{east} \cdot \Delta t
+v_e = s\cdot\sin\theta,\qquad v_n = s\cdot\cos\theta,
 \end{equation}
+where $s$ is the estimated speed (m\,s$^{-1}$) and $\theta$ is the best available heading (rad). Process covariance is updated by simple process-noise injection:
 \begin{equation}
-north_k = north_{k-1} + v_{north} \cdot \Delta t
-\end{equation}
-where
-\begin{equation}
-v_{east} = speed \cdot \sin(\theta), \quad v_{north} = speed \cdot \cos(\theta)
-\end{equation}
-and $\theta$ is the heading angle.
-
-Covariance is updated with process noise $Q$:
-\begin{equation}
-P_k = P_{k-1} + Q \cdot \Delta t
+P_k = P_{k-1} + Q\cdot\Delta t.
 \end{equation}
 
 \subsection{Measurement Update (GPS)}
-When a good GPS fix is available, position-only correction is applied:
-\begin{equation}
-K = P H^T (H P H^T + R)^{-1}
-\end{equation}
-\begin{equation}
-\mathbf{x} \leftarrow \mathbf{x} + K \cdot innovation
-\end{equation}
-\begin{equation}
-P \leftarrow (I - K H) P
-\end{equation}
-with measurement noise $R = 8$ meters (tunable).
+When a GPS fix of usable or good quality is present, a position-only correction is performed:
+\begin{align}
+K &= P H^\top (H P H^\top + R)^{-1}, \\
+\mathbf{x} &\leftarrow \mathbf{x} + K\cdot\text{innovation}, \\
+P &\leftarrow (I - K H)P,
+\end{align}
+with measurement noise covariance $R$ set to a tunable value on the order of 8~m$^2$ (reflecting typical consumer-GPS accuracy under open-sky conditions).
 
-\subsection{Embedded Adaptations}
-Approximate lat/lon to local EN conversion:
-\begin{equation}
-east \approx (lon - lon_{ref}) \times 111000 \times \cos(lat_{ref} \cdot \pi / 180)
-\end{equation}
-\begin{equation}
-north \approx (lat - lat_{ref}) \times 111000
-\end{equation}
+\subsection{Embedded Coordinate Conversion}
+Latitude/longitude pairs are converted to local East--North metres using a simple equirectangular approximation about a reference point captured at session start:
+\begin{align}
+e &\approx (\lambda - \lambda_{\text{ref}})\cdot 111000\cdot\cos(\phi_{\text{ref}}\cdot\pi/180), \\
+n &\approx (\phi - \phi_{\text{ref}})\cdot 111000,
+\end{align}
+where $\phi$ and $\lambda$ are latitude and longitude in degrees.
 
 \section{Sensor Processing Pipeline}
 
-\subsection{Calibration}
-Gyro and magnetometer bias estimation:
-\begin{equation}
-bias_{gyro} = \frac{1}{N} \sum_{i=1}^{N} gyro_i
-\end{equation}
+\subsection{Timing and Sampling}
+\begin{itemize}
+\item Main update timer: 500~ms period (\texttt{TIMER\_PERIOD\_MS}).
+\item Accelerometer power listener: 1~s period, up to 10~Hz sample rate (capped by device maximum).
+\item FIT fields are written every second (every second timer tick).
+\end{itemize}
 
-\subsection{Heading Fusion}
-Priority order: GPS true heading $\rightarrow$ corrected magnetometer $\rightarrow$ gyro integration.
+\subsection{Startup Calibration}
+On view activation a 5-second calibration window (\texttt{CALIBRATION\_DURATION\_MS}) is started. During this interval raw gyroscope and magnetometer samples are accumulated; at the end of the window the averages become the bias estimates that are subsequently subtracted from all future readings. Heading estimation is reset at the beginning of calibration.
 
-Angle normalization:
-\begin{equation}
-\theta = \theta \mod 2\pi, \quad \theta \in [-\pi, \pi)
-\end{equation}
+\subsection{Heading Estimation}
+Priority order:
+\begin{enumerate}
+\item True heading reported by the GPS/position subsystem (when available).
+\item Bias-corrected magnetometer heading obtained via $\operatorname{atan2}(m_y,m_x)$.
+\item Gyro-integrated heading (using the $z$-axis rate after bias removal) when the device is not stationary.
+\item Fallback to the last valid heading maintained by the pure DR module.
+\end{enumerate}
+All angles are normalized to $[0,2\pi)$.
 
 \subsection{Depth Estimation}
-Low-pass filtered depth:
+Barometric altitude is averaged over the first 15 samples to establish a surface reference. Subsequent depth is computed as
 \begin{equation}
-depth_{filtered} = \alpha \cdot depth_{filtered} + (1-\alpha) \cdot depth
+d_{\text{raw}} = h_{\text{surface}} - h_{\text{current}}
 \end{equation}
+and then low-pass filtered:
+\begin{equation}
+d_k = 0.75\,d_{k-1} + 0.25\,d_{\text{raw}}.
+\end{equation}
+Negative depths are clamped to zero. Dive mode is entered when filtered depth exceeds 1.5~m and exited when it falls to 0.5~m or below.
 
 \subsection{Motion Detection}
-Accelerometer power magnitude with hysteresis and exponential smoothing.
+Accelerometer power is averaged over each sensor-data callback. A slowly adapting baseline is maintained while the device is judged stationary. The absolute deviation from baseline is combined with a scaled gyroscope magnitude:
+\begin{equation}
+m = \alpha\cdot m_{\text{prev}} + (1-\alpha)\bigl(|p-p_{\text{base}}|\cdot 100 + 0.4\cdot\|\omega\|\cdot 100\bigr),
+\end{equation}
+with $\alpha=0.7$. Hysteresis thresholds of 25~mg (on) and 12~mg (off) together with consecutive-sample counters produce a stable motion flag. A higher-level moving-confidence counter (0--10) is also maintained and used to gate DR advancement.
+
+\subsection{Stationarity Test}
+The device is declared stationary when GPS speed is below 0.35~m\,s$^{-1}$, motion score is below 18~mg, and gyroscope magnitude is below 0.05~rad\,s$^{-1}$.
 
 \subsection{Speed Estimation}
-GPS priority with fallback based on motion confidence and mode.
+\begin{enumerate}
+\item If a valid GPS speed $\ge 0.35$~m\,s$^{-1}$ is present, it is used directly.
+\item Otherwise, if moving confidence is below the activation threshold, speed is forced to zero.
+\item Underwater: motion-score bins map to 0.45~m\,s$^{-1}$ (high) or 0.30~m\,s$^{-1}$ (medium).
+\item Land/surface: motion-score bins map to 1.00, 0.65 or 0.30~m\,s$^{-1}$.
+\end{enumerate}
+DR integration is advanced only when a valid heading exists, estimated speed exceeds 0.05~m\,s$^{-1}$, moving confidence is sufficient, and the stationarity test returns false.
 
 \section{User Interface and Interaction}
-The interface shows recording state, mode, GPS fix, quality, depth, motion score, and navigation data. Controls are simple: Select toggles recording, Back performs safe exit.
+
+The UI is rendered with a tiny font and supports vertical scrolling. Displayed fields include:
+\begin{itemize}
+\item Recording state (green ``RECORDING'' / red ``Stopped''),
+\item Mode (Underwater / Land/Surf),
+\item GPS fix presence and quality code,
+\item Moving flag (derived from confidence and stationarity),
+\item Depth (m),
+\item Motion score (mg),
+\item Remaining calibration time (when active),
+\item Kalman (or pure DR) East and North displacements,
+\item Instantaneous GPS speed.
+\end{itemize}
+Select toggles recording; Back performs a safe shutdown (stop session, timers, listeners and GPS).
 
 \section{FIT Recording}
-Custom fields include DR East/North (Kalman preferred), depth, motion score, estimated speed, underwater flag, GPS fix, moving flag, and heading.
+
+A generic-sport FIT session is created with the name ``DR\_Track''. Eleven custom fields (IDs 101--111) are written at approximately 1~Hz only when values change beyond a small epsilon (or for Boolean flags when the state flips):
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Field ID & Name / Units \\
+\midrule
+101 & DR\_East\_m (m) \\
+102 & DR\_North\_m (m) \\
+103 & Depth\_m (m) \\
+104 & GPS\_Lat (deg) \\
+105 & GPS\_Lon (deg) \\
+106 & Motion\_mg (mg) \\
+107 & Speed\_Est (m/s) \\
+108 & Underwater (bool) \\
+109 & GPS\_Fix (bool) \\
+110 & Heading\_deg (deg) \\
+111 & Moving (bool) \\
+\bottomrule
+\end{tabular}
+\end{center}
+East/North values prefer the Kalman filter output; pure DR is used as fallback. Finite-value checks and change-threshold gating prevent unnecessary FIT writes and numeric instability.
 
 \section{Implementation Challenges \& Solutions}
-Memory pressure was reduced by flattening matrices. Timing control used throttled updates. Numeric stability was improved with angle normalization and finite-value checks.
 
-\section{Evaluation (Anticipated)}
 \begin{itemize}
-\item Drift reduction: 60-80\% improvement vs pure DR
-\item Depth accuracy: $\pm 0.5$m after calibration
-\item Battery life: Suitable for multi-hour sessions
+\item \textbf{Memory pressure:} All matrix operations are flattened; only the essential 4-element state and covariance are retained.
+\item \textbf{Timing jitter:} A 500~ms timer with defensive $\Delta t$ clamping (reject intervals $\le 0$ or $>2$~s) keeps integration stable.
+\item \textbf{Sensor bias:} Explicit 5-second startup calibration of gyro and magnetometer.
+\item \textbf{Numeric stability:} Angle normalization to $[0,2\pi)$, finite-value tests before FIT writes, and clamping of negative depths.
+\item \textbf{Power:} GPS is enabled only for the duration of a recording session; the high-rate accelerometer listener is stopped when the view is hidden.
+\end{itemize}
+
+\section{Evaluation (Anticipated / Design Targets)}
+
+\begin{itemize}
+\item Drift reduction of 60--80\,\% relative to pure inertial integration when occasional GPS fixes are available.
+\item Depth accuracy on the order of $\pm 0.5$~m after surface calibration (limited by barometer resolution and atmospheric pressure variation).
+\item Battery impact acceptable for multi-hour recreational dive or hike sessions.
+\item Real-time UI refresh and FIT logging without dropped frames on Instinct 2X-class hardware.
 \end{itemize}
 
 \section{Limitations \& Future Work}
-\textbf{Limitations:} Simplified 2D model, approximate projection.  
-\textbf{Future Work:} Extended Kalman Filter, waypoint navigation, machine learning classification, companion app sync.
+
+\textbf{Limitations:}
+\begin{itemize}
+\item Simplified 2-D (horizontal) model; vertical motion is handled only through independent barometric depth.
+\item Equirectangular projection is adequate for short-range relative navigation but accumulates error over long distances or high latitudes.
+\item Speed estimation under GPS denial relies on heuristic motion-score bins rather than a full dynamic model.
+\end{itemize}
+
+\textbf{Future Work:}
+\begin{itemize}
+\item Extended Kalman Filter (EKF) incorporating attitude states.
+\item Waypoint navigation and return-to-entry guidance.
+\item Machine-learning classification of activity type (swim stroke, walk, etc.).
+\item Companion smartphone application for real-time map overlay and post-processing.
+\item Adaptive process/measurement noise tuning based on observed innovation statistics.
+\end{itemize}
 
 \section{Conclusion}
-This project demonstrates advanced sensor fusion on a commercial wearable platform. The combination of traditional dead reckoning with Kalman filtering provides a practical navigation solution for challenging environments.
+This work demonstrates that a practical, robust dead-reckoning navigation system with Kalman-filter GPS fusion can be realized entirely within the resource constraints of a commercial Garmin wearable. By carefully combining bias calibration, multi-source heading estimation, motion-aware speed gating, barometric depth sensing, and a lightweight 2-D Kalman filter, the application provides continuous relative positioning even when satellite signals are unavailable. Custom FIT logging and a clear real-time UI make the system immediately usable for divers, hikers, and researchers who need post-session analysis of GPS-denied trajectories.
 
 \section*{References}
 \begin{thebibliography}{00}
-\bibitem{welch2006} G. Welch and G. Bishop, ``An Introduction to the Kalman Filter,'' 2006.
+\bibitem{welch2006} G.~Welch and G.~Bishop, ``An Introduction to the Kalman Filter,'' University of North Carolina at Chapel Hill, 2006.
 \bibitem{garmin} Garmin, ``Connect IQ Developer Documentation,'' 2026.
-\bibitem{groves} P. D. Groves, \emph{Principles of GNSS, Inertial, and Multisensor Integrated Navigation Systems}, 2013.
+\bibitem{groves} P.~D.~Groves, \emph{Principles of GNSS, Inertial, and Multisensor Integrated Navigation Systems}, 2nd~ed., Artech House, 2013.
 \end{thebibliography}
 
 \end{document}
