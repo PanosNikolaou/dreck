@@ -1,6 +1,9 @@
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.WatchUi;
 
+// Handles the "Stop & Save?" confirmation dialog pushed from
+// gsensrosView.onBack() while a session is recording.
 class ConfirmStopDelegate extends WatchUi.ConfirmationDelegate {
 
     var view as gsensrosView;
@@ -12,13 +15,11 @@ class ConfirmStopDelegate extends WatchUi.ConfirmationDelegate {
 
     function onResponse(response as WatchUi.Confirm) as Boolean {
         if (response == WatchUi.CONFIRM_YES) {
-            // User confirmed → stop session and exit
             view.stopSession();
             view.prepareToExit();
-            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);   // close the confirmation
-            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);   // close the main view
+            System.exit();
         }
-        // If NO → just close the confirmation dialog, stay on main view
+        // CONFIRM_NO (or dismissed): just close the dialog and stay in the view.
         return true;
     }
 }

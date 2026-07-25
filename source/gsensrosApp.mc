@@ -4,6 +4,10 @@ import Toybox.WatchUi;
 
 class gsensrosApp extends Application.AppBase {
 
+    // Stores the actual running view so onStop() can clean up the real
+    // instance instead of a throwaway one created on the fly.
+    var mainView as gsensrosView?;
+
     function initialize() {
         AppBase.initialize();
     }
@@ -12,7 +16,7 @@ class gsensrosApp extends Application.AppBase {
     }
 
     function onStop(state as Dictionary?) as Void {
-        var view = getInitialView()[0];
+        var view = mainView;
         if (view != null && view has :prepareToExit) {
             view.prepareToExit();
         }
@@ -20,6 +24,7 @@ class gsensrosApp extends Application.AppBase {
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
         var view = new gsensrosView();
+        mainView = view;
         return [ view, new gsensrosDelegate(view) ];
     }
 }

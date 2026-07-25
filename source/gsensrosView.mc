@@ -929,10 +929,15 @@ class gsensrosView extends WatchUi.View {
 
             isUnderwater = (currentDepth > DIVE_START_DEPTH_M);
             resetHeadingEstimate();
+            resetMotionState();
             movingConfidence = 0;
             fitWriteTick = 0;
             heartRate = 0;
             currentAscentRateMps = 0.0f;
+
+            // stopSession() stops the accelerometer listener to save power
+            // while not recording; bring it back with a clean baseline now.
+            startMotionListener();
 
             if (kalman != null) {
                 kalman.reset();
@@ -976,6 +981,7 @@ class gsensrosView extends WatchUi.View {
             isUnderwater = false;
             shutdownSessionSafe();
             stopGps();
+            stopMotionListener();
             resetDepthCalibration();
             resetMotionState();
             resetHeadingEstimate();
