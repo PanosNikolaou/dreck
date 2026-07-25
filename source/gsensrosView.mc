@@ -136,6 +136,11 @@ class gsensrosView extends WatchUi.View {
     var lastFitHeading = null;
     var lastFitMoving = null;
 
+    var scrollY = 0;
+    const SCROLL_STEP = 20;
+    const SCROLL_MIN = -140;
+    const SCROLL_MAX = 0;
+
     function initialize() {
         View.initialize();
         try {
@@ -1146,8 +1151,8 @@ class gsensrosView extends WatchUi.View {
             var w = dc.getWidth();
             var leftX = 8;
             var rightX = w / 2 + 4;
-            var y = 8;
-            var rowH = 14;
+            var y = 8 + scrollY;
+            var rowH = 18;
 
             dc.setColor(isRecording ? Graphics.COLOR_GREEN : Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
             dc.drawText(w / 2, y, font, isRecording ? "RECORDING" : "Stopped", Graphics.TEXT_JUSTIFY_CENTER);
