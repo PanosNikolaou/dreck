@@ -333,7 +333,7 @@ class gsensrosView extends WatchUi.View {
 
                 if (kalman != null) {
                     if (hasGpsFix && isGpsQualityUsable(gpsQuality)) {
-                        kalman.updateGps(latitude, longitude);
+                        kalman.updateGps(latitude, longitude, gpsQuality);
                     } else if (bestHeading != null) {
                         kalman.predict(estSpeed, bestHeading, dt);
                     }

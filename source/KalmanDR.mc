@@ -22,6 +22,11 @@ class KalmanDR {
     var referenceLon = 0.0f;
     var hasReference = false;
 
+
+    // KalmanDR.mc
+    const R_GPS_GOOD    = 5.0f;   // trust more
+    const R_GPS_USABLE   = 25.0f; // trust less
+    
     function initialize() {
         reset();
     }
@@ -71,24 +76,24 @@ class KalmanDR {
         }
     }
 
-    function updateGps(lat as Float, lon as Float) as Void {
+    function updateGps(lat as Float, lon as Float, quality as Number) as Void {
         if (!hasReference) {
             setReference(lat, lon);
             return;
         }
 
+        var r = (quality == Position.QUALITY_GOOD) ? R_GPS_GOOD : R_GPS_USABLE;
+
         var eastGps = (lon - referenceLon) * 111000.0f * Math.cos(referenceLat * Math.PI / 180.0f);
         var northGps = (lat - referenceLat) * 111000.0f;
 
-        // Update east
         var innovation = eastGps - x[0];
-        var gain = getP(0, 0) / (getP(0, 0) + R_GPS_POS);
+        var gain = getP(0, 0) / (getP(0, 0) + r);
         x[0] += gain * innovation;
         setP(0, 0, getP(0, 0) * (1.0f - gain));
 
-        // Update north
         innovation = northGps - x[1];
-        gain = getP(1, 1) / (getP(1, 1) + R_GPS_POS);
+        gain = getP(1, 1) / (getP(1, 1) + r);
         x[1] += gain * innovation;
         setP(1, 1, getP(1, 1) * (1.0f - gain));
     }

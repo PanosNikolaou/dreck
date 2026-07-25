@@ -1371,32 +1371,34 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_335_69_337_2
         %tmp.119 = getv ? :latitude;
         symbol [ longitude %tmp.121 336 51 60 ];
         %tmp.121 = getv ? :longitude;
-        invoke %tmp.116 %tmp.117(%tmp.119, %tmp.121);
+        symbol [ gpsQuality %tmp.123 336 62 72 ];
+        %tmp.123 = getv ? :gpsQuality;
+        invoke %tmp.116 %tmp.117(%tmp.119, %tmp.121, %tmp.123);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_335_69_337_20_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_335_20_339_20_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_335_20_339_20_if_false:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 337 27 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_stmt:
-        %tmp.122 = lgetv %bestHeading.6;
-        symbol [ bestHeading %tmp.122 337 31 42 ];
-        %tmp.123 = null;
-        %tmp.124 = ne %tmp.122 %tmp.123;
-        bf %tmp.124 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_end;
+        %tmp.124 = lgetv %bestHeading.6;
+        symbol [ bestHeading %tmp.124 337 31 42 ];
+        %tmp.125 = null;
+        %tmp.126 = ne %tmp.124 %tmp.125;
+        bf %tmp.126 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_52_339_20_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 338 24 ]
-        symbol [ kalman %tmp.126 338 24 30 ];
-        %tmp.126 = getv ? :kalman;
-        symbol [ predict %tmp.127 338 31 38 ];
-        %tmp.127 = getv function %tmp.126 :predict;
-        %tmp.128 = lgetv %estSpeed.5;
-        symbol [ estSpeed %tmp.128 338 39 47 ];
-        %tmp.129 = lgetv %bestHeading.6;
-        symbol [ bestHeading %tmp.129 338 49 60 ];
-        %tmp.130 = as %tmp.129 { (!Null) };
-        %tmp.131 = lgetv %dt.2;
-        symbol [ dt %tmp.131 338 62 64 ];
-        invoke %tmp.126 %tmp.127(%tmp.128, %tmp.130, %tmp.131);
+        symbol [ kalman %tmp.128 338 24 30 ];
+        %tmp.128 = getv ? :kalman;
+        symbol [ predict %tmp.129 338 31 38 ];
+        %tmp.129 = getv function %tmp.128 :predict;
+        %tmp.130 = lgetv %estSpeed.5;
+        symbol [ estSpeed %tmp.130 338 39 47 ];
+        %tmp.131 = lgetv %bestHeading.6;
+        symbol [ bestHeading %tmp.131 338 49 60 ];
+        %tmp.132 = as %tmp.131 { (!Null) };
+        %tmp.133 = lgetv %dt.2;
+        symbol [ dt %tmp.133 338 62 64 ];
+        invoke %tmp.128 %tmp.129(%tmp.130, %tmp.132, %tmp.133);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_52_339_20_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_337_27_339_20_if_end:
@@ -1407,78 +1409,78 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_334_16_340_1
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 342 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_stmt:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_20_342_71_begin:
-        symbol [ dr %tmp.133 342 20 22 ];
-        %tmp.133 = getv ? :dr;
-        %tmp.134 = null;
-        %tmp.135 = ne %tmp.133 %tmp.134;
-        bf %tmp.135 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end;
+        symbol [ dr %tmp.135 342 20 22 ];
+        %tmp.135 = getv ? :dr;
+        %tmp.136 = null;
+        %tmp.137 = ne %tmp.135 %tmp.136;
+        bf %tmp.137 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_true:
-        %tmp.136 = self;
-        symbol [ shouldAdvanceDR %tmp.137 342 34 49 ];
-        %tmp.137 = getv function %tmp.136 :shouldAdvanceDR;
-        %tmp.138 = lgetv %bestHeading.6;
-        symbol [ bestHeading %tmp.138 342 50 61 ];
-        %tmp.139 = lgetv %estSpeed.5;
-        symbol [ estSpeed %tmp.139 342 63 71 ];
-        %tmp.140 = invoke %tmp.136 %tmp.137(%tmp.138, %tmp.139);
-        push %tmp.140;
+        %tmp.138 = self;
+        symbol [ shouldAdvanceDR %tmp.139 342 34 49 ];
+        %tmp.139 = getv function %tmp.138 :shouldAdvanceDR;
+        %tmp.140 = lgetv %bestHeading.6;
+        symbol [ bestHeading %tmp.140 342 50 61 ];
+        %tmp.141 = lgetv %estSpeed.5;
+        symbol [ estSpeed %tmp.141 342 63 71 ];
+        %tmp.142 = invoke %tmp.138 %tmp.139(%tmp.140, %tmp.141);
+        push %tmp.142;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_end:
-        %tmp.141 = phi [%tmp.135 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_20_342_71_begin] [%tmp.140 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_true] [%tmp.141 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_end];
-        bf %tmp.141 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end;
+        %tmp.143 = phi [%tmp.137 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_20_342_71_begin] [%tmp.142 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_true] [%tmp.143 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_34_342_71_end];
+        bf %tmp.143 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_74_344_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 343 20 ]
-        symbol [ dr %tmp.143 343 20 22 ];
-        %tmp.143 = getv ? :dr;
-        symbol [ updateWithSpeed %tmp.144 343 23 38 ];
-        %tmp.144 = getv function %tmp.143 :updateWithSpeed;
-        symbol [ accelX %tmp.146 343 39 45 ];
-        %tmp.146 = getv ? :accelX;
-        symbol [ accelY %tmp.148 343 47 53 ];
-        %tmp.148 = getv ? :accelY;
-        symbol [ accelZ %tmp.150 343 55 61 ];
-        %tmp.150 = getv ? :accelZ;
-        symbol [ gyroZ %tmp.152 343 63 68 ];
-        %tmp.152 = getv ? :gyroZ;
-        %tmp.153 = lgetv %bestHeading.6;
-        symbol [ bestHeading %tmp.153 343 70 81 ];
-        %tmp.154 = lgetv %dt.2;
-        symbol [ dt %tmp.154 343 83 85 ];
-        %tmp.155 = lgetv %estSpeed.5;
-        symbol [ estSpeed %tmp.155 343 87 95 ];
-        invoke %tmp.143 %tmp.144(%tmp.146, %tmp.148, %tmp.150, %tmp.152, %tmp.153, %tmp.154, %tmp.155);
+        symbol [ dr %tmp.145 343 20 22 ];
+        %tmp.145 = getv ? :dr;
+        symbol [ updateWithSpeed %tmp.146 343 23 38 ];
+        %tmp.146 = getv function %tmp.145 :updateWithSpeed;
+        symbol [ accelX %tmp.148 343 39 45 ];
+        %tmp.148 = getv ? :accelX;
+        symbol [ accelY %tmp.150 343 47 53 ];
+        %tmp.150 = getv ? :accelY;
+        symbol [ accelZ %tmp.152 343 55 61 ];
+        %tmp.152 = getv ? :accelZ;
+        symbol [ gyroZ %tmp.154 343 63 68 ];
+        %tmp.154 = getv ? :gyroZ;
+        %tmp.155 = lgetv %bestHeading.6;
+        symbol [ bestHeading %tmp.155 343 70 81 ];
+        %tmp.156 = lgetv %dt.2;
+        symbol [ dt %tmp.156 343 83 85 ];
+        %tmp.157 = lgetv %estSpeed.5;
+        symbol [ estSpeed %tmp.157 343 87 95 ];
+        invoke %tmp.145 %tmp.146(%tmp.148, %tmp.150, %tmp.152, %tmp.154, %tmp.155, %tmp.156, %tmp.157);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_74_344_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_342_16_344_16_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 346 16 ]
-        symbol [ fitWriteTick %tmp.156 346 16 28 ];
-        %tmp.156 = getv self :fitWriteTick;
-        %tmp.157 = 1;
-        %tmp.158 = add %tmp.156 %tmp.157;
+        symbol [ fitWriteTick %tmp.158 346 16 28 ];
+        %tmp.158 = getv self :fitWriteTick;
+        %tmp.159 = 1;
+        %tmp.160 = add %tmp.158 %tmp.159;
         symbol [ fitWriteTick ? 346 16 28 ];
-        putv self :fitWriteTick dup %tmp.158;
+        putv self :fitWriteTick dup %tmp.160;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 347 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_stmt:
-        symbol [ fitWriteTick %tmp.160 347 20 32 ];
-        %tmp.160 = getv ? :fitWriteTick;
-        %tmp.161 = 2;
-        %tmp.162 = gte %tmp.160 %tmp.161;
-        bf %tmp.162 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_end;
+        symbol [ fitWriteTick %tmp.162 347 20 32 ];
+        %tmp.162 = getv ? :fitWriteTick;
+        %tmp.163 = 2;
+        %tmp.164 = gte %tmp.162 %tmp.163;
+        bf %tmp.164 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_39_350_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 348 20 ]
-        %tmp.163 = 0;
+        %tmp.165 = 0;
         symbol [ fitWriteTick ? 348 20 32 ];
-        putv self :fitWriteTick %tmp.163;
+        putv self :fitWriteTick %tmp.165;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 349 20 ]
-        %tmp.164 = self;
-        symbol [ writeFitFieldsIfNeeded %tmp.165 349 20 42 ];
-        %tmp.165 = getv function %tmp.164 :writeFitFieldsIfNeeded;
-        %tmp.166 = lgetv %estSpeed.5;
-        symbol [ estSpeed %tmp.166 349 43 51 ];
-        %tmp.167 = lgetv %bestHeading.6;
-        symbol [ bestHeading %tmp.167 349 53 64 ];
-        invoke %tmp.164 %tmp.165(%tmp.166, %tmp.167);
+        %tmp.166 = self;
+        symbol [ writeFitFieldsIfNeeded %tmp.167 349 20 42 ];
+        %tmp.167 = getv function %tmp.166 :writeFitFieldsIfNeeded;
+        %tmp.168 = lgetv %estSpeed.5;
+        symbol [ estSpeed %tmp.168 349 43 51 ];
+        %tmp.169 = lgetv %bestHeading.6;
+        symbol [ bestHeading %tmp.169 349 53 64 ];
+        invoke %tmp.166 %tmp.167(%tmp.168, %tmp.169);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_39_350_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_347_16_350_16_if_end:
@@ -1490,30 +1492,30 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_finally;
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_catch:
-        %tmp.168 = exception;
-        push %tmp.168;
+        %tmp.170 = exception;
+        push %tmp.170;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 352 10 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_catch" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_10_354_8_end" ]
         %e.7 = local;
         symbol [ e %e.7 352 17 18 ];
-        %tmp.169 = dup %tmp.168;
-        lputv %e.7 %tmp.169;
+        %tmp.171 = dup %tmp.170;
+        lputv %e.7 %tmp.171;
         symbol [ e %e.7 352 17 18 ];
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_20_354_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 353 12 ]
-        symbol [ System %tmp.170 353 12 18 ];
-        %tmp.170 = getm $.Toybox.System;
-        symbol [ println %tmp.171 353 19 26 ];
-        %tmp.171 = getv function %tmp.170 :println;
-        %tmp.172 = "CRITICAL Timer Error: ";
-        %tmp.173 = self;
-        symbol [ errorToString %tmp.174 353 54 67 ];
-        %tmp.174 = getv function %tmp.173 :errorToString;
-        %tmp.175 = lgetv %e.7;
-        symbol [ e %tmp.175 353 68 69 ];
-        %tmp.176 = invoke %tmp.173 %tmp.174(%tmp.175);
-        %tmp.177 = add %tmp.172 %tmp.176;
-        invoke %tmp.170 %tmp.171(%tmp.177);
+        symbol [ System %tmp.172 353 12 18 ];
+        %tmp.172 = getm $.Toybox.System;
+        symbol [ println %tmp.173 353 19 26 ];
+        %tmp.173 = getv function %tmp.172 :println;
+        %tmp.174 = "CRITICAL Timer Error: ";
+        %tmp.175 = self;
+        symbol [ errorToString %tmp.176 353 54 67 ];
+        %tmp.176 = getv function %tmp.175 :errorToString;
+        %tmp.177 = lgetv %e.7;
+        symbol [ e %tmp.177 353 68 69 ];
+        %tmp.178 = invoke %tmp.175 %tmp.176(%tmp.177);
+        %tmp.179 = add %tmp.174 %tmp.178;
+        invoke %tmp.172 %tmp.173(%tmp.179);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_20_354_8_stop:
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_finally;
         pop;
@@ -1521,16 +1523,16 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_20_354_8
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_10_354_8_end:
         try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_10_354_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_352_10_354_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_finally;
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_finally;
-        throw %tmp.168;
+        throw %tmp.170;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_finally:
         jsrret;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_292_8_354_8_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 356 8 ]
-        symbol [ WatchUi %tmp.178 356 8 15 ];
-        %tmp.178 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.179 356 16 29 ];
-        %tmp.179 = getv function %tmp.178 :requestUpdate;
-        invoke %tmp.178 %tmp.179();
+        symbol [ WatchUi %tmp.180 356 8 15 ];
+        %tmp.180 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.181 356 16 29 ];
+        %tmp.181 = getv function %tmp.180 :requestUpdate;
+        invoke %tmp.180 %tmp.181();
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_287_37_357_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 359; @symbol_functiondef = [startGps,359,13,21]; ]
