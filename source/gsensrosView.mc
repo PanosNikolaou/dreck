@@ -10,6 +10,7 @@ import Toybox.Activity;
 import Toybox.FitContributor;
 import Toybox.Math;
 
+
 class gsensrosView extends WatchUi.View {
 
     var accelX = 0.0f;
@@ -44,7 +45,7 @@ class gsensrosView extends WatchUi.View {
 
     var updateTimer = null;
     var dr = null;
-    var kalman = null;  // Kalman Filter
+    var kalman = null;
 
     var lastUpdateMs = 0;
     var fitWriteTick = 0;
@@ -52,7 +53,8 @@ class gsensrosView extends WatchUi.View {
     var movingConfidence = 0;
     const MOVING_CONFIDENCE_ON = 3;
     const MOVING_CONFIDENCE_MAX = 10;
-    const STATIONARY_GYRO_Z_RAD_S = 0.03f;
+
+    const STATIONARY_GYRO_MAG_RAD_S = 0.05f;
     const STATIONARY_MOTION_MG = 18.0f;
 
     var calibrationActive = false;
@@ -101,6 +103,10 @@ class gsensrosView extends WatchUi.View {
     var currentDepth = 0.0f;
 
     var motionScoreMg = 0.0f;
+    var motionBaselineMg = 0.0f;
+    var motionBaselineReady = false;
+    var motionOnCount = 0;
+    var motionOffCount = 0;
     var isMotionDetected = false;
     var sensorListenerActive = false;
 
@@ -286,9 +292,7 @@ class gsensrosView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 
-    // === The following methods are unchanged from your original code ===
-
-    function startGps() as Void {
+        function startGps() as Void {
         if (gpsActive) {
             return;
         }
@@ -386,53 +390,132 @@ class gsensrosView extends WatchUi.View {
         sensorListenerActive = false;
     }
 
-    function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
-        try {
-            if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
-                return;
-            }
+function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
+    try {
+        if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
+            return;
+        }
 
-            var accData = sensorData.accelerometerData;
-            if (!(accData has :power) || accData.power == null) {
-                return;
-            }
+        var accData = sensorData.accelerometerData;
+        if (!(accData has :power) || accData.power == null) {
+            return;
+        }
 
-            var p = accData.power;
-            var count = p.size();
-            if (count <= 0) {
-                return;
-            }
+        var p = accData.power;
+        var count = p.size();
+        if (count <= 0) {
+            return;
+        }
 
-            var sumPower = 0.0f;
-            var validCount = 0;
-            var i = 0;
-            while (i < count) {
-                if (p[i] != null) {
-                    sumPower += p[i].toFloat();
-                    validCount += 1;
-                }
-                i += 1;
+        var sumPower = 0.0f;
+        var validCount = 0;
+        var i = 0;
+        while (i < count) {
+            if (p[i] != null) {
+                sumPower += p[i].toFloat();
+                validCount += 1;
             }
+            i += 1;
+        }
 
-            if (validCount <= 0) {
-                return;
+        if (validCount <= 0) {
+            return;
+        }
+
+        var avgPower = sumPower / validCount.toFloat();
+
+        if (!motionBaselineReady) {
+            motionBaselineMg = avgPower;
+            motionBaselineReady = true;
+        } else if (!isMotionDetected) {
+            motionBaselineMg = (0.99f * motionBaselineMg) + (0.01f * avgPower);
+        }
+
+        var delta = avgPower - motionBaselineMg;
+        if (delta < 0.0f) {
+            delta = -delta;
+        }
+
+        var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
+        var gyroTerm = gyroMag * 100.0f;
+
+        var combined = (delta * 100.0f) + (gyroTerm * 0.4f);
+        motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * combined);
+
+        if (motionScoreMg >= MOTION_ON_THRESHOLD_MG) {
+            motionOnCount += 1;
+            motionOffCount = 0;
+        } else if (motionScoreMg <= MOTION_OFF_THRESHOLD_MG) {
+            motionOffCount += 1;
+            motionOnCount = 0;
+        } else {
+            motionOnCount = 0;
+            motionOffCount = 0;
+        }
+
+        if (!isMotionDetected && motionOnCount >= 3) {
+            isMotionDetected = true;
+        } else if (isMotionDetected && motionOffCount >= 5) {
+            isMotionDetected = false;
+        }
+    } catch (e) {
+        System.println("sensorDataCallback error: " + errorToString(e));
+    }
+}
+
+function isStationary() as Boolean {
+    if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+        return false;
+    }
+
+    var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
+
+    if (motionScoreMg > STATIONARY_MOTION_MG) {
+        return false;
+    }
+
+    if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
+        return false;
+    }
+
+    return true;
+}
+
+    function isProbablyMoving() as Boolean {
+        if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+            return true;
+        }
+
+        if (isUnderwater) {
+            return motionScoreMg >= 28.0f;
+        }
+
+        if (motionScoreMg >= 35.0f) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function updateMotionConfidence() as Void {
+        if (isProbablyMoving()) {
+            if (movingConfidence < MOVING_CONFIDENCE_MAX) {
+                movingConfidence += 1;
             }
-
-            var avgPower = sumPower / validCount.toFloat();
-            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * avgPower);
-
-            if (!isMotionDetected && motionScoreMg >= MOTION_ON_THRESHOLD_MG) {
-                isMotionDetected = true;
-            } else if (isMotionDetected && motionScoreMg <= MOTION_OFF_THRESHOLD_MG) {
-                isMotionDetected = false;
+        } else {
+            if (movingConfidence > 0) {
+                movingConfidence -= 1;
             }
-        } catch (e) {
-            System.println("sensorDataCallback error: " + errorToString(e));
         }
     }
 
+
     function resetMotionState() as Void {
         motionScoreMg = 0.0f;
+        motionBaselineMg = 0.0f;
+        motionBaselineReady = false;
+        motionOnCount = 0;
+        motionOffCount = 0;
         isMotionDetected = false;
         movingConfidence = 0;
     }
@@ -650,44 +733,6 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-    function isProbablyMoving() as Boolean {
-        if (speed >= MIN_VALID_GPS_SPEED_MPS) {
-            return true;
-        }
-        if (isUnderwater) {
-            return motionScoreMg >= 28.0f;
-        }
-        if (motionScoreMg >= 35.0f) {
-            return true;
-        }
-        return false;
-    }
-
-    function updateMotionConfidence() as Void {
-        if (isProbablyMoving()) {
-            if (movingConfidence < MOVING_CONFIDENCE_MAX) {
-                movingConfidence += 1;
-            }
-        } else {
-            if (movingConfidence > 0) {
-                movingConfidence -= 1;
-            }
-        }
-    }
-
-    function isStationary() as Boolean {
-        if (speed >= MIN_VALID_GPS_SPEED_MPS) {
-            return false;
-        }
-        if (motionScoreMg > STATIONARY_MOTION_MG) {
-            return false;
-        }
-        if (absf(gyroZ) > STATIONARY_GYRO_Z_RAD_S) {
-            return false;
-        }
-        return true;
-    }
-
     function getEstimatedSpeedMps() as Float {
         try {
             if (speed >= MIN_VALID_GPS_SPEED_MPS) {
@@ -738,7 +783,7 @@ class gsensrosView extends WatchUi.View {
         return true;
     }
 
-    function onSelect() as Boolean {
+        function onSelect() as Boolean {
         try {
             System.println("=== SELECT BUTTON PRESSED ===");
             if (isRecording) {
