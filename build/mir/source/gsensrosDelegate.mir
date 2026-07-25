@@ -54,6 +54,114 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_17_33_19
         ret %tmp.4;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_17_33_19_4_stop:
     }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 21; @symbol_functiondef = [onNextPage,21,13,23]; @symbol_return<0> = [Boolean,21,29,36]; ]
+    function onNextPage() as Boolean {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_21_37_28_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 22 8 ]
+        symbol [ view %tmp.1 22 8 12 ];
+        %tmp.1 = getv self :view;
+        symbol [ view %tmp.2 22 8 12 ];
+        %tmp.2 = getv self :view;
+        symbol [ scrollY %tmp.3 22 13 20 ];
+        %tmp.3 = getv %tmp.2 :scrollY;
+        symbol [ view %tmp.5 22 24 28 ];
+        %tmp.5 = getv ? :view;
+        symbol [ SCROLL_STEP %tmp.6 22 29 40 ];
+        %tmp.6 = getv %tmp.5 :SCROLL_STEP;
+        %tmp.7 = sub %tmp.3 %tmp.6;
+        symbol [ scrollY ? 22 13 20 ];
+        putv %tmp.1 :scrollY dup %tmp.7;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 23 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_8_25_8_if_stmt:
+        symbol [ view %tmp.9 23 12 16 ];
+        %tmp.9 = getv ? :view;
+        symbol [ scrollY %tmp.10 23 17 24 ];
+        %tmp.10 = getv %tmp.9 :scrollY;
+        symbol [ view %tmp.12 23 27 31 ];
+        %tmp.12 = getv ? :view;
+        symbol [ SCROLL_MIN %tmp.13 23 32 42 ];
+        %tmp.13 = getv %tmp.12 :SCROLL_MIN;
+        %tmp.14 = lt %tmp.10 %tmp.13;
+        bf %tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_8_25_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_8_25_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_44_25_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 24 12 ]
+        symbol [ view %tmp.15 24 12 16 ];
+        %tmp.15 = getv self :view;
+        symbol [ view %tmp.17 24 27 31 ];
+        %tmp.17 = getv ? :view;
+        symbol [ SCROLL_MIN %tmp.18 24 32 42 ];
+        %tmp.18 = getv %tmp.17 :SCROLL_MIN;
+        symbol [ scrollY ? 24 17 24 ];
+        putv %tmp.15 :scrollY %tmp.18;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_44_25_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_8_25_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_23_8_25_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 26 8 ]
+        symbol [ WatchUi %tmp.19 26 8 15 ];
+        %tmp.19 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.20 26 16 29 ];
+        %tmp.20 = getv function %tmp.19 :requestUpdate;
+        invoke %tmp.19 %tmp.20();
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 27 8 ]
+        %tmp.21 = true;
+        ret %tmp.21;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_21_37_28_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 30; @symbol_functiondef = [onPreviousPage,30,13,27]; @symbol_return<0> = [Boolean,30,33,40]; ]
+    function onPreviousPage() as Boolean {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_30_41_37_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 31 8 ]
+        symbol [ view %tmp.1 31 8 12 ];
+        %tmp.1 = getv self :view;
+        symbol [ view %tmp.2 31 8 12 ];
+        %tmp.2 = getv self :view;
+        symbol [ scrollY %tmp.3 31 13 20 ];
+        %tmp.3 = getv %tmp.2 :scrollY;
+        symbol [ view %tmp.5 31 24 28 ];
+        %tmp.5 = getv ? :view;
+        symbol [ SCROLL_STEP %tmp.6 31 29 40 ];
+        %tmp.6 = getv %tmp.5 :SCROLL_STEP;
+        %tmp.7 = add %tmp.3 %tmp.6;
+        symbol [ scrollY ? 31 13 20 ];
+        putv %tmp.1 :scrollY dup %tmp.7;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 32 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_8_34_8_if_stmt:
+        symbol [ view %tmp.9 32 12 16 ];
+        %tmp.9 = getv ? :view;
+        symbol [ scrollY %tmp.10 32 17 24 ];
+        %tmp.10 = getv %tmp.9 :scrollY;
+        symbol [ view %tmp.12 32 27 31 ];
+        %tmp.12 = getv ? :view;
+        symbol [ SCROLL_MAX %tmp.13 32 32 42 ];
+        %tmp.13 = getv %tmp.12 :SCROLL_MAX;
+        %tmp.14 = gt %tmp.10 %tmp.13;
+        bf %tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_8_34_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_8_34_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_44_34_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 33 12 ]
+        symbol [ view %tmp.15 33 12 16 ];
+        %tmp.15 = getv self :view;
+        symbol [ view %tmp.17 33 27 31 ];
+        %tmp.17 = getv ? :view;
+        symbol [ SCROLL_MAX %tmp.18 33 32 42 ];
+        %tmp.18 = getv %tmp.17 :SCROLL_MAX;
+        symbol [ scrollY ? 33 17 24 ];
+        putv %tmp.15 :scrollY %tmp.18;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_44_34_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_8_34_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_32_8_34_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 35 8 ]
+        symbol [ WatchUi %tmp.19 35 8 15 ];
+        %tmp.19 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.20 35 16 29 ];
+        %tmp.20 = getv function %tmp.19 :requestUpdate;
+        invoke %tmp.19 %tmp.20();
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 36 8 ]
+        %tmp.21 = true;
+        ret %tmp.21;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_30_41_37_4_stop:
+    }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 1; ]
 <init> {
