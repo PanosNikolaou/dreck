@@ -9,6 +9,8 @@ import Toybox.Position;
 import Toybox.Activity;
 import Toybox.FitContributor;
 import Toybox.Math;
+import Toybox.Time;
+import Toybox.Time.Gregorian;
 
 class gsensrosView extends WatchUi.View {
 
@@ -981,129 +983,92 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-    function startRecording() as Void {
-        try {
-            shutdownSessionWithoutSave();
+function safeCreateField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
+    if (session == null) {
+        return null;
+    }
+    try {
+        return session.createField(name, id, type, {
+            :mesgType => FitContributor.MESG_TYPE_RECORD,
+            :units => units
+        });
+    } catch (e) {
+        System.println("createField failed: " + name + " -> " + errorToString(e));
+        return null;
+    }
+}
 
-            session = ActivityRecording.createSession({
-                :name => "DR_Track",
-                :sport => Activity.SPORT_GENERIC
-            });
+function startRecording() as Void {
+    try {
+        shutdownSessionWithoutSave();
 
-            if (session == null) {
-                System.println("createSession returned null");
-                return;
-            }
+        var now = Time.now();
+        var info = Gregorian.info(now, Time.FORMAT_SHORT);
 
-            drEastField = session.createField("DR_East_m", FIELD_DR_EAST, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "m"
-            });
+        // Example result: "DR 2026-07-25 16:42"
+        var name = Lang.format("DR $1$-$2$-$3$ $4$:$5$", [
+            info.year.format("%04d"),
+            info.month.format("%02d"),
+            info.day.format("%02d"),
+            info.hour.format("%02d"),
+            info.min.format("%02d")
+        ]);
 
-            drNorthField = session.createField("DR_North_m", FIELD_DR_NORTH, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "m"
-            });
+        session = ActivityRecording.createSession({
+            :name => name,
+            :sport => Activity.SPORT_GENERIC
+        });
 
-            depthField = session.createField("Depth_m", FIELD_DEPTH, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "m"
-            });
+        if (session == null) {
+            System.println("createSession returned null");
+            return;
+        }
 
-            gpsLatField = session.createField("GPS_Lat", FIELD_GPS_LAT, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "deg"
-            });
+        // --- Essential navigation fields ---
+        drEastField     = safeCreateField("DR_East_m",    FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
+        drNorthField    = safeCreateField("DR_North_m",   FIELD_DR_NORTH,   FitContributor.DATA_TYPE_FLOAT,  "m");
+        depthField      = safeCreateField("Depth_m",      FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
+        motionField     = safeCreateField("Motion_mg",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
+        speedEstField   = safeCreateField("Speed_Est",    FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
+        underwaterField = safeCreateField("Underwater",   FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32, "bool");
+        gpsFixField     = safeCreateField("GPS_Fix",      FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32, "bool");
+        headingField    = safeCreateField("Heading_deg",  FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+        movingField     = safeCreateField("Moving",       FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32, "bool");
+        drLatField      = safeCreateField("DR_Lat",       FIELD_DR_LAT,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+        drLonField      = safeCreateField("DR_Lon",       FIELD_DR_LON,     FitContributor.DATA_TYPE_FLOAT,  "deg");
 
-            gpsLonField = session.createField("GPS_Lon", FIELD_GPS_LON, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "deg"
-            });
+        // --- Nitrogen (optional but useful) ---
+        n2LoadField     = safeCreateField("N2_Load",      FIELD_N2_LOAD,    FitContributor.DATA_TYPE_FLOAT,  "%");
+        n2MaxField      = safeCreateField("N2_Load_Max",  FIELD_N2_MAX,     FitContributor.DATA_TYPE_FLOAT,  "%");
+        n2BandField     = safeCreateField("N2_Risk_Band", FIELD_N2_BAND,    FitContributor.DATA_TYPE_UINT32, "band");
 
-            motionField = session.createField("Motion_mg", FIELD_MOTION, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "mg"
-            });
+        // GPS lat/lon are still useful when a real fix exists
+        gpsLatField     = safeCreateField("GPS_Lat",      FIELD_GPS_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+        gpsLonField     = safeCreateField("GPS_Lon",      FIELD_GPS_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
 
-            speedEstField = session.createField("Speed_Est", FIELD_SPEED_EST, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "m/s"
-            });
+        // HR and Ascent are intentionally NOT created as FIT fields
+        // (they remain visible on the watch UI and HR is recorded by the activity itself)
+        hrField = null;
+        ascentField = null;
 
-            underwaterField = session.createField("Underwater", FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "bool"
-            });
-
-            gpsFixField = session.createField("GPS_Fix", FIELD_GPS_FIX, FitContributor.DATA_TYPE_UINT32, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "bool"
-            });
-
-            headingField = session.createField("Heading_deg", FIELD_HEADING, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "deg"
-            });
-
-            movingField = session.createField("Moving", FIELD_MOVING, FitContributor.DATA_TYPE_UINT32, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "bool"
-            });
-
-            drLatField = session.createField("DR_Lat", FIELD_DR_LAT, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "deg"
-            });
-
-            drLonField = session.createField("DR_Lon", FIELD_DR_LON, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "deg"
-            });
-
-            n2LoadField = session.createField("N2_Load", FIELD_N2_LOAD, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "%"
-            });
-
-            n2MaxField = session.createField("N2_Load_Max", FIELD_N2_MAX, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "%"
-            });
-
-            n2BandField = session.createField("N2_Risk_Band", FIELD_N2_BAND, FitContributor.DATA_TYPE_UINT32, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "band"
-            });
-
-            // NEW health / dive metrics
-            hrField = session.createField("Heart_Rate", FIELD_HR, FitContributor.DATA_TYPE_UINT32, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "bpm"
-            });
-
-            ascentField = session.createField("Ascent_Rate", FIELD_ASCENT, FitContributor.DATA_TYPE_FLOAT, {
-                :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => "m/s"
-            });
-
-            var started = session.start();
-            if (started) {
-                isRecording = true;
-                clearLastFitValues();
-                System.println("Recording STARTED");
-            } else {
-                System.println("session.start() returned false");
-                clearFitFields();
-                session = null;
-                isRecording = false;
-            }
-        } catch (e) {
-            System.println("Start recording error: " + errorToString(e));
+        var started = session.start();
+        if (started) {
+            isRecording = true;
+            clearLastFitValues();
+            System.println("Recording STARTED");
+        } else {
+            System.println("session.start() returned false");
             clearFitFields();
             session = null;
             isRecording = false;
         }
+    } catch (e) {
+        System.println("Start recording error: " + errorToString(e));
+        clearFitFields();
+        session = null;
+        isRecording = false;
     }
+}
 
     function shutdownSessionSafe() as Void {
         if (session == null) {
