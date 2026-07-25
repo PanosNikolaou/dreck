@@ -81,24 +81,30 @@ class gsensrosView extends WatchUi.View {
     var lastFitN2Band = null as Number or Null;
 
     var lastDepthForAscent = 0.0f;
+    var currentAscentRateMps = 0.0f;          // NEW – exposed for UI / FIT
+
+    // Heart-rate (health data)
+    var heartRate = 0;                        // NEW
 
     // FIT field IDs
-    const FIELD_DR_EAST   = 101;
-    const FIELD_DR_NORTH  = 102;
-    const FIELD_DEPTH     = 103;
-    const FIELD_GPS_LAT   = 104;
-    const FIELD_GPS_LON   = 105;
-    const FIELD_MOTION    = 106;
-    const FIELD_SPEED_EST = 107;
+    const FIELD_DR_EAST    = 101;
+    const FIELD_DR_NORTH   = 102;
+    const FIELD_DEPTH      = 103;
+    const FIELD_GPS_LAT    = 104;
+    const FIELD_GPS_LON    = 105;
+    const FIELD_MOTION     = 106;
+    const FIELD_SPEED_EST  = 107;
     const FIELD_UNDERWATER = 108;
-    const FIELD_GPS_FIX   = 109;
-    const FIELD_HEADING   = 110;
-    const FIELD_MOVING    = 111;
-    const FIELD_DR_LAT    = 112;
-    const FIELD_DR_LON    = 113;
-    const FIELD_N2_LOAD   = 114;
-    const FIELD_N2_MAX    = 115;
-    const FIELD_N2_BAND   = 116;
+    const FIELD_GPS_FIX    = 109;
+    const FIELD_HEADING    = 110;
+    const FIELD_MOVING     = 111;
+    const FIELD_DR_LAT     = 112;
+    const FIELD_DR_LON     = 113;
+    const FIELD_N2_LOAD    = 114;
+    const FIELD_N2_MAX     = 115;
+    const FIELD_N2_BAND    = 116;
+    const FIELD_HR         = 117;             // NEW
+    const FIELD_ASCENT     = 118;             // NEW
 
     var drLatField = null as FitContributor.Field or Null;
     var drLonField = null as FitContributor.Field or Null;
@@ -113,6 +119,8 @@ class gsensrosView extends WatchUi.View {
     var gpsFixField = null as FitContributor.Field or Null;
     var headingField = null as FitContributor.Field or Null;
     var movingField = null as FitContributor.Field or Null;
+    var hrField = null as FitContributor.Field or Null;          // NEW
+    var ascentField = null as FitContributor.Field or Null;      // NEW
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -160,10 +168,12 @@ class gsensrosView extends WatchUi.View {
     var lastFitGpsFix = null as Number or Null;
     var lastFitHeading = null as Float or Null;
     var lastFitMoving = null as Number or Null;
+    var lastFitHr = null as Number or Null;          // NEW
+    var lastFitAscent = null as Float or Null;       // NEW
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
-    const SCROLL_MIN = -140;
+    const SCROLL_MIN = -180;   // increased a bit for extra lines
     const SCROLL_MAX = 0;
 
     function initialize() {
@@ -194,6 +204,8 @@ class gsensrosView extends WatchUi.View {
             movingConfidence = 0;
             fitWriteTick = 0;
             lastUpdateMs = System.getTimer();
+            heartRate = 0;
+            currentAscentRateMps = 0.0f;
 
             startMotionListener();
             startStartupCalibration();
@@ -280,14 +292,15 @@ class gsensrosView extends WatchUi.View {
             processDiveState();
             updateMotionConfidence();
 
-            var ascentRateMps = 0.0f;
+            // Ascent rate (positive = ascending)
+            currentAscentRateMps = 0.0f;
             if (dt > 0.0f) {
-                ascentRateMps = (lastDepthForAscent - currentDepth) / dt;
+                currentAscentRateMps = (lastDepthForAscent - currentDepth) / dt;
             }
             lastDepthForAscent = currentDepth;
 
             if (n2Model != null) {
-                n2Model.update(currentDepth, dt, isUnderwater, ascentRateMps);
+                n2Model.update(currentDepth, dt, isUnderwater, currentAscentRateMps);
             }
 
             if (calibrationActive && (nowMs - calibrationStartMs) >= CALIBRATION_DURATION_MS) {
@@ -581,6 +594,13 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
+            // Heart rate (health data)
+            if (info has :heartRate && info.heartRate != null) {
+                heartRate = info.heartRate;
+            } else {
+                heartRate = 0;
+            }
+
             if (info has :accel && info.accel != null && info.accel.size() >= 3) {
                 accelX = info.accel[0].toFloat();
                 accelY = info.accel[1].toFloat();
@@ -836,16 +856,24 @@ class gsensrosView extends WatchUi.View {
     function onBack() as Boolean {
         try {
             System.println("=== BACK BUTTON ===");
+
             if (isRecording) {
-                stopSession();
+                var dialog = new WatchUi.Confirmation("Stop & Save?");
+                WatchUi.pushView(
+                    dialog,
+                    new ConfirmStopDelegate(self),
+                    WatchUi.SLIDE_IMMEDIATE
+                );
+                return true;
             }
-            stopTimerOnly();
-            stopMotionListener();
-            stopGps();
+
+            prepareToExit();
+            return false;
+
         } catch (e) {
             System.println("Back button error: " + errorToString(e));
+            return false;
         }
-        return false;
     }
 
     function startSession() as Void {
@@ -867,6 +895,8 @@ class gsensrosView extends WatchUi.View {
             resetHeadingEstimate();
             movingConfidence = 0;
             fitWriteTick = 0;
+            heartRate = 0;
+            currentAscentRateMps = 0.0f;
 
             if (kalman != null) {
                 kalman.reset();
@@ -904,6 +934,7 @@ class gsensrosView extends WatchUi.View {
                 n2Model.reset();
             }
             lastDepthForAscent = 0.0f;
+            currentAscentRateMps = 0.0f;
             System.println("MANUAL STOP - Saving FIT");
             captureExitPosition();
             isUnderwater = false;
@@ -913,6 +944,7 @@ class gsensrosView extends WatchUi.View {
             resetMotionState();
             resetHeadingEstimate();
             hasEntryPosition = false;
+            heartRate = 0;
             WatchUi.requestUpdate();
         } catch (e) {
             System.println("stopSession error: " + errorToString(e));
@@ -1043,6 +1075,17 @@ class gsensrosView extends WatchUi.View {
                 :units => "band"
             });
 
+            // NEW health / dive metrics
+            hrField = session.createField("Heart_Rate", FIELD_HR, FitContributor.DATA_TYPE_UINT32, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "bpm"
+            });
+
+            ascentField = session.createField("Ascent_Rate", FIELD_ASCENT, FitContributor.DATA_TYPE_FLOAT, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "m/s"
+            });
+
             var started = session.start();
             if (started) {
                 isRecording = true;
@@ -1132,6 +1175,8 @@ class gsensrosView extends WatchUi.View {
         lastFitN2Load = null;
         lastFitN2Max = null;
         lastFitN2Band = null;
+        lastFitHr = null;
+        lastFitAscent = null;
     }
 
     function clearFitFields() as Void {
@@ -1151,6 +1196,8 @@ class gsensrosView extends WatchUi.View {
         n2LoadField = null;
         n2MaxField = null;
         n2BandField = null;
+        hrField = null;
+        ascentField = null;
         clearLastFitValues();
     }
 
@@ -1235,13 +1282,12 @@ class gsensrosView extends WatchUi.View {
             lastFitGpsFix = writeUIntField(gpsFixField, gpsFixVal, lastFitGpsFix);
             lastFitMoving = writeUIntField(movingField, movingVal, lastFitMoving);
 
-            // Synthetic lat/lon from DR East/North + entry reference
+            // Synthetic lat/lon
             if (hasEntryPosition && isFiniteValue(eastVal) && isFiniteValue(northVal)) {
-                var latRefRad = entryLat * 0.017453292519943295f;   // π/180
+                var latRefRad = entryLat * 0.017453292519943295f;
                 var metersPerDegLat = 111000.0f;
                 var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
 
-                // Protect against division by very small cos near poles
                 if (metersPerDegLon < 1000.0f) {
                     metersPerDegLon = 1000.0f;
                 }
@@ -1274,6 +1320,13 @@ class gsensrosView extends WatchUi.View {
                 lastFitN2Max = writeFloatField(n2MaxField, n2Model.getMaxLoading(), lastFitN2Max, 0.1f);
                 lastFitN2Band = writeUIntField(n2BandField, n2Model.getRiskBand(), lastFitN2Band);
             }
+
+            // NEW health / dive metrics
+            if (heartRate > 0) {
+                lastFitHr = writeUIntField(hrField, heartRate, lastFitHr);
+            }
+            lastFitAscent = writeFloatField(ascentField, currentAscentRateMps, lastFitAscent, 0.05f);
+
         } catch (e) {
             System.println("FIT write error: " + errorToString(e));
         }
@@ -1336,6 +1389,18 @@ class gsensrosView extends WatchUi.View {
             dc.drawText(rightX, y, font, currentDepth.format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
 
             y += rowH;
+            dc.drawText(leftX, y, font, "Asc:", Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(rightX, y, font, currentAscentRateMps.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+
+            y += rowH;
+            dc.drawText(leftX, y, font, "HR:", Graphics.TEXT_JUSTIFY_LEFT);
+            if (heartRate > 0) {
+                dc.drawText(rightX, y, font, heartRate.format("%d") + " bpm", Graphics.TEXT_JUSTIFY_LEFT);
+            } else {
+                dc.drawText(rightX, y, font, "--", Graphics.TEXT_JUSTIFY_LEFT);
+            }
+
+            y += rowH;
             dc.drawText(leftX, y, font, "Motion:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, motionScoreMg.format("%.0f") + "mg", Graphics.TEXT_JUSTIFY_LEFT);
 
@@ -1375,7 +1440,8 @@ class gsensrosView extends WatchUi.View {
 
             dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
-            // ---------- Nitrogen Model display ----------
+
+            // Nitrogen Model display
             if (n2Model != null) {
                 y += rowH;
                 dc.drawText(leftX, y, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
@@ -1405,7 +1471,6 @@ class gsensrosView extends WatchUi.View {
                 dc.drawText(leftX, y, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.drawText(rightX, y, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
 
-                // restore white colour for any following text
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             }
         } catch (e) {
