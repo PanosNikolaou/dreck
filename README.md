@@ -1,10 +1,10 @@
-# gsensrosView
+# dreck
 
 Garmin Connect IQ `WatchUi.View` application for motion detection, GPS tracking, heading estimation, depth estimation, dead reckoning, Kalman-style position updates, and FIT recording.
 
 ## Overview
 
-`gsensrosView` is a view-based tracking app built for Garmin devices. It combines sensor callbacks, GPS updates, a periodic timer loop, and activity recording to maintain a live internal estimate of the user's movement and position.
+`dreck` is a view-based tracking app built for Garmin devices. It combines sensor callbacks, GPS updates, a periodic timer loop, and activity recording to maintain a live internal estimate of the user's movement and position.
 
 The code is designed to:
 
