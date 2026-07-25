@@ -10,7 +10,6 @@ import Toybox.Activity;
 import Toybox.FitContributor;
 import Toybox.Math;
 
-
 class gsensrosView extends WatchUi.View {
 
     var accelX = 0.0f;
@@ -21,8 +20,8 @@ class gsensrosView extends WatchUi.View {
     var gyroY = 0.0f;
     var gyroZ = 0.0f;
 
-    var magHeading = null;
-    var trueHeading = null;
+    var magHeading = null as Float or Null;
+    var trueHeading = null as Float or Null;
 
     var headingEstimate = 0.0f;
     var hasHeadingEstimate = false;
@@ -38,12 +37,13 @@ class gsensrosView extends WatchUi.View {
     var entryLon = 0.0f;
     var exitLat = 0.0f;
     var exitLon = 0.0f;
+    var hasEntryPosition = false;
 
-    var session = null;
+    var session = null as ActivityRecording.Session or Null;
     var isRecording = false;
     var isUnderwater = false;
 
-    var updateTimer = null;
+    var updateTimer = null as Timer.Timer or Null;
     var dr = null;
     var kalman = null;
 
@@ -71,29 +71,48 @@ class gsensrosView extends WatchUi.View {
     var magBiasZ = 0.0f;
     var magCalSamples = 0;
 
-    const FIELD_DR_EAST = 101;
-    const FIELD_DR_NORTH = 102;
-    const FIELD_DEPTH = 103;
-    const FIELD_GPS_LAT = 104;
-    const FIELD_GPS_LON = 105;
-    const FIELD_MOTION = 106;
+    var n2Model = null;
+    var n2LoadField = null as FitContributor.Field or Null;
+    var n2MaxField = null as FitContributor.Field or Null;
+    var n2BandField = null as FitContributor.Field or Null;
+
+    var lastFitN2Load = null as Float or Null;
+    var lastFitN2Max = null as Float or Null;
+    var lastFitN2Band = null as Number or Null;
+
+    var lastDepthForAscent = 0.0f;
+
+    // FIT field IDs
+    const FIELD_DR_EAST   = 101;
+    const FIELD_DR_NORTH  = 102;
+    const FIELD_DEPTH     = 103;
+    const FIELD_GPS_LAT   = 104;
+    const FIELD_GPS_LON   = 105;
+    const FIELD_MOTION    = 106;
     const FIELD_SPEED_EST = 107;
     const FIELD_UNDERWATER = 108;
-    const FIELD_GPS_FIX = 109;
-    const FIELD_HEADING = 110;
-    const FIELD_MOVING = 111;
+    const FIELD_GPS_FIX   = 109;
+    const FIELD_HEADING   = 110;
+    const FIELD_MOVING    = 111;
+    const FIELD_DR_LAT    = 112;
+    const FIELD_DR_LON    = 113;
+    const FIELD_N2_LOAD   = 114;
+    const FIELD_N2_MAX    = 115;
+    const FIELD_N2_BAND   = 116;
 
-    var drEastField = null;
-    var drNorthField = null;
-    var depthField = null;
-    var gpsLatField = null;
-    var gpsLonField = null;
-    var motionField = null;
-    var speedEstField = null;
-    var underwaterField = null;
-    var gpsFixField = null;
-    var headingField = null;
-    var movingField = null;
+    var drLatField = null as FitContributor.Field or Null;
+    var drLonField = null as FitContributor.Field or Null;
+    var drEastField = null as FitContributor.Field or Null;
+    var drNorthField = null as FitContributor.Field or Null;
+    var depthField = null as FitContributor.Field or Null;
+    var gpsLatField = null as FitContributor.Field or Null;
+    var gpsLonField = null as FitContributor.Field or Null;
+    var motionField = null as FitContributor.Field or Null;
+    var speedEstField = null as FitContributor.Field or Null;
+    var underwaterField = null as FitContributor.Field or Null;
+    var gpsFixField = null as FitContributor.Field or Null;
+    var headingField = null as FitContributor.Field or Null;
+    var movingField = null as FitContributor.Field or Null;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -132,15 +151,15 @@ class gsensrosView extends WatchUi.View {
     const DIVE_START_DEPTH_M = 1.5f;
     const SURFACE_STOP_DEPTH_M = 0.5f;
 
-    var lastFitEast = null;
-    var lastFitNorth = null;
-    var lastFitDepth = null;
-    var lastFitMotion = null;
-    var lastFitSpeedEst = null;
-    var lastFitUnderwater = null;
-    var lastFitGpsFix = null;
-    var lastFitHeading = null;
-    var lastFitMoving = null;
+    var lastFitEast = null as Float or Null;
+    var lastFitNorth = null as Float or Null;
+    var lastFitDepth = null as Float or Null;
+    var lastFitMotion = null as Float or Null;
+    var lastFitSpeedEst = null as Float or Null;
+    var lastFitUnderwater = null as Number or Null;
+    var lastFitGpsFix = null as Number or Null;
+    var lastFitHeading = null as Float or Null;
+    var lastFitMoving = null as Number or Null;
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
@@ -152,6 +171,7 @@ class gsensrosView extends WatchUi.View {
         try {
             dr = new DeadReckoning();
             kalman = new KalmanDR();
+            n2Model = new NitrogenModel();
         } catch (e) {
             System.println("Init failed: " + errorToString(e));
         }
@@ -177,6 +197,11 @@ class gsensrosView extends WatchUi.View {
 
             startMotionListener();
             startStartupCalibration();
+
+            if (n2Model != null) {
+                n2Model.reset();
+            }
+            lastDepthForAscent = currentDepth;
 
             if (updateTimer != null) {
                 updateTimer.stop();
@@ -255,6 +280,16 @@ class gsensrosView extends WatchUi.View {
             processDiveState();
             updateMotionConfidence();
 
+            var ascentRateMps = 0.0f;
+            if (dt > 0.0f) {
+                ascentRateMps = (lastDepthForAscent - currentDepth) / dt;
+            }
+            lastDepthForAscent = currentDepth;
+
+            if (n2Model != null) {
+                n2Model.update(currentDepth, dt, isUnderwater, ascentRateMps);
+            }
+
             if (calibrationActive && (nowMs - calibrationStartMs) >= CALIBRATION_DURATION_MS) {
                 finishStartupCalibration();
             }
@@ -292,7 +327,7 @@ class gsensrosView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 
-        function startGps() as Void {
+    function startGps() as Void {
         if (gpsActive) {
             return;
         }
@@ -314,13 +349,14 @@ class gsensrosView extends WatchUi.View {
 
         try {
             Position.enableLocationEvents(Position.LOCATION_DISABLE, null);
-        } catch (e) {}
+        } catch (e) {
+        }
 
         gpsActive = false;
         System.println("GPS disabled");
     }
 
-    function getPositionQuality(info) {
+    function getPositionQuality(info as Position.Info or Null) as Number or Null {
         try {
             return info != null ? info.accuracy : null;
         } catch (e) {
@@ -385,101 +421,102 @@ class gsensrosView extends WatchUi.View {
 
         try {
             Sensor.unregisterSensorDataListener();
-        } catch (e) {}
+        } catch (e) {
+        }
 
         sensorListenerActive = false;
     }
 
-function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
-    try {
-        if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
-            return;
-        }
-
-        var accData = sensorData.accelerometerData;
-        if (!(accData has :power) || accData.power == null) {
-            return;
-        }
-
-        var p = accData.power;
-        var count = p.size();
-        if (count <= 0) {
-            return;
-        }
-
-        var sumPower = 0.0f;
-        var validCount = 0;
-        var i = 0;
-        while (i < count) {
-            if (p[i] != null) {
-                sumPower += p[i].toFloat();
-                validCount += 1;
+    function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
+        try {
+            if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
+                return;
             }
-            i += 1;
+
+            var accData = sensorData.accelerometerData;
+            if (!(accData has :power) || accData.power == null) {
+                return;
+            }
+
+            var p = accData.power;
+            var count = p.size();
+            if (count <= 0) {
+                return;
+            }
+
+            var sumPower = 0.0f;
+            var validCount = 0;
+            var i = 0;
+            while (i < count) {
+                if (p[i] != null) {
+                    sumPower += p[i].toFloat();
+                    validCount += 1;
+                }
+                i += 1;
+            }
+
+            if (validCount <= 0) {
+                return;
+            }
+
+            var avgPower = sumPower / validCount.toFloat();
+
+            if (!motionBaselineReady) {
+                motionBaselineMg = avgPower;
+                motionBaselineReady = true;
+            } else if (!isMotionDetected) {
+                motionBaselineMg = (0.99f * motionBaselineMg) + (0.01f * avgPower);
+            }
+
+            var delta = avgPower - motionBaselineMg;
+            if (delta < 0.0f) {
+                delta = -delta;
+            }
+
+            var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
+            var gyroTerm = gyroMag * 100.0f;
+
+            var combined = (delta * 100.0f) + (gyroTerm * 0.4f);
+            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * combined);
+
+            if (motionScoreMg >= MOTION_ON_THRESHOLD_MG) {
+                motionOnCount += 1;
+                motionOffCount = 0;
+            } else if (motionScoreMg <= MOTION_OFF_THRESHOLD_MG) {
+                motionOffCount += 1;
+                motionOnCount = 0;
+            } else {
+                motionOnCount = 0;
+                motionOffCount = 0;
+            }
+
+            if (!isMotionDetected && motionOnCount >= 3) {
+                isMotionDetected = true;
+            } else if (isMotionDetected && motionOffCount >= 5) {
+                isMotionDetected = false;
+            }
+        } catch (e) {
+            System.println("sensorDataCallback error: " + errorToString(e));
         }
+    }
 
-        if (validCount <= 0) {
-            return;
-        }
-
-        var avgPower = sumPower / validCount.toFloat();
-
-        if (!motionBaselineReady) {
-            motionBaselineMg = avgPower;
-            motionBaselineReady = true;
-        } else if (!isMotionDetected) {
-            motionBaselineMg = (0.99f * motionBaselineMg) + (0.01f * avgPower);
-        }
-
-        var delta = avgPower - motionBaselineMg;
-        if (delta < 0.0f) {
-            delta = -delta;
+    function isStationary() as Boolean {
+        if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+            return false;
         }
 
         var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
-        var gyroTerm = gyroMag * 100.0f;
 
-        var combined = (delta * 100.0f) + (gyroTerm * 0.4f);
-        motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * combined);
-
-        if (motionScoreMg >= MOTION_ON_THRESHOLD_MG) {
-            motionOnCount += 1;
-            motionOffCount = 0;
-        } else if (motionScoreMg <= MOTION_OFF_THRESHOLD_MG) {
-            motionOffCount += 1;
-            motionOnCount = 0;
-        } else {
-            motionOnCount = 0;
-            motionOffCount = 0;
+        if (motionScoreMg > STATIONARY_MOTION_MG) {
+            return false;
         }
 
-        if (!isMotionDetected && motionOnCount >= 3) {
-            isMotionDetected = true;
-        } else if (isMotionDetected && motionOffCount >= 5) {
-            isMotionDetected = false;
+        if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
+            return false;
         }
-    } catch (e) {
-        System.println("sensorDataCallback error: " + errorToString(e));
+
+        return true;
     }
-}
-
-function isStationary() as Boolean {
-    if (speed >= MIN_VALID_GPS_SPEED_MPS) {
-        return false;
-    }
-
-    var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
-
-    if (motionScoreMg > STATIONARY_MOTION_MG) {
-        return false;
-    }
-
-    if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
-        return false;
-    }
-
-    return true;
-}
 
     function isProbablyMoving() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
@@ -509,7 +546,6 @@ function isStationary() as Boolean {
         }
     }
 
-
     function resetMotionState() as Void {
         motionScoreMg = 0.0f;
         motionBaselineMg = 0.0f;
@@ -532,14 +568,14 @@ function isStationary() as Boolean {
         return v;
     }
 
-    function isGpsQualityUsable(q) as Boolean {
+    function isGpsQualityUsable(q as Number or Null) as Boolean {
         if (q == null) {
             return false;
         }
         return q == Position.QUALITY_USABLE || q == Position.QUALITY_GOOD;
     }
 
-    function readSensors(info) as Void {
+    function readSensors(info as Sensor.Info or Null) as Void {
         try {
             if (info == null) {
                 return;
@@ -647,7 +683,7 @@ function isStationary() as Boolean {
         return a * 57.2957795f;
     }
 
-    function updateDepth(info) as Void {
+    function updateDepth(info as Sensor.Info or Null) as Void {
         try {
             if (info == null || !(info has :altitude) || info.altitude == null) {
                 return;
@@ -681,7 +717,7 @@ function isStationary() as Boolean {
         }
     }
 
-    function updateGPS(sensorInfo, posInfo) as Void {
+    function updateGPS(sensorInfo as Sensor.Info or Null, posInfo as Position.Info or Null) as Void {
         try {
             hasGpsFix = false;
             speed = 0.0f;
@@ -783,7 +819,7 @@ function isStationary() as Boolean {
         return true;
     }
 
-        function onSelect() as Boolean {
+    function onSelect() as Boolean {
         try {
             System.println("=== SELECT BUTTON PRESSED ===");
             if (isRecording) {
@@ -814,7 +850,9 @@ function isStationary() as Boolean {
 
     function startSession() as Void {
         try {
-            if (isRecording) { return; }
+            if (isRecording) {
+                return;
+            }
 
             System.println("MANUAL START");
             startGps();
@@ -862,7 +900,10 @@ function isStationary() as Boolean {
                 stopGps();
                 return;
             }
-
+            if (n2Model != null) {
+                n2Model.reset();
+            }
+            lastDepthForAscent = 0.0f;
             System.println("MANUAL STOP - Saving FIT");
             captureExitPosition();
             isUnderwater = false;
@@ -871,6 +912,7 @@ function isStationary() as Boolean {
             resetDepthCalibration();
             resetMotionState();
             resetHeadingEstimate();
+            hasEntryPosition = false;
             WatchUi.requestUpdate();
         } catch (e) {
             System.println("stopSession error: " + errorToString(e));
@@ -884,9 +926,13 @@ function isStationary() as Boolean {
                 var coords = loc.position.toDegrees();
                 entryLat = coords[0].toFloat();
                 entryLon = coords[1].toFloat();
+                hasEntryPosition = true;
+            } else {
+                hasEntryPosition = false;
             }
         } catch (e) {
             System.println("captureEntryPosition error: " + errorToString(e));
+            hasEntryPosition = false;
         }
     }
 
@@ -972,6 +1018,31 @@ function isStationary() as Boolean {
                 :units => "bool"
             });
 
+            drLatField = session.createField("DR_Lat", FIELD_DR_LAT, FitContributor.DATA_TYPE_FLOAT, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "deg"
+            });
+
+            drLonField = session.createField("DR_Lon", FIELD_DR_LON, FitContributor.DATA_TYPE_FLOAT, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "deg"
+            });
+
+            n2LoadField = session.createField("N2_Load", FIELD_N2_LOAD, FitContributor.DATA_TYPE_FLOAT, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "%"
+            });
+
+            n2MaxField = session.createField("N2_Load_Max", FIELD_N2_MAX, FitContributor.DATA_TYPE_FLOAT, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "%"
+            });
+
+            n2BandField = session.createField("N2_Risk_Band", FIELD_N2_BAND, FitContributor.DATA_TYPE_UINT32, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => "band"
+            });
+
             var started = session.start();
             if (started) {
                 isRecording = true;
@@ -1024,7 +1095,8 @@ function isStationary() as Boolean {
             if (session.isRecording()) {
                 session.stop();
             }
-        } catch (e) {}
+        } catch (e) {
+        }
 
         forceCleanup();
     }
@@ -1033,7 +1105,8 @@ function isStationary() as Boolean {
         if (updateTimer != null) {
             try {
                 updateTimer.stop();
-            } catch (e) {}
+            } catch (e) {
+            }
             updateTimer = null;
         }
     }
@@ -1056,6 +1129,9 @@ function isStationary() as Boolean {
         lastFitGpsFix = null;
         lastFitHeading = null;
         lastFitMoving = null;
+        lastFitN2Load = null;
+        lastFitN2Max = null;
+        lastFitN2Band = null;
     }
 
     function clearFitFields() as Void {
@@ -1070,6 +1146,11 @@ function isStationary() as Boolean {
         gpsFixField = null;
         headingField = null;
         movingField = null;
+        drLatField = null;
+        drLonField = null;
+        n2LoadField = null;
+        n2MaxField = null;
+        n2BandField = null;
         clearLastFitValues();
     }
 
@@ -1085,14 +1166,14 @@ function isStationary() as Boolean {
         }
     }
 
-    function isFiniteValue(v) as Boolean {
+    function isFiniteValue(v as Float or Null) as Boolean {
         if (v == null) {
             return false;
         }
 
         try {
             var s = v.format("%.6f");
-            if (s == "nan" || s == "NaN" || s == "inf" || s == "-inf") {
+            if (s.equals("nan") || s.equals("NaN") || s.equals("inf") || s.equals("-inf")) {
                 return false;
             }
         } catch (e) {
@@ -1102,7 +1183,7 @@ function isStationary() as Boolean {
         return true;
     }
 
-    function writeFloatField(field, value as Float, lastValue, eps as Float) {
+    function writeFloatField(field as FitContributor.Field or Null, value as Float, lastValue as Float or Null, eps as Float) as Float or Null {
         if (field == null || !isFiniteValue(value)) {
             return lastValue;
         }
@@ -1115,7 +1196,7 @@ function isStationary() as Boolean {
         return lastValue;
     }
 
-    function writeUIntField(field, value as Number, lastValue) {
+    function writeUIntField(field as FitContributor.Field or Null, value as Number, lastValue as Number or Null) as Number or Null {
         if (field == null || value == null) {
             return lastValue;
         }
@@ -1154,6 +1235,28 @@ function isStationary() as Boolean {
             lastFitGpsFix = writeUIntField(gpsFixField, gpsFixVal, lastFitGpsFix);
             lastFitMoving = writeUIntField(movingField, movingVal, lastFitMoving);
 
+            // Synthetic lat/lon from DR East/North + entry reference
+            if (hasEntryPosition && isFiniteValue(eastVal) && isFiniteValue(northVal)) {
+                var latRefRad = entryLat * 0.017453292519943295f;   // π/180
+                var metersPerDegLat = 111000.0f;
+                var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
+
+                // Protect against division by very small cos near poles
+                if (metersPerDegLon < 1000.0f) {
+                    metersPerDegLon = 1000.0f;
+                }
+
+                var synthLat = entryLat + (northVal / metersPerDegLat);
+                var synthLon = entryLon + (eastVal / metersPerDegLon);
+
+                if (drLatField != null && isFiniteValue(synthLat)) {
+                    drLatField.setData(synthLat);
+                }
+                if (drLonField != null && isFiniteValue(synthLon)) {
+                    drLonField.setData(synthLon);
+                }
+            }
+
             if (bestHeading != null) {
                 lastFitHeading = writeFloatField(headingField, headingDegVal, lastFitHeading, 0.5f);
             }
@@ -1165,6 +1268,12 @@ function isStationary() as Boolean {
             if (gpsLonField != null && hasGpsFix && isFiniteValue(longitude)) {
                 gpsLonField.setData(longitude);
             }
+
+            if (n2Model != null) {
+                lastFitN2Load = writeFloatField(n2LoadField, n2Model.getLoading(), lastFitN2Load, 0.1f);
+                lastFitN2Max = writeFloatField(n2MaxField, n2Model.getMaxLoading(), lastFitN2Max, 0.1f);
+                lastFitN2Band = writeUIntField(n2BandField, n2Model.getRiskBand(), lastFitN2Band);
+            }
         } catch (e) {
             System.println("FIT write error: " + errorToString(e));
         }
@@ -1173,7 +1282,9 @@ function isStationary() as Boolean {
     function floatEquals(a as Float, b as Float, eps as Float) as Boolean {
         try {
             var diff = a - b;
-            if (diff < 0.0f) { diff = -diff; }
+            if (diff < 0.0f) {
+                diff = -diff;
+            }
             return diff <= eps;
         } catch (e) {
             return false;
@@ -1264,6 +1375,39 @@ function isStationary() as Boolean {
 
             dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            // ---------- Nitrogen Model display ----------
+            if (n2Model != null) {
+                y += rowH;
+                dc.drawText(leftX, y, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, n2Model.getLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+
+                y += rowH;
+                dc.drawText(leftX, y, font, "Max:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, n2Model.getMaxLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+
+                y += rowH;
+                var band = n2Model.getRiskBand();
+                var bandText = "LOW";
+                var bandColor = Graphics.COLOR_GREEN;
+
+                if (band == 1) {
+                    bandText = "MOD";
+                    bandColor = Graphics.COLOR_YELLOW;
+                } else if (band == 2) {
+                    bandText = "ELEV";
+                    bandColor = Graphics.COLOR_ORANGE;
+                } else if (band == 3) {
+                    bandText = "HIGH";
+                    bandColor = Graphics.COLOR_RED;
+                }
+
+                dc.setColor(bandColor, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(leftX, y, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
+
+                // restore white colour for any following text
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            }
         } catch (e) {
             System.println("Draw error: " + errorToString(e));
         }

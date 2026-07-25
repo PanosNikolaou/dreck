@@ -6,10 +6,17 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{booktabs}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
 \usepackage{listings}
 \usepackage{xcolor}
+
+% Minimal IEEEtran fallback if class missing (will be overridden if real class present)
+\makeatletter
+\@ifundefined{IEEEauthorblockN}{%
+  \renewcommand{\IEEEauthorblockN}[1]{\textbf{#1}\\}
+  \renewcommand{\IEEEauthorblockA}[1]{#1}
+  \providecommand{\IEEEkeywords}[1]{\textbf{Keywords:} #1}
+}{}
+\makeatother
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
@@ -34,7 +41,7 @@ Email: panagiotisnikolaou1982@gmail.com}
 \maketitle
 
 \begin{abstract}
-This report presents the complete design, implementation, and evaluation of a robust dead reckoning (DR) navigation system for Garmin Instinct 2X (and compatible Connect IQ) wearables. The system fuses high-rate inertial data (accelerometer and gyroscope), magnetometer heading, barometric depth estimation, and intermittent GPS corrections using a lightweight 2D Kalman filter. Implemented entirely in Monkey~C, the application delivers reliable relative positioning in GPS-denied environments such as underwater diving, dense canopy, or indoor scenarios. Key features include automatic gyro/magnetometer bias calibration, hysteresis-based motion detection, adaptive speed estimation (GPS-priority with motion-score fallbacks), dive-mode detection via barometric depth, real-time UI feedback, and custom FIT contributor fields for post-session analysis in Garmin Connect. The design strictly respects wearable constraints (memory, CPU, power, and sample-rate limits) while achieving meaningful drift reduction compared with pure inertial integration.
+This report presents the complete design, implementation, and evaluation of a robust dead reckoning (DR) navigation system for Garmin Instinct 2X (and compatible Connect IQ) wearables. The system fuses high-rate inertial data (accelerometer and gyroscope), magnetometer heading, barometric depth estimation, and intermittent GPS corrections using a lightweight 2-D Kalman filter. Implemented entirely in Monkey~C, the application delivers reliable relative positioning in GPS-denied environments such as underwater diving, dense canopy, or indoor scenarios. Key features include automatic gyro/magnetometer bias calibration, hysteresis-based motion detection, adaptive speed estimation (GPS-priority with motion-score fallbacks), dive-mode detection via barometric depth, real-time UI feedback, and thirteen custom FIT contributor fields. Notably, the system performs an on-device conversion of the continuous East/North displacements into absolute latitude/longitude using the inverse of the same equirectangular projection employed by the Kalman filter, writing both real GPS fixes and a continuous synthetic track into the FIT file. The design strictly respects wearable constraints (memory, CPU, power, and sample-rate limits) while achieving meaningful drift reduction compared with pure inertial integration.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -44,13 +51,13 @@ Dead Reckoning, Kalman Filter, IMU/GPS Fusion, Wearable Navigation, Garmin Conne
 \section{Introduction}
 
 \subsection{Background and Motivation}
-Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, magnetometer, barometer, and GPS) through the Connect IQ API, yet they lack a built-in advanced dead-reckoning engine capable of bridging extended GPS outages. Underwater diving, forest canopy, urban canyons, and indoor environments routinely degrade or completely deny satellite positioning. This project fills that gap by implementing a custom Monkey~C application that continuously estimates relative East--North displacement via inertial integration, corrects heading with magnetometer and gyroscope, estimates depth from barometric altitude, and applies intermittent GPS updates through a lightweight 2-D Kalman filter.
+Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, magnetometer, barometer, and GPS) through the Connect IQ API, yet they lack a built-in advanced dead-reckoning engine capable of bridging extended GPS outages. Underwater diving, forest canopy, urban canyons, and indoor environments routinely degrade or completely deny satellite positioning. This project fills that gap by implementing a custom Monkey~C application that continuously estimates relative East--North displacement via inertial integration, corrects heading with magnetometer and gyroscope, estimates depth from barometric altitude, and applies intermittent GPS updates through a lightweight 2-D Kalman filter. In addition, the application converts the relative East/North track into absolute geographic coordinates on the device itself and records both real and synthetic positions in the FIT file.
 
 \subsection{Objectives}
 \begin{itemize}
 \item Reliable relative position tracking when GPS is unavailable or of low quality.
 \item Accurate barometric depth estimation suitable for recreational diving.
-\item Custom FIT logging of navigation and sensor state for post-session analysis.
+\item Custom FIT logging of navigation and sensor state for post-session analysis, including continuous absolute coordinates derived from DR.
 \item Low power consumption and real-time performance on constrained hardware.
 \item Robustness to sensor bias, noise, and intermittent GPS availability.
 \end{itemize}
@@ -64,7 +71,7 @@ Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, ma
 \item Adaptive speed estimation that prioritizes GPS and falls back to motion-score heuristics differentiated by land/underwater mode.
 \item Automatic dive-mode detection from filtered barometric depth.
 \item Real-time UI with scrollable status and safe session lifecycle management.
-\item Eleven custom FIT contributor fields written at approximately 1~Hz.
+\item Thirteen custom FIT contributor fields written at approximately 1~Hz, including on-device conversion of East/North metres into continuous absolute latitude/longitude.
 \end{itemize}
 
 \section{System Architecture}
@@ -79,12 +86,12 @@ Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, ma
 \begin{itemize}
 \item \texttt{DeadReckoning.mc} --- Base inertial integration (East/North displacement, heading).
 \item \texttt{KalmanDR.mc} --- Lightweight 2-D Kalman filter operating in a local East--North frame.
-\item \texttt{dreckView.mc} --- Main view class containing the complete state machine, sensor pipeline, UI, FIT logging, and session control.
+\item \texttt{gsensrosView.mc} --- Main view class containing the complete state machine, sensor pipeline, UI, FIT logging, session control, and on-device East/North-to-lat/lon conversion.
 \item High-rate sensor data listener (accelerometer power at up to 10~Hz) and periodic timer (500~ms).
 \end{itemize}
 
 \subsection{Data Flow}
-Raw sensor samples $\rightarrow$ startup bias calibration $\rightarrow$ bias removal $\rightarrow$ heading estimation \& motion scoring $\rightarrow$ speed estimation $\rightarrow$ Kalman predict / GPS update $\rightarrow$ DR integration (when motion is confirmed) $\rightarrow$ UI refresh + FIT field writes.
+Raw sensor samples $\rightarrow$ startup bias calibration $\rightarrow$ bias removal $\rightarrow$ heading estimation \& motion scoring $\rightarrow$ speed estimation $\rightarrow$ Kalman predict / GPS update $\rightarrow$ DR integration (when motion is confirmed) $\rightarrow$ inverse equirectangular conversion of East/North to absolute lat/lon $\rightarrow$ UI refresh + FIT field writes.
 
 \section{Kalman Filter Design}
 
@@ -131,6 +138,13 @@ e &\approx (\lambda - \lambda_{\text{ref}})\cdot 111000\cdot\cos(\phi_{\text{ref
 n &\approx (\phi - \phi_{\text{ref}})\cdot 111000,
 \end{align}
 where $\phi$ and $\lambda$ are latitude and longitude in degrees.
+
+The inverse transformation is performed on the device at every FIT write to produce continuous absolute coordinates from the current East/North state:
+\begin{align}
+\phi &= \phi_{\text{ref}} + \frac{n}{111000}, \\
+\lambda &= \lambda_{\text{ref}} + \frac{e}{111000\cdot\cos(\phi_{\text{ref}}\cdot\pi/180)}.
+\end{align}
+A lower bound is applied to the metres-per-degree-longitude term to avoid numerical instability near the poles.
 
 \section{Sensor Processing Pipeline}
 
@@ -202,7 +216,8 @@ Select toggles recording; Back performs a safe shutdown (stop session, timers, l
 
 \section{FIT Recording}
 
-A generic-sport FIT session is created with the name ``DR\_Track''. Eleven custom fields (IDs 101--111) are written at approximately 1~Hz only when values change beyond a small epsilon (or for Boolean flags when the state flips):
+A generic-sport FIT session is created with the name ``DR\_Track''. Thirteen custom fields (IDs 101--113) are written at approximately 1~Hz. Most numeric fields are gated by a small change threshold (or written only when Boolean state flips) to reduce file size and avoid numeric noise. The synthetic latitude/longitude fields are written whenever a valid entry reference exists.
+
 \begin{center}
 \begin{tabular}{@{}ll@{}}
 \toprule
@@ -211,18 +226,56 @@ Field ID & Name / Units \\
 101 & DR\_East\_m (m) \\
 102 & DR\_North\_m (m) \\
 103 & Depth\_m (m) \\
-104 & GPS\_Lat (deg) \\
-105 & GPS\_Lon (deg) \\
+104 & GPS\_Lat (deg) --- real GPS fix \\
+105 & GPS\_Lon (deg) --- real GPS fix \\
 106 & Motion\_mg (mg) \\
 107 & Speed\_Est (m/s) \\
 108 & Underwater (bool) \\
 109 & GPS\_Fix (bool) \\
 110 & Heading\_deg (deg) \\
 111 & Moving (bool) \\
+112 & DR\_Lat (deg) --- synthetic from East/North \\
+113 & DR\_Lon (deg) --- synthetic from East/North \\
 \bottomrule
 \end{tabular}
 \end{center}
-East/North values prefer the Kalman filter output; pure DR is used as fallback. Finite-value checks and change-threshold gating prevent unnecessary FIT writes and numeric instability.
+
+East/North values prefer the Kalman filter output; pure DR is used as fallback. The synthetic \texttt{DR\_Lat}/\texttt{DR\_Lon} pair is obtained by applying the inverse equirectangular projection to the current East/North state relative to the entry reference captured at session start. Consequently the FIT file contains both intermittent real GPS points and a continuous absolute track derived entirely from dead reckoning, enabling immediate post-processing or map visualisation without external conversion.
+
+Finite-value checks and change-threshold gating (where applied) prevent unnecessary FIT writes and numeric instability.
+
+\section{How the Recorded Data Supports Absolute Positioning and Post-Session Analysis}
+
+The FIT recording scheme is deliberately designed so that a complete absolute trajectory can be reconstructed---or inspected directly---from the on-device data alone. The following elements work together to achieve this goal.
+
+\subsection{Entry Reference Capture}
+At session start the application waits for a usable (or good) GPS fix. As soon as one is obtained it stores the corresponding latitude and longitude as the \emph{entry reference} $(\phi_{\text{ref}},\lambda_{\text{ref}})$. This pair is passed to the Kalman filter as the origin of the local East--North tangent-plane frame and is also retained for the inverse projection performed later. If no usable fix appears before the user begins moving, the first subsequent fix is adopted; until that moment the synthetic latitude/longitude fields remain undefined and are not written.
+
+\subsection{Continuous Relative Track}
+While the session is active the Kalman filter (preferred) or the pure dead-reckoning module produces continuous East and North displacements in metres relative to the entry reference. These values are written to FIT fields 101 (\texttt{DR\_East\_m}) and 102 (\texttt{DR\_North\_m}) at approximately 1~Hz, subject to a small change threshold that suppresses numerical noise. Because the filter is updated on every timer tick (500~ms) and the DR integration is gated by motion confidence, the recorded East/North series forms a smooth, motion-aware relative trajectory even during prolonged GPS outages.
+
+\subsection{Intermittent Real GPS Fixes}
+Whenever a GPS position of usable or good quality is available, the corresponding absolute latitude and longitude are logged into fields 104 and 105. These sparse but accurate points serve two purposes: (1) they provide independent ground-truth anchors that can be used offline for drift assessment, and (2) they allow a post-processing stage (or a future on-device enhancement) to re-anchor the synthetic track.
+
+\subsection{On-Device Inverse Equirectangular Conversion}
+Because the Kalman filter itself employs a simple equirectangular projection about the entry reference, the exact inverse of that projection recovers approximate absolute coordinates from any East/North pair:
+\begin{align}
+\Delta\phi &= \frac{n}{111000}, \\
+\Delta\lambda &= \frac{e}{111000\cdot\cos(\phi_{\text{ref}}\cdot\pi/180)}, \\
+\phi &= \phi_{\text{ref}} + \Delta\phi, \\
+\lambda &= \lambda_{\text{ref}} + \Delta\lambda,
+\end{align}
+where $\phi$ and $\lambda$ are latitude and longitude in degrees, distances are in metres, and a lower bound is applied to the metres-per-degree-longitude term to avoid division by near-zero values near the poles. The resulting synthetic latitude and longitude are written to FIT fields 112 (\texttt{DR\_Lat}) and 113 (\texttt{DR\_Lon}) on every successful conversion. Consequently the FIT file already contains a continuous absolute track that can be visualised directly in Garmin Connect or any third-party tool that recognises developer fields---no external conversion step is required.
+
+\subsection{Exit Position and Session Closure}
+At the end of the recording session an exit position is captured (the last available GPS fix or the final synthetic coordinates). Together with the entry reference this pair brackets the whole trajectory and supplies convenient start- and end-points for subsequent analysis or return-to-entry calculations.
+
+\subsection{Practical Implications for Analysis}
+\begin{itemize}
+\item The combination of continuous synthetic lat/lon and intermittent real GPS fixes enables immediate map overlay and quantitative drift evaluation (e.g., Euclidean distance between synthetic and real points at the instants when both exist).
+\item Depth, motion score, heading, estimated speed and the Boolean state flags (underwater, moving, GPS fix) are logged in lock-step with the position fields, permitting detailed reconstruction of the sensor environment that produced each segment of the track.
+\item Because all conversion mathematics are performed on the device with the identical constants used by the filter, consistency between the internal state and the recorded absolute coordinates is guaranteed.
+\end{itemize}
 
 \section{Implementation Challenges \& Solutions}
 
@@ -230,8 +283,9 @@ East/North values prefer the Kalman filter output; pure DR is used as fallback. 
 \item \textbf{Memory pressure:} All matrix operations are flattened; only the essential 4-element state and covariance are retained.
 \item \textbf{Timing jitter:} A 500~ms timer with defensive $\Delta t$ clamping (reject intervals $\le 0$ or $>2$~s) keeps integration stable.
 \item \textbf{Sensor bias:} Explicit 5-second startup calibration of gyro and magnetometer.
-\item \textbf{Numeric stability:} Angle normalization to $[0,2\pi)$, finite-value tests before FIT writes, and clamping of negative depths.
+\item \textbf{Numeric stability:} Angle normalization to $[0,2\pi)$, finite-value tests before FIT writes, clamping of negative depths, and a lower bound on the metres-per-degree-longitude term near the poles.
 \item \textbf{Power:} GPS is enabled only for the duration of a recording session; the high-rate accelerometer listener is stopped when the view is hidden.
+\item \textbf{On-device absolute coordinates:} The inverse projection is performed every second using only a few multiplications and a cosine evaluation, remaining well within the CPU budget of the target devices.
 \end{itemize}
 
 \section{Evaluation (Anticipated / Design Targets)}
@@ -240,7 +294,8 @@ East/North values prefer the Kalman filter output; pure DR is used as fallback. 
 \item Drift reduction of 60--80\,\% relative to pure inertial integration when occasional GPS fixes are available.
 \item Depth accuracy on the order of $\pm 0.5$~m after surface calibration (limited by barometer resolution and atmospheric pressure variation).
 \item Battery impact acceptable for multi-hour recreational dive or hike sessions.
-\item Real-time UI refresh and FIT logging without dropped frames on Instinct 2X-class hardware.
+\item Real-time UI refresh and FIT logging (including synthetic lat/lon) without dropped frames on Instinct 2X-class hardware.
+\item Continuous absolute track available directly inside the FIT file for immediate analysis in Garmin Connect or third-party tools that support developer fields.
 \end{itemize}
 
 \section{Limitations \& Future Work}
@@ -250,19 +305,24 @@ East/North values prefer the Kalman filter output; pure DR is used as fallback. 
 \item Simplified 2-D (horizontal) model; vertical motion is handled only through independent barometric depth.
 \item Equirectangular projection is adequate for short-range relative navigation but accumulates error over long distances or high latitudes.
 \item Speed estimation under GPS denial relies on heuristic motion-score bins rather than a full dynamic model.
+\item Synthetic absolute coordinates remain relative to the original entry reference; they are not re-anchored on later GPS fixes.
+\item The constant 111000\,m/deg is a spherical approximation; a more accurate ellipsoidal model (WGS-84) would further reduce long-range error.
 \end{itemize}
 
 \textbf{Future Work:}
 \begin{itemize}
-\item Extended Kalman Filter (EKF) incorporating attitude states.
-\item Waypoint navigation and return-to-entry guidance.
-\item Machine-learning classification of activity type (swim stroke, walk, etc.).
-\item Companion smartphone application for real-time map overlay and post-processing.
+\item Extended Kalman Filter (EKF) incorporating attitude states and, optionally, barometric altitude as a third dimension.
+\item On-device or post-processing re-anchoring of the synthetic track whenever a high-quality GPS fix is received, thereby limiting long-term drift.
+\item Waypoint navigation and return-to-entry guidance that utilises both the continuous synthetic track and the stored entry reference.
+\item Machine-learning classification of activity type (swim stroke, walk, etc.) to refine the motion-score-to-speed mapping.
+\item Companion smartphone application for real-time map overlay, live track visualisation and offline post-processing of the thirteen FIT fields.
 \item Adaptive process/measurement noise tuning based on observed innovation statistics.
+\item Replacement of the equirectangular projection by a local tangent-plane or transverse-Mercator formulation for improved accuracy over multi-kilometre trajectories.
+\item Automatic capture and logging of an explicit exit position together with a session summary (total distance, maximum depth, cumulative drift estimate).
 \end{itemize}
 
 \section{Conclusion}
-This work demonstrates that a practical, robust dead-reckoning navigation system with Kalman-filter GPS fusion can be realized entirely within the resource constraints of a commercial Garmin wearable. By carefully combining bias calibration, multi-source heading estimation, motion-aware speed gating, barometric depth sensing, and a lightweight 2-D Kalman filter, the application provides continuous relative positioning even when satellite signals are unavailable. Custom FIT logging and a clear real-time UI make the system immediately usable for divers, hikers, and researchers who need post-session analysis of GPS-denied trajectories.
+This work demonstrates that a practical, robust dead-reckoning navigation system with Kalman-filter GPS fusion can be realized entirely within the resource constraints of a commercial Garmin wearable. By carefully combining bias calibration, multi-source heading estimation, motion-aware speed gating, barometric depth sensing, a lightweight 2-D Kalman filter, and on-device conversion of relative East/North displacements into continuous absolute latitude/longitude, the application provides both relative and absolute positioning even when satellite signals are unavailable. The thirteen custom FIT fields---including real GPS fixes and a continuous synthetic track---together with a clear real-time UI make the system immediately usable for divers, hikers, and researchers who need post-session analysis of GPS-denied trajectories. The recorded data themselves already contain everything required for absolute map visualisation and quantitative evaluation, thereby closing the loop from sensor fusion to usable geographic output without external post-processing.
 
 \section*{References}
 \begin{thebibliography}{00}
