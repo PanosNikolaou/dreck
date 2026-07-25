@@ -57,7 +57,6 @@ class gsensrosView extends WatchUi.View {
     const MOVING_CONFIDENCE_MAX = 10;
 
     const STATIONARY_GYRO_MAG_RAD_S = 0.05f;
-    const STATIONARY_MOTION_MG = 18.0f;
 
     var calibrationActive = false;
     var calibrationStartMs = 0;
@@ -139,8 +138,6 @@ class gsensrosView extends WatchUi.View {
     var motionScoreMg = 0.0f;
     var motionBaselineMg = 0.0f;
     var motionBaselineReady = false;
-    var motionOnCount = 0;
-    var motionOffCount = 0;
     var isMotionDetected = false;
     var sensorListenerActive = false;
 
@@ -159,8 +156,6 @@ class gsensrosView extends WatchUi.View {
     const LAND_SPEED_MED_MPS = 0.65f;
     const LAND_SPEED_HIGH_MPS = 1.00f;
 
-    const MOTION_ON_THRESHOLD_MG = 25.0f;
-    const MOTION_OFF_THRESHOLD_MG = 12.0f;
     const MOTION_FILTER_ALPHA = 0.7f;
 
     var lastFitEast = null as Float or Null;
@@ -179,6 +174,23 @@ class gsensrosView extends WatchUi.View {
     const SCROLL_STEP = 20;
     const SCROLL_MIN = -180;   // increased a bit for extra lines
     const SCROLL_MAX = 0;
+
+    // --- Improved motion detection ---
+    var lastAccelMag     = 0.0f;
+    var motionVar        = 0.0f;          // exponential variance of high-pass accel
+    var motionStateCount = 0;             // unified hysteresis counter
+
+    const MOTION_HP_ALPHA      = 0.15f;   // high-pass for gravity removal
+    const MOTION_VAR_ALPHA     = 0.20f;   // variance smoothing
+    const GYRO_WEIGHT          = 80.0f;   // scale rad/s → similar range as mg
+
+    const BASELINE_ADAPT_FAST  = 0.08f;   // when stationary
+    const BASELINE_ADAPT_SLOW  = 0.015f;  // when moving
+
+    const MOTION_ON_MG         = 22.0f;
+    const MOTION_OFF_MG        = 10.0f;
+    const CONF_RISE            = 2;       // samples to declare moving
+    const CONF_FALL            = 4;       // samples to declare stationary
 
     function initialize() {
         View.initialize();
@@ -419,7 +431,8 @@ class gsensrosView extends WatchUi.View {
                 :accelerometer => {
                     :enabled => true,
                     :sampleRate => sampleRate,
-                    :includePower => true
+                    :includePower => true,
+                    // raw axes are usually available by default when sampleRate is set
                 }
             };
 
@@ -444,6 +457,40 @@ class gsensrosView extends WatchUi.View {
         sensorListenerActive = false;
     }
 
+    function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
+        var mag = Math.sqrt(ax * ax + ay * ay + az * az);
+
+        // High-pass filter (removes gravity)
+        var hp = mag - lastAccelMag;
+        lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
+
+        // Exponential variance of the high-pass signal
+        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar
+                + MOTION_VAR_ALPHA * (hp * hp);
+    }
+
+    function updateMotionState() as Void {
+        var onTh  = isUnderwater ? 18.0f : MOTION_ON_MG;
+        var offTh = isUnderwater ?  8.0f : MOTION_OFF_MG;
+
+        if (motionScoreMg >= onTh) {
+            if (motionStateCount < CONF_RISE) {
+                motionStateCount += 1;
+            }
+            if (motionStateCount >= CONF_RISE) {
+                isMotionDetected = true;
+            }
+        } else if (motionScoreMg <= offTh) {
+            if (motionStateCount > -CONF_FALL) {
+                motionStateCount -= 1;
+            }
+            if (motionStateCount <= -CONF_FALL) {
+                isMotionDetected = false;
+            }
+        }
+        // else: stay in current state (dead-band / hysteresis)
+    }
+
     function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         try {
             if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
@@ -451,67 +498,65 @@ class gsensrosView extends WatchUi.View {
             }
 
             var accData = sensorData.accelerometerData;
-            if (!(accData has :power) || accData.power == null) {
-                return;
-            }
 
-            var p = accData.power;
-            var count = p.size();
-            if (count <= 0) {
-                return;
-            }
+            // Prefer the raw samples if available (better than power)
+            if (accData has :x && accData.x != null && accData.x.size() > 0) {
+                var count = accData.x.size();
+                var i = 0;
+                while (i < count) {
+                    var ax = accData.x[i].toFloat();
+                    var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
+                    var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
 
-            var sumPower = 0.0f;
-            var validCount = 0;
-            var i = 0;
-            while (i < count) {
-                if (p[i] != null) {
-                    sumPower += p[i].toFloat();
-                    validCount += 1;
+                    updateMotionFromAccel(ax, ay, az);
+                    i += 1;
                 }
-                i += 1;
             }
+            // Fallback to power if raw axes are not present
+            else if (accData has :power && accData.power != null) {
+                var p = accData.power;
+                var count = p.size();
+                if (count <= 0) { return; }
 
-            if (validCount <= 0) {
+                var sumPower = 0.0f;
+                var validCount = 0;
+                var i = 0;
+                while (i < count) {
+                    if (p[i] != null) {
+                        sumPower += p[i].toFloat();
+                        validCount += 1;
+                    }
+                    i += 1;
+                }
+                if (validCount <= 0) { return; }
+
+                var avgPower = sumPower / validCount.toFloat();
+                // Treat power as a crude magnitude for the high-pass path
+                updateMotionFromAccel(avgPower, 0.0f, 0.0f);
+            } else {
                 return;
             }
 
-            var avgPower = sumPower / validCount.toFloat();
+            // --- Combined score ---
+            var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
+            var rawScore = Math.sqrt(motionVar) * 1000.0f + gyroMag * GYRO_WEIGHT;
 
+            // Adaptive baseline
             if (!motionBaselineReady) {
-                motionBaselineMg = avgPower;
+                motionBaselineMg = rawScore;
                 motionBaselineReady = true;
-            } else if (!isMotionDetected) {
-                motionBaselineMg = (0.99f * motionBaselineMg) + (0.01f * avgPower);
-            }
-
-            var delta = avgPower - motionBaselineMg;
-            if (delta < 0.0f) {
-                delta = -delta;
-            }
-
-            var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
-            var gyroTerm = gyroMag * 100.0f;
-
-            var combined = (delta * 100.0f) + (gyroTerm * 0.4f);
-            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * combined);
-
-            if (motionScoreMg >= MOTION_ON_THRESHOLD_MG) {
-                motionOnCount += 1;
-                motionOffCount = 0;
-            } else if (motionScoreMg <= MOTION_OFF_THRESHOLD_MG) {
-                motionOffCount += 1;
-                motionOnCount = 0;
             } else {
-                motionOnCount = 0;
-                motionOffCount = 0;
+                var alpha = isMotionDetected ? BASELINE_ADAPT_SLOW : BASELINE_ADAPT_FAST;
+                motionBaselineMg = (1.0f - alpha) * motionBaselineMg + alpha * rawScore;
             }
 
-            if (!isMotionDetected && motionOnCount >= 3) {
-                isMotionDetected = true;
-            } else if (isMotionDetected && motionOffCount >= 5) {
-                isMotionDetected = false;
-            }
+            var delta = absf(rawScore - motionBaselineMg);
+            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg)
+                        + ((1.0f - MOTION_FILTER_ALPHA) * delta);
+
+            // Unified hysteresis
+            updateMotionState();
+
         } catch (e) {
             System.println("sensorDataCallback error: " + errorToString(e));
         }
@@ -521,34 +566,18 @@ class gsensrosView extends WatchUi.View {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return false;
         }
-
-        var gyroMag = Math.sqrt((gyroX * gyroX) + (gyroY * gyroY) + (gyroZ * gyroZ));
-
-        if (motionScoreMg > STATIONARY_MOTION_MG) {
-            return false;
-        }
-
+        var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
         if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
             return false;
         }
-
-        return true;
+        return !isMotionDetected;
     }
 
     function isProbablyMoving() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return true;
         }
-
-        if (isUnderwater) {
-            return motionScoreMg >= 28.0f;
-        }
-
-        if (motionScoreMg >= 35.0f) {
-            return true;
-        }
-
-        return false;
+        return isMotionDetected;
     }
 
     function updateMotionConfidence() as Void {
@@ -564,13 +593,14 @@ class gsensrosView extends WatchUi.View {
     }
 
     function resetMotionState() as Void {
-        motionScoreMg = 0.0f;
-        motionBaselineMg = 0.0f;
+        motionScoreMg       = 0.0f;
+        motionBaselineMg    = 0.0f;
         motionBaselineReady = false;
-        motionOnCount = 0;
-        motionOffCount = 0;
-        isMotionDetected = false;
-        movingConfidence = 0;
+        motionVar           = 0.0f;
+        lastAccelMag        = 0.0f;
+        motionStateCount    = 0;
+        isMotionDetected    = false;
+        movingConfidence    = 0;
     }
 
     function resetHeadingEstimate() as Void {
@@ -815,21 +845,12 @@ class gsensrosView extends WatchUi.View {
             }
 
             if (isUnderwater) {
-                if (motionScoreMg >= 60.0f) {
-                    return FALLBACK_SWIM_SPEED_MPS_HIGH;
-                } else if (motionScoreMg >= 35.0f) {
-                    return FALLBACK_SWIM_SPEED_MPS_MED;
-                } else {
-                    return 0.0f;
-                }
-            }
-
-            if (motionScoreMg >= 70.0f) {
-                return LAND_SPEED_HIGH_MPS;
-            } else if (motionScoreMg >= 50.0f) {
-                return LAND_SPEED_MED_MPS;
-            } else if (motionScoreMg >= 35.0f) {
-                return LAND_SPEED_LOW_MPS;
+                if (motionScoreMg >= 40.0f) {return FALLBACK_SWIM_SPEED_MPS_HIGH;}
+                if (motionScoreMg >= 22.0f) {return FALLBACK_SWIM_SPEED_MPS_MED;}
+            } else {
+                if (motionScoreMg >= 50.0f) {return LAND_SPEED_HIGH_MPS;}
+                if (motionScoreMg >= 35.0f) {return LAND_SPEED_MED_MPS;}
+                if (motionScoreMg >= 22.0f) {return LAND_SPEED_LOW_MPS;}
             }
 
             return 0.0f;
