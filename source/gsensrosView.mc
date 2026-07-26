@@ -82,14 +82,13 @@ class gsensrosView extends WatchUi.View {
     var lastFitN2Band = null as Number or Null;
 
     var lastDepthForAscent = 0.0f;
-    var currentAscentRateMps = 0.0f;          // NEW – exposed for UI / FIT
+    var currentAscentRateMps = 0.0f;
 
-    // Heart-rate (health data)
-    var heartRate = 0;                        // NEW
+    var heartRate = 0;
 
-    const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface altitude adapts on land (0.01–0.05)
-    const DEPTH_NOISE_FLOOR_M   = 0.4f;    // ignore anything below this
-    const DIVE_START_DEPTH_M    = 1.5f;    // keep your existing values
+    const SURFACE_RECAL_ALPHA   = 0.02f;
+    const DEPTH_NOISE_FLOOR_M   = 0.4f;
+    const DIVE_START_DEPTH_M    = 1.5f;
     const SURFACE_STOP_DEPTH_M  = 0.5f;
 
     // FIT field IDs
@@ -109,8 +108,8 @@ class gsensrosView extends WatchUi.View {
     const FIELD_N2_LOAD    = 114;
     const FIELD_N2_MAX     = 115;
     const FIELD_N2_BAND    = 116;
-    const FIELD_HR         = 117;             // NEW
-    const FIELD_ASCENT     = 118;             // NEW
+    const FIELD_HR         = 117;
+    const FIELD_ASCENT     = 118;
 
     var drLatField = null as FitContributor.Field or Null;
     var drLonField = null as FitContributor.Field or Null;
@@ -125,8 +124,8 @@ class gsensrosView extends WatchUi.View {
     var gpsFixField = null as FitContributor.Field or Null;
     var headingField = null as FitContributor.Field or Null;
     var movingField = null as FitContributor.Field or Null;
-    var hrField = null as FitContributor.Field or Null;          // NEW
-    var ascentField = null as FitContributor.Field or Null;      // NEW
+    var hrField = null as FitContributor.Field or Null;
+    var ascentField = null as FitContributor.Field or Null;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -136,7 +135,7 @@ class gsensrosView extends WatchUi.View {
     var currentDepth = 0.0f;
 
     var motionScoreMg = 0.0f;
-    var motionBaselineMg = 0.0f;
+    var motionBaselineMg = 15.0f; // Initialized to a sane floor
     var motionBaselineReady = false;
     var isMotionDetected = false;
     var sensorListenerActive = false;
@@ -156,7 +155,7 @@ class gsensrosView extends WatchUi.View {
     const LAND_SPEED_MED_MPS = 0.65f;
     const LAND_SPEED_HIGH_MPS = 1.00f;
 
-    const MOTION_FILTER_ALPHA = 0.7f;
+    const MOTION_FILTER_ALPHA = 0.5f; // Faster response time to reduce lag
 
     var lastFitEast = null as Float or Null;
     var lastFitNorth = null as Float or Null;
@@ -167,30 +166,27 @@ class gsensrosView extends WatchUi.View {
     var lastFitGpsFix = null as Number or Null;
     var lastFitHeading = null as Float or Null;
     var lastFitMoving = null as Number or Null;
-    var lastFitHr = null as Number or Null;          // NEW
-    var lastFitAscent = null as Float or Null;       // NEW
+    var lastFitHr = null as Number or Null;
+    var lastFitAscent = null as Float or Null;
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
-    const SCROLL_MIN = -180;   // increased a bit for extra lines
+    const SCROLL_MIN = -180;
     const SCROLL_MAX = 0;
 
-    // --- Improved motion detection ---
+    // --- Improved Motion Engine Constants ---
     var lastAccelMag     = 0.0f;
-    var motionVar        = 0.0f;          // exponential variance of high-pass accel
-    var motionStateCount = 0;             // unified hysteresis counter
+    var motionVar        = 0.0f;
+    var motionStateCount = 0;
 
-    const MOTION_HP_ALPHA      = 0.15f;   // high-pass for gravity removal
-    const MOTION_VAR_ALPHA     = 0.20f;   // variance smoothing
-    const GYRO_WEIGHT          = 80.0f;   // scale rad/s → similar range as mg
+    const MOTION_HP_ALPHA      = 0.20f;
+    const MOTION_VAR_ALPHA     = 0.30f;
+    const MIN_BASELINE_MG      = 12.0f; // Floor to stop baseline decaying to zero
 
-    const BASELINE_ADAPT_FAST  = 0.08f;   // when stationary
-    const BASELINE_ADAPT_SLOW  = 0.015f;  // when moving
-
-    const MOTION_ON_MG         = 22.0f;
-    const MOTION_OFF_MG        = 10.0f;
-    const CONF_RISE            = 2;       // samples to declare moving
-    const CONF_FALL            = 4;       // samples to declare stationary
+    const MOTION_ON_MG  = 35.0f;
+    const MOTION_OFF_MG = 15.0f;
+    const CONF_RISE     = 2;
+    const CONF_FALL     = 4;
 
     function initialize() {
         View.initialize();
@@ -308,7 +304,6 @@ class gsensrosView extends WatchUi.View {
             processDiveState();
             updateMotionConfidence();
 
-            // Ascent rate (positive = ascending)
             currentAscentRateMps = 0.0f;
             if (dt > 0.0f) {
                 currentAscentRateMps = (lastDepthForAscent - currentDepth) / dt;
@@ -431,8 +426,7 @@ class gsensrosView extends WatchUi.View {
                 :accelerometer => {
                     :enabled => true,
                     :sampleRate => sampleRate,
-                    :includePower => true,
-                    // raw axes are usually available by default when sampleRate is set
+                    :includePower => true
                 }
             };
 
@@ -458,15 +452,19 @@ class gsensrosView extends WatchUi.View {
     }
 
     function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
-        var mag = Math.sqrt(ax * ax + ay * ay + az * az);
+        // Convert mG -> G
+        var gX = ax / 1000.0f;
+        var gY = ay / 1000.0f;
+        var gZ = az / 1000.0f;
+        
+        var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
 
-        // High-pass filter (removes gravity)
+        // High-pass filter
         var hp = mag - lastAccelMag;
         lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
 
-        // Exponential variance of the high-pass signal
-        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar
-                + MOTION_VAR_ALPHA * (hp * hp);
+        // Exponential variance
+        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
     }
 
     function updateMotionState() as Void {
@@ -488,7 +486,6 @@ class gsensrosView extends WatchUi.View {
                 isMotionDetected = false;
             }
         }
-        // else: stay in current state (dead-band / hysteresis)
     }
 
     function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
@@ -499,7 +496,6 @@ class gsensrosView extends WatchUi.View {
 
             var accData = sensorData.accelerometerData;
 
-            // Prefer the raw samples if available (better than power)
             if (accData has :x && accData.x != null && accData.x.size() > 0) {
                 var count = accData.x.size();
                 var i = 0;
@@ -511,50 +507,33 @@ class gsensrosView extends WatchUi.View {
                     updateMotionFromAccel(ax, ay, az);
                     i += 1;
                 }
-            }
-            // Fallback to power if raw axes are not present
-            else if (accData has :power && accData.power != null) {
-                var p = accData.power;
-                var count = p.size();
-                if (count <= 0) { return; }
-
-                var sumPower = 0.0f;
-                var validCount = 0;
-                var i = 0;
-                while (i < count) {
-                    if (p[i] != null) {
-                        sumPower += p[i].toFloat();
-                        validCount += 1;
-                    }
-                    i += 1;
-                }
-                if (validCount <= 0) { return; }
-
-                var avgPower = sumPower / validCount.toFloat();
-                // Treat power as a crude magnitude for the high-pass path
-                updateMotionFromAccel(avgPower, 0.0f, 0.0f);
             } else {
                 return;
             }
 
-            // --- Combined score ---
-            var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
-            var rawScore = Math.sqrt(motionVar) * 1000.0f + gyroMag * GYRO_WEIGHT;
+            // Convert accel variance to RMS standard deviation in mG
+            var accelRMS_mG = Math.sqrt(motionVar) * 1000.0f;
+            var rawScore = accelRMS_mG;
 
-            // Adaptive baseline
+            // Adaptive Baseline Logic with Noise Floor Protection
             if (!motionBaselineReady) {
-                motionBaselineMg = rawScore;
+                motionBaselineMg = (rawScore > MIN_BASELINE_MG) ? rawScore : MIN_BASELINE_MG;
                 motionBaselineReady = true;
+            } else if (!isMotionDetected) {
+                motionBaselineMg = (0.95f * motionBaselineMg) + (0.05f * rawScore);
+                if (motionBaselineMg < MIN_BASELINE_MG) {
+                    motionBaselineMg = MIN_BASELINE_MG;
+                }
             } else {
-                var alpha = isMotionDetected ? BASELINE_ADAPT_SLOW : BASELINE_ADAPT_FAST;
-                motionBaselineMg = (1.0f - alpha) * motionBaselineMg + alpha * rawScore;
+                // Adapt slowly during motion to prevent lockups on baseline shifts
+                motionBaselineMg = (0.995f * motionBaselineMg) + (0.005f * rawScore);
             }
 
-            var delta = absf(rawScore - motionBaselineMg);
-            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg)
-                        + ((1.0f - MOTION_FILTER_ALPHA) * delta);
+            var delta = rawScore - motionBaselineMg;
+            if (delta < 0.0f) { delta = 0.0f; }
 
-            // Unified hysteresis
+            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * delta);
+
             updateMotionState();
 
         } catch (e) {
@@ -583,18 +562,20 @@ class gsensrosView extends WatchUi.View {
     function updateMotionConfidence() as Void {
         if (isProbablyMoving()) {
             if (movingConfidence < MOVING_CONFIDENCE_MAX) {
-                movingConfidence += 1;
+                movingConfidence += 2;
             }
         } else {
-            if (movingConfidence > 0) {
-                movingConfidence -= 1;
+            // Rapid decay when stationary to prevent Dead Reckoning over-shooting
+            movingConfidence -= 4; 
+            if (movingConfidence < 0) {
+                movingConfidence = 0;
             }
         }
     }
 
     function resetMotionState() as Void {
         motionScoreMg       = 0.0f;
-        motionBaselineMg    = 0.0f;
+        motionBaselineMg    = MIN_BASELINE_MG;
         motionBaselineReady = false;
         motionVar           = 0.0f;
         lastAccelMag        = 0.0f;
@@ -628,7 +609,6 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
-            // Heart rate (health data)
             if (info has :heartRate && info.heartRate != null) {
                 heartRate = info.heartRate;
             } else {
@@ -745,7 +725,6 @@ class gsensrosView extends WatchUi.View {
 
             var rawAlt = info.altitude.toFloat();
 
-            // ---------- Initial hard calibration (first few samples) ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
                 surfaceAltitudeSum += rawAlt;
                 calibrationSamples += 1;
@@ -758,20 +737,14 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
-            // ---------- Continuous surface recalibration ----------
-            // Only adapt while clearly on the surface
             if (!isUnderwater && currentDepth <= DEPTH_NOISE_FLOOR_M) {
                 surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
                                 + SURFACE_RECAL_ALPHA * rawAlt;
             }
 
-            // ---------- Depth calculation ----------
             var rawDepth = surfaceAltitude - rawAlt;
-
-            // Low-pass filter
             depthFilter = (depthFilter * 0.75f) + (rawDepth * 0.25f);
 
-            // Noise floor + clamp
             if (depthFilter < DEPTH_NOISE_FLOOR_M) {
                 depthFilter = 0.0f;
             }
@@ -935,8 +908,6 @@ class gsensrosView extends WatchUi.View {
             heartRate = 0;
             currentAscentRateMps = 0.0f;
 
-            // stopSession() stops the accelerometer listener to save power
-            // while not recording; bring it back with a clean baseline now.
             startMotionListener();
 
             if (kalman != null) {
@@ -1023,92 +994,87 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-function safeCreateField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
-    if (session == null) {
-        return null;
-    }
-    try {
-        return session.createField(name, id, type, {
-            :mesgType => FitContributor.MESG_TYPE_RECORD,
-            :units => units
-        });
-    } catch (e) {
-        System.println("createField failed: " + name + " -> " + errorToString(e));
-        return null;
-    }
-}
-
-function startRecording() as Void {
-    try {
-        shutdownSessionWithoutSave();
-
-        var now = Time.now();
-        var info = Gregorian.info(now, Time.FORMAT_SHORT);
-
-        // Example result: "DR 2026-07-25 16:42"
-        var name = Lang.format("DR $1$-$2$-$3$ $4$:$5$", [
-            info.year.format("%04d"),
-            info.month.format("%02d"),
-            info.day.format("%02d"),
-            info.hour.format("%02d"),
-            info.min.format("%02d")
-        ]);
-
-        session = ActivityRecording.createSession({
-            :name => name,
-            :sport => Activity.SPORT_GENERIC
-        });
-
+    function safeCreateField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
         if (session == null) {
-            System.println("createSession returned null");
-            return;
+            return null;
         }
+        try {
+            return session.createField(name, id, type, {
+                :mesgType => FitContributor.MESG_TYPE_RECORD,
+                :units => units
+            });
+        } catch (e) {
+            System.println("createField failed: " + name + " -> " + errorToString(e));
+            return null;
+        }
+    }
 
-        // --- Essential navigation fields ---
-        drEastField     = safeCreateField("DR_East_m",    FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
-        drNorthField    = safeCreateField("DR_North_m",   FIELD_DR_NORTH,   FitContributor.DATA_TYPE_FLOAT,  "m");
-        depthField      = safeCreateField("Depth_m",      FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
-        motionField     = safeCreateField("Motion_mg",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
-        speedEstField   = safeCreateField("Speed_Est",    FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
-        underwaterField = safeCreateField("Underwater",   FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32, "bool");
-        gpsFixField     = safeCreateField("GPS_Fix",      FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32, "bool");
-        headingField    = safeCreateField("Heading_deg",  FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-        movingField     = safeCreateField("Moving",       FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32, "bool");
-        drLatField      = safeCreateField("DR_Lat",       FIELD_DR_LAT,     FitContributor.DATA_TYPE_FLOAT,  "deg");
-        drLonField      = safeCreateField("DR_Lon",       FIELD_DR_LON,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+    function startRecording() as Void {
+        try {
+            shutdownSessionWithoutSave();
 
-        // --- Nitrogen (optional but useful) ---
-        n2LoadField     = safeCreateField("N2_Load",      FIELD_N2_LOAD,    FitContributor.DATA_TYPE_FLOAT,  "%");
-        n2MaxField      = safeCreateField("N2_Load_Max",  FIELD_N2_MAX,     FitContributor.DATA_TYPE_FLOAT,  "%");
-        n2BandField     = safeCreateField("N2_Risk_Band", FIELD_N2_BAND,    FitContributor.DATA_TYPE_UINT32, "band");
+            var now = Time.now();
+            var info = Gregorian.info(now, Time.FORMAT_SHORT);
 
-        // GPS lat/lon are still useful when a real fix exists
-        gpsLatField     = safeCreateField("GPS_Lat",      FIELD_GPS_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-        gpsLonField     = safeCreateField("GPS_Lon",      FIELD_GPS_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+            var name = Lang.format("DR $1$-$2$-$3$ $4$:$5$", [
+                info.year.format("%04d"),
+                info.month.format("%02d"),
+                info.day.format("%02d"),
+                info.hour.format("%02d"),
+                info.min.format("%02d")
+            ]);
 
-        // HR and Ascent are intentionally NOT created as FIT fields
-        // (they remain visible on the watch UI and HR is recorded by the activity itself)
-        hrField = null;
-        ascentField = null;
 
-        var started = session.start();
-        if (started) {
-            isRecording = true;
-            clearLastFitValues();
-            System.println("Recording STARTED");
-        } else {
-            System.println("session.start() returned false");
+            session = ActivityRecording.createSession({
+                :name => name,
+                :sport => Activity.SPORT_GENERIC
+            });
+
+            if (session == null) {
+                System.println("createSession returned null");
+                return;
+            }
+
+            drEastField     = safeCreateField("DR_East_m",    FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
+            drNorthField    = safeCreateField("DR_North_m",   FIELD_DR_NORTH,   FitContributor.DATA_TYPE_FLOAT,  "m");
+            depthField      = safeCreateField("Depth_m",      FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
+            motionField     = safeCreateField("Motion_mg",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
+            speedEstField   = safeCreateField("Speed_Est",    FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
+            underwaterField = safeCreateField("Underwater",   FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32, "bool");
+            gpsFixField     = safeCreateField("GPS_Fix",      FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32, "bool");
+            headingField    = safeCreateField("Heading_deg",  FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+            movingField     = safeCreateField("Moving",       FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32, "bool");
+            drLatField      = safeCreateField("DR_Lat",       FIELD_DR_LAT,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+            drLonField      = safeCreateField("DR_Lon",       FIELD_DR_LON,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+
+            n2LoadField     = safeCreateField("N2_Load",      FIELD_N2_LOAD,    FitContributor.DATA_TYPE_FLOAT,  "%");
+            n2MaxField      = safeCreateField("N2_Load_Max",  FIELD_N2_MAX,     FitContributor.DATA_TYPE_FLOAT,  "%");
+            n2BandField     = safeCreateField("N2_Risk_Band", FIELD_N2_BAND,    FitContributor.DATA_TYPE_UINT32, "band");
+
+            gpsLatField     = safeCreateField("GPS_Lat",      FIELD_GPS_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+            gpsLonField     = safeCreateField("GPS_Lon",      FIELD_GPS_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+
+            hrField = null;
+            ascentField = null;
+
+            var started = session.start();
+            if (started) {
+                isRecording = true;
+                clearLastFitValues();
+                System.println("Recording STARTED");
+            } else {
+                System.println("session.start() returned false");
+                clearFitFields();
+                session = null;
+                isRecording = false;
+            }
+        } catch (e) {
+            System.println("Start recording error: " + errorToString(e));
             clearFitFields();
             session = null;
             isRecording = false;
         }
-    } catch (e) {
-        System.println("Start recording error: " + errorToString(e));
-        clearFitFields();
-        session = null;
-        isRecording = false;
     }
-}
 
     function shutdownSessionSafe() as Void {
         if (session == null) {
@@ -1287,7 +1253,6 @@ function startRecording() as Void {
             lastFitGpsFix = writeUIntField(gpsFixField, gpsFixVal, lastFitGpsFix);
             lastFitMoving = writeUIntField(movingField, movingVal, lastFitMoving);
 
-            // Synthetic lat/lon
             if (hasEntryPosition && isFiniteValue(eastVal) && isFiniteValue(northVal)) {
                 var latRefRad = entryLat * 0.017453292519943295f;
                 var metersPerDegLat = 111000.0f;
@@ -1326,7 +1291,6 @@ function startRecording() as Void {
                 lastFitN2Band = writeUIntField(n2BandField, n2Model.getRiskBand(), lastFitN2Band);
             }
 
-            // NEW health / dive metrics
             if (heartRate > 0) {
                 lastFitHr = writeUIntField(hrField, heartRate, lastFitHr);
             }
@@ -1446,7 +1410,6 @@ function startRecording() as Void {
             dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
 
-            // Nitrogen Model display
             if (n2Model != null) {
                 y += rowH;
                 dc.drawText(leftX, y, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
