@@ -188,6 +188,23 @@ class gsensrosView extends WatchUi.View {
     const CONF_RISE     = 2;
     const CONF_FALL     = 4;
 
+// --- Rhythm & Frequency Detection ---
+    var lastHpSample = 0.0f;
+    var zeroCrossCount = 0;
+    var sampleCountForPeriod = 0;
+    var estimatedFrequencyHz = 0.0f;
+
+    // --- Dynamic Speed Estimation Constants ---
+    const MIN_MOTION_SWIM_MG = 20.0f;
+    const MAX_MOTION_SWIM_MG = 120.0f;
+    const MIN_SWIM_SPEED_MPS = 0.25f;
+    const MAX_SWIM_SPEED_MPS = 0.70f;
+
+    const MIN_MOTION_LAND_MG = 25.0f;
+    const MAX_MOTION_LAND_MG = 200.0f;
+    const MIN_LAND_SPEED_MPS = 0.35f;
+    const MAX_LAND_SPEED_MPS = 1.40f;
+
     function initialize() {
         View.initialize();
         try {
@@ -451,21 +468,21 @@ class gsensrosView extends WatchUi.View {
         sensorListenerActive = false;
     }
 
-    function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
-        // Convert mG -> G
-        var gX = ax / 1000.0f;
-        var gY = ay / 1000.0f;
-        var gZ = az / 1000.0f;
+    // function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
+    //     // Convert mG -> G
+    //     var gX = ax / 1000.0f;
+    //     var gY = ay / 1000.0f;
+    //     var gZ = az / 1000.0f;
         
-        var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
+    //     var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
 
-        // High-pass filter
-        var hp = mag - lastAccelMag;
-        lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
+    //     // High-pass filter
+    //     var hp = mag - lastAccelMag;
+    //     lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
 
-        // Exponential variance
-        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
-    }
+    //     // Exponential variance
+    //     motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
+    // }
 
     function updateMotionState() as Void {
         var onTh  = isUnderwater ? 18.0f : MOTION_ON_MG;
@@ -488,7 +505,7 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-    function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
+function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         try {
             if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
                 return;
@@ -504,35 +521,48 @@ class gsensrosView extends WatchUi.View {
                     var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
                     var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
 
-                    updateMotionFromAccel(ax, ay, az);
+                    processAccelSample(ax, ay, az);
                     i += 1;
                 }
             } else {
                 return;
             }
 
-            // Convert accel variance to RMS standard deviation in mG
+            // Convert variance to RMS deviation in mG
             var accelRMS_mG = Math.sqrt(motionVar) * 1000.0f;
             var rawScore = accelRMS_mG;
 
-            // Adaptive Baseline Logic with Noise Floor Protection
+            // Adaptive Baseline: track noise floor actively
             if (!motionBaselineReady) {
                 motionBaselineMg = (rawScore > MIN_BASELINE_MG) ? rawScore : MIN_BASELINE_MG;
                 motionBaselineReady = true;
             } else if (!isMotionDetected) {
-                motionBaselineMg = (0.95f * motionBaselineMg) + (0.05f * rawScore);
+                // Adapt baseline faster while resting to reject vessel/body noise
+                motionBaselineMg = (0.90f * motionBaselineMg) + (0.10f * rawScore);
                 if (motionBaselineMg < MIN_BASELINE_MG) {
                     motionBaselineMg = MIN_BASELINE_MG;
                 }
             } else {
-                // Adapt slowly during motion to prevent lockups on baseline shifts
-                motionBaselineMg = (0.995f * motionBaselineMg) + (0.005f * rawScore);
+                // Adapt very slowly during active movement
+                motionBaselineMg = (0.997f * motionBaselineMg) + (0.003f * rawScore);
             }
 
             var delta = rawScore - motionBaselineMg;
             if (delta < 0.0f) { delta = 0.0f; }
 
+            // Smooth motion score
             motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * delta);
+
+            // Calculate dominant frequency over 1-second sample buffer
+            if (sampleCountForPeriod > 0) {
+                // Hz = (Half-cycles / 2) / (Samples / SampleRate)
+                var durationSec = sampleCountForPeriod.toFloat() / SENSOR_SAMPLE_RATE_HZ.toFloat();
+                if (durationSec > 0.0f) {
+                    estimatedFrequencyHz = (zeroCrossCount.toFloat() / 2.0f) / durationSec;
+                }
+                zeroCrossCount = 0;
+                sampleCountForPeriod = 0;
+            }
 
             updateMotionState();
 
@@ -541,15 +571,97 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-    function isStationary() as Boolean {
+    function processAccelSample(ax as Float, ay as Float, az as Float) as Void {
+        // Convert mG -> G
+        var gX = ax / 1000.0f;
+        var gY = ay / 1000.0f;
+        var gZ = az / 1000.0f;
+
+        var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
+
+        // High-pass filter
+        var hp = mag - lastAccelMag;
+        lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
+
+        // Rhythm / Zero-crossing detection (indicates kick/stride cycles)
+        if ((hp > 0.002f && lastHpSample <= 0.002f) || (hp < -0.002f && lastHpSample >= -0.002f)) {
+            zeroCrossCount += 1;
+        }
+        lastHpSample = hp;
+        sampleCountForPeriod += 1;
+
+        // Exponential variance
+        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
+    }
+
+function isStationary() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return false;
         }
+
+        // Check angular rate magnitude via Gyroscope to verify body stillness
         var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
         if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
             return false;
         }
+
+        // Motion detected within realistic human cadence (0.3 Hz to 3.0 Hz)
+        if (isMotionDetected && estimatedFrequencyHz >= 0.3f && estimatedFrequencyHz <= 3.0f) {
+            return false;
+        }
+
         return !isMotionDetected;
+    }
+
+    function getEstimatedSpeedMps() as Float {
+        try {
+            // Priority 1: Valid GPS speed
+            if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+                return speed;
+            }
+
+            // Priority 2: Confidence Check
+            if (movingConfidence < MOVING_CONFIDENCE_ON) {
+                return 0.0f;
+            }
+
+            // Priority 3: Dynamic proportional speed based on motion intensity (mG)
+            var targetSpeed = 0.0f;
+
+            if (isUnderwater) {
+                if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
+                    targetSpeed = MIN_SWIM_SPEED_MPS;
+                } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
+                    targetSpeed = MAX_SWIM_SPEED_MPS;
+                } else {
+                    var norm = (motionScoreMg - MIN_MOTION_SWIM_MG) / (MAX_MOTION_SWIM_MG - MIN_MOTION_SWIM_MG);
+                    targetSpeed = MIN_SWIM_SPEED_MPS + (norm * (MAX_SWIM_SPEED_MPS - MIN_SWIM_SPEED_MPS));
+                }
+            } else {
+                if (motionScoreMg <= MIN_MOTION_LAND_MG) {
+                    targetSpeed = MIN_LAND_SPEED_MPS;
+                } else if (motionScoreMg >= MAX_MOTION_LAND_MG) {
+                    targetSpeed = MAX_LAND_SPEED_MPS;
+                } else {
+                    var norm = (motionScoreMg - MIN_MOTION_LAND_MG) / (MAX_MOTION_LAND_MG - MIN_MOTION_LAND_MG);
+                    targetSpeed = MIN_LAND_SPEED_MPS + (norm * (MAX_LAND_SPEED_MPS - MIN_LAND_SPEED_MPS));
+                }
+            }
+
+            // Frequency Scaling: Scale speed up/down depending on stride or stroke tempo
+            if (estimatedFrequencyHz > 0.3f) {
+                if (estimatedFrequencyHz < 0.8f) {
+                    targetSpeed *= 0.85f;
+                } else if (estimatedFrequencyHz > 2.2f) {
+                    targetSpeed *= 1.15f;
+                }
+            }
+
+            return targetSpeed;
+
+        } catch (e) {
+            return 0.0f;
+        }
     }
 
     function isProbablyMoving() as Boolean {
@@ -563,6 +675,9 @@ class gsensrosView extends WatchUi.View {
         if (isProbablyMoving()) {
             if (movingConfidence < MOVING_CONFIDENCE_MAX) {
                 movingConfidence += 2;
+                if (movingConfidence > MOVING_CONFIDENCE_MAX) {
+                    movingConfidence = MOVING_CONFIDENCE_MAX;
+                }
             }
         } else {
             // Rapid decay when stationary to prevent Dead Reckoning over-shooting
@@ -582,6 +697,12 @@ class gsensrosView extends WatchUi.View {
         motionStateCount    = 0;
         isMotionDetected    = false;
         movingConfidence    = 0;
+        
+        // Reset cadence trackers
+        zeroCrossCount       = 0;
+        sampleCountForPeriod = 0;
+        estimatedFrequencyHz = 0.0f;
+        lastHpSample         = 0.0f;
     }
 
     function resetHeadingEstimate() as Void {
@@ -807,31 +928,6 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
-    function getEstimatedSpeedMps() as Float {
-        try {
-            if (speed >= MIN_VALID_GPS_SPEED_MPS) {
-                return speed;
-            }
-
-            if (movingConfidence < MOVING_CONFIDENCE_ON) {
-                return 0.0f;
-            }
-
-            if (isUnderwater) {
-                if (motionScoreMg >= 40.0f) {return FALLBACK_SWIM_SPEED_MPS_HIGH;}
-                if (motionScoreMg >= 22.0f) {return FALLBACK_SWIM_SPEED_MPS_MED;}
-            } else {
-                if (motionScoreMg >= 50.0f) {return LAND_SPEED_HIGH_MPS;}
-                if (motionScoreMg >= 35.0f) {return LAND_SPEED_MED_MPS;}
-                if (motionScoreMg >= 22.0f) {return LAND_SPEED_LOW_MPS;}
-            }
-
-            return 0.0f;
-        } catch (e) {
-            return 0.0f;
-        }
-    }
-
     function shouldAdvanceDR(bestHeading as Float or Null, estSpeed as Float) as Boolean {
         if (bestHeading == null) {
             return false;
@@ -1054,8 +1150,8 @@ class gsensrosView extends WatchUi.View {
             gpsLatField     = safeCreateField("GPS_Lat",      FIELD_GPS_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
             gpsLonField     = safeCreateField("GPS_Lon",      FIELD_GPS_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
 
-            hrField = null;
-            ascentField = null;
+            hrField     = null; // safeCreateField("Heart_Rate", FIELD_HEART_RATE, FitContributor.DATA_TYPE_UINT32, "bpm");
+            ascentField = null; // safeCreateField("Ascent_Rate", FIELD_ASCENT, FitContributor.DATA_TYPE_FLOAT, "m/s");
 
             var started = session.start();
             if (started) {
