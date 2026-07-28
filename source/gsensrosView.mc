@@ -82,34 +82,74 @@ class gsensrosView extends WatchUi.View {
     var lastFitN2Band = null as Number or Null;
 
     var lastDepthForAscent = 0.0f;
-    var currentAscentRateMps = 0.0f;
+    var currentAscentRateMps = 0.0f;          // NEW – exposed for UI / FIT
 
-    var heartRate = 0;
+    // Heart-rate (health data)
+    var heartRate = 0;                        // NEW
 
-    const SURFACE_RECAL_ALPHA   = 0.02f;
-    const DEPTH_NOISE_FLOOR_M   = 0.4f;
+    const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
+    const DEPTH_NOISE_FLOOR_M   = 0.4f;    // ignore anything below this
     const DIVE_START_DEPTH_M    = 1.5f;
     const SURFACE_STOP_DEPTH_M  = 0.5f;
 
+    // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
+    const MAX_DEPTH_M           = 80.0f;   // hard clamp (tech diving upper bound)
+    const MAX_DEPTH_RATE_MPS    = 3.0f;    // max |d(depth)/dt| accepted (~180 m/min)
+    const MIN_VALID_ALT_M       = -120.0f; // reject GPS/baro altitude garbage
+    const MAX_VALID_ALT_M       = 5000.0f;
+    // Seawater approx: 1 m depth ≈ 10050 Pa over surface pressure
+    const PA_PER_METER_SEAWATER = 10050.0f;
+    const DEFAULT_SURFACE_PA    = 101325.0f;
+
+    // Dive-state hysteresis (prevents instant start->stop at the surface)
+    var diveStartMs = 0;
+    var shallowSampleCount = 0;
+    const MIN_DIVE_DURATION_MS = 10000;
+    const SHALLOW_SAMPLES_TO_STOP = 5;
+
+    // Additional health data
+    var spo2 = 0;                          // NEW - pulse oximetry, %
+    var ambientTempC = 0.0f;                // NEW - ambient/water temperature
+
+    // Session-summary tracking (written once at stopSession())
+    var maxDepthSeen = 0.0f;                // NEW
+    var diveTimeMs = 0;                     // NEW - time spent underwater
+    var maxN2LoadSeen = 0.0f;               // NEW
+
     // FIT field IDs
-    const FIELD_DR_EAST    = 101;
-    const FIELD_DR_NORTH   = 102;
-    const FIELD_DEPTH      = 103;
-    const FIELD_GPS_LAT    = 104;
-    const FIELD_GPS_LON    = 105;
-    const FIELD_MOTION     = 106;
-    const FIELD_SPEED_EST  = 107;
-    const FIELD_UNDERWATER = 108;
-    const FIELD_GPS_FIX    = 109;
-    const FIELD_HEADING    = 110;
-    const FIELD_MOVING     = 111;
-    const FIELD_DR_LAT     = 112;
-    const FIELD_DR_LON     = 113;
-    const FIELD_N2_LOAD    = 114;
-    const FIELD_N2_MAX     = 115;
-    const FIELD_N2_BAND    = 116;
-    const FIELD_HR         = 117;
-    const FIELD_ASCENT     = 118;
+    // FIT developer field IDs must be unique 0–255.
+    // Instinct-class devices only allow ~16 developer fields total – keep ≤14.
+    const FIELD_DR_EAST    = 0;
+    const FIELD_DR_NORTH   = 1;
+    const FIELD_DEPTH      = 2;
+    const FIELD_SPEED_EST  = 3;
+    const FIELD_HEADING    = 4;
+    const FIELD_UNDERWATER = 5;
+    const FIELD_MOTION     = 6;
+    const FIELD_MOVING     = 7;
+    const FIELD_GPS_FIX    = 8;
+    const FIELD_DR_LAT     = 9;
+    const FIELD_DR_LON     = 10;
+    const FIELD_POI_ID     = 11;
+    const FIELD_POI_LAT    = 12;
+    const FIELD_POI_LON    = 13;
+    // Kept as constants for code that still references them (fields not created)
+    const FIELD_GPS_LAT    = 14;
+    const FIELD_GPS_LON    = 15;
+    const FIELD_N2_LOAD    = 16;
+    const FIELD_N2_MAX     = 17;
+    const FIELD_N2_BAND    = 18;
+    const FIELD_HR         = 19;
+    const FIELD_ASCENT     = 20;
+    const FIELD_SPO2       = 21;
+    const FIELD_TEMP       = 22;
+    const FIELD_MAX_DEPTH  = 23;
+    const FIELD_DIVE_TIME  = 24;
+    const FIELD_MAX_N2     = 25;
+    const FIELD_POI_EAST   = 26;
+    const FIELD_POI_NORTH  = 27;
+
+    const MAX_POIS = 30;
 
     var drLatField = null as FitContributor.Field or Null;
     var drLonField = null as FitContributor.Field or Null;
@@ -124,18 +164,40 @@ class gsensrosView extends WatchUi.View {
     var gpsFixField = null as FitContributor.Field or Null;
     var headingField = null as FitContributor.Field or Null;
     var movingField = null as FitContributor.Field or Null;
-    var hrField = null as FitContributor.Field or Null;
-    var ascentField = null as FitContributor.Field or Null;
+    var hrField = null as FitContributor.Field or Null;          // NEW
+    var ascentField = null as FitContributor.Field or Null;      // NEW
+    var spo2Field = null as FitContributor.Field or Null;        // NEW
+    var tempField = null as FitContributor.Field or Null;        // NEW
+
+    // Session-level summary fields (written once, not per-record)
+    var maxDepthField = null as FitContributor.Field or Null;    // NEW
+    var diveTimeField = null as FitContributor.Field or Null;    // NEW
+    var maxN2Field = null as FitContributor.Field or Null;       // NEW
+
+    // POI marker fields (written once per mark into the record stream)
+    var poiIdField = null as FitContributor.Field or Null;
+    var poiLatField = null as FitContributor.Field or Null;
+    var poiLonField = null as FitContributor.Field or Null;
+    var poiEastField = null as FitContributor.Field or Null;
+    var poiNorthField = null as FitContributor.Field or Null;
+
+    var poiCount = 0;
+    var poiFlashMs = 0;           // UI: show "POI #n" briefly after mark
+    const POI_FLASH_MS = 2000;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
+    var surfacePressurePa = 101325.0f;
+    var surfacePressureSum = 0.0f;
     var depthFilter = 0.0f;
     var calibrationSamples = 0;
-    const CALIBRATION_COUNT = 15;
+    const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
     var currentDepth = 0.0f;
+    var lastDepthUpdateMs = 0;
+    var usePressureDepth = false;   // true once we have a pressure-based surface cal
 
     var motionScoreMg = 0.0f;
-    var motionBaselineMg = 15.0f; // Initialized to a sane floor
+    var motionBaselineMg = 0.0f;
     var motionBaselineReady = false;
     var isMotionDetected = false;
     var sensorListenerActive = false;
@@ -148,14 +210,23 @@ class gsensrosView extends WatchUi.View {
     const MIN_VALID_GPS_SPEED_MPS = 0.35f;
     const DR_MOVE_SPEED_THRESHOLD_MPS = 0.05f;
 
-    const FALLBACK_SWIM_SPEED_MPS_HIGH = 0.45f;
-    const FALLBACK_SWIM_SPEED_MPS_MED = 0.30f;
+    // Continuous motion→speed mapping (replaces coarse step buckets)
+    const MIN_MOTION_SWIM_MG = 18.0f;
+    const MAX_MOTION_SWIM_MG = 100.0f;
+    const MIN_SWIM_SPEED_MPS = 0.20f;
+    const MAX_SWIM_SPEED_MPS = 0.65f;
 
-    const LAND_SPEED_LOW_MPS = 0.30f;
-    const LAND_SPEED_MED_MPS = 0.65f;
-    const LAND_SPEED_HIGH_MPS = 1.00f;
+    const MIN_MOTION_LAND_MG = 22.0f;
+    const MAX_MOTION_LAND_MG = 160.0f;
+    const MIN_LAND_SPEED_MPS = 0.30f;
+    const MAX_LAND_SPEED_MPS = 1.35f;
 
-    const MOTION_FILTER_ALPHA = 0.5f; // Faster response time to reduce lag
+    const SPEED_SMOOTH_RISE = 0.35f;   // respond faster when accelerating
+    const SPEED_SMOOTH_FALL = 0.18f;   // decay slower when stopping
+
+    const MOTION_FILTER_ALPHA = 0.55f; // slightly more responsive motion score
+
+    var filteredSpeedEst = 0.0f;       // smoothed output of getEstimatedSpeedMps
 
     var lastFitEast = null as Float or Null;
     var lastFitNorth = null as Float or Null;
@@ -166,44 +237,33 @@ class gsensrosView extends WatchUi.View {
     var lastFitGpsFix = null as Number or Null;
     var lastFitHeading = null as Float or Null;
     var lastFitMoving = null as Number or Null;
-    var lastFitHr = null as Number or Null;
-    var lastFitAscent = null as Float or Null;
+    var lastFitHr = null as Number or Null;          // NEW
+    var lastFitAscent = null as Float or Null;       // NEW
+    var lastFitSpo2 = null as Number or Null;        // NEW
+    var lastFitTemp = null as Float or Null;         // NEW
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
-    const SCROLL_MIN = -180;
+    const SCROLL_MIN = -180;   // increased a bit for extra lines
     const SCROLL_MAX = 0;
 
-    // --- Improved Motion Engine Constants ---
+    // --- Improved motion detection ---
     var lastAccelMag     = 0.0f;
-    var motionVar        = 0.0f;
-    var motionStateCount = 0;
+    var motionVar        = 0.0f;          // exponential variance of high-pass accel
+    var motionStateCount = 0;             // unified hysteresis counter
 
-    const MOTION_HP_ALPHA      = 0.20f;
-    const MOTION_VAR_ALPHA     = 0.30f;
-    const MIN_BASELINE_MG      = 12.0f; // Floor to stop baseline decaying to zero
+    const MOTION_HP_ALPHA      = 0.18f;   // high-pass for gravity removal
+    const MOTION_VAR_ALPHA     = 0.25f;   // variance smoothing
+    const GYRO_WEIGHT          = 60.0f;   // scale rad/s → similar range as mg
+    const MIN_BASELINE_MG      = 10.0f;   // floor so baseline cannot collapse to 0
 
-    const MOTION_ON_MG  = 35.0f;
-    const MOTION_OFF_MG = 15.0f;
-    const CONF_RISE     = 2;
-    const CONF_FALL     = 4;
+    const BASELINE_ADAPT_FAST  = 0.10f;   // when stationary
+    const BASELINE_ADAPT_SLOW  = 0.012f;  // when moving
 
-// --- Rhythm & Frequency Detection ---
-    var lastHpSample = 0.0f;
-    var zeroCrossCount = 0;
-    var sampleCountForPeriod = 0;
-    var estimatedFrequencyHz = 0.0f;
-
-    // --- Dynamic Speed Estimation Constants ---
-    const MIN_MOTION_SWIM_MG = 20.0f;
-    const MAX_MOTION_SWIM_MG = 120.0f;
-    const MIN_SWIM_SPEED_MPS = 0.25f;
-    const MAX_SWIM_SPEED_MPS = 0.70f;
-
-    const MIN_MOTION_LAND_MG = 25.0f;
-    const MAX_MOTION_LAND_MG = 200.0f;
-    const MIN_LAND_SPEED_MPS = 0.35f;
-    const MAX_LAND_SPEED_MPS = 1.40f;
+    const MOTION_ON_MG         = 20.0f;
+    const MOTION_OFF_MG        = 9.0f;
+    const CONF_RISE            = 2;       // samples to declare moving
+    const CONF_FALL            = 5;       // samples to declare stationary (stickier off)
 
     function initialize() {
         View.initialize();
@@ -321,6 +381,7 @@ class gsensrosView extends WatchUi.View {
             processDiveState();
             updateMotionConfidence();
 
+            // Ascent rate (positive = ascending)
             currentAscentRateMps = 0.0f;
             if (dt > 0.0f) {
                 currentAscentRateMps = (lastDepthForAscent - currentDepth) / dt;
@@ -329,6 +390,19 @@ class gsensrosView extends WatchUi.View {
 
             if (n2Model != null) {
                 n2Model.update(currentDepth, dt, isUnderwater, currentAscentRateMps);
+            }
+
+            // Track session-summary values while recording
+            if (isRecording) {
+                if (currentDepth > maxDepthSeen) {
+                    maxDepthSeen = currentDepth;
+                }
+                if (isUnderwater) {
+                    diveTimeMs += (dt * 1000.0f).toNumber();
+                }
+                if (n2Model != null && n2Model.getMaxLoading() > maxN2LoadSeen) {
+                    maxN2LoadSeen = n2Model.getMaxLoading();
+                }
             }
 
             if (calibrationActive && (nowMs - calibrationStartMs) >= CALIBRATION_DURATION_MS) {
@@ -344,10 +418,11 @@ class gsensrosView extends WatchUi.View {
                 }
 
                 if (kalman != null) {
+                    // Always propagate with UKF kinematics, then correct with GPS.
+                    var h = (bestHeading != null) ? bestHeading : 0.0f;
+                    kalman.predict(estSpeed, h, dt);
                     if (hasGpsFix && isGpsQualityUsable(gpsQuality)) {
                         kalman.updateGps(latitude, longitude, gpsQuality);
-                    } else if (bestHeading != null) {
-                        kalman.predict(estSpeed, bestHeading, dt);
                     }
                 }
 
@@ -443,7 +518,8 @@ class gsensrosView extends WatchUi.View {
                 :accelerometer => {
                     :enabled => true,
                     :sampleRate => sampleRate,
-                    :includePower => true
+                    :includePower => true,
+                    // raw axes are usually available by default when sampleRate is set
                 }
             };
 
@@ -468,21 +544,17 @@ class gsensrosView extends WatchUi.View {
         sensorListenerActive = false;
     }
 
-    // function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
-    //     // Convert mG -> G
-    //     var gX = ax / 1000.0f;
-    //     var gY = ay / 1000.0f;
-    //     var gZ = az / 1000.0f;
-        
-    //     var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
+    function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
+        var mag = Math.sqrt(ax * ax + ay * ay + az * az);
 
-    //     // High-pass filter
-    //     var hp = mag - lastAccelMag;
-    //     lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
+        // High-pass filter (removes gravity)
+        var hp = mag - lastAccelMag;
+        lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
 
-    //     // Exponential variance
-    //     motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
-    // }
+        // Exponential variance of the high-pass signal
+        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar
+                + MOTION_VAR_ALPHA * (hp * hp);
+    }
 
     function updateMotionState() as Void {
         var onTh  = isUnderwater ? 18.0f : MOTION_ON_MG;
@@ -503,9 +575,10 @@ class gsensrosView extends WatchUi.View {
                 isMotionDetected = false;
             }
         }
+        // else: stay in current state (dead-band / hysteresis)
     }
 
-function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
+    function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         try {
             if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
                 return;
@@ -513,6 +586,7 @@ function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
 
             var accData = sensorData.accelerometerData;
 
+            // Prefer the raw samples if available (better than power)
             if (accData has :x && accData.x != null && accData.x.size() > 0) {
                 var count = accData.x.size();
                 var i = 0;
@@ -521,49 +595,60 @@ function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
                     var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
                     var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
 
-                    processAccelSample(ax, ay, az);
+                    updateMotionFromAccel(ax, ay, az);
                     i += 1;
                 }
+            }
+            // Fallback to power if raw axes are not present
+            else if (accData has :power && accData.power != null) {
+                var p = accData.power;
+                var count = p.size();
+                if (count <= 0) { return; }
+
+                var sumPower = 0.0f;
+                var validCount = 0;
+                var i = 0;
+                while (i < count) {
+                    if (p[i] != null) {
+                        sumPower += p[i].toFloat();
+                        validCount += 1;
+                    }
+                    i += 1;
+                }
+                if (validCount <= 0) { return; }
+
+                var avgPower = sumPower / validCount.toFloat();
+                // Treat power as a crude magnitude for the high-pass path
+                updateMotionFromAccel(avgPower, 0.0f, 0.0f);
             } else {
                 return;
             }
 
-            // Convert variance to RMS deviation in mG
-            var accelRMS_mG = Math.sqrt(motionVar) * 1000.0f;
-            var rawScore = accelRMS_mG;
+            // --- Combined score ---
+            var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
+            var rawScore = Math.sqrt(motionVar) * 1000.0f + gyroMag * GYRO_WEIGHT;
 
-            // Adaptive Baseline: track noise floor actively
+            // Adaptive baseline with floor
             if (!motionBaselineReady) {
                 motionBaselineMg = (rawScore > MIN_BASELINE_MG) ? rawScore : MIN_BASELINE_MG;
                 motionBaselineReady = true;
-            } else if (!isMotionDetected) {
-                // Adapt baseline faster while resting to reject vessel/body noise
-                motionBaselineMg = (0.90f * motionBaselineMg) + (0.10f * rawScore);
+            } else {
+                var alpha = isMotionDetected ? BASELINE_ADAPT_SLOW : BASELINE_ADAPT_FAST;
+                motionBaselineMg = (1.0f - alpha) * motionBaselineMg + alpha * rawScore;
                 if (motionBaselineMg < MIN_BASELINE_MG) {
                     motionBaselineMg = MIN_BASELINE_MG;
                 }
-            } else {
-                // Adapt very slowly during active movement
-                motionBaselineMg = (0.997f * motionBaselineMg) + (0.003f * rawScore);
             }
 
+            // Only positive excess over baseline counts as motion energy
             var delta = rawScore - motionBaselineMg;
-            if (delta < 0.0f) { delta = 0.0f; }
-
-            // Smooth motion score
-            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg) + ((1.0f - MOTION_FILTER_ALPHA) * delta);
-
-            // Calculate dominant frequency over 1-second sample buffer
-            if (sampleCountForPeriod > 0) {
-                // Hz = (Half-cycles / 2) / (Samples / SampleRate)
-                var durationSec = sampleCountForPeriod.toFloat() / SENSOR_SAMPLE_RATE_HZ.toFloat();
-                if (durationSec > 0.0f) {
-                    estimatedFrequencyHz = (zeroCrossCount.toFloat() / 2.0f) / durationSec;
-                }
-                zeroCrossCount = 0;
-                sampleCountForPeriod = 0;
+            if (delta < 0.0f) {
+                delta = 0.0f;
             }
+            motionScoreMg = (MOTION_FILTER_ALPHA * motionScoreMg)
+                        + ((1.0f - MOTION_FILTER_ALPHA) * delta);
 
+            // Unified hysteresis
             updateMotionState();
 
         } catch (e) {
@@ -571,97 +656,15 @@ function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         }
     }
 
-    function processAccelSample(ax as Float, ay as Float, az as Float) as Void {
-        // Convert mG -> G
-        var gX = ax / 1000.0f;
-        var gY = ay / 1000.0f;
-        var gZ = az / 1000.0f;
-
-        var mag = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
-
-        // High-pass filter
-        var hp = mag - lastAccelMag;
-        lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
-
-        // Rhythm / Zero-crossing detection (indicates kick/stride cycles)
-        if ((hp > 0.002f && lastHpSample <= 0.002f) || (hp < -0.002f && lastHpSample >= -0.002f)) {
-            zeroCrossCount += 1;
-        }
-        lastHpSample = hp;
-        sampleCountForPeriod += 1;
-
-        // Exponential variance
-        motionVar = (1.0f - MOTION_VAR_ALPHA) * motionVar + MOTION_VAR_ALPHA * (hp * hp);
-    }
-
-function isStationary() as Boolean {
+    function isStationary() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return false;
         }
-
-        // Check angular rate magnitude via Gyroscope to verify body stillness
         var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
         if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
             return false;
         }
-
-        // Motion detected within realistic human cadence (0.3 Hz to 3.0 Hz)
-        if (isMotionDetected && estimatedFrequencyHz >= 0.3f && estimatedFrequencyHz <= 3.0f) {
-            return false;
-        }
-
         return !isMotionDetected;
-    }
-
-    function getEstimatedSpeedMps() as Float {
-        try {
-            // Priority 1: Valid GPS speed
-            if (speed >= MIN_VALID_GPS_SPEED_MPS) {
-                return speed;
-            }
-
-            // Priority 2: Confidence Check
-            if (movingConfidence < MOVING_CONFIDENCE_ON) {
-                return 0.0f;
-            }
-
-            // Priority 3: Dynamic proportional speed based on motion intensity (mG)
-            var targetSpeed = 0.0f;
-
-            if (isUnderwater) {
-                if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
-                    targetSpeed = MIN_SWIM_SPEED_MPS;
-                } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
-                    targetSpeed = MAX_SWIM_SPEED_MPS;
-                } else {
-                    var norm = (motionScoreMg - MIN_MOTION_SWIM_MG) / (MAX_MOTION_SWIM_MG - MIN_MOTION_SWIM_MG);
-                    targetSpeed = MIN_SWIM_SPEED_MPS + (norm * (MAX_SWIM_SPEED_MPS - MIN_SWIM_SPEED_MPS));
-                }
-            } else {
-                if (motionScoreMg <= MIN_MOTION_LAND_MG) {
-                    targetSpeed = MIN_LAND_SPEED_MPS;
-                } else if (motionScoreMg >= MAX_MOTION_LAND_MG) {
-                    targetSpeed = MAX_LAND_SPEED_MPS;
-                } else {
-                    var norm = (motionScoreMg - MIN_MOTION_LAND_MG) / (MAX_MOTION_LAND_MG - MIN_MOTION_LAND_MG);
-                    targetSpeed = MIN_LAND_SPEED_MPS + (norm * (MAX_LAND_SPEED_MPS - MIN_LAND_SPEED_MPS));
-                }
-            }
-
-            // Frequency Scaling: Scale speed up/down depending on stride or stroke tempo
-            if (estimatedFrequencyHz > 0.3f) {
-                if (estimatedFrequencyHz < 0.8f) {
-                    targetSpeed *= 0.85f;
-                } else if (estimatedFrequencyHz > 2.2f) {
-                    targetSpeed *= 1.15f;
-                }
-            }
-
-            return targetSpeed;
-
-        } catch (e) {
-            return 0.0f;
-        }
     }
 
     function isProbablyMoving() as Boolean {
@@ -674,35 +677,25 @@ function isStationary() as Boolean {
     function updateMotionConfidence() as Void {
         if (isProbablyMoving()) {
             if (movingConfidence < MOVING_CONFIDENCE_MAX) {
-                movingConfidence += 2;
-                if (movingConfidence > MOVING_CONFIDENCE_MAX) {
-                    movingConfidence = MOVING_CONFIDENCE_MAX;
-                }
+                movingConfidence += 1;
             }
         } else {
-            // Rapid decay when stationary to prevent Dead Reckoning over-shooting
-            movingConfidence -= 4; 
-            if (movingConfidence < 0) {
-                movingConfidence = 0;
+            if (movingConfidence > 0) {
+                movingConfidence -= 1;
             }
         }
     }
 
     function resetMotionState() as Void {
         motionScoreMg       = 0.0f;
-        motionBaselineMg    = MIN_BASELINE_MG;
+        motionBaselineMg    = 0.0f;
         motionBaselineReady = false;
         motionVar           = 0.0f;
         lastAccelMag        = 0.0f;
         motionStateCount    = 0;
         isMotionDetected    = false;
         movingConfidence    = 0;
-        
-        // Reset cadence trackers
-        zeroCrossCount       = 0;
-        sampleCountForPeriod = 0;
-        estimatedFrequencyHz = 0.0f;
-        lastHpSample         = 0.0f;
+        filteredSpeedEst    = 0.0f;
     }
 
     function resetHeadingEstimate() as Void {
@@ -730,10 +723,23 @@ function isStationary() as Boolean {
                 return;
             }
 
+            // Heart rate (health data)
             if (info has :heartRate && info.heartRate != null) {
                 heartRate = info.heartRate;
             } else {
                 heartRate = 0;
+            }
+
+            // SpO2 (health data) - unreliable when wet, log for surface intervals only
+            if (info has :oxygenSaturation && info.oxygenSaturation != null) {
+                spo2 = info.oxygenSaturation;
+            } else {
+                spo2 = 0;
+            }
+
+            // Ambient / water temperature
+            if (info has :temperature && info.temperature != null) {
+                ambientTempC = info.temperature.toFloat();
             }
 
             if (info has :accel && info.accel != null && info.accel.size() >= 3) {
@@ -840,33 +846,108 @@ function isStationary() as Boolean {
 
     function updateDepth(info as Sensor.Info or Null) as Void {
         try {
-            if (info == null || !(info has :altitude) || info.altitude == null) {
+            if (info == null) {
                 return;
             }
 
-            var rawAlt = info.altitude.toFloat();
+            var nowMs = System.getTimer();
+            var dt = 0.5f;
+            if (lastDepthUpdateMs > 0) {
+                dt = (nowMs - lastDepthUpdateMs).toFloat() / 1000.0f;
+                if (dt < 0.05f) { dt = 0.05f; }
+                if (dt > 2.0f)  { dt = 2.0f; }
+            }
+            lastDepthUpdateMs = nowMs;
 
+            // Prefer ambient pressure (Pa) when the device exposes it.
+            // Altitude alone is polluted by GPS and hard-clamped near -500 m,
+            // which produced the 100–2000 m depth spikes in the FIT logs.
+            var hasPressure = (info has :pressure) && (info.pressure != null);
+            var pressurePa = hasPressure ? info.pressure.toFloat() : 0.0f;
+
+            var hasAlt = (info has :altitude) && (info.altitude != null);
+            var rawAlt = hasAlt ? info.altitude.toFloat() : 0.0f;
+            var altValid = hasAlt && rawAlt >= MIN_VALID_ALT_M && rawAlt <= MAX_VALID_ALT_M;
+
+            // ---------- Initial surface calibration ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
-                surfaceAltitudeSum += rawAlt;
+                if (hasPressure && pressurePa > 80000.0f && pressurePa < 110000.0f) {
+                    surfacePressureSum += pressurePa;
+                    usePressureDepth = true;
+                }
+                if (altValid) {
+                    surfaceAltitudeSum += rawAlt;
+                }
                 calibrationSamples += 1;
 
                 if (calibrationSamples == CALIBRATION_COUNT) {
-                    surfaceAltitude = surfaceAltitudeSum / CALIBRATION_COUNT.toFloat();
+                    if (usePressureDepth && surfacePressureSum > 0.0f) {
+                        surfacePressurePa = surfacePressureSum / CALIBRATION_COUNT.toFloat();
+                    } else {
+                        usePressureDepth = false;
+                        surfacePressurePa = DEFAULT_SURFACE_PA;
+                    }
+                    if (surfaceAltitudeSum != 0.0f) {
+                        surfaceAltitude = surfaceAltitudeSum / CALIBRATION_COUNT.toFloat();
+                    }
                     depthFilter = 0.0f;
+                    System.println("Depth cal done: P0=" + surfacePressurePa.format("%.0f")
+                        + " Pa  alt0=" + surfaceAltitude.format("%.1f")
+                        + " useP=" + usePressureDepth);
                 }
                 currentDepth = 0.0f;
                 return;
             }
 
+            // ---------- Continuous surface recalibration (only on surface) ----------
             if (!isUnderwater && currentDepth <= DEPTH_NOISE_FLOOR_M) {
-                surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
-                                + SURFACE_RECAL_ALPHA * rawAlt;
+                if (usePressureDepth && hasPressure
+                    && pressurePa > 80000.0f && pressurePa < 110000.0f) {
+                    surfacePressurePa = (1.0f - SURFACE_RECAL_ALPHA) * surfacePressurePa
+                                      + SURFACE_RECAL_ALPHA * pressurePa;
+                }
+                if (altValid) {
+                    surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
+                                    + SURFACE_RECAL_ALPHA * rawAlt;
+                }
             }
 
-            var rawDepth = surfaceAltitude - rawAlt;
-            depthFilter = (depthFilter * 0.75f) + (rawDepth * 0.25f);
+            // ---------- Raw depth ----------
+            var rawDepth = 0.0f;
+            if (usePressureDepth && hasPressure && pressurePa > 50000.0f) {
+                // Positive depth when pressure rises above surface reference
+                rawDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
+            } else if (altValid) {
+                // Fallback: altitude drop relative to surface altitude
+                rawDepth = surfaceAltitude - rawAlt;
+            } else {
+                // No usable sensor this tick – hold previous filtered value
+                return;
+            }
 
+            // Reject non-physical jumps (GPS altitude jumps, baro glitches)
+            var maxDelta = MAX_DEPTH_RATE_MPS * dt;
+            var prev = depthFilter;
+            if (rawDepth - prev > maxDelta) {
+                rawDepth = prev + maxDelta;
+            } else if (prev - rawDepth > maxDelta) {
+                rawDepth = prev - maxDelta;
+            }
+
+            // Low-pass
+            depthFilter = (depthFilter * 0.70f) + (rawDepth * 0.30f);
+
+            // Noise floor
             if (depthFilter < DEPTH_NOISE_FLOOR_M) {
+                depthFilter = 0.0f;
+            }
+
+            // Absolute clamp – never report depths that recreational/tech sensors
+            // cannot produce; this is what stopped the 1500 m+ FIT values.
+            if (depthFilter > MAX_DEPTH_M) {
+                depthFilter = MAX_DEPTH_M;
+            }
+            if (depthFilter < 0.0f) {
                 depthFilter = 0.0f;
             }
 
@@ -915,16 +996,92 @@ function isStationary() as Boolean {
         try {
             if (!isRecording) {
                 isUnderwater = false;
+                shallowSampleCount = 0;
                 return;
             }
 
             if (!isUnderwater && currentDepth > DIVE_START_DEPTH_M) {
                 isUnderwater = true;
-            } else if (isUnderwater && currentDepth <= SURFACE_STOP_DEPTH_M) {
-                isUnderwater = false;
+                diveStartMs = System.getTimer();
+                shallowSampleCount = 0;
+                return;
+            }
+
+            if (isUnderwater) {
+                var elapsed = System.getTimer() - diveStartMs;
+
+                // Don't allow auto-stop until a minimum dive duration has passed;
+                // avoids the instant start->stop loop caused by depth noise.
+                if (elapsed < MIN_DIVE_DURATION_MS) {
+                    return;
+                }
+
+                if (currentDepth <= SURFACE_STOP_DEPTH_M) {
+                    shallowSampleCount += 1;
+                    if (shallowSampleCount >= SHALLOW_SAMPLES_TO_STOP) {
+                        isUnderwater = false;
+                        shallowSampleCount = 0;
+                    }
+                } else {
+                    shallowSampleCount = 0;
+                }
             }
         } catch (e) {
             System.println("processDiveState error: " + errorToString(e));
+        }
+    }
+
+    function getEstimatedSpeedMps() as Float {
+        try {
+            // Priority 1: trustworthy GPS speed
+            if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+                filteredSpeedEst = speed;
+                return filteredSpeedEst;
+            }
+
+            // Priority 2: not confident we are moving
+            if (movingConfidence < MOVING_CONFIDENCE_ON || isStationary()) {
+                // Soft decay toward zero
+                filteredSpeedEst *= 0.70f;
+                if (filteredSpeedEst < 0.05f) {
+                    filteredSpeedEst = 0.0f;
+                }
+                return filteredSpeedEst;
+            }
+
+            // Priority 3: continuous intensity → speed map
+            var target = 0.0f;
+            if (isUnderwater) {
+                if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
+                    target = MIN_SWIM_SPEED_MPS;
+                } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
+                    target = MAX_SWIM_SPEED_MPS;
+                } else {
+                    var n = (motionScoreMg - MIN_MOTION_SWIM_MG)
+                          / (MAX_MOTION_SWIM_MG - MIN_MOTION_SWIM_MG);
+                    target = MIN_SWIM_SPEED_MPS + n * (MAX_SWIM_SPEED_MPS - MIN_SWIM_SPEED_MPS);
+                }
+            } else {
+                if (motionScoreMg <= MIN_MOTION_LAND_MG) {
+                    target = MIN_LAND_SPEED_MPS;
+                } else if (motionScoreMg >= MAX_MOTION_LAND_MG) {
+                    target = MAX_LAND_SPEED_MPS;
+                } else {
+                    var n2 = (motionScoreMg - MIN_MOTION_LAND_MG)
+                           / (MAX_MOTION_LAND_MG - MIN_MOTION_LAND_MG);
+                    target = MIN_LAND_SPEED_MPS + n2 * (MAX_LAND_SPEED_MPS - MIN_LAND_SPEED_MPS);
+                }
+            }
+
+            // Asymmetric low-pass: rise faster than fall
+            var a = (target > filteredSpeedEst) ? SPEED_SMOOTH_RISE : SPEED_SMOOTH_FALL;
+            filteredSpeedEst = filteredSpeedEst + a * (target - filteredSpeedEst);
+            if (filteredSpeedEst < 0.05f) {
+                filteredSpeedEst = 0.0f;
+            }
+            return filteredSpeedEst;
+        } catch (e) {
+            return 0.0f;
         }
     }
 
@@ -956,6 +1113,100 @@ function isStationary() as Boolean {
             System.println("Select button error: " + errorToString(e));
         }
         return true;
+    }
+
+    // CTRL / Menu button → drop a POI on the current DR route while recording
+    function onMenu() as Boolean {
+        try {
+            if (!isRecording) {
+                System.println("POI ignored – not recording");
+                return true;
+            }
+            markPoi();
+        } catch (e) {
+            System.println("onMenu/POI error: " + errorToString(e));
+        }
+        return true;
+    }
+
+    function markPoi() as Void {
+        if (!isRecording || session == null) {
+            return;
+        }
+        if (poiCount >= MAX_POIS) {
+            System.println("POI limit reached (" + MAX_POIS + ")");
+            poiFlashMs = System.getTimer(); // still flash so user knows press was seen
+            WatchUi.requestUpdate();
+            return;
+        }
+
+        var eastVal = 0.0f;
+        var northVal = 0.0f;
+        if (kalman != null) {
+            eastVal = kalman.getEast();
+            northVal = kalman.getNorth();
+        } else if (dr != null) {
+            var dd = dr.getDRData();
+            eastVal = dd[:east];
+            northVal = dd[:north];
+        }
+
+        // Prefer live GPS; else synthesise lat/lon from entry + DR offset
+        var poiLat = 0.0f;
+        var poiLon = 0.0f;
+        var haveLatLon = false;
+
+        if (hasGpsFix && isFiniteValue(latitude) && isFiniteValue(longitude)) {
+            poiLat = latitude;
+            poiLon = longitude;
+            haveLatLon = true;
+        } else if (hasEntryPosition) {
+            var latRefRad = entryLat * 0.017453292519943295f;
+            var mPerDegLat = 111000.0f;
+            var mPerDegLon = 111000.0f * Math.cos(latRefRad);
+            if (mPerDegLon < 1000.0f) {
+                mPerDegLon = 1000.0f;
+            }
+            poiLat = entryLat + (northVal / mPerDegLat);
+            poiLon = entryLon + (eastVal / mPerDegLon);
+            haveLatLon = true;
+        }
+
+        poiCount += 1;
+
+        // Stamp into the FIT record stream at this moment
+        if (poiIdField != null) {
+            poiIdField.setData(poiCount);
+        }
+        if (poiEastField != null && isFiniteValue(eastVal)) {
+            poiEastField.setData(eastVal);
+        }
+        if (poiNorthField != null && isFiniteValue(northVal)) {
+            poiNorthField.setData(northVal);
+        }
+        if (haveLatLon) {
+            if (poiLatField != null && isFiniteValue(poiLat)) {
+                poiLatField.setData(poiLat);
+            }
+            if (poiLonField != null && isFiniteValue(poiLon)) {
+                poiLonField.setData(poiLon);
+            }
+        }
+
+        // Optional lap marker – shows as a split in Garmin Connect
+        try {
+            if (session != null && (session has :addLap)) {
+                session.addLap();
+            }
+        } catch (e) {
+            // not all devices expose addLap
+        }
+
+        poiFlashMs = System.getTimer();
+        System.println("POI #" + poiCount + " E=" + eastVal.format("%.1f")
+            + " N=" + northVal.format("%.1f")
+            + (haveLatLon ? (" lat=" + poiLat.format("%.5f") + " lon=" + poiLon.format("%.5f")) : ""));
+        WatchUi.requestUpdate();
     }
 
     function onBack() as Boolean {
@@ -1003,7 +1254,14 @@ function isStationary() as Boolean {
             fitWriteTick = 0;
             heartRate = 0;
             currentAscentRateMps = 0.0f;
+            maxDepthSeen = 0.0f;
+            diveTimeMs = 0;
+            maxN2LoadSeen = 0.0f;
+            poiCount = 0;
+            poiFlashMs = 0;
 
+            // stopSession() stops the accelerometer listener to save power
+            // while not recording; bring it back with a clean baseline now.
             startMotionListener();
 
             if (kalman != null) {
@@ -1046,7 +1304,22 @@ function isStationary() as Boolean {
             System.println("MANUAL STOP - Saving FIT");
             captureExitPosition();
             isUnderwater = false;
+
+            // Write session-level summary fields while the session is still open
+            if (maxDepthField != null) {
+                maxDepthField.setData(maxDepthSeen);
+            }
+            if (diveTimeField != null) {
+                diveTimeField.setData(diveTimeMs.toFloat() / 1000.0f);
+            }
+            if (maxN2Field != null) {
+                maxN2Field.setData(maxN2LoadSeen);
+            }
+
             shutdownSessionSafe();
+            maxDepthSeen = 0.0f;
+            diveTimeMs = 0;
+            maxN2LoadSeen = 0.0f;
             stopGps();
             stopMotionListener();
             resetDepthCalibration();
@@ -1090,87 +1363,120 @@ function isStationary() as Boolean {
         }
     }
 
-    function safeCreateField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
+function safeCreateField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
         if (session == null) {
             return null;
         }
         try {
-            return session.createField(name, id, type, {
+            var u = (units == null || units.length() == 0) ? " " : units;
+            var f = session.createField(name, id, type, {
                 :mesgType => FitContributor.MESG_TYPE_RECORD,
-                :units => units
+                :units => u
+            });
+            System.println("createField OK: " + name + " id=" + id);
+            return f;
+        } catch (e) {
+            System.println("createField failed: " + name + " id=" + id + " -> " + errorToString(e));
+            return null;
+        }
+    }
+
+    function safeCreateSessionField(name as String, id as Number, type as Number, units as String) as FitContributor.Field or Null {
+        if (session == null) {
+            return null;
+        }
+        try {
+            var u = (units == null || units.length() == 0) ? " " : units;
+            return session.createField(name, id, type, {
+                :mesgType => FitContributor.MESG_TYPE_SESSION,
+                :units => u
             });
         } catch (e) {
-            System.println("createField failed: " + name + " -> " + errorToString(e));
+            System.println("createSessionField failed: " + name + " -> " + errorToString(e));
             return null;
         }
     }
 
     function startRecording() as Void {
-        try {
-            shutdownSessionWithoutSave();
+    try {
+        shutdownSessionWithoutSave();
 
-            var now = Time.now();
-            var info = Gregorian.info(now, Time.FORMAT_SHORT);
+        var now = Time.now();
+        var info = Gregorian.info(now, Time.FORMAT_SHORT);
 
-            var name = Lang.format("DR $1$-$2$-$3$ $4$:$5$", [
-                info.year.format("%04d"),
-                info.month.format("%02d"),
-                info.day.format("%02d"),
-                info.hour.format("%02d"),
-                info.min.format("%02d")
-            ]);
+        // Example result: "DR 2026-07-25 16:42"
+        var name = Lang.format("DR $1$-$2$-$3$ $4$:$5$", [
+            info.year.format("%04d"),
+            info.month.format("%02d"),
+            info.day.format("%02d"),
+            info.hour.format("%02d"),
+            info.min.format("%02d")
+        ]);
 
+        session = ActivityRecording.createSession({
+            :name => name,
+            :sport => Activity.SPORT_GENERIC
+        });
 
-            session = ActivityRecording.createSession({
-                :name => name,
-                :sport => Activity.SPORT_GENERIC
-            });
+        if (session == null) {
+            System.println("createSession returned null");
+            return;
+        }
 
-            if (session == null) {
-                System.println("createSession returned null");
-                return;
-            }
+        // Instinct ~16 developer-field limit. Create at most 14 record fields.
+        // IDs 0–13 sequential. Extra metrics stay on-screen only.
+        drEastField     = safeCreateField("DR_East",   FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
+        drNorthField    = safeCreateField("DR_North",  FIELD_DR_NORTH,   FitContributor.DATA_TYPE_FLOAT,  "m");
+        depthField      = safeCreateField("Depth",     FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
+        speedEstField   = safeCreateField("Speed",     FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
+        headingField    = safeCreateField("Heading",   FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+        underwaterField = safeCreateField("Underwater",FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32,  "");
+        motionField     = safeCreateField("Motion",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
+        movingField     = safeCreateField("Moving",    FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32,  "");
+        gpsFixField     = safeCreateField("GpsFix",    FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32,  "");
+        drLatField      = safeCreateField("DR_Lat",    FIELD_DR_LAT,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+        drLonField      = safeCreateField("DR_Lon",    FIELD_DR_LON,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+        poiIdField      = safeCreateField("POI_Id",    FIELD_POI_ID,     FitContributor.DATA_TYPE_UINT32,  "");
+        poiLatField     = safeCreateField("POI_Lat",   FIELD_POI_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+        poiLonField     = safeCreateField("POI_Lon",   FIELD_POI_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
 
-            drEastField     = safeCreateField("DR_East_m",    FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
-            drNorthField    = safeCreateField("DR_North_m",   FIELD_DR_NORTH,   FitContributor.DATA_TYPE_FLOAT,  "m");
-            depthField      = safeCreateField("Depth_m",      FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
-            motionField     = safeCreateField("Motion_mg",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
-            speedEstField   = safeCreateField("Speed_Est",    FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
-            underwaterField = safeCreateField("Underwater",   FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32, "bool");
-            gpsFixField     = safeCreateField("GPS_Fix",      FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32, "bool");
-            headingField    = safeCreateField("Heading_deg",  FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-            movingField     = safeCreateField("Moving",       FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32, "bool");
-            drLatField      = safeCreateField("DR_Lat",       FIELD_DR_LAT,     FitContributor.DATA_TYPE_FLOAT,  "deg");
-            drLonField      = safeCreateField("DR_Lon",       FIELD_DR_LON,     FitContributor.DATA_TYPE_FLOAT,  "deg");
+        // Not created on-device (stay null) – UI only / avoids field-limit crash:
+        // n2*, hr, ascent, spo2, temp, gps lat/lon, poi east/north, session summaries
+        n2LoadField = null;
+        n2MaxField = null;
+        n2BandField = null;
+        hrField = null;
+        ascentField = null;
+        spo2Field = null;
+        tempField = null;
+        gpsLatField = null;
+        gpsLonField = null;
+        poiEastField = null;
+        poiNorthField = null;
+        maxDepthField = null;
+        diveTimeField = null;
+        maxN2Field = null;
 
-            n2LoadField     = safeCreateField("N2_Load",      FIELD_N2_LOAD,    FitContributor.DATA_TYPE_FLOAT,  "%");
-            n2MaxField      = safeCreateField("N2_Load_Max",  FIELD_N2_MAX,     FitContributor.DATA_TYPE_FLOAT,  "%");
-            n2BandField     = safeCreateField("N2_Risk_Band", FIELD_N2_BAND,    FitContributor.DATA_TYPE_UINT32, "band");
-
-            gpsLatField     = safeCreateField("GPS_Lat",      FIELD_GPS_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-            gpsLonField     = safeCreateField("GPS_Lon",      FIELD_GPS_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-
-            hrField     = null; // safeCreateField("Heart_Rate", FIELD_HEART_RATE, FitContributor.DATA_TYPE_UINT32, "bpm");
-            ascentField = null; // safeCreateField("Ascent_Rate", FIELD_ASCENT, FitContributor.DATA_TYPE_FLOAT, "m/s");
-
-            var started = session.start();
-            if (started) {
-                isRecording = true;
-                clearLastFitValues();
-                System.println("Recording STARTED");
-            } else {
-                System.println("session.start() returned false");
-                clearFitFields();
-                session = null;
-                isRecording = false;
-            }
-        } catch (e) {
-            System.println("Start recording error: " + errorToString(e));
+        var started = session.start();
+        if (started) {
+            isRecording = true;
+            clearLastFitValues();
+            poiCount = 0;
+            poiFlashMs = 0;
+            System.println("Recording STARTED");
+        } else {
+            System.println("session.start() returned false");
             clearFitFields();
             session = null;
             isRecording = false;
         }
+    } catch (e) {
+        System.println("Start recording error: " + errorToString(e));
+        clearFitFields();
+        session = null;
+        isRecording = false;
     }
+}
 
     function shutdownSessionSafe() as Void {
         if (session == null) {
@@ -1244,6 +1550,8 @@ function isStationary() as Boolean {
         lastFitN2Band = null;
         lastFitHr = null;
         lastFitAscent = null;
+        lastFitSpo2 = null;
+        lastFitTemp = null;
     }
 
     function clearFitFields() as Void {
@@ -1265,6 +1573,16 @@ function isStationary() as Boolean {
         n2BandField = null;
         hrField = null;
         ascentField = null;
+        spo2Field = null;
+        tempField = null;
+        maxDepthField = null;
+        diveTimeField = null;
+        maxN2Field = null;
+        poiIdField = null;
+        poiLatField = null;
+        poiLonField = null;
+        poiEastField = null;
+        poiNorthField = null;
         clearLastFitValues();
     }
 
@@ -1272,9 +1590,13 @@ function isStationary() as Boolean {
         try {
             surfaceAltitudeSum = 0.0f;
             surfaceAltitude = 0.0f;
+            surfacePressureSum = 0.0f;
+            surfacePressurePa = DEFAULT_SURFACE_PA;
             depthFilter = 0.0f;
             calibrationSamples = 0;
             currentDepth = 0.0f;
+            lastDepthUpdateMs = 0;
+            usePressureDepth = false;
         } catch (e) {
             System.println("resetDepthCalibration error: " + errorToString(e));
         }
@@ -1349,6 +1671,7 @@ function isStationary() as Boolean {
             lastFitGpsFix = writeUIntField(gpsFixField, gpsFixVal, lastFitGpsFix);
             lastFitMoving = writeUIntField(movingField, movingVal, lastFitMoving);
 
+            // Synthetic lat/lon
             if (hasEntryPosition && isFiniteValue(eastVal) && isFiniteValue(northVal)) {
                 var latRefRad = entryLat * 0.017453292519943295f;
                 var metersPerDegLat = 111000.0f;
@@ -1387,10 +1710,18 @@ function isStationary() as Boolean {
                 lastFitN2Band = writeUIntField(n2BandField, n2Model.getRiskBand(), lastFitN2Band);
             }
 
+            // NEW health / dive metrics
             if (heartRate > 0) {
                 lastFitHr = writeUIntField(hrField, heartRate, lastFitHr);
             }
             lastFitAscent = writeFloatField(ascentField, currentAscentRateMps, lastFitAscent, 0.05f);
+
+            // SpO2 is optical/wrist-based and unreliable underwater - only log
+            // when a real reading is present (0 means no reading this tick).
+            if (spo2 > 0) {
+                lastFitSpo2 = writeUIntField(spo2Field, spo2, lastFitSpo2);
+            }
+            lastFitTemp = writeFloatField(tempField, ambientTempC, lastFitTemp, 0.5f);
 
         } catch (e) {
             System.println("FIT write error: " + errorToString(e));
@@ -1429,11 +1760,27 @@ function isStationary() as Boolean {
             var rowH = 18;
 
             dc.setColor(isRecording ? Graphics.COLOR_GREEN : Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(w / 2, y, font, isRecording ? "RECORDING" : "Stopped", Graphics.TEXT_JUSTIFY_CENTER);
+            var statusText = isRecording ? "RECORDING" : "Stopped";
+            if (isRecording && poiFlashMs > 0) {
+                var age = System.getTimer() - poiFlashMs;
+                if (age >= 0 && age < POI_FLASH_MS) {
+                    statusText = "POI #" + poiCount;
+                    dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                } else {
+                    poiFlashMs = 0;
+                }
+            }
+            dc.drawText(w / 2, y, font, statusText, Graphics.TEXT_JUSTIFY_CENTER);
 
             y += rowH;
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            if (isRecording && poiCount > 0) {
+                dc.drawText(leftX, y, font, "POIs:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, "" + poiCount, Graphics.TEXT_JUSTIFY_LEFT);
+                y += rowH;
+            }
+
             dc.drawText(leftX, y, font, "Mode:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, isUnderwater ? "Underwater" : "Land/Surf", Graphics.TEXT_JUSTIFY_LEFT);
 
@@ -1506,6 +1853,7 @@ function isStationary() as Boolean {
             dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
             dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
 
+            // Nitrogen Model display
             if (n2Model != null) {
                 y += rowH;
                 dc.drawText(leftX, y, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);

@@ -18,6 +18,20 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
         return view.onBack();
     }
 
+    // Menu key on some devices – same POI action
+    function onMenu() as Boolean {
+        return view.onMenu();
+    }
+
+    // Instinct 2 / 2X: upper-left CTRL / Light button → KEY_LIGHT
+    function onKey(evt as WatchUi.KeyEvent) as Boolean {
+        var key = evt.getKey();
+        if (key == WatchUi.KEY_LIGHT) {
+            return view.onMenu();   // mark POI while recording
+        }
+        return false;              // leave other keys to the system
+    }
+
     function onNextPage() as Boolean {
         view.scrollY -= view.SCROLL_STEP;   // DOWN button usually moves content up
         if (view.scrollY < view.SCROLL_MIN) {
