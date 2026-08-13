@@ -1323,7 +1323,13 @@ class gsensrosView extends WatchUi.View {
 
         var eastVal = 0.0f;
         var northVal = 0.0f;
-        if (kalman != null) {
+        var useGpsForPoi = false;
+
+        if (hasGpsFix && isFiniteValue(latitude) && isFiniteValue(longitude)) {
+            eastVal = 0.0f;
+            northVal = 0.0f;
+            useGpsForPoi = true;
+        } else if (kalman != null) {
             eastVal = kalman.getEast();
             northVal = kalman.getNorth();
         } else if (dr != null) {
@@ -1332,12 +1338,12 @@ class gsensrosView extends WatchUi.View {
             northVal = dd[:north];
         }
 
-        // Prefer live GPS; else synthesise lat/lon from entry + DR offset
+        // Prefer live GPS; else use the current DR/Kalman estimate.
         var poiLat = 0.0f;
         var poiLon = 0.0f;
         var haveLatLon = false;
 
-        if (hasGpsFix && isFiniteValue(latitude) && isFiniteValue(longitude)) {
+        if (useGpsForPoi) {
             poiLat = latitude;
             poiLon = longitude;
             haveLatLon = true;
