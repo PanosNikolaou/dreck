@@ -26,11 +26,13 @@ class KalmanDR {
     const C_SCALE = 2.44949f;    // sqrt(N+lambda) = sqrt(6) ≈ 2.449
 
     // Process / measurement noise
-    const Q_POS   = 0.15f;       // m^2 / s  position process
-    const Q_VEL   = 0.25f;       // (m/s)^2 / s  velocity process
+    const Q_POS   = 0.08f;       // m^2 / s  position process
+    const Q_VEL   = 0.12f;       // (m/s)^2 / s  velocity process
     const R_GPS_GOOD   = 4.0f;   // m^2
     const R_GPS_USABLE = 20.0f;  // m^2
     const R_GPS_POOR   = 60.0f;
+    const MIN_PREDICT_SPEED_MPS = 0.08f;
+    const MAX_PREDICT_SPEED_MPS = 2.2f;
 
     var x as Array<Float>;       // state mean [E, N, vE, vN]
     var P as Array<Float>;       // covariance, row-major N*N
@@ -186,29 +188,32 @@ class KalmanDR {
 
     // Nonlinear process: integrate constant-velocity driven by commanded speed/heading.
     // Control pulls velocity toward (speed*sin(h), speed*cos(h)); position integrates velocity.
-    private function processModel(s as Array<Float>, speedMps as Float, headingRad as Float, dt as Float) as Array<Float> {
+    private function processModel(posE as Float, posN as Float, velE as Float, velN as Float, speedMps as Float, headingRad as Float, dt as Float, out as Array<Float>) as Void {
         var cmdVe = speedMps * Math.sin(headingRad);
         var cmdVn = speedMps * Math.cos(headingRad);
 
         // First-order lag on velocity (tau ≈ 0.6 s) so motion intensity changes smoothly
         var alpha = dt / (0.6f + dt);
-        var ve = s[2] + alpha * (cmdVe - s[2]);
-        var vn = s[3] + alpha * (cmdVn - s[3]);
+        var ve = velE + alpha * (cmdVe - velE);
+        var vn = velN + alpha * (cmdVn - velN);
+
+        if (speedMps < MIN_PREDICT_SPEED_MPS) {
+            ve *= 0.60f;
+            vn *= 0.60f;
+        }
 
         // Clamp to human-plausible speeds
         var spd = Math.sqrt(ve * ve + vn * vn);
-        if (spd > 2.5f) {
-            var scale = 2.5f / spd;
+        if (spd > MAX_PREDICT_SPEED_MPS) {
+            var scale = MAX_PREDICT_SPEED_MPS / spd;
             ve *= scale;
             vn *= scale;
         }
 
-        return [
-            s[0] + ve * dt,
-            s[1] + vn * dt,
-            ve,
-            vn
-        ];
+        out[0] = posE + ve * dt;
+        out[1] = posN + vn * dt;
+        out[2] = ve;
+        out[3] = vn;
     }
 
     function predict(speedMps as Float, headingRad as Float, dt as Float) as Void {
@@ -220,21 +225,20 @@ class KalmanDR {
         if (speedMps < 0.0f) {
             speedMps = 0.0f;
         }
-        if (speedMps > 2.5f) {
-            speedMps = 2.5f;
+        if (speedMps > MAX_PREDICT_SPEED_MPS) {
+            speedMps = MAX_PREDICT_SPEED_MPS;
         }
 
         generateSigmaPoints();
 
         // Propagate each sigma point into sigmaY
         for (var i = 0; i < N_SIGMA; i++) {
-            var s = [
-                sigma[i * N + 0],
-                sigma[i * N + 1],
-                sigma[i * N + 2],
-                sigma[i * N + 3]
-            ];
-            var p = processModel(s, speedMps, headingRad, dt);
+            var s0 = sigma[i * N + 0];
+            var s1 = sigma[i * N + 1];
+            var s2 = sigma[i * N + 2];
+            var s3 = sigma[i * N + 3];
+            var p = [0.0f, 0.0f, 0.0f, 0.0f];
+            processModel(s0, s1, s2, s3, speedMps, headingRad, dt, p);
             sigmaY[i * N + 0] = p[0];
             sigmaY[i * N + 1] = p[1];
             sigmaY[i * N + 2] = p[2];

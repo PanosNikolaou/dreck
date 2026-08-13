@@ -223,6 +223,7 @@ class gsensrosView extends WatchUi.View {
     const GPS_LOSS_DAMPING_FACTOR = 0.35f;
     const MIN_SENSOR_MOTION_MG = 20.0f;
     const MIN_SENSOR_CONFIDENCE = 6;
+    const MIN_HEADING_CONFIDENCE_FOR_DR = 0.60f;
 
     // Continuous motion→speed mapping (replaces coarse step buckets)
     const MIN_MOTION_SWIM_MG = 24.0f;
@@ -430,27 +431,26 @@ class gsensrosView extends WatchUi.View {
             if (isRecording && !calibrationActive) {
                 var estSpeed = getEstimatedSpeedMps();
                 var bestHeading = getBestHeading(dt);
+                var headingConfidence = 0.0f;
+                var effectiveHeading = null as Float or Null;
 
                 if (isStationary()) {
                     estSpeed = 0.0f;
                 }
 
+                var headingQuality = getHeadingConfidenceForDr();
+                if (headingQuality >= MIN_HEADING_CONFIDENCE_FOR_DR) {
+                    effectiveHeading = bestHeading;
+                    headingConfidence = headingQuality;
+                }
+
                 if (kalman != null) {
                     // Always propagate with UKF kinematics, then correct with GPS.
-                    var h = (bestHeading != null) ? bestHeading : 0.0f;
+                    var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
                     kalman.predict(estSpeed, h, dt);
                     if (hasGpsFix && isGpsQualityUsable(gpsQuality)) {
                         kalman.updateGps(latitude, longitude, gpsQuality);
                     }
-                }
-
-                var headingConfidence = 0.25f;
-                if (trueHeading != null) {
-                    headingConfidence = 1.0f;
-                } else if (magHeading != null) {
-                    headingConfidence = 0.60f;
-                } else if (dr != null && dr.hasValidHeading()) {
-                    headingConfidence = 0.30f;
                 }
 
                 var drGpsBlend = 0.0f;
@@ -463,8 +463,8 @@ class gsensrosView extends WatchUi.View {
                     dr.setContext(isUnderwater);
                 }
 
-                if (dr != null && shouldAdvanceDR(bestHeading, estSpeed)) {
-                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, bestHeading, dt, estSpeed, true, headingConfidence);
+                if (dr != null && shouldAdvanceDR(effectiveHeading, estSpeed)) {
+                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, estSpeed, true, headingConfidence);
                 }
 
                 if (dr != null && hasGpsFix && isGpsQualityUsable(gpsQuality) && drGpsBlend > 0.0f) {
@@ -1244,8 +1244,21 @@ class gsensrosView extends WatchUi.View {
         return System.getTimer() < gpsRecoveryUntilMs;
     }
 
+    function getHeadingConfidenceForDr() as Float {
+        if (trueHeading != null) {
+            return 1.0f;
+        }
+        if (magHeading != null) {
+            return 0.60f;
+        }
+        return 0.0f;
+    }
+
     function shouldAdvanceDR(bestHeading as Float or Null, estSpeed as Float) as Boolean {
         if (bestHeading == null) {
+            return false;
+        }
+        if (getHeadingConfidenceForDr() < MIN_HEADING_CONFIDENCE_FOR_DR) {
             return false;
         }
         if (!hasGpsFix) {
