@@ -540,10 +540,11 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
+            var positionInfo = info.position;
             gpsQuality = getPositionQuality(info);
 
-            if (info.position != null && isGpsQualityUsable(gpsQuality)) {
-                var coords = info.position.toDegrees();
+            if (positionInfo != null && isGpsQualityUsable(gpsQuality)) {
+                var coords = positionInfo.toDegrees();
                 latitude = coords[0].toFloat();
                 longitude = coords[1].toFloat();
                 hasGpsFix = true;
@@ -1801,8 +1802,12 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 return;
             }
 
-            var eastVal = (kalman != null) ? kalman.getEast() : (dr != null ? dr.getDRData()[:east] : 0.0f);
-            var northVal = (kalman != null) ? kalman.getNorth() : (dr != null ? dr.getDRData()[:north] : 0.0f);
+            var drData = null;
+            if (dr != null) {
+                drData = dr.getDRData();
+            }
+            var eastVal = (kalman != null) ? kalman.getEast() : (drData != null ? drData[:east] : 0.0f);
+            var northVal = (kalman != null) ? kalman.getNorth() : (drData != null ? drData[:north] : 0.0f);
 
             var depthVal = currentDepth;
             var motionVal = motionScoreMg;

@@ -72,16 +72,14 @@
             sortOrder="3"
             precision="6"
             dataLabel="@Strings.gps_lat_label"
-            unitLabel="@Strings.degrees_units"
-            fillColor="#AA00FF" />
+            unitLabel="@Strings.degrees_units" />
 
         <fitField id="105"
             displayInChart="false"
             sortOrder="4"
             precision="6"
             dataLabel="@Strings.gps_lon_label"
-            unitLabel="@Strings.degrees_units"
-            fillColor="#D50000" />
+            unitLabel="@Strings.degrees_units" />
 
         <fitField id="106"
             displayInChart="true"
