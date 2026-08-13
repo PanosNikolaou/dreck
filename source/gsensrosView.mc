@@ -220,6 +220,9 @@ class gsensrosView extends WatchUi.View {
     const GPS_ZERO_SPEED_MPS = 0.20f;
     const MIN_VALID_GPS_SPEED_MPS = 0.35f;
     const DR_MOVE_SPEED_THRESHOLD_MPS = 0.12f;
+    const GPS_LOSS_DAMPING_FACTOR = 0.35f;
+    const MIN_SENSOR_MOTION_MG = 20.0f;
+    const MIN_SENSOR_CONFIDENCE = 6;
 
     // Continuous motion→speed mapping (replaces coarse step buckets)
     const MIN_MOTION_SWIM_MG = 24.0f;
@@ -1190,6 +1193,14 @@ class gsensrosView extends WatchUi.View {
                 return filteredSpeedEst;
             }
 
+            if (!hasGpsFix || isGpsRecoveryHoldActive()) {
+                filteredSpeedEst *= GPS_LOSS_DAMPING_FACTOR;
+                if (filteredSpeedEst < 0.03f) {
+                    filteredSpeedEst = 0.0f;
+                }
+                return filteredSpeedEst;
+            }
+
             // Priority 3: continuous intensity → speed map
             var target = 0.0f;
             if (isUnderwater) {
@@ -1237,13 +1248,19 @@ class gsensrosView extends WatchUi.View {
         if (bestHeading == null) {
             return false;
         }
-        if (!hasGpsFix || isGpsRecoveryHoldActive()) {
+        if (!hasGpsFix) {
+            return false;
+        }
+        if (isGpsRecoveryHoldActive()) {
             return false;
         }
         if (estSpeed < DR_MOVE_SPEED_THRESHOLD_MPS) {
             return false;
         }
-        if (movingConfidence < 4) {
+        if (movingConfidence < MIN_SENSOR_CONFIDENCE) {
+            return false;
+        }
+        if (motionScoreMg < MIN_SENSOR_MOTION_MG) {
             return false;
         }
         if (isStationary()) {
