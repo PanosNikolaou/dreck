@@ -22,26 +22,32 @@ class DeadReckoning {
     var lastPredictedHeadingRad = 0.0f;
     var lastHeadingErrorRad = 0.0f;
     var movementAccepted = false;
+    var isUnderwaterMode = false;
+    var headingSinCache = 0.0f;
+    var headingCosCache = 0.0f;
+    var lastHeadingCacheRad = 0.0f;
 
     const MAX_DT_SEC = 2.0f;
     const MIN_DT_SEC = 0.01f;
 
-    const HEADING_ALPHA_SLOW = 0.10f;
-    const HEADING_ALPHA_FAST = 0.22f;
-    const MAX_HEADING_CORRECTION_RAD = 0.35f;
+    const HEADING_ALPHA_SLOW = 0.06f;
+    const HEADING_ALPHA_FAST = 0.12f;
+    const MAX_HEADING_CORRECTION_RAD = 0.20f;
 
-    const SPEED_ALPHA_RISE = 0.30f;
-    const SPEED_ALPHA_FALL = 0.18f;
-    const SPEED_DECAY_WHEN_STOPPED = 0.75f;
+    const SPEED_ALPHA_RISE = 0.24f;
+    const SPEED_ALPHA_FALL = 0.14f;
+    const SPEED_DECAY_WHEN_STOPPED = 0.70f;
 
     const MIN_SPEED_MPS = 0.0f;
-    const MAX_SPEED_MPS = 3.0f;
-    const SPEED_DEADBAND_MPS = 0.08f;
+    const MAX_SPEED_MPS_LAND = 2.2f;
+    const MAX_SPEED_MPS_SWIM = 2.8f;
+    const SPEED_DEADBAND_MPS = 0.10f;
+    const UNDERWATER_SPEED_DEADBAND_MPS = 0.08f;
 
     const MIN_STEP_DISTANCE_M = 0.015f;
     const MAX_STEP_DISTANCE_M = 10.0f;
 
-    const MAX_REASONABLE_YAW_RATE_RAD_S = 4.5f;
+    const MAX_REASONABLE_YAW_RATE_RAD_S = 2.0f;
 
     function initialize() {
         reset();
@@ -79,6 +85,22 @@ class DeadReckoning {
 
     function setSpeedEstimate(newSpeedMps as Float) as Void {
         speedMps = sanitizeSpeed(newSpeedMps);
+    }
+
+    function setContext(isUnderwater as Boolean) as Void {
+        isUnderwaterMode = isUnderwater;
+    }
+
+    function applyPositionCorrection(targetEast as Float, targetNorth as Float, alpha as Float) as Void {
+        var blend = clampFloat(alpha, 0.0f, 1.0f);
+        if (blend <= 0.0f) {
+            return;
+        }
+
+        var deltaEast = targetEast - eastMeters;
+        var deltaNorth = targetNorth - northMeters;
+        eastMeters += deltaEast * blend;
+        northMeters += deltaNorth * blend;
     }
 
     function update(accelX as Float, accelY as Float, accelZ as Float, gyroZ as Float, measuredHeadingRad as Float or Null, dt as Float) as Void {
@@ -141,6 +163,7 @@ class DeadReckoning {
         }
 
         headingRad = correctedHeading;
+        refreshHeadingCache(headingRad);
 
         var clampedInputSpeed = sanitizeSpeed(newSpeedMps);
 
@@ -152,19 +175,33 @@ class DeadReckoning {
             return;
         }
 
-        if (clampedInputSpeed > speedMps) {
-            speedMps = lowPass(speedMps, clampedInputSpeed, SPEED_ALPHA_RISE);
-        } else {
-            speedMps = lowPass(speedMps, clampedInputSpeed, SPEED_ALPHA_FALL);
+        var accelMagnitude = Math.sqrt((accelX * accelX) + (accelY * accelY) + (accelZ * accelZ));
+        var accelDelta = accelMagnitude - 9.81f;
+        if (accelDelta < 0.0f) {
+            accelDelta = 0.0f;
         }
+        var accelGain = 0.35f + (0.65f * clampFloat(accelDelta / 3.0f, 0.0f, 1.0f));
+        var effectiveSpeed = clampedInputSpeed * accelGain;
+        var deadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
 
-        if (speedMps <= SPEED_DEADBAND_MPS) {
+        if (effectiveSpeed < deadband) {
             speedMps = 0.0f;
             return;
         }
 
-        var stepEast = speedMps * Math.sin(headingRad) * dt;
-        var stepNorth = speedMps * Math.cos(headingRad) * dt;
+        if (effectiveSpeed > speedMps) {
+            speedMps = lowPass(speedMps, effectiveSpeed, SPEED_ALPHA_RISE);
+        } else {
+            speedMps = lowPass(speedMps, effectiveSpeed, SPEED_ALPHA_FALL);
+        }
+
+        if (speedMps <= deadband) {
+            speedMps = 0.0f;
+            return;
+        }
+
+        var stepEast = speedMps * headingSinCache * dt;
+        var stepNorth = speedMps * headingCosCache * dt;
         var stepDistance = Math.sqrt((stepEast * stepEast) + (stepNorth * stepNorth));
 
         if (stepDistance < MIN_STEP_DISTANCE_M || stepDistance > MAX_STEP_DISTANCE_M) {
@@ -204,9 +241,10 @@ class DeadReckoning {
         }
 
         var h = normalizeAngle(courseHeadingRad);
+        refreshHeadingCache(h);
 
-        var stepEast = d * Math.sin(h);
-        var stepNorth = d * Math.cos(h);
+        var stepEast = d * headingSinCache;
+        var stepNorth = d * headingCosCache;
 
         eastMeters += stepEast;
         northMeters += stepNorth;
@@ -277,9 +315,19 @@ class DeadReckoning {
         return HEADING_ALPHA_SLOW * conf;
     }
 
+    function refreshHeadingCache(h as Float) as Void {
+        if (lastHeadingCacheRad != h) {
+            headingSinCache = Math.sin(h);
+            headingCosCache = Math.cos(h);
+            lastHeadingCacheRad = h;
+        }
+    }
+
     function sanitizeSpeed(value as Float) as Float {
-        var v = clampFloat(value, MIN_SPEED_MPS, MAX_SPEED_MPS);
-        if (v < SPEED_DEADBAND_MPS) {
+        var maxSpeed = isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND;
+        var deadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        var v = clampFloat(value, MIN_SPEED_MPS, maxSpeed);
+        if (v < deadband) {
             return 0.0f;
         }
         return v;

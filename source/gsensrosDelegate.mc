@@ -1,4 +1,5 @@
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.WatchUi;
 
 class gsensrosDelegate extends WatchUi.BehaviorDelegate {
@@ -32,21 +33,32 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
         return false;              // leave other keys to the system
     }
 
+    var lastScrollRequestMs = 0;
+    const SCROLL_REQUEST_THROTTLE_MS = 80;
+
     function onNextPage() as Boolean {
-        view.scrollY -= view.SCROLL_STEP;   // DOWN button usually moves content up
-        if (view.scrollY < view.SCROLL_MIN) {
-            view.scrollY = view.SCROLL_MIN;
+        var nowMs = System.getTimer();
+        if ((nowMs - lastScrollRequestMs) >= SCROLL_REQUEST_THROTTLE_MS) {
+            view.scrollY -= view.SCROLL_STEP;
+            if (view.scrollY < view.SCROLL_MIN) {
+                view.scrollY = view.SCROLL_MIN;
+            }
+            lastScrollRequestMs = nowMs;
+            WatchUi.requestUpdate();
         }
-        WatchUi.requestUpdate();
         return true;
     }
 
     function onPreviousPage() as Boolean {
-        view.scrollY += view.SCROLL_STEP;   // UP button usually moves content down
-        if (view.scrollY > view.SCROLL_MAX) {
-            view.scrollY = view.SCROLL_MAX;
+        var nowMs = System.getTimer();
+        if ((nowMs - lastScrollRequestMs) >= SCROLL_REQUEST_THROTTLE_MS) {
+            view.scrollY += view.SCROLL_STEP;
+            if (view.scrollY > view.SCROLL_MAX) {
+                view.scrollY = view.SCROLL_MAX;
+            }
+            lastScrollRequestMs = nowMs;
+            WatchUi.requestUpdate();
         }
-        WatchUi.requestUpdate();
         return true;
     }
 }

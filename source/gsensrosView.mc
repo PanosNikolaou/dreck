@@ -34,6 +34,11 @@ class gsensrosView extends WatchUi.View {
     var hasGpsFix = false;
     var gpsQuality = -1;
     var gpsActive = false;
+    var gpsFixLostAtMs = 0;
+    var gpsRecoveryUntilMs = 0;
+    const GPS_LOSS_HOLD_MS = 3000;
+    var lastDrGpsCorrectionMs = 0;
+    const DR_GPS_CORRECTION_INTERVAL_MS = 2000;
 
     var entryLat = 0.0f;
     var entryLon = 0.0f;
@@ -194,13 +199,19 @@ class gsensrosView extends WatchUi.View {
     const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
     var currentDepth = 0.0f;
     var lastDepthUpdateMs = 0;
+    var lastSurfacePressureRecalMs = 0;
     var usePressureDepth = false;   // true once we have a pressure-based surface cal
+    const SURFACE_PRESSURE_RECAL_INTERVAL_MS = 180000;
 
     var motionScoreMg = 0.0f;
     var motionBaselineMg = 0.0f;
     var motionBaselineReady = false;
     var isMotionDetected = false;
     var sensorListenerActive = false;
+    var biometricMotionBoost = 0.0f;
+    var biometricHrBaseline = 0;
+    var biometricSpo2Baseline = 0.0f;
+    var biometricBaselineReady = false;
 
     const TIMER_PERIOD_MS = 500;
     const SENSOR_PERIOD_SEC = 1;
@@ -208,21 +219,21 @@ class gsensrosView extends WatchUi.View {
 
     const GPS_ZERO_SPEED_MPS = 0.20f;
     const MIN_VALID_GPS_SPEED_MPS = 0.35f;
-    const DR_MOVE_SPEED_THRESHOLD_MPS = 0.05f;
+    const DR_MOVE_SPEED_THRESHOLD_MPS = 0.12f;
 
     // Continuous motion→speed mapping (replaces coarse step buckets)
-    const MIN_MOTION_SWIM_MG = 18.0f;
-    const MAX_MOTION_SWIM_MG = 100.0f;
-    const MIN_SWIM_SPEED_MPS = 0.20f;
-    const MAX_SWIM_SPEED_MPS = 0.65f;
+    const MIN_MOTION_SWIM_MG = 24.0f;
+    const MAX_MOTION_SWIM_MG = 90.0f;
+    const MIN_SWIM_SPEED_MPS = 0.12f;
+    const MAX_SWIM_SPEED_MPS = 0.50f;
 
-    const MIN_MOTION_LAND_MG = 22.0f;
-    const MAX_MOTION_LAND_MG = 160.0f;
-    const MIN_LAND_SPEED_MPS = 0.30f;
-    const MAX_LAND_SPEED_MPS = 1.35f;
+    const MIN_MOTION_LAND_MG = 28.0f;
+    const MAX_MOTION_LAND_MG = 120.0f;
+    const MIN_LAND_SPEED_MPS = 0.15f;
+    const MAX_LAND_SPEED_MPS = 0.90f;
 
-    const SPEED_SMOOTH_RISE = 0.35f;   // respond faster when accelerating
-    const SPEED_SMOOTH_FALL = 0.18f;   // decay slower when stopping
+    const SPEED_SMOOTH_RISE = 0.25f;   // respond faster when accelerating
+    const SPEED_SMOOTH_FALL = 0.12f;   // decay slower when stopping
 
     const MOTION_FILTER_ALPHA = 0.55f; // slightly more responsive motion score
 
@@ -260,16 +271,19 @@ class gsensrosView extends WatchUi.View {
     const BASELINE_ADAPT_FAST  = 0.10f;   // when stationary
     const BASELINE_ADAPT_SLOW  = 0.012f;  // when moving
 
-    const MOTION_ON_MG         = 20.0f;
-    const MOTION_OFF_MG        = 9.0f;
-    const CONF_RISE            = 2;       // samples to declare moving
-    const CONF_FALL            = 5;       // samples to declare stationary (stickier off)
+    const MOTION_ON_MG         = 24.0f;
+    const MOTION_OFF_MG        = 12.0f;
+    const CONF_RISE            = 3;       // samples to declare moving
+    const CONF_FALL            = 6;       // samples to declare stationary (stickier off)
 
     function initialize() {
         View.initialize();
         try {
             dr = new DeadReckoning();
             kalman = new KalmanDR();
+            if (dr != null) {
+                dr.setContext(isUnderwater);
+            }
             n2Model = new NitrogenModel();
         } catch (e) {
             System.println("Init failed: " + errorToString(e));
@@ -292,6 +306,7 @@ class gsensrosView extends WatchUi.View {
             resetHeadingEstimate();
             movingConfidence = 0;
             fitWriteTick = 0;
+            lastDrGpsCorrectionMs = 0;
             lastUpdateMs = System.getTimer();
             heartRate = 0;
             currentAscentRateMps = 0.0f;
@@ -426,8 +441,43 @@ class gsensrosView extends WatchUi.View {
                     }
                 }
 
+                var headingConfidence = 0.25f;
+                if (trueHeading != null) {
+                    headingConfidence = 1.0f;
+                } else if (magHeading != null) {
+                    headingConfidence = 0.60f;
+                } else if (dr != null && dr.hasValidHeading()) {
+                    headingConfidence = 0.30f;
+                }
+
+                var drGpsBlend = 0.0f;
+                if (dr != null && hasGpsFix && isGpsQualityUsable(gpsQuality) && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
+                    lastDrGpsCorrectionMs = nowMs;
+                    drGpsBlend = 0.20f;
+                }
+
+                if (dr != null) {
+                    dr.setContext(isUnderwater);
+                }
+
                 if (dr != null && shouldAdvanceDR(bestHeading, estSpeed)) {
-                    dr.updateWithSpeed(accelX, accelY, accelZ, gyroZ, bestHeading, dt, estSpeed);
+                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, bestHeading, dt, estSpeed, true, headingConfidence);
+                }
+
+                if (dr != null && hasGpsFix && isGpsQualityUsable(gpsQuality) && drGpsBlend > 0.0f) {
+                    if (kalman != null) {
+                        dr.applyPositionCorrection(kalman.getEast(), kalman.getNorth(), drGpsBlend);
+                    } else if (isFiniteValue(latitude) && isFiniteValue(longitude) && hasEntryPosition) {
+                        var latRefRad = entryLat * 0.017453292519943295f;
+                        var metersPerDegLat = 111000.0f;
+                        var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
+                        if (metersPerDegLon < 1000.0f) {
+                            metersPerDegLon = 1000.0f;
+                        }
+                        var refEast = (longitude - entryLon) * metersPerDegLon;
+                        var refNorth = (latitude - entryLat) * metersPerDegLat;
+                        dr.applyPositionCorrection(refEast, refNorth, drGpsBlend);
+                    }
                 }
 
                 fitWriteTick += 1;
@@ -485,6 +535,8 @@ class gsensrosView extends WatchUi.View {
             if (info == null) {
                 hasGpsFix = false;
                 gpsQuality = -1;
+                gpsFixLostAtMs = System.getTimer();
+                gpsRecoveryUntilMs = 0;
                 return;
             }
 
@@ -495,8 +547,14 @@ class gsensrosView extends WatchUi.View {
                 latitude = coords[0].toFloat();
                 longitude = coords[1].toFloat();
                 hasGpsFix = true;
+                gpsFixLostAtMs = 0;
+                gpsRecoveryUntilMs = System.getTimer() + GPS_LOSS_HOLD_MS;
             } else {
+                if (hasGpsFix) {
+                    gpsFixLostAtMs = System.getTimer();
+                }
                 hasGpsFix = false;
+                gpsRecoveryUntilMs = 0;
             }
         } catch (e) {
             System.println("onPosition error: " + errorToString(e));
@@ -674,8 +732,61 @@ class gsensrosView extends WatchUi.View {
         return isMotionDetected;
     }
 
+    function updateBiometricMovementEvidence() as Void {
+        var boost = 0.0f;
+
+        if (heartRate > 0) {
+            if (!biometricBaselineReady) {
+                biometricHrBaseline = heartRate;
+                biometricSpo2Baseline = (spo2 > 0) ? spo2.toFloat() : 100.0f;
+                biometricBaselineReady = true;
+                return;
+            }
+
+            var hrDelta = heartRate - biometricHrBaseline;
+            if (hrDelta >= 12) {
+                boost += 1.0f;
+            }
+            if (hrDelta >= 20) {
+                boost += 1.0f;
+            }
+            if (heartRate >= 100) {
+                boost += 0.5f;
+            }
+        }
+
+        if (spo2 > 0 && biometricBaselineReady && biometricSpo2Baseline > 0.0f) {
+            var spo2Drop = biometricSpo2Baseline - spo2.toFloat();
+            if (spo2Drop >= 4.0f) {
+                boost += 0.5f;
+            }
+            if (spo2Drop >= 8.0f) {
+                boost += 0.5f;
+            }
+        }
+
+        if (boost > 0.0f) {
+            biometricMotionBoost = (biometricMotionBoost * 0.65f) + (boost * 0.35f);
+        } else {
+            biometricMotionBoost = biometricMotionBoost * 0.80f;
+            if (biometricMotionBoost < 0.05f) {
+                biometricMotionBoost = 0.0f;
+            }
+        }
+    }
+
     function updateMotionConfidence() as Void {
+        updateBiometricMovementEvidence();
+
+        var evidence = 0;
         if (isProbablyMoving()) {
+            evidence += 1;
+        }
+        if (biometricMotionBoost >= 1.0f) {
+            evidence += 1;
+        }
+
+        if (evidence > 0) {
             if (movingConfidence < MOVING_CONFIDENCE_MAX) {
                 movingConfidence += 1;
             }
@@ -696,6 +807,10 @@ class gsensrosView extends WatchUi.View {
         isMotionDetected    = false;
         movingConfidence    = 0;
         filteredSpeedEst    = 0.0f;
+        biometricMotionBoost = 0.0f;
+        biometricHrBaseline = 0;
+        biometricSpo2Baseline = 0.0f;
+        biometricBaselineReady = false;
     }
 
     function resetHeadingEstimate() as Void {
@@ -777,7 +892,7 @@ class gsensrosView extends WatchUi.View {
             magHeading = null;
 
             if (info has :heading && info.heading != null) {
-                trueHeading = normalizeAngleRad(info.heading.toFloat());
+                trueHeading = normalizeHeadingInput(info.heading.toFloat());
                 headingEstimate = trueHeading;
                 hasHeadingEstimate = true;
             }
@@ -815,6 +930,13 @@ class gsensrosView extends WatchUi.View {
             return headingEstimate;
         }
 
+        if (!hasGpsFix) {
+            if (dr != null && dr.hasValidHeading()) {
+                return dr.getHeadingRad();
+            }
+            return null;
+        }
+
         if (hasHeadingEstimate) {
             if (!isStationary()) {
                 headingEstimate = normalizeAngleRad(headingEstimate + (gyroZ * dt));
@@ -827,6 +949,14 @@ class gsensrosView extends WatchUi.View {
         }
 
         return null;
+    }
+
+    function normalizeHeadingInput(value as Float) as Float {
+        var normalized = value;
+        if (normalized > (2.0f * Math.PI) && normalized <= 360.0f) {
+            normalized = normalized * (Math.PI / 180.0f);
+        }
+        return normalizeAngleRad(normalized);
     }
 
     function normalizeAngleRad(a as Float) as Float {
@@ -901,10 +1031,19 @@ class gsensrosView extends WatchUi.View {
 
             // ---------- Continuous surface recalibration (only on surface) ----------
             if (!isUnderwater && currentDepth <= DEPTH_NOISE_FLOOR_M) {
+                var stationaryForRecal = (movingConfidence < MOVING_CONFIDENCE_ON) || isStationary();
+                var shouldAutoRecalSurface = stationaryForRecal
+                    && hasGpsFix
+                    && isGpsQualityUsable(gpsQuality)
+                    && (nowMs - lastSurfacePressureRecalMs) >= SURFACE_PRESSURE_RECAL_INTERVAL_MS;
+
                 if (usePressureDepth && hasPressure
                     && pressurePa > 80000.0f && pressurePa < 110000.0f) {
                     surfacePressurePa = (1.0f - SURFACE_RECAL_ALPHA) * surfacePressurePa
                                       + SURFACE_RECAL_ALPHA * pressurePa;
+                    if (shouldAutoRecalSurface) {
+                        lastSurfacePressureRecalMs = nowMs;
+                    }
                 }
                 if (altValid) {
                     surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
@@ -1085,14 +1224,24 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
+    function isGpsRecoveryHoldActive() as Boolean {
+        if (gpsRecoveryUntilMs <= 0) {
+            return false;
+        }
+        return System.getTimer() < gpsRecoveryUntilMs;
+    }
+
     function shouldAdvanceDR(bestHeading as Float or Null, estSpeed as Float) as Boolean {
         if (bestHeading == null) {
+            return false;
+        }
+        if (!hasGpsFix || isGpsRecoveryHoldActive()) {
             return false;
         }
         if (estSpeed < DR_MOVE_SPEED_THRESHOLD_MPS) {
             return false;
         }
-        if (movingConfidence < MOVING_CONFIDENCE_ON) {
+        if (movingConfidence < 4) {
             return false;
         }
         if (isStationary()) {
