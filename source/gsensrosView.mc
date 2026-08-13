@@ -1043,6 +1043,7 @@ class gsensrosView extends WatchUi.View {
                                       + SURFACE_RECAL_ALPHA * pressurePa;
                     if (shouldAutoRecalSurface) {
                         lastSurfacePressureRecalMs = nowMs;
+                        surfacePressurePa = (0.90f * surfacePressurePa) + (0.10f * pressurePa);
                     }
                 }
                 if (altValid) {
