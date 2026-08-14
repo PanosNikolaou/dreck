@@ -502,19 +502,32 @@ class gsensrosView extends WatchUi.View {
                 }
 
                 var hasUsableGps = hasGpsFix && isGpsQualityUsable(gpsQuality) && !isGpsRecoveryHoldActive();
-                var gpsSignalLost = !hasUsableGps && gpsFixLostAtMs > 0;
+                var gpsSignalLost = !hasUsableGps && (gpsFixLostAtMs > 0 || !hasGpsFix);
+                var drFallbackActive = !hasUsableGps && (!hasGpsFix || gpsSignalLost);
                 var drSpeed = estSpeed;
                 var drHeadingConfidence = headingConfidence;
+                var gpsTrustWeight = 1.0f;
+
+                if (dr != null) {
+                    dr.updateMotionStateFilter(hasUsableGps, headingConfidence, motionScoreMg, dt);
+                    gpsTrustWeight = dr.getMotionBlendWeight();
+                }
+
+                if (!hasUsableGps) {
+                    gpsTrustWeight = clampFloat(gpsTrustWeight * 0.55f, 0.15f, 1.0f);
+                }
+
+                drHeadingConfidence = headingConfidence * gpsTrustWeight;
 
                 if (gpsSignalLost) {
                     drSpeed = getGpsLossDrSpeed(estSpeed);
-                    drHeadingConfidence = headingConfidence * 0.65f;
+                    drHeadingConfidence = drHeadingConfidence * 0.70f;
                 }
 
                 if (kalman != null) {
                     // Continue predicting from sensors during a GPS loss, but keep the
                     // motion intensity conservative so the route does not overshoot.
-                    if (hasUsableGps || gpsSignalLost) {
+                    if (hasUsableGps || drFallbackActive) {
                         var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
                         kalman.predictWithTuning(drSpeed, h, dt, headingConfidence, movingConfidence, hasUsableGps);
                         if (hasUsableGps) {
@@ -526,7 +539,10 @@ class gsensrosView extends WatchUi.View {
                 var drGpsBlend = 0.0f;
                 if (dr != null && hasUsableGps && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
                     lastDrGpsCorrectionMs = nowMs;
-                    drGpsBlend = 0.20f;
+                    drGpsBlend = 0.12f + (gpsTrustWeight * 0.12f);
+                    if (drGpsBlend > 0.24f) {
+                        drGpsBlend = 0.24f;
+                    }
                 }
 
                 if (dr != null) {
@@ -536,7 +552,7 @@ class gsensrosView extends WatchUi.View {
                 var shouldAdvanceSensorDr = false;
                 if (hasUsableGps) {
                     shouldAdvanceSensorDr = shouldAdvanceDR(effectiveHeading, estSpeed);
-                } else if (gpsSignalLost) {
+                } else if (drFallbackActive) {
                     shouldAdvanceSensorDr = shouldAdvanceDRWithoutGps(effectiveHeading, drSpeed);
                 }
 

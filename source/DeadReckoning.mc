@@ -27,6 +27,9 @@ class DeadReckoning {
     var headingCosCache = 0.0f;
     var lastHeadingCacheRad = 0.0f;
     var recentNoiseFloorMps = 0.0f;
+    var gpsUncertainty = 0.15f;
+    var motionNoiseFloorMps = 0.0f;
+    var gpsBlendGainMps = 0.0f;
 
     const MAX_DT_SEC = 2.0f;
     const MIN_DT_SEC = 0.01f;
@@ -70,6 +73,9 @@ class DeadReckoning {
         lastPredictedHeadingRad = 0.0f;
         lastHeadingErrorRad = 0.0f;
         movementAccepted = false;
+        gpsUncertainty = 0.15f;
+        motionNoiseFloorMps = 0.0f;
+        gpsBlendGainMps = 0.0f;
     }
 
     function resetWithHeading(initialHeading as Float) as Void {
@@ -230,6 +236,46 @@ class DeadReckoning {
         movementAccepted = true;
     }
 
+    function updateMotionStateFilter(gpsOk as Boolean, headingConfidence as Float, motionScore as Float, dt as Float) as Void {
+        if (dt <= 0.0f || dt > MAX_DT_SEC) {
+            return;
+        }
+
+        var gpsTarget = gpsOk ? 0.12f : 0.72f;
+        var gain = gpsOk ? 0.24f : 0.42f;
+
+        gpsUncertainty = gpsUncertainty + ((gpsTarget - gpsUncertainty) * gain * dt);
+        gpsUncertainty = clampFloat(gpsUncertainty, 0.08f, 1.20f);
+
+        var motionNoise = motionScore * 0.0018f;
+        if (motionNoise > 0.09f) {
+            motionNoise = 0.09f;
+        }
+
+        motionNoiseFloorMps = motionNoiseFloorMps * 0.88f + motionNoise * 0.12f;
+
+        var baseBand = 0.05f + motionNoiseFloorMps;
+        if (!gpsOk) {
+            baseBand += 0.018f;
+        }
+        if (headingConfidence < 0.70f) {
+            baseBand += 0.012f;
+        }
+        if (headingConfidence > 0.85f && motionScore > 0.35f) {
+            baseBand *= 0.80f;
+        }
+
+        gpsBlendGainMps = clampFloat(baseBand, 0.04f, 0.18f);
+    }
+
+    function getMotionBlendWeight() as Float {
+        return clampFloat(1.0f - gpsUncertainty, 0.15f, 1.0f);
+    }
+
+    function getMotionDeadband() as Float {
+        return gpsBlendGainMps;
+    }
+
     function updateAutoDt(measuredHeadingRad as Float or Null, gyroZ as Float, newSpeedMps as Float) as Void {
         var nowMs = System.getTimer();
         var dt = (nowMs - prevMs).toFloat() / 1000.0f;
@@ -354,8 +400,12 @@ class DeadReckoning {
         recentNoiseFloorMps = recentNoiseFloorMps * 0.86f + noiseEstimate * 0.14f;
 
         var adaptive = baseDeadband + recentNoiseFloorMps * 0.45f;
+        var filterDeadband = getMotionDeadband();
+        if (filterDeadband > adaptive) {
+            adaptive = filterDeadband;
+        }
         if (headingConfidence < 0.65f) {
-            adaptive += 0.015f;
+            adaptive += 0.010f;
         }
         if (inputSpeedMps > baseDeadband * 2.0f && speedMps > baseDeadband * 1.5f) {
             adaptive = baseDeadband * 0.85f;
