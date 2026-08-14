@@ -197,7 +197,10 @@ class gsensrosView extends WatchUi.View {
 
     var poiCount = 0;
     var poiFlashMs = 0;           // UI: show "POI #n" briefly after mark
+    var poiNoticeText = null as String or Null;
+    var poiNoticeStartMs = 0;
     const POI_FLASH_MS = 2000;
+    const POI_NOTICE_MS = 1600;
     var drDiagFitEnabled = true;
 
     var surfaceAltitudeSum = 0.0f;
@@ -1513,8 +1516,13 @@ class gsensrosView extends WatchUi.View {
         return true;
     }
 
-    // CTRL / Menu button → drop a POI on the current DR route while recording
-    function onMenu() as Boolean {
+    function showPoiNotice(text as String) as Void {
+        poiNoticeText = text;
+        poiNoticeStartMs = System.getTimer();
+        WatchUi.requestUpdate();
+    }
+
+    function handlePoiAction() as Boolean {
         try {
             toggleDrDiagnosticsFit();
             if (!isRecording) {
@@ -1528,6 +1536,11 @@ class gsensrosView extends WatchUi.View {
         return true;
     }
 
+    // CTRL / Menu button → drop a POI on the current DR route while recording
+    function onMenu() as Boolean {
+        return handlePoiAction();
+    }
+
     function markPoi() as Void {
         if (!isRecording || session == null) {
             return;
@@ -1535,7 +1548,7 @@ class gsensrosView extends WatchUi.View {
         if (poiCount >= MAX_POIS) {
             System.println("POI limit reached (" + MAX_POIS + ")");
             poiFlashMs = System.getTimer(); // still flash so user knows press was seen
-            WatchUi.requestUpdate();
+            showPoiNotice("POI limit");
             return;
         }
 
@@ -1607,10 +1620,10 @@ class gsensrosView extends WatchUi.View {
         }
 
         poiFlashMs = System.getTimer();
+        showPoiNotice("POI saved");
         System.println("POI #" + poiCount + " E=" + eastVal.format("%.1f")
             + " N=" + northVal.format("%.1f")
             + (haveLatLon ? (" lat=" + poiLat.format("%.5f") + " lon=" + poiLon.format("%.5f")) : ""));
-        WatchUi.requestUpdate();
     }
 
     function onBack() as Boolean {
@@ -2190,10 +2203,18 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 var age = System.getTimer() - poiFlashMs;
                 if (age >= 0 && age < POI_FLASH_MS) {
                     statusText = "POI #" + poiCount;
-                    noticeText = "POI saved";
                     dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
                 } else {
                     poiFlashMs = 0;
+                }
+            }
+
+            if (poiNoticeText != null) {
+                var noticeAge = System.getTimer() - poiNoticeStartMs;
+                if (noticeAge >= POI_NOTICE_MS) {
+                    poiNoticeText = null;
+                } else {
+                    noticeText = poiNoticeText;
                 }
             }
             dc.drawText(w / 2, y, font, statusText, Graphics.TEXT_JUSTIFY_CENTER);

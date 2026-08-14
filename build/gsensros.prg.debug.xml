@@ -2,118 +2,118 @@
 <debugInfo>
     <manifest filename="/home/panagiotis/Documents/gsensors/gsensros/manifest.xml"/>
     <pcToLineNum>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="1" lineNum="5" parent="globals/gsensrosApp" pc="268435460" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="32" parent="globals" pc="268435479" symbol="getApp"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="2" lineNum="33" parent="globals" pc="268435489" symbol="getApp"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="3" lineNum="7" parent="globals/ConfirmStopDelegate" pc="268435505" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="4" lineNum="5" parent="globals/gsensrosDelegate" pc="268435524" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="1" lineNum="32" parent="globals" pc="268435460" symbol="getApp"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="1" lineNum="33" parent="globals" pc="268435470" symbol="getApp"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="2" lineNum="7" parent="globals/ConfirmStopDelegate" pc="268435486" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="3" lineNum="5" parent="globals/gsensrosDelegate" pc="268435505" symbol="&lt;init&gt;"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="4" lineNum="5" parent="globals/diveTrackApp" pc="268435524" symbol="&lt;init&gt;"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="5" lineNum="15" parent="globals/gsensrosView" pc="268435543" symbol="&lt;init&gt;"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/build/gen/006-B4394-00/source/Rez.mcgen" id="6" lineNum="7" parent="globals/Rez" pc="268435562" symbol="&lt;init&gt;"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" id="7" lineNum="5" parent="globals/gsensrosMenuDelegate" pc="268435586" symbol="&lt;init&gt;"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="8" lineNum="15" parent="globals/gsensrosApp" pc="268435605" symbol="onStart"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="25" parent="globals/gsensrosApp" pc="268435608" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="26" parent="globals/gsensrosApp" pc="268435612" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="27" parent="globals/gsensrosApp" pc="268435636" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="9" lineNum="28" parent="globals/gsensrosApp" pc="268435646" symbol="getInitialView"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="10" lineNum="11" parent="globals/gsensrosApp" pc="268435695" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="10" lineNum="12" parent="globals/gsensrosApp" pc="268435697" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="11" lineNum="18" parent="globals/gsensrosApp" pc="268435716" symbol="onStop"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="11" lineNum="19" parent="globals/gsensrosApp" pc="268435720" symbol="onStop"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="11" lineNum="20" parent="globals/gsensrosApp" pc="268435730" symbol="onStop"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="11" lineNum="21" parent="globals/gsensrosApp" pc="268435748" symbol="onStop"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="90" parent="globals/NitrogenModel" pc="268435764" symbol="getMaxLoading"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="91" parent="globals/NitrogenModel" pc="268435766" symbol="getMaxLoading"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="31" parent="globals/NitrogenModel" pc="268435775" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="32" parent="globals/NitrogenModel" pc="268435779" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="33" parent="globals/NitrogenModel" pc="268435790" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="36" parent="globals/NitrogenModel" pc="268435802" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="37" parent="globals/NitrogenModel" pc="268435814" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="38" parent="globals/NitrogenModel" pc="268435824" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="42" parent="globals/NitrogenModel" pc="268435837" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="43" parent="globals/NitrogenModel" pc="268435847" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="43" parent="globals/NitrogenModel" pc="268435858" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="44" parent="globals/NitrogenModel" pc="268435868" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="44" parent="globals/NitrogenModel" pc="268435879" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="47" parent="globals/NitrogenModel" pc="268435889" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="48" parent="globals/NitrogenModel" pc="268435896" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="51" parent="globals/NitrogenModel" pc="268435912" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="53" parent="globals/NitrogenModel" pc="268435931" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="54" parent="globals/NitrogenModel" pc="268435945" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="59" parent="globals/NitrogenModel" pc="268435961" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="60" parent="globals/NitrogenModel" pc="268435968" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="62" parent="globals/NitrogenModel" pc="268435975" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="64" parent="globals/NitrogenModel" pc="268435992" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="67" parent="globals/NitrogenModel" pc="268436037" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="68" parent="globals/NitrogenModel" pc="268436056" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="72" parent="globals/NitrogenModel" pc="268436098" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="73" parent="globals/NitrogenModel" pc="268436109" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="76" parent="globals/NitrogenModel" pc="268436122" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="78" parent="globals/NitrogenModel" pc="268436144" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="78" parent="globals/NitrogenModel" pc="268436161" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="79" parent="globals/NitrogenModel" pc="268436177" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="79" parent="globals/NitrogenModel" pc="268436194" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="80" parent="globals/NitrogenModel" pc="268436210" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="80" parent="globals/NitrogenModel" pc="268436230" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="82" parent="globals/NitrogenModel" pc="268436249" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="83" parent="globals/NitrogenModel" pc="268436259" symbol="update"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="94" parent="globals/NitrogenModel" pc="268436268" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="95" parent="globals/NitrogenModel" pc="268436270" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="95" parent="globals/NitrogenModel" pc="268436287" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="96" parent="globals/NitrogenModel" pc="268436296" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="96" parent="globals/NitrogenModel" pc="268436313" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="97" parent="globals/NitrogenModel" pc="268436322" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="97" parent="globals/NitrogenModel" pc="268436339" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="14" lineNum="98" parent="globals/NitrogenModel" pc="268436348" symbol="getRiskBand"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="15" lineNum="86" parent="globals/NitrogenModel" pc="268436354" symbol="getLoading"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="15" lineNum="87" parent="globals/NitrogenModel" pc="268436356" symbol="getLoading"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="16" lineNum="24" parent="globals/NitrogenModel" pc="268436365" symbol="reset"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="16" lineNum="25" parent="globals/NitrogenModel" pc="268436367" symbol="reset"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="16" lineNum="26" parent="globals/NitrogenModel" pc="268436380" symbol="reset"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="16" lineNum="27" parent="globals/NitrogenModel" pc="268436393" symbol="reset"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="16" lineNum="28" parent="globals/NitrogenModel" pc="268436406" symbol="reset"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="17" lineNum="20" parent="globals/NitrogenModel" pc="268436417" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="17" lineNum="21" parent="globals/NitrogenModel" pc="268436419" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="16" parent="globals/ConfirmStopDelegate" pc="268436432" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="17" parent="globals/ConfirmStopDelegate" pc="268436434" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="18" parent="globals/ConfirmStopDelegate" pc="268436445" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="19" parent="globals/ConfirmStopDelegate" pc="268436463" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="20" parent="globals/ConfirmStopDelegate" pc="268436481" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="18" lineNum="23" parent="globals/ConfirmStopDelegate" pc="268436500" symbol="onResponse"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="19" lineNum="11" parent="globals/ConfirmStopDelegate" pc="268436503" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="19" lineNum="12" parent="globals/ConfirmStopDelegate" pc="268436505" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="19" lineNum="13" parent="globals/ConfirmStopDelegate" pc="268436523" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="20" lineNum="18" parent="globals/gsensrosDelegate" pc="268436534" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="20" lineNum="19" parent="globals/gsensrosDelegate" pc="268436536" symbol="onBack"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="23" parent="globals/gsensrosDelegate" pc="268436554" symbol="onMenu"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="24" parent="globals/gsensrosDelegate" pc="268436556" symbol="onMenu"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="52" parent="globals/gsensrosDelegate" pc="268436574" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="53" parent="globals/gsensrosDelegate" pc="268436578" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="54" parent="globals/gsensrosDelegate" pc="268436595" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="55" parent="globals/gsensrosDelegate" pc="268436615" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="56" parent="globals/gsensrosDelegate" pc="268436649" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="57" parent="globals/gsensrosDelegate" pc="268436681" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="59" parent="globals/gsensrosDelegate" pc="268436712" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="60" parent="globals/gsensrosDelegate" pc="268436722" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="62" parent="globals/gsensrosDelegate" pc="268436741" symbol="onPreviousPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="23" lineNum="9" parent="globals/gsensrosDelegate" pc="268436744" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="23" lineNum="10" parent="globals/gsensrosDelegate" pc="268436746" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="23" lineNum="11" parent="globals/gsensrosDelegate" pc="268436764" symbol="initialize"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="24" lineNum="14" parent="globals/gsensrosDelegate" pc="268436775" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="24" lineNum="15" parent="globals/gsensrosDelegate" pc="268436777" symbol="onSelect"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="25" lineNum="28" parent="globals/gsensrosDelegate" pc="268436795" symbol="onKey"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="25" lineNum="29" parent="globals/gsensrosDelegate" pc="268436799" symbol="onKey"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="25" lineNum="30" parent="globals/gsensrosDelegate" pc="268436812" symbol="onKey"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="25" lineNum="31" parent="globals/gsensrosDelegate" pc="268436823" symbol="onKey"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="25" lineNum="33" parent="globals/gsensrosDelegate" pc="268436844" symbol="onKey"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="39" parent="globals/gsensrosDelegate" pc="268436847" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="40" parent="globals/gsensrosDelegate" pc="268436851" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="41" parent="globals/gsensrosDelegate" pc="268436868" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="42" parent="globals/gsensrosDelegate" pc="268436888" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="43" parent="globals/gsensrosDelegate" pc="268436922" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="44" parent="globals/gsensrosDelegate" pc="268436954" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="46" parent="globals/gsensrosDelegate" pc="268436985" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="47" parent="globals/gsensrosDelegate" pc="268436995" symbol="onNextPage"/>
-        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="26" lineNum="49" parent="globals/gsensrosDelegate" pc="268437014" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="8" lineNum="90" parent="globals/NitrogenModel" pc="268435605" symbol="getMaxLoading"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="8" lineNum="91" parent="globals/NitrogenModel" pc="268435607" symbol="getMaxLoading"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="31" parent="globals/NitrogenModel" pc="268435616" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="32" parent="globals/NitrogenModel" pc="268435620" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="33" parent="globals/NitrogenModel" pc="268435631" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="36" parent="globals/NitrogenModel" pc="268435643" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="37" parent="globals/NitrogenModel" pc="268435655" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="38" parent="globals/NitrogenModel" pc="268435665" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="42" parent="globals/NitrogenModel" pc="268435678" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="43" parent="globals/NitrogenModel" pc="268435688" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="43" parent="globals/NitrogenModel" pc="268435699" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="44" parent="globals/NitrogenModel" pc="268435709" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="44" parent="globals/NitrogenModel" pc="268435720" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="47" parent="globals/NitrogenModel" pc="268435730" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="48" parent="globals/NitrogenModel" pc="268435737" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="51" parent="globals/NitrogenModel" pc="268435753" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="53" parent="globals/NitrogenModel" pc="268435772" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="54" parent="globals/NitrogenModel" pc="268435786" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="59" parent="globals/NitrogenModel" pc="268435802" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="60" parent="globals/NitrogenModel" pc="268435809" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="62" parent="globals/NitrogenModel" pc="268435816" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="64" parent="globals/NitrogenModel" pc="268435833" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="67" parent="globals/NitrogenModel" pc="268435878" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="68" parent="globals/NitrogenModel" pc="268435897" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="72" parent="globals/NitrogenModel" pc="268435939" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="73" parent="globals/NitrogenModel" pc="268435950" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="76" parent="globals/NitrogenModel" pc="268435963" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="78" parent="globals/NitrogenModel" pc="268435985" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="78" parent="globals/NitrogenModel" pc="268436002" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="79" parent="globals/NitrogenModel" pc="268436018" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="79" parent="globals/NitrogenModel" pc="268436035" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="80" parent="globals/NitrogenModel" pc="268436051" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="80" parent="globals/NitrogenModel" pc="268436071" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="82" parent="globals/NitrogenModel" pc="268436090" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="9" lineNum="83" parent="globals/NitrogenModel" pc="268436100" symbol="update"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="94" parent="globals/NitrogenModel" pc="268436109" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="95" parent="globals/NitrogenModel" pc="268436111" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="95" parent="globals/NitrogenModel" pc="268436128" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="96" parent="globals/NitrogenModel" pc="268436137" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="96" parent="globals/NitrogenModel" pc="268436154" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="97" parent="globals/NitrogenModel" pc="268436163" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="97" parent="globals/NitrogenModel" pc="268436180" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="10" lineNum="98" parent="globals/NitrogenModel" pc="268436189" symbol="getRiskBand"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="11" lineNum="86" parent="globals/NitrogenModel" pc="268436195" symbol="getLoading"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="11" lineNum="87" parent="globals/NitrogenModel" pc="268436197" symbol="getLoading"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="24" parent="globals/NitrogenModel" pc="268436206" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="25" parent="globals/NitrogenModel" pc="268436208" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="26" parent="globals/NitrogenModel" pc="268436221" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="27" parent="globals/NitrogenModel" pc="268436234" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="12" lineNum="28" parent="globals/NitrogenModel" pc="268436247" symbol="reset"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="20" parent="globals/NitrogenModel" pc="268436258" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" id="13" lineNum="21" parent="globals/NitrogenModel" pc="268436260" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="16" parent="globals/ConfirmStopDelegate" pc="268436273" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="17" parent="globals/ConfirmStopDelegate" pc="268436275" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="18" parent="globals/ConfirmStopDelegate" pc="268436286" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="19" parent="globals/ConfirmStopDelegate" pc="268436304" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="20" parent="globals/ConfirmStopDelegate" pc="268436322" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="14" lineNum="23" parent="globals/ConfirmStopDelegate" pc="268436341" symbol="onResponse"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="15" lineNum="11" parent="globals/ConfirmStopDelegate" pc="268436344" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="15" lineNum="12" parent="globals/ConfirmStopDelegate" pc="268436346" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" id="15" lineNum="13" parent="globals/ConfirmStopDelegate" pc="268436364" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="16" lineNum="18" parent="globals/gsensrosDelegate" pc="268436375" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="16" lineNum="19" parent="globals/gsensrosDelegate" pc="268436377" symbol="onBack"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="17" lineNum="23" parent="globals/gsensrosDelegate" pc="268436395" symbol="onMenu"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="17" lineNum="24" parent="globals/gsensrosDelegate" pc="268436397" symbol="onMenu"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="52" parent="globals/gsensrosDelegate" pc="268436415" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="53" parent="globals/gsensrosDelegate" pc="268436419" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="54" parent="globals/gsensrosDelegate" pc="268436436" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="55" parent="globals/gsensrosDelegate" pc="268436456" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="56" parent="globals/gsensrosDelegate" pc="268436490" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="57" parent="globals/gsensrosDelegate" pc="268436522" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="59" parent="globals/gsensrosDelegate" pc="268436553" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="60" parent="globals/gsensrosDelegate" pc="268436563" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="18" lineNum="62" parent="globals/gsensrosDelegate" pc="268436582" symbol="onPreviousPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="19" lineNum="9" parent="globals/gsensrosDelegate" pc="268436585" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="19" lineNum="10" parent="globals/gsensrosDelegate" pc="268436587" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="19" lineNum="11" parent="globals/gsensrosDelegate" pc="268436605" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="20" lineNum="14" parent="globals/gsensrosDelegate" pc="268436616" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="20" lineNum="15" parent="globals/gsensrosDelegate" pc="268436618" symbol="onSelect"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="28" parent="globals/gsensrosDelegate" pc="268436636" symbol="onKey"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="29" parent="globals/gsensrosDelegate" pc="268436640" symbol="onKey"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="30" parent="globals/gsensrosDelegate" pc="268436653" symbol="onKey"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="31" parent="globals/gsensrosDelegate" pc="268436664" symbol="onKey"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="21" lineNum="33" parent="globals/gsensrosDelegate" pc="268436685" symbol="onKey"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="39" parent="globals/gsensrosDelegate" pc="268436688" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="40" parent="globals/gsensrosDelegate" pc="268436692" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="41" parent="globals/gsensrosDelegate" pc="268436709" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="42" parent="globals/gsensrosDelegate" pc="268436729" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="43" parent="globals/gsensrosDelegate" pc="268436763" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="44" parent="globals/gsensrosDelegate" pc="268436795" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="46" parent="globals/gsensrosDelegate" pc="268436826" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="47" parent="globals/gsensrosDelegate" pc="268436836" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" id="22" lineNum="49" parent="globals/gsensrosDelegate" pc="268436855" symbol="onNextPage"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="23" lineNum="15" parent="globals/diveTrackApp" pc="268436858" symbol="onStart"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="24" lineNum="25" parent="globals/diveTrackApp" pc="268436861" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="24" lineNum="26" parent="globals/diveTrackApp" pc="268436865" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="24" lineNum="27" parent="globals/diveTrackApp" pc="268436889" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="24" lineNum="28" parent="globals/diveTrackApp" pc="268436899" symbol="getInitialView"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="25" lineNum="11" parent="globals/diveTrackApp" pc="268436948" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="25" lineNum="12" parent="globals/diveTrackApp" pc="268436950" symbol="initialize"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="26" lineNum="18" parent="globals/diveTrackApp" pc="268436969" symbol="onStop"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="26" lineNum="19" parent="globals/diveTrackApp" pc="268436973" symbol="onStop"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="26" lineNum="20" parent="globals/diveTrackApp" pc="268436983" symbol="onStop"/>
+        <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" id="26" lineNum="21" parent="globals/diveTrackApp" pc="268437001" symbol="onStop"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="27" lineNum="1930" parent="globals/gsensrosView" pc="268437017" symbol="forceCleanup"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="27" lineNum="1931" parent="globals/gsensrosView" pc="268437019" symbol="forceCleanup"/>
         <entry filename="/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" id="27" lineNum="1932" parent="globals/gsensrosView" pc="268437028" symbol="forceCleanup"/>
@@ -1876,7 +1876,7 @@
         <entry id="28" method="true" symbol="absFloat"/>
         <entry field="true" id="8389605" symbol="accel"/>
         <entry id="313" symbol="north"/>
-        <entry field="true" id="22" symbol="maxLoading"/>
+        <entry field="true" id="21" symbol="maxLoading"/>
         <entry field="true" id="92" symbol="hasEntryPosition"/>
         <entry id="215" method="true" symbol="writeUIntField"/>
         <entry id="271" method="true" symbol="&lt;globals/KalmanDR/&lt;&gt;initWeights&gt;"/>
@@ -1934,7 +1934,7 @@
         <entry field="true" id="49" symbol="depthField"/>
         <entry field="true" id="60" symbol="drLonField"/>
         <entry field="true" id="8388964" symbol="pressure"/>
-        <entry field="true" id="15" symbol="mainView"/>
+        <entry field="true" id="24" symbol="mainView"/>
         <entry id="205" method="true" symbol="updateBiometricMovementEvidence"/>
         <entry field="true" id="287" symbol="depth_chart"/>
         <entry id="9" object="true" symbol="KalmanDR"/>
@@ -1967,7 +1967,7 @@
         <entry field="true" id="129" symbol="lastMagZ"/>
         <entry field="true" id="128" symbol="lastMagY"/>
         <entry field="true" id="127" symbol="lastMagX"/>
-        <entry id="16" method="true" symbol="getLoading"/>
+        <entry id="15" method="true" symbol="getLoading"/>
         <entry field="true" id="295" symbol="gps_lat_label"/>
         <entry id="8388771" module="true" object="true" symbol="Drawables"/>
         <entry field="true" id="8389314" symbol="latitude"/>
@@ -1982,7 +1982,7 @@
         <entry id="8389275" method="true" symbol="getApp"/>
         <entry field="true" id="107" symbol="lastDepthForAscent"/>
         <entry id="312" symbol="east"/>
-        <entry field="true" id="20" symbol="lastDepth"/>
+        <entry field="true" id="19" symbol="lastDepth"/>
         <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
         <entry field="true" id="34" symbol="ascentField"/>
         <entry id="249" method="true" symbol="refreshHeadingCache"/>
@@ -2078,11 +2078,11 @@
         <entry id="183" method="true" symbol="shutdownSessionWithoutSave"/>
         <entry id="103" method="true" symbol="isStationary"/>
         <entry id="8388640" module="true" symbol="Lang"/>
-        <entry field="true" id="19" symbol="initialized"/>
+        <entry field="true" id="18" symbol="initialized"/>
         <entry field="true" id="8388881" method="true" symbol="isRecording"/>
         <entry id="268" method="true" symbol="&lt;globals/KalmanDR/&lt;&gt;getP&gt;"/>
         <entry id="180" method="true" symbol="shouldAdvanceDR"/>
-        <entry field="true" id="21" symbol="loading"/>
+        <entry field="true" id="20" symbol="loading"/>
         <entry id="213" method="true" symbol="writeFitFieldsIfNeeded"/>
         <entry field="true" id="52" symbol="diveTimeField"/>
         <entry field="true" id="293" symbol="flag_units"/>
@@ -2096,8 +2096,8 @@
         <entry id="317" symbol="stepNorth"/>
         <entry id="8388643" module="true" symbol="Sensor"/>
         <entry field="true" id="113" symbol="lastFitEast"/>
-        <entry id="18" method="true" symbol="getRiskBand"/>
-        <entry id="17" method="true" symbol="getMaxLoading"/>
+        <entry id="17" method="true" symbol="getRiskBand"/>
+        <entry id="16" method="true" symbol="getMaxLoading"/>
         <entry field="true" id="108" symbol="lastDepthUpdateMs"/>
         <entry field="true" id="211" symbol="updateTimer"/>
         <entry field="true" id="122" symbol="lastFitNorth"/>
@@ -2109,6 +2109,7 @@
         <entry field="true" id="8388958" symbol="speed"/>
         <entry id="155" method="true" symbol="normalizeAngleRad"/>
         <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry id="11" object="true" symbol="diveTrackApp"/>
         <entry field="true" id="8388960" symbol="heartRate"/>
         <entry id="226" method="true" symbol="getHeadingRad"/>
         <entry id="8388702" method="true" symbol="initialize"/>
@@ -2116,7 +2117,7 @@
         <entry field="true" id="222" symbol="eastMeters"/>
         <entry id="8389780" module="true" symbol="FitContributor"/>
         <entry field="true" id="8388961" symbol="power"/>
-        <entry field="true" id="23" symbol="view"/>
+        <entry field="true" id="22" symbol="view"/>
         <entry field="true" id="151" symbol="n2BandField"/>
         <entry field="true" id="303" symbol="mg_units"/>
         <entry field="true" id="8388892" symbol="name"/>
@@ -2125,8 +2126,7 @@
         <entry id="245" method="true" symbol="normalizeAngle"/>
         <entry field="true" id="237" symbol="lastAcceptedDy"/>
         <entry field="true" id="236" symbol="lastAcceptedDx"/>
-        <entry id="11" object="true" symbol="gsensrosApp"/>
-        <entry field="true" id="24" symbol="lastScrollRequestMs"/>
+        <entry field="true" id="23" symbol="lastScrollRequestMs"/>
         <entry id="8389280" method="true" symbol="getInitialView"/>
         <entry field="true" id="159" symbol="poiCount"/>
         <entry id="8389281" method="true" symbol="onStop"/>
@@ -2195,25 +2195,25 @@
         <entry id="258" method="true" symbol="updateWithSpeed"/>
     </symbolTable>
     <localVars>
-        <entry endPc="268435694" name="view" stackId="1" startPc="268435612"/>
-        <entry arg="true" endPc="268435763" name="state" stackId="1" startPc="268435716"/>
-        <entry endPc="268435762" name="view" stackId="2" startPc="268435720"/>
-        <entry arg="true" endPc="268436267" name="depthM" stackId="1" startPc="268435775"/>
-        <entry arg="true" endPc="268436267" name="dtSec" stackId="2" startPc="268435775"/>
-        <entry arg="true" endPc="268436267" name="isUnderwater" stackId="3" startPc="268435775"/>
-        <entry arg="true" endPc="268436267" name="ascentRateMps" stackId="4" startPc="268435775"/>
-        <entry endPc="268436267" name="depthFactor" stackId="5" startPc="268435779"/>
-        <entry endPc="268436267" name="onGas" stackId="6" startPc="268435779"/>
-        <entry endPc="268436267" name="halfLifeSec" stackId="7" startPc="268435779"/>
-        <entry endPc="268436267" name="offGas" stackId="8" startPc="268435779"/>
-        <entry endPc="268436097" name="deepHalfLife" stackId="9" startPc="268436037"/>
-        <entry arg="true" endPc="268436502" name="response" stackId="1" startPc="268436432"/>
-        <entry arg="true" endPc="268436533" name="view" stackId="1" startPc="268436503"/>
-        <entry endPc="268436743" name="nowMs" stackId="1" startPc="268436578"/>
-        <entry arg="true" endPc="268436774" name="view" stackId="1" startPc="268436744"/>
-        <entry arg="true" endPc="268436846" name="evt" stackId="1" startPc="268436795"/>
-        <entry endPc="268436846" name="key" stackId="2" startPc="268436799"/>
-        <entry endPc="268437016" name="nowMs" stackId="1" startPc="268436851"/>
+        <entry arg="true" endPc="268436108" name="depthM" stackId="1" startPc="268435616"/>
+        <entry arg="true" endPc="268436108" name="dtSec" stackId="2" startPc="268435616"/>
+        <entry arg="true" endPc="268436108" name="isUnderwater" stackId="3" startPc="268435616"/>
+        <entry arg="true" endPc="268436108" name="ascentRateMps" stackId="4" startPc="268435616"/>
+        <entry endPc="268436108" name="depthFactor" stackId="5" startPc="268435620"/>
+        <entry endPc="268436108" name="onGas" stackId="6" startPc="268435620"/>
+        <entry endPc="268436108" name="halfLifeSec" stackId="7" startPc="268435620"/>
+        <entry endPc="268436108" name="offGas" stackId="8" startPc="268435620"/>
+        <entry endPc="268435938" name="deepHalfLife" stackId="9" startPc="268435878"/>
+        <entry arg="true" endPc="268436343" name="response" stackId="1" startPc="268436273"/>
+        <entry arg="true" endPc="268436374" name="view" stackId="1" startPc="268436344"/>
+        <entry endPc="268436584" name="nowMs" stackId="1" startPc="268436419"/>
+        <entry arg="true" endPc="268436615" name="view" stackId="1" startPc="268436585"/>
+        <entry arg="true" endPc="268436687" name="evt" stackId="1" startPc="268436636"/>
+        <entry endPc="268436687" name="key" stackId="2" startPc="268436640"/>
+        <entry endPc="268436857" name="nowMs" stackId="1" startPc="268436692"/>
+        <entry endPc="268436947" name="view" stackId="1" startPc="268436865"/>
+        <entry arg="true" endPc="268437016" name="state" stackId="1" startPc="268436969"/>
+        <entry endPc="268437015" name="view" stackId="2" startPc="268436973"/>
         <entry endPc="268437298" name="onTh" stackId="1" startPc="268437075"/>
         <entry endPc="268437298" name="offTh" stackId="2" startPc="268437075"/>
         <entry arg="true" endPc="268437603" name="v" stackId="1" startPc="268437576"/>
@@ -2665,10 +2665,10 @@
     </annotations>
     <dataEntryOffsetMappings>
         <dataEntry label="globals" offset="71" parentId="" symbolId="globals" type="module"/>
-        <dataEntry label="globals/gsensrosApp" offset="190" parentId="globals" symbolId="gsensrosApp" type="class"/>
-        <dataEntry label="globals/NitrogenModel" offset="269" parentId="globals" symbolId="NitrogenModel" type="class"/>
-        <dataEntry label="globals/ConfirmStopDelegate" offset="388" parentId="globals" symbolId="ConfirmStopDelegate" type="class"/>
-        <dataEntry label="globals/gsensrosDelegate" offset="451" parentId="globals" symbolId="gsensrosDelegate" type="class"/>
+        <dataEntry label="globals/NitrogenModel" offset="190" parentId="globals" symbolId="NitrogenModel" type="class"/>
+        <dataEntry label="globals/ConfirmStopDelegate" offset="309" parentId="globals" symbolId="ConfirmStopDelegate" type="class"/>
+        <dataEntry label="globals/gsensrosDelegate" offset="372" parentId="globals" symbolId="gsensrosDelegate" type="class"/>
+        <dataEntry label="globals/diveTrackApp" offset="483" parentId="globals" symbolId="diveTrackApp" type="class"/>
         <dataEntry label="globals/gsensrosView" offset="562" parentId="globals" symbolId="gsensrosView" type="class"/>
         <dataEntry label="globals/Rez" offset="2233" parentId="globals" symbolId="Rez" type="module"/>
         <dataEntry label="globals/DeadReckoning" offset="2296" parentId="globals" symbolId="DeadReckoning" type="class"/>
@@ -2681,19 +2681,19 @@
         <dataEntry label="globals/Rez/Menus/MainMenu" offset="3361" parentId="Menus" symbolId="MainMenu" type="class"/>
     </dataEntryOffsetMappings>
     <functions>
-        <functionEntry accessMode="public" endPc="268435478" name="&lt;init&gt;" parent="gsensrosApp" startPc="268435460">
-            <documentation/>
-        </functionEntry>
         <functionEntry accessMode="public" name="&lt;init&gt;" parent="NitrogenModel">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435504" name="getApp" startPc="268435479">
+        <functionEntry accessMode="public" endPc="268435485" name="getApp" startPc="268435460">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435523" name="&lt;init&gt;" parent="ConfirmStopDelegate" startPc="268435505">
+        <functionEntry accessMode="public" endPc="268435504" name="&lt;init&gt;" parent="ConfirmStopDelegate" startPc="268435486">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435542" name="&lt;init&gt;" parent="gsensrosDelegate" startPc="268435524">
+        <functionEntry accessMode="public" endPc="268435523" name="&lt;init&gt;" parent="gsensrosDelegate" startPc="268435505">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435542" name="&lt;init&gt;" parent="diveTrackApp" startPc="268435524">
             <documentation/>
         </functionEntry>
         <functionEntry accessMode="public" endPc="268435561" name="&lt;init&gt;" parent="gsensrosView" startPc="268435543">
@@ -2711,71 +2711,71 @@
         <functionEntry accessMode="public" endPc="268435604" name="&lt;init&gt;" parent="gsensrosMenuDelegate" startPc="268435586">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435607" name="onStart" parent="gsensrosApp" startPc="268435605">
-            <param id="state"/>
+        <functionEntry accessMode="public" endPc="268435615" name="getMaxLoading" parent="NitrogenModel" startPc="268435605">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435694" name="getInitialView" parent="gsensrosApp" startPc="268435608">
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268435715" name="initialize" parent="gsensrosApp" startPc="268435695">
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268435763" name="onStop" parent="gsensrosApp" startPc="268435716">
-            <param id="state"/>
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268435774" name="getMaxLoading" parent="NitrogenModel" startPc="268435764">
-            <documentation/>
-        </functionEntry>
-        <functionEntry accessMode="public" endPc="268436267" name="update" parent="NitrogenModel" startPc="268435775">
+        <functionEntry accessMode="public" endPc="268436108" name="update" parent="NitrogenModel" startPc="268435616">
             <param id="depthM"/>
             <param id="dtSec"/>
             <param id="isUnderwater"/>
             <param id="ascentRateMps"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436353" name="getRiskBand" parent="NitrogenModel" startPc="268436268">
+        <functionEntry accessMode="public" endPc="268436194" name="getRiskBand" parent="NitrogenModel" startPc="268436109">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436364" name="getLoading" parent="NitrogenModel" startPc="268436354">
+        <functionEntry accessMode="public" endPc="268436205" name="getLoading" parent="NitrogenModel" startPc="268436195">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436416" name="reset" parent="NitrogenModel" startPc="268436365">
+        <functionEntry accessMode="public" endPc="268436257" name="reset" parent="NitrogenModel" startPc="268436206">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436431" name="initialize" parent="NitrogenModel" startPc="268436417">
+        <functionEntry accessMode="public" endPc="268436272" name="initialize" parent="NitrogenModel" startPc="268436258">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436502" name="onResponse" parent="ConfirmStopDelegate" startPc="268436432">
+        <functionEntry accessMode="public" endPc="268436343" name="onResponse" parent="ConfirmStopDelegate" startPc="268436273">
             <param id="response"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436533" name="initialize" parent="ConfirmStopDelegate" startPc="268436503">
+        <functionEntry accessMode="public" endPc="268436374" name="initialize" parent="ConfirmStopDelegate" startPc="268436344">
             <param id="view"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436553" name="onBack" parent="gsensrosDelegate" startPc="268436534">
+        <functionEntry accessMode="public" endPc="268436394" name="onBack" parent="gsensrosDelegate" startPc="268436375">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436573" name="onMenu" parent="gsensrosDelegate" startPc="268436554">
+        <functionEntry accessMode="public" endPc="268436414" name="onMenu" parent="gsensrosDelegate" startPc="268436395">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436743" name="onPreviousPage" parent="gsensrosDelegate" startPc="268436574">
+        <functionEntry accessMode="public" endPc="268436584" name="onPreviousPage" parent="gsensrosDelegate" startPc="268436415">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436774" name="initialize" parent="gsensrosDelegate" startPc="268436744">
+        <functionEntry accessMode="public" endPc="268436615" name="initialize" parent="gsensrosDelegate" startPc="268436585">
             <param id="view"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436794" name="onSelect" parent="gsensrosDelegate" startPc="268436775">
+        <functionEntry accessMode="public" endPc="268436635" name="onSelect" parent="gsensrosDelegate" startPc="268436616">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436846" name="onKey" parent="gsensrosDelegate" startPc="268436795">
+        <functionEntry accessMode="public" endPc="268436687" name="onKey" parent="gsensrosDelegate" startPc="268436636">
             <param id="evt"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268437016" name="onNextPage" parent="gsensrosDelegate" startPc="268436847">
+        <functionEntry accessMode="public" endPc="268436857" name="onNextPage" parent="gsensrosDelegate" startPc="268436688">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436860" name="onStart" parent="diveTrackApp" startPc="268436858">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436947" name="getInitialView" parent="diveTrackApp" startPc="268436861">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436968" name="initialize" parent="diveTrackApp" startPc="268436948">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437016" name="onStop" parent="diveTrackApp" startPc="268436969">
+            <param id="state"/>
             <documentation/>
         </functionEntry>
         <functionEntry accessMode="public" endPc="268437070" name="forceCleanup" parent="gsensrosView" startPc="268437017">
