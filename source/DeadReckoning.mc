@@ -37,6 +37,7 @@ class DeadReckoning {
     const SPEED_ALPHA_RISE = 0.24f;
     const SPEED_ALPHA_FALL = 0.14f;
     const SPEED_DECAY_WHEN_STOPPED = 0.70f;
+    const SPEED_DECAY_WHEN_LOSS = 0.55f;
 
     const MIN_SPEED_MPS = 0.0f;
     const MAX_SPEED_MPS_LAND = 2.2f;
@@ -183,6 +184,12 @@ class DeadReckoning {
         var accelGain = 0.35f + (0.65f * clampFloat(accelDelta / 3.0f, 0.0f, 1.0f));
         var effectiveSpeed = clampedInputSpeed * accelGain;
         var deadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        if (headingConfidence < 0.65f) {
+            effectiveSpeed *= 0.75f;
+        }
+        if (movementAllowed == false) {
+            effectiveSpeed *= SPEED_DECAY_WHEN_LOSS;
+        }
 
         if (effectiveSpeed < deadband) {
             speedMps = 0.0f;
@@ -206,6 +213,10 @@ class DeadReckoning {
 
         if (stepDistance < MIN_STEP_DISTANCE_M || stepDistance > MAX_STEP_DISTANCE_M) {
             return;
+        }
+
+        if (speedMps > (isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f) {
+            speedMps = (isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f;
         }
 
         eastMeters += stepEast;

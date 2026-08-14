@@ -31,6 +31,9 @@ class KalmanDR {
     const R_GPS_GOOD   = 4.0f;   // m^2
     const R_GPS_USABLE = 20.0f;  // m^2
     const R_GPS_POOR   = 60.0f;
+    const Q_POS_LOSS   = 0.18f;
+    const Q_VEL_LOSS   = 0.20f;
+    const R_GPS_LOSS_SCALE = 2.4f;
     const MIN_PREDICT_SPEED_MPS = 0.08f;
     const MAX_PREDICT_SPEED_MPS = 2.2f;
 
@@ -291,6 +294,34 @@ class KalmanDR {
         setP(3, 3, getP(3, 3) + Q_VEL * dt);
     }
 
+    function predictWithTuning(speedMps as Float, headingRad as Float, dt as Float, headingConfidence as Float, motionConfidence as Number, gpsAvailable as Boolean) as Void {
+        if (dt <= 0.0f || dt > 2.0f) {
+            return;
+        }
+
+        var qPos = Q_POS;
+        var qVel = Q_VEL;
+        if (!gpsAvailable) {
+            qPos = Q_POS_LOSS;
+            qVel = Q_VEL_LOSS;
+        } else if (headingConfidence < 0.8f) {
+            qPos = Q_POS + 0.05f;
+            qVel = Q_VEL + 0.06f;
+        }
+
+        if (motionConfidence != null && motionConfidence < 6) {
+            qPos *= 1.25f;
+            qVel *= 1.25f;
+        }
+
+        // Reuse the existing predict path with a small bias injected via covariance.
+        predict(speedMps, headingRad, dt);
+        setP(0, 0, getP(0, 0) + qPos * dt * 0.5f);
+        setP(1, 1, getP(1, 1) + qPos * dt * 0.5f);
+        setP(2, 2, getP(2, 2) + qVel * dt * 0.5f);
+        setP(3, 3, getP(3, 3) + qVel * dt * 0.5f);
+    }
+
     function updateGps(lat as Float, lon as Float, quality as Number) as Void {
         if (!hasReference) {
             setReference(lat, lon);
@@ -302,6 +333,10 @@ class KalmanDR {
             r = R_GPS_GOOD;
         } else if (quality == Position.QUALITY_POOR) {
             r = R_GPS_POOR;
+        }
+
+        if (quality == Position.QUALITY_NOT_AVAILABLE) {
+            r = R_GPS_POOR * R_GPS_LOSS_SCALE;
         }
 
         var cosLat = Math.cos(referenceLat * Math.PI / 180.0f);

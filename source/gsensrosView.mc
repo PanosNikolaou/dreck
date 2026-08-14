@@ -62,6 +62,9 @@ class gsensrosView extends WatchUi.View {
     const MOVING_CONFIDENCE_MAX = 10;
 
     const STATIONARY_GYRO_MAG_RAD_S = 0.05f;
+    const MAG_FIELD_EXPECTED_UT = 50.0f;
+    const MAG_FIELD_DISTORTION_TOL_UT = 20.0f;
+    const MAG_HEADING_MIN_CONFIDENCE = 0.20f;
 
     var calibrationActive = false;
     var calibrationStartMs = 0;
@@ -71,11 +74,15 @@ class gsensrosView extends WatchUi.View {
     var gyroBiasY = 0.0f;
     var gyroBiasZ = 0.0f;
     var gyroCalSamples = 0;
+    var gyroBiasStationarySamples = 0;
 
     var magBiasX = 0.0f;
     var magBiasY = 0.0f;
     var magBiasZ = 0.0f;
     var magCalSamples = 0;
+    var lastMagX = 0.0f;
+    var lastMagY = 0.0f;
+    var lastMagZ = 0.0f;
 
     var n2Model = null;
     var n2LoadField = null as FitContributor.Field or Null;
@@ -355,6 +362,7 @@ class gsensrosView extends WatchUi.View {
         magBiasY = 0.0f;
         magBiasZ = 0.0f;
         gyroCalSamples = 0;
+        gyroBiasStationarySamples = 0;
         magCalSamples = 0;
         resetHeadingEstimate();
     }
@@ -444,17 +452,30 @@ class gsensrosView extends WatchUi.View {
                     headingConfidence = headingQuality;
                 }
 
+                var hasUsableGps = hasGpsFix && isGpsQualityUsable(gpsQuality) && !isGpsRecoveryHoldActive();
+                var gpsSignalLost = !hasUsableGps && gpsFixLostAtMs > 0;
+                var drSpeed = estSpeed;
+                var drHeadingConfidence = headingConfidence;
+
+                if (gpsSignalLost) {
+                    drSpeed = getGpsLossDrSpeed(estSpeed);
+                    drHeadingConfidence = headingConfidence * 0.65f;
+                }
+
                 if (kalman != null) {
-                    // Always propagate with UKF kinematics, then correct with GPS.
-                    var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
-                    kalman.predict(estSpeed, h, dt);
-                    if (hasGpsFix && isGpsQualityUsable(gpsQuality)) {
-                        kalman.updateGps(latitude, longitude, gpsQuality);
+                    // Continue predicting from sensors during a GPS loss, but keep the
+                    // motion intensity conservative so the route does not overshoot.
+                    if (hasUsableGps || gpsSignalLost) {
+                        var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
+                        kalman.predictWithTuning(drSpeed, h, dt, headingConfidence, movingConfidence, hasUsableGps);
+                        if (hasUsableGps) {
+                            kalman.updateGps(latitude, longitude, gpsQuality);
+                        }
                     }
                 }
 
                 var drGpsBlend = 0.0f;
-                if (dr != null && hasGpsFix && isGpsQualityUsable(gpsQuality) && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
+                if (dr != null && hasUsableGps && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
                     lastDrGpsCorrectionMs = nowMs;
                     drGpsBlend = 0.20f;
                 }
@@ -463,11 +484,18 @@ class gsensrosView extends WatchUi.View {
                     dr.setContext(isUnderwater);
                 }
 
-                if (dr != null && shouldAdvanceDR(effectiveHeading, estSpeed)) {
-                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, estSpeed, true, headingConfidence);
+                var shouldAdvanceSensorDr = false;
+                if (hasUsableGps) {
+                    shouldAdvanceSensorDr = shouldAdvanceDR(effectiveHeading, estSpeed);
+                } else if (gpsSignalLost) {
+                    shouldAdvanceSensorDr = shouldAdvanceDRWithoutGps(effectiveHeading, drSpeed);
                 }
 
-                if (dr != null && hasGpsFix && isGpsQualityUsable(gpsQuality) && drGpsBlend > 0.0f) {
+                if (dr != null && shouldAdvanceSensorDr) {
+                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, drSpeed, true, drHeadingConfidence);
+                }
+
+                if (dr != null && hasUsableGps && drGpsBlend > 0.0f) {
                     if (kalman != null) {
                         dr.applyPositionCorrection(kalman.getEast(), kalman.getNorth(), drGpsBlend);
                     } else if (isFiniteValue(latitude) && isFiniteValue(longitude) && hasEntryPosition) {
@@ -535,14 +563,6 @@ class gsensrosView extends WatchUi.View {
 
     function onPosition(info as Position.Info) as Void {
         try {
-            if (info == null) {
-                hasGpsFix = false;
-                gpsQuality = -1;
-                gpsFixLostAtMs = System.getTimer();
-                gpsRecoveryUntilMs = 0;
-                return;
-            }
-
             var positionInfo = info.position;
             gpsQuality = getPositionQuality(info);
 
@@ -729,6 +749,23 @@ class gsensrosView extends WatchUi.View {
         return !isMotionDetected;
     }
 
+    function clampFloat(value as Float, minValue as Float, maxValue as Float) as Float {
+        if (value < minValue) {
+            return minValue;
+        }
+        if (value > maxValue) {
+            return maxValue;
+        }
+        return value;
+    }
+
+    function absFloat(value as Float) as Float {
+        if (value < 0.0f) {
+            return -value;
+        }
+        return value;
+    }
+
     function isProbablyMoving() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return true;
@@ -861,30 +898,50 @@ class gsensrosView extends WatchUi.View {
                 ambientTempC = info.temperature.toFloat();
             }
 
-            if (info has :accel && info.accel != null && info.accel.size() >= 3) {
-                accelX = info.accel[0].toFloat();
-                accelY = info.accel[1].toFloat();
-                accelZ = info.accel[2].toFloat();
+            if (info has :accel) {
+                var accelArray = info.accel as Array<Number>;
+                if (accelArray != null && accelArray.size() >= 3) {
+                    accelX = accelArray[0].toFloat();
+                    accelY = accelArray[1].toFloat();
+                    accelZ = accelArray[2].toFloat();
+                } else {
+                    accelX = 0.0f;
+                    accelY = 0.0f;
+                    accelZ = 0.0f;
+                }
             } else {
                 accelX = 0.0f;
                 accelY = 0.0f;
                 accelZ = 0.0f;
             }
 
-            if (info has :gyro && info.gyro != null && info.gyro.size() >= 3) {
-                gyroX = info.gyro[0].toFloat();
-                gyroY = info.gyro[1].toFloat();
-                gyroZ = info.gyro[2].toFloat();
+            if (info has :gyro) {
+                var gyroArray = info.gyro as Array<Number>;
+                if (gyroArray != null && gyroArray.size() >= 3) {
+                    gyroX = gyroArray[0].toFloat();
+                    gyroY = gyroArray[1].toFloat();
+                    gyroZ = gyroArray[2].toFloat();
 
-                if (calibrationActive) {
-                    gyroBiasX += gyroX;
-                    gyroBiasY += gyroY;
-                    gyroBiasZ += gyroZ;
-                    gyroCalSamples += 1;
+                    if (calibrationActive) {
+                        gyroBiasX += gyroX;
+                        gyroBiasY += gyroY;
+                        gyroBiasZ += gyroZ;
+                        gyroCalSamples += 1;
+                    } else {
+                        if (isStationary() && gyroBiasStationarySamples < 20) {
+                            gyroBiasX = (gyroBiasX * 0.90f) + (gyroX * 0.10f);
+                            gyroBiasY = (gyroBiasY * 0.90f) + (gyroY * 0.10f);
+                            gyroBiasZ = (gyroBiasZ * 0.90f) + (gyroZ * 0.10f);
+                            gyroBiasStationarySamples += 1;
+                        }
+                        gyroX -= gyroBiasX;
+                        gyroY -= gyroBiasY;
+                        gyroZ -= gyroBiasZ;
+                    }
                 } else {
-                    gyroX -= gyroBiasX;
-                    gyroY -= gyroBiasY;
-                    gyroZ -= gyroBiasZ;
+                    gyroX = 0.0f;
+                    gyroY = 0.0f;
+                    gyroZ = 0.0f;
                 }
             } else {
                 gyroX = 0.0f;
@@ -905,6 +962,9 @@ class gsensrosView extends WatchUi.View {
                 var mx = info.mag[0].toFloat();
                 var my = info.mag[1].toFloat();
                 var mz = info.mag[2].toFloat();
+                lastMagX = mx;
+                lastMagY = my;
+                lastMagZ = mz;
 
                 if (calibrationActive) {
                     magBiasX += mx;
@@ -915,7 +975,16 @@ class gsensrosView extends WatchUi.View {
                     mx -= magBiasX;
                     my -= magBiasY;
                     mz -= magBiasZ;
+                    var magFieldMag = Math.sqrt((mx * mx) + (my * my) + (mz * mz));
+                    var magDistortion = absFloat(magFieldMag - MAG_FIELD_EXPECTED_UT);
+                    var magConfidence = 1.0f;
+                    if (magDistortion > MAG_FIELD_DISTORTION_TOL_UT) {
+                        magConfidence = clampFloat(1.0f - ((magDistortion - MAG_FIELD_DISTORTION_TOL_UT) / 30.0f), MAG_HEADING_MIN_CONFIDENCE, 1.0f);
+                    }
                     magHeading = normalizeAngleRad(Math.atan2(my, mx));
+                    if (magConfidence < 0.95f) {
+                        headingEstimate = normalizeAngleRad((headingEstimate * 0.5f) + (magHeading * 0.5f));
+                    }
                 }
             }
         } catch (e) {
@@ -1185,16 +1254,54 @@ class gsensrosView extends WatchUi.View {
 
             // Priority 2: not confident we are moving
             if (movingConfidence < MOVING_CONFIDENCE_ON || isStationary()) {
-                // Soft decay toward zero
-                filteredSpeedEst *= 0.70f;
-                if (filteredSpeedEst < 0.05f) {
+                if (isStationary()) {
                     filteredSpeedEst = 0.0f;
+                } else {
+                    filteredSpeedEst *= 0.70f;
+                    if (filteredSpeedEst < 0.05f) {
+                        filteredSpeedEst = 0.0f;
+                    }
                 }
                 return filteredSpeedEst;
             }
 
             if (!hasGpsFix || isGpsRecoveryHoldActive()) {
-                filteredSpeedEst *= GPS_LOSS_DAMPING_FACTOR;
+                var sensorTarget = 0.0f;
+                if (isUnderwater) {
+                    if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
+                        sensorTarget = MIN_SWIM_SPEED_MPS * 0.45f;
+                    } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
+                        sensorTarget = MAX_SWIM_SPEED_MPS * 0.85f;
+                    } else {
+                        var n = (motionScoreMg - MIN_MOTION_SWIM_MG)
+                              / (MAX_MOTION_SWIM_MG - MIN_MOTION_SWIM_MG);
+                        sensorTarget = (MIN_SWIM_SPEED_MPS * 0.45f) + n * ((MAX_SWIM_SPEED_MPS * 0.85f) - (MIN_SWIM_SPEED_MPS * 0.45f));
+                    }
+                } else {
+                    if (motionScoreMg <= MIN_MOTION_LAND_MG) {
+                        sensorTarget = MIN_LAND_SPEED_MPS * 0.45f;
+                    } else if (motionScoreMg >= MAX_MOTION_LAND_MG) {
+                        sensorTarget = MAX_LAND_SPEED_MPS * 0.70f;
+                    } else {
+                        var n2 = (motionScoreMg - MIN_MOTION_LAND_MG)
+                              / (MAX_MOTION_LAND_MG - MIN_MOTION_LAND_MG);
+                        sensorTarget = (MIN_LAND_SPEED_MPS * 0.45f) + n2 * ((MAX_LAND_SPEED_MPS * 0.70f) - (MIN_LAND_SPEED_MPS * 0.45f));
+                    }
+                }
+
+                if (movingConfidence < MOVING_CONFIDENCE_ON) {
+                    sensorTarget *= 0.55f;
+                } else if (movingConfidence < (MOVING_CONFIDENCE_ON + 2)) {
+                    sensorTarget *= 0.80f;
+                }
+
+                if (sensorTarget > 0.0f) {
+                    var a = (sensorTarget > filteredSpeedEst) ? (SPEED_SMOOTH_RISE * 0.55f) : (SPEED_SMOOTH_FALL * 0.60f);
+                    filteredSpeedEst = filteredSpeedEst + a * (sensorTarget - filteredSpeedEst);
+                } else {
+                    filteredSpeedEst *= GPS_LOSS_DAMPING_FACTOR;
+                }
+
                 if (filteredSpeedEst < 0.03f) {
                     filteredSpeedEst = 0.0f;
                 }
@@ -1249,7 +1356,13 @@ class gsensrosView extends WatchUi.View {
             return 1.0f;
         }
         if (magHeading != null) {
-            return 0.60f;
+            var magFieldMag = Math.sqrt((lastMagX * lastMagX) + (lastMagY * lastMagY) + (lastMagZ * lastMagZ));
+            var distortion = absFloat(magFieldMag - MAG_FIELD_EXPECTED_UT);
+            var confidence = 0.60f;
+            if (distortion > MAG_FIELD_DISTORTION_TOL_UT) {
+                confidence = clampFloat(0.60f - ((distortion - MAG_FIELD_DISTORTION_TOL_UT) / 40.0f), MAG_HEADING_MIN_CONFIDENCE, 0.60f);
+            }
+            return confidence;
         }
         return 0.0f;
     }
@@ -1280,6 +1393,54 @@ class gsensrosView extends WatchUi.View {
             return false;
         }
         return true;
+    }
+
+    function shouldAdvanceDRWithoutGps(bestHeading as Float or Null, estSpeed as Float) as Boolean {
+        if (bestHeading == null) {
+            return false;
+        }
+        if (getHeadingConfidenceForDr() < MIN_HEADING_CONFIDENCE_FOR_DR) {
+            return false;
+        }
+        if (estSpeed < (DR_MOVE_SPEED_THRESHOLD_MPS * 0.70f)) {
+            return false;
+        }
+        if (movingConfidence < (MIN_SENSOR_CONFIDENCE - 1)) {
+            return false;
+        }
+        if (motionScoreMg < (MIN_SENSOR_MOTION_MG * 0.85f)) {
+            return false;
+        }
+        if (isStationary()) {
+            return false;
+        }
+        return true;
+    }
+
+    function getGpsLossDrSpeed(estSpeed as Float) as Float {
+        if (estSpeed <= 0.0f) {
+            return 0.0f;
+        }
+        if (movingConfidence < MOVING_CONFIDENCE_ON) {
+            return 0.0f;
+        }
+
+        var adjusted = estSpeed;
+        if (motionScoreMg < MIN_SENSOR_MOTION_MG) {
+            adjusted *= 0.65f;
+        } else if (motionScoreMg < (MIN_SENSOR_MOTION_MG + 15.0f)) {
+            adjusted *= 0.80f;
+        }
+
+        if (movingConfidence < (MOVING_CONFIDENCE_ON + 2)) {
+            adjusted *= 0.85f;
+        }
+
+        if (adjusted < (DR_MOVE_SPEED_THRESHOLD_MPS * 0.70f)) {
+            adjusted = 0.0f;
+        }
+
+        return adjusted;
     }
 
     function onSelect() as Boolean {
@@ -1333,9 +1494,8 @@ class gsensrosView extends WatchUi.View {
             eastVal = kalman.getEast();
             northVal = kalman.getNorth();
         } else if (dr != null) {
-            var dd = dr.getDRData();
-            eastVal = dd[:east];
-            northVal = dd[:north];
+            eastVal = dr.getEastMeters();
+            northVal = dr.getNorthMeters();
         }
 
         // Prefer live GPS; else use the current DR/Kalman estimate.
@@ -1605,11 +1765,6 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             :sport => Activity.SPORT_GENERIC
         });
 
-        if (session == null) {
-            System.println("createSession returned null");
-            return;
-        }
-
         // Instinct ~16 developer-field limit. Create at most 14 record fields.
         // IDs 0–13 sequential. Extra metrics stay on-screen only.
         drEastField     = safeCreateField("DR_East",   FIELD_DR_EAST,    FitContributor.DATA_TYPE_FLOAT,  "m");
@@ -1838,12 +1993,8 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 return;
             }
 
-            var drData = null;
-            if (dr != null) {
-                drData = dr.getDRData();
-            }
-            var eastVal = (kalman != null) ? kalman.getEast() : (drData != null ? drData[:east] : 0.0f);
-            var northVal = (kalman != null) ? kalman.getNorth() : (drData != null ? drData[:north] : 0.0f);
+            var eastVal = (kalman != null) ? kalman.getEast() : (dr != null ? dr.getEastMeters() : 0.0f);
+            var northVal = (kalman != null) ? kalman.getNorth() : (dr != null ? dr.getNorthMeters() : 0.0f);
 
             var depthVal = currentDepth;
             var motionVal = motionScoreMg;
@@ -2021,23 +2172,21 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             }
 
             if (kalman != null) {
-                var kd = kalman.getDRData();
                 dc.drawText(leftX, y, font, "KF E:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, kd[:east].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, kalman.getEast().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
                 dc.drawText(leftX, y, font, "KF N:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, kd[:north].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, kalman.getNorth().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
             } else if (dr != null) {
-                var drData = dr.getDRData();
                 dc.drawText(leftX, y, font, "DR E:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, drData[:east].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, dr.getEastMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
                 dc.drawText(leftX, y, font, "DR N:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, drData[:north].format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, dr.getNorthMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
                 dc.drawText(leftX, y, font, "Dist:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, drData[:distance].format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, y, font, dr.getTotalDistanceMeters().format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 y += rowH;
             }
 
