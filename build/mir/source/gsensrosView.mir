@@ -356,11 +356,11 @@ class gsensrosView extends WatchUi.View {
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 38; @position = 8; @symbol_vardef = [gpsRecoveryUntilMs,38,8,26]; ]
     var gpsRecoveryUntilMs = 0;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 39; @position = 10; @symbol_constdef = [GPS_LOSS_HOLD_MS,39,10,26]; ]
-    const GPS_LOSS_HOLD_MS = 3000;
+    const GPS_LOSS_HOLD_MS = 1000;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 40; @position = 8; @symbol_vardef = [lastDrGpsCorrectionMs,40,8,29]; ]
     var lastDrGpsCorrectionMs = 0;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 41; @position = 10; @symbol_constdef = [DR_GPS_CORRECTION_INTERVAL_MS,41,10,39]; ]
-    const DR_GPS_CORRECTION_INTERVAL_MS = 2000;
+    const DR_GPS_CORRECTION_INTERVAL_MS = 1000;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 43; @position = 8; @symbol_vardef = [entryLat,43,8,16]; ]
     var entryLat = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 44; @position = 8; @symbol_vardef = [entryLon,44,8,16]; ]
@@ -4922,35 +4922,20 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_8_947_8_
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_8_947_8_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_23_947_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 946 12 ]
-        %tmp.4 = false;
+        %tmp.4 = true;
         ret %tmp.4;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_23_947_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_8_947_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_945_8_947_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 948 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_15_948_61_begin:
         %tmp.5 = lgetv %q;
         symbol [ q %tmp.5 948 15 16 ];
         symbol [ Position %tmp.6 948 20 28 ];
         %tmp.6 = getm $.Toybox.Position;
-        symbol [ QUALITY_USABLE %tmp.7 948 29 43 ];
-        %tmp.7 = getv %tmp.6 :QUALITY_USABLE;
-        %tmp.8 = eq %tmp.5 %tmp.7;
-        %tmp.9 = dup %tmp.8;
-        bt %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_47_948_61_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_47_948_61_false:
-        %tmp.10 = lgetv %q;
-        symbol [ q %tmp.10 948 47 48 ];
-        symbol [ Position %tmp.11 948 52 60 ];
-        %tmp.11 = getm $.Toybox.Position;
-        symbol [ QUALITY_GOOD %tmp.12 948 61 73 ];
-        %tmp.12 = getv %tmp.11 :QUALITY_GOOD;
-        %tmp.13 = eq %tmp.10 %tmp.12;
-        %tmp.14 = or %tmp.8 %tmp.13;
-        push %tmp.14;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_47_948_61_end:
-        %tmp.15 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_15_948_61_begin] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_47_948_61_false] [%tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_948_47_948_61_end];
-        ret %tmp.15;
+        symbol [ QUALITY_NOT_AVAILABLE %tmp.7 948 29 50 ];
+        %tmp.7 = getv %tmp.6 :QUALITY_NOT_AVAILABLE;
+        %tmp.8 = ne %tmp.5 %tmp.7;
+        ret %tmp.8;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_944_64_949_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 951; @symbol_functiondef = [readSensors,951,13,24]; @symbol_param<0> = [info,951,25,29]; @symbol_param<0>_type<0> = [Sensor,951,33,39]; @symbol_param<0>_type<1> = [Info,951,40,44]; ]
