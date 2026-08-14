@@ -504,62 +504,21 @@ class gsensrosView extends WatchUi.View {
                 var hasUsableGps = hasGpsFix && isGpsQualityUsable(gpsQuality) && !isGpsRecoveryHoldActive();
                 var gpsSignalLost = !hasUsableGps && (gpsFixLostAtMs > 0 || !hasGpsFix);
                 var drFallbackActive = !hasUsableGps && (!hasGpsFix || gpsSignalLost);
-                var drSpeed = estSpeed;
-                var drHeadingConfidence = headingConfidence;
-                var gpsTrustWeight = 1.0f;
 
-                if (dr != null) {
-                    dr.updateMotionStateFilter(hasUsableGps, headingConfidence, motionScoreMg, dt);
-                    gpsTrustWeight = dr.getMotionBlendWeight();
-                }
-
-                if (!hasUsableGps) {
-                    gpsTrustWeight = clampFloat(gpsTrustWeight * 0.55f, 0.15f, 1.0f);
-                }
-
-                drHeadingConfidence = headingConfidence * gpsTrustWeight;
-
-                if (gpsSignalLost) {
-                    drSpeed = getGpsLossDrSpeed(estSpeed);
-                    drHeadingConfidence = drHeadingConfidence * 0.70f;
-                }
-
-                if (kalman != null) {
-                    // Continue predicting from sensors during a GPS loss, but keep the
-                    // motion intensity conservative so the route does not overshoot.
-                    if (hasUsableGps || drFallbackActive) {
-                        var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
-                        kalman.predictWithTuning(drSpeed, h, dt, headingConfidence, movingConfidence, hasUsableGps);
-                        if (hasUsableGps) {
-                            kalman.updateGps(latitude, longitude, gpsQuality);
-                        }
-                    }
-                }
-
-                var drGpsBlend = 0.0f;
-                if (dr != null && hasUsableGps && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
-                    lastDrGpsCorrectionMs = nowMs;
-                    drGpsBlend = 0.12f + (gpsTrustWeight * 0.12f);
-                    if (drGpsBlend > 0.24f) {
-                        drGpsBlend = 0.24f;
-                    }
-                }
-
-                if (dr != null) {
-                    dr.updateVerticalState(currentAscentRateMps, dt);
-                    dr.setContext(isUnderwater);
-                }
-
-                var shouldAdvanceSensorDr = false;
-                if (hasUsableGps) {
-                    shouldAdvanceSensorDr = shouldAdvanceDR(effectiveHeading, estSpeed);
-                } else if (drFallbackActive) {
-                    shouldAdvanceSensorDr = shouldAdvanceDRWithoutGps(effectiveHeading, drSpeed);
-                }
-
-                if (dr != null && shouldAdvanceSensorDr) {
-                    dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, drSpeed, true, drHeadingConfidence);
-                }
+                var drFusion = updateDrAndKalmanFusion(
+                    nowMs,
+                    dt,
+                    effectiveHeading,
+                    estSpeed,
+                    headingConfidence,
+                    motionScoreMg,
+                    hasUsableGps,
+                    gpsSignalLost,
+                    drFallbackActive
+                );
+                var drSpeed = drFusion.get(:drSpeed) as Float;
+                var drHeadingConfidence = drFusion.get(:drHeadingConfidence) as Float;
+                var drGpsBlend = drFusion.get(:drGpsBlend) as Float;
 
                 if (gpsSignalLost) {
                     var diagStepEast = 0.0f;
@@ -639,23 +598,7 @@ class gsensrosView extends WatchUi.View {
 
     function onPosition(info as Position.Info) as Void {
         try {
-            var positionInfo = info.position;
-            gpsQuality = getPositionQuality(info);
-
-            if (positionInfo != null && isGpsQualityUsable(gpsQuality)) {
-                var coords = positionInfo.toDegrees();
-                latitude = coords[0].toFloat();
-                longitude = coords[1].toFloat();
-                hasGpsFix = true;
-                gpsFixLostAtMs = 0;
-                gpsRecoveryUntilMs = System.getTimer() + GPS_LOSS_HOLD_MS;
-            } else {
-                if (hasGpsFix) {
-                    gpsFixLostAtMs = System.getTimer();
-                }
-                hasGpsFix = false;
-                gpsRecoveryUntilMs = 0;
-            }
+            updateGpsState(info, true);
         } catch (e) {
             System.println("onPosition error: " + errorToString(e));
         }
@@ -1246,9 +1189,39 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
+    function updateGpsState(posInfo as Position.Info or Null, updateRecovery as Boolean) as Void {
+        var previousFix = hasGpsFix;
+        hasGpsFix = false;
+        gpsQuality = -1;
+        latitude = 0.0f;
+        longitude = 0.0f;
+
+        if (posInfo != null) {
+            gpsQuality = getPositionQuality(posInfo);
+
+            if (posInfo.position != null && isGpsQualityUsable(gpsQuality)) {
+                var coords = posInfo.position.toDegrees();
+                latitude = coords[0].toFloat();
+                longitude = coords[1].toFloat();
+                hasGpsFix = true;
+            }
+        }
+
+        if (hasGpsFix) {
+            gpsFixLostAtMs = 0;
+            gpsRecoveryUntilMs = System.getTimer() + GPS_LOSS_HOLD_MS;
+        } else {
+            if (updateRecovery && previousFix) {
+                gpsFixLostAtMs = System.getTimer();
+            }
+            if (updateRecovery) {
+                gpsRecoveryUntilMs = 0;
+            }
+        }
+    }
+
     function updateGPS(sensorInfo as Sensor.Info or Null, posInfo as Position.Info or Null) as Void {
         try {
-            hasGpsFix = false;
             speed = 0.0f;
 
             if (sensorInfo != null && sensorInfo has :speed && sensorInfo.speed != null) {
@@ -1256,21 +1229,7 @@ class gsensrosView extends WatchUi.View {
                 speed = rawSpeed < GPS_ZERO_SPEED_MPS ? 0.0f : rawSpeed;
             }
 
-            if (posInfo != null) {
-                gpsQuality = getPositionQuality(posInfo);
-
-                if (posInfo.position != null && isGpsQualityUsable(gpsQuality)) {
-                    var coords = posInfo.position.toDegrees();
-                    latitude = coords[0].toFloat();
-                    longitude = coords[1].toFloat();
-                    hasGpsFix = true;
-                }
-            }
-
-            if (!hasGpsFix) {
-                latitude = 0.0f;
-                longitude = 0.0f;
-            }
+            updateGpsState(posInfo, false);
         } catch (e) {
             System.println("updateGPS error: " + errorToString(e));
             speed = 0.0f;
@@ -1517,6 +1476,103 @@ class gsensrosView extends WatchUi.View {
         }
 
         return adjusted;
+    }
+
+    function updateDrAndKalmanFusion(
+        nowMs as Number,
+        dt as Float,
+        effectiveHeading as Float or Null,
+        estSpeed as Float,
+        headingConfidence as Float,
+        motionScoreMg as Float,
+        hasUsableGps as Boolean,
+        gpsSignalLost as Boolean,
+        drFallbackActive as Boolean
+    ) as Dictionary {
+        var drSpeed = estSpeed;
+        var drHeadingConfidence = headingConfidence;
+        var gpsTrustWeight = 1.0f;
+        var drGpsBlend = 0.0f;
+        var shouldAdvanceSensorDr = false;
+
+        if (dr != null) {
+            dr.updateMotionStateFilter(hasUsableGps, headingConfidence, motionScoreMg, dt);
+            gpsTrustWeight = dr.getMotionBlendWeight();
+        }
+
+        if (!hasUsableGps) {
+            gpsTrustWeight = clampFloat(gpsTrustWeight * 0.55f, 0.15f, 1.0f);
+        }
+
+        drHeadingConfidence = headingConfidence * gpsTrustWeight;
+
+        if (gpsSignalLost) {
+            drSpeed = getGpsLossDrSpeed(estSpeed);
+            drHeadingConfidence = drHeadingConfidence * 0.70f;
+        }
+
+        if (kalman != null) {
+            if (hasUsableGps || drFallbackActive) {
+                var h = (effectiveHeading != null) ? effectiveHeading : 0.0f;
+                kalman.predictWithTuning(drSpeed, h, dt, headingConfidence, movingConfidence, hasUsableGps);
+                if (hasUsableGps) {
+                    kalman.updateGps(latitude, longitude, gpsQuality);
+                }
+            }
+        }
+
+        if (dr != null && (hasUsableGps || gpsSignalLost || drFallbackActive) && (nowMs - lastDrGpsCorrectionMs) >= DR_GPS_CORRECTION_INTERVAL_MS) {
+            lastDrGpsCorrectionMs = nowMs;
+            if (hasUsableGps) {
+                drGpsBlend = 0.12f + (gpsTrustWeight * 0.12f);
+                if (drGpsBlend > 0.24f) {
+                    drGpsBlend = 0.24f;
+                }
+            } else {
+                drGpsBlend = 0.06f + (gpsTrustWeight * 0.06f);
+                if (drGpsBlend > 0.12f) {
+                    drGpsBlend = 0.12f;
+                }
+            }
+        }
+
+        if (dr != null) {
+            dr.updateVerticalState(currentAscentRateMps, dt);
+            dr.setContext(isUnderwater);
+        }
+
+        if (hasUsableGps) {
+            shouldAdvanceSensorDr = shouldAdvanceDR(effectiveHeading, estSpeed);
+        } else if (drFallbackActive) {
+            shouldAdvanceSensorDr = shouldAdvanceDRWithoutGps(effectiveHeading, drSpeed);
+        }
+
+        if (dr != null && shouldAdvanceSensorDr) {
+            dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, drSpeed, true, drHeadingConfidence);
+        }
+
+        if (dr != null && drGpsBlend > 0.0f) {
+            if (kalman != null) {
+                dr.applyPositionCorrection(kalman.getEast(), kalman.getNorth(), drGpsBlend);
+            } else if (hasUsableGps && isFiniteValue(latitude) && isFiniteValue(longitude) && hasEntryPosition) {
+                var latRefRad = entryLat * 0.017453292519943295f;
+                var metersPerDegLat = 111000.0f;
+                var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
+                if (metersPerDegLon < 1000.0f) {
+                    metersPerDegLon = 1000.0f;
+                }
+                var refEast = (longitude - entryLon) * metersPerDegLon;
+                var refNorth = (latitude - entryLat) * metersPerDegLat;
+                dr.applyPositionCorrection(refEast, refNorth, drGpsBlend);
+            }
+        }
+
+        return {
+            :drSpeed => drSpeed,
+            :drHeadingConfidence => drHeadingConfidence,
+            :drGpsBlend => drGpsBlend,
+            :shouldAdvanceSensorDr => shouldAdvanceSensorDr
+        };
     }
 
     function onSelect() as Boolean {
