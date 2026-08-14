@@ -26,14 +26,14 @@ class KalmanDR {
     const C_SCALE = 2.44949f;    // sqrt(N+lambda) = sqrt(6) ≈ 2.449
 
     // Process / measurement noise
-    const Q_POS   = 0.08f;       // m^2 / s  position process
-    const Q_VEL   = 0.12f;       // (m/s)^2 / s  velocity process
-    const R_GPS_GOOD   = 4.0f;   // m^2
-    const R_GPS_USABLE = 20.0f;  // m^2
-    const R_GPS_POOR   = 60.0f;
-    const Q_POS_LOSS   = 0.18f;
-    const Q_VEL_LOSS   = 0.20f;
-    const R_GPS_LOSS_SCALE = 2.4f;
+    const Q_POS   = 0.05f;       // m^2 / s  position process
+    const Q_VEL   = 0.08f;       // (m/s)^2 / s  velocity process
+    const R_GPS_GOOD   = 2.5f;   // m^2
+    const R_GPS_USABLE = 10.0f;  // m^2
+    const R_GPS_POOR   = 30.0f;
+    const Q_POS_LOSS   = 0.12f;
+    const Q_VEL_LOSS   = 0.14f;
+    const R_GPS_LOSS_SCALE = 1.8f;
     const MIN_PREDICT_SPEED_MPS = 0.08f;
     const MAX_PREDICT_SPEED_MPS = 2.2f;
 
@@ -308,31 +308,31 @@ class KalmanDR {
             qVel = Q_VEL_LOSS;
             gpsLossTimeSec += dt;
         } else if (headingConfidence < 0.8f) {
-            qPos = Q_POS + 0.05f;
-            qVel = Q_VEL + 0.06f;
+            qPos = Q_POS + 0.03f;
+            qVel = Q_VEL + 0.04f;
         } else if (gpsLossTimeSec > 0.0f) {
-            gpsLossTimeSec -= dt * 0.5f;
+            gpsLossTimeSec -= dt * 0.6f;
             if (gpsLossTimeSec < 0.0f) {
                 gpsLossTimeSec = 0.0f;
             }
         }
 
         if (motionConfidence != null && motionConfidence < 6) {
-            qPos *= 1.25f;
-            qVel *= 1.25f;
+            qPos *= 1.10f;
+            qVel *= 1.10f;
         }
 
-        var uncertaintyScale = 1.0f + (gpsLossTimeSec * 0.24f);
-        if (uncertaintyScale > 2.6f) {
-            uncertaintyScale = 2.6f;
+        var uncertaintyScale = 1.0f + (gpsLossTimeSec * 0.18f);
+        if (uncertaintyScale > 2.0f) {
+            uncertaintyScale = 2.0f;
         }
 
         // Reuse the existing predict path with a small bias injected via covariance.
         predict(speedMps, headingRad, dt);
-        setP(0, 0, getP(0, 0) + qPos * dt * 0.5f * uncertaintyScale);
-        setP(1, 1, getP(1, 1) + qPos * dt * 0.5f * uncertaintyScale);
-        setP(2, 2, getP(2, 2) + qVel * dt * 0.5f * uncertaintyScale);
-        setP(3, 3, getP(3, 3) + qVel * dt * 0.5f * uncertaintyScale);
+        setP(0, 0, getP(0, 0) + qPos * dt * 0.35f * uncertaintyScale);
+        setP(1, 1, getP(1, 1) + qPos * dt * 0.35f * uncertaintyScale);
+        setP(2, 2, getP(2, 2) + qVel * dt * 0.35f * uncertaintyScale);
+        setP(3, 3, getP(3, 3) + qVel * dt * 0.35f * uncertaintyScale);
     }
 
     function updateGps(lat as Float, lon as Float, quality as Number) as Void {
@@ -341,15 +341,15 @@ class KalmanDR {
             return;
         }
 
-        var r = R_GPS_USABLE;
+        var r = R_GPS_USABLE * 0.70f;
         if (quality == Position.QUALITY_GOOD) {
-            r = R_GPS_GOOD;
+            r = R_GPS_GOOD * 0.70f;
         } else if (quality == Position.QUALITY_POOR) {
-            r = R_GPS_POOR;
+            r = R_GPS_POOR * 0.85f;
         }
 
         if (quality == Position.QUALITY_NOT_AVAILABLE) {
-            r = R_GPS_POOR * R_GPS_LOSS_SCALE;
+            r = R_GPS_POOR * R_GPS_LOSS_SCALE * 1.10f;
         }
 
         var cosLat = Math.cos(referenceLat * Math.PI / 180.0f);
@@ -390,10 +390,17 @@ class KalmanDR {
         var kvn0 = getP(3, 0) * inv00 + getP(3, 1) * inv01;
         var kvn1 = getP(3, 0) * inv01 + getP(3, 1) * inv11;
 
-        x[0] += ke0 * innE + ke1 * innN;
-        x[1] += kn0 * innE + kn1 * innN;
-        x[2] += kve0 * innE + kve1 * innN;
-        x[3] += kvn0 * innE + kvn1 * innN;
+        var gpsGainBoost = 1.0f;
+        if (quality == Position.QUALITY_GOOD) {
+            gpsGainBoost = 1.18f;
+        } else if (quality == Position.QUALITY_USABLE) {
+            gpsGainBoost = 1.10f;
+        }
+
+        x[0] += (ke0 * innE + ke1 * innN) * gpsGainBoost;
+        x[1] += (kn0 * innE + kn1 * innN) * gpsGainBoost;
+        x[2] += (kve0 * innE + kve1 * innN) * gpsGainBoost;
+        x[3] += (kvn0 * innE + kvn1 * innN) * gpsGainBoost;
 
         // Joseph-form-ish covariance update for position block + cross terms
         // P = (I - K H) P   with H = [I_2  0]
