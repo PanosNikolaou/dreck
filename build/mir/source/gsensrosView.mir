@@ -13109,11 +13109,11 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2167_40_2173
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 2175; @symbol_functiondef = [onUpdate,2175,13,21]; @symbol_param<0> = [dc,2175,22,24]; @symbol_param<0>_type<0> = [Dc,2175,28,30]; ]
     function onUpdate(dc as Dc) as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2175_40_2313_4_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2175_40_2322_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2176 8 ]
-        try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_beginTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_endTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_beginTry:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start:
+        try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_beginTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_endTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_beginTry:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2177 12 ]
         symbol [ View %tmp.2 2177 12 16 ];
         %tmp.2 = getv ? :View;
@@ -13123,7 +13123,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310
         symbol [ dc %tmp.4 2177 26 28 ];
         invoke %tmp.2 %tmp.3(%tmp.4);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2179 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %font.1 = local;
         symbol [ font %font.1 2179 16 20 ];
         symbol [ Graphics %tmp.5 2179 23 31 ];
@@ -13133,7 +13133,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310
         lputv %font.1 %tmp.6;
         symbol [ font %font.1 2179 16 20 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2180 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %w.2 = local;
         symbol [ w %w.2 2180 16 17 ];
         %tmp.7 = lgetv %dc;
@@ -13144,14 +13144,14 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310
         lputv %w.2 %tmp.9;
         symbol [ w %w.2 2180 16 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2181 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %leftX.3 = local;
         symbol [ leftX %leftX.3 2181 16 21 ];
         %tmp.10 = 8;
         lputv %leftX.3 %tmp.10;
         symbol [ leftX %leftX.3 2181 16 21 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2182 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %rightX.4 = local;
         symbol [ rightX %rightX.4 2182 16 22 ];
         %tmp.11 = lgetv %w.2;
@@ -13163,7 +13163,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310
         lputv %rightX.4 %tmp.15;
         symbol [ rightX %rightX.4 2182 16 22 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2183 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %y.5 = local;
         symbol [ y %y.5 2183 16 17 ];
         %tmp.16 = 8;
@@ -13173,1485 +13173,1586 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310
         lputv %y.5 %tmp.19;
         symbol [ y %y.5 2183 16 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2184 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
         %rowH.6 = local;
         symbol [ rowH %rowH.6 2184 16 20 ];
         %tmp.20 = 18;
         lputv %rowH.6 %tmp.20;
         symbol [ rowH %rowH.6 2184 16 20 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2186 12 ]
-        %tmp.21 = lgetv %dc;
-        symbol [ dc %tmp.21 2186 12 14 ];
-        symbol [ setColor %tmp.22 2186 15 23 ];
-        %tmp.22 = getv function %tmp.21 :setColor;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_begin:
-        symbol [ isRecording %tmp.24 2186 24 35 ];
-        %tmp.24 = getv ? :isRecording;
-        bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_true:
-        symbol [ Graphics %tmp.25 2186 38 46 ];
-        %tmp.25 = getm $.Toybox.Graphics;
-        symbol [ COLOR_GREEN %tmp.26 2186 47 58 ];
-        %tmp.26 = getv %tmp.25 :COLOR_GREEN;
-        push %tmp.26;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_else_false:
-        symbol [ Graphics %tmp.27 2186 61 69 ];
-        %tmp.27 = getm $.Toybox.Graphics;
-        symbol [ COLOR_RED %tmp.28 2186 70 79 ];
-        %tmp.28 = getv %tmp.27 :COLOR_RED;
-        push %tmp.28;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_end:
-        %tmp.29 = phi [%tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_begin] [%tmp.26 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_true] [%tmp.28 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_else_false] [%tmp.29 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2186_24_2186_70_end];
-        symbol [ Graphics %tmp.30 2186 81 89 ];
-        %tmp.30 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.31 2186 90 107 ];
-        %tmp.31 = getv %tmp.30 :COLOR_TRANSPARENT;
-        invoke %tmp.21 %tmp.22(%tmp.29, %tmp.31);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2185 12 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
+        %noticeText.7 = local;
+        symbol [ noticeText %noticeText.7 2185 16 26 ];
+        %tmp.21 = null;
+        %tmp.22 = as %tmp.21 String or Null;
+        symbol [ String %tmp.22 2185 37 43 ];
+        lputv %noticeText.7 %tmp.22;
+        symbol [ noticeText %noticeText.7 2185 16 26 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2187 12 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop" ]
-        %statusText.7 = local;
-        symbol [ statusText %statusText.7 2187 16 26 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_begin:
-        symbol [ isRecording %tmp.33 2187 29 40 ];
-        %tmp.33 = getv ? :isRecording;
-        bf %tmp.33 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_true:
-        %tmp.34 = "RECORDING";
-        push %tmp.34;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_else_false:
-        %tmp.35 = "Stopped";
-        push %tmp.35;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_end:
-        %tmp.36 = phi [%tmp.33 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_begin] [%tmp.34 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_true] [%tmp.35 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_else_false] [%tmp.36 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_29_2187_57_end];
-        lputv %statusText.7 %tmp.36;
-        symbol [ statusText %statusText.7 2187 16 26 ];
+        %tmp.23 = lgetv %dc;
+        symbol [ dc %tmp.23 2187 12 14 ];
+        symbol [ setColor %tmp.24 2187 15 23 ];
+        %tmp.24 = getv function %tmp.23 :setColor;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_begin:
+        symbol [ isRecording %tmp.26 2187 24 35 ];
+        %tmp.26 = getv ? :isRecording;
+        bf %tmp.26 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_true:
+        symbol [ Graphics %tmp.27 2187 38 46 ];
+        %tmp.27 = getm $.Toybox.Graphics;
+        symbol [ COLOR_GREEN %tmp.28 2187 47 58 ];
+        %tmp.28 = getv %tmp.27 :COLOR_GREEN;
+        push %tmp.28;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_else_false:
+        symbol [ Graphics %tmp.29 2187 61 69 ];
+        %tmp.29 = getm $.Toybox.Graphics;
+        symbol [ COLOR_RED %tmp.30 2187 70 79 ];
+        %tmp.30 = getv %tmp.29 :COLOR_RED;
+        push %tmp.30;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_end:
+        %tmp.31 = phi [%tmp.26 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_begin] [%tmp.28 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_true] [%tmp.30 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_else_false] [%tmp.31 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2187_24_2187_70_end];
+        symbol [ Graphics %tmp.32 2187 81 89 ];
+        %tmp.32 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.33 2187 90 107 ];
+        %tmp.33 = getv %tmp.32 :COLOR_TRANSPARENT;
+        invoke %tmp.23 %tmp.24(%tmp.31, %tmp.33);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2188 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_16_2188_44_begin:
-        symbol [ isRecording %tmp.38 2188 16 27 ];
-        %tmp.38 = getv ? :isRecording;
-        bf %tmp.38 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_31_2188_44_true:
-        symbol [ poiFlashMs %tmp.40 2188 31 41 ];
-        %tmp.40 = getv ? :poiFlashMs;
-        %tmp.41 = 0;
-        %tmp.42 = gt %tmp.40 %tmp.41;
-        push %tmp.42;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_31_2188_44_end:
-        %tmp.43 = phi [%tmp.38 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_16_2188_44_begin] [%tmp.42 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_31_2188_44_true] [%tmp.43 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_31_2188_44_end];
-        bf %tmp.43 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_47_2196_12_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2189 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_47_2196_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_47_2196_12_stop" ]
-        %age.8 = local;
-        symbol [ age %age.8 2189 20 23 ];
-        symbol [ System %tmp.44 2189 26 32 ];
-        %tmp.44 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.45 2189 33 41 ];
-        %tmp.45 = getv function %tmp.44 :getTimer;
-        %tmp.46 = invoke %tmp.44 %tmp.45();
-        symbol [ poiFlashMs %tmp.48 2189 46 56 ];
-        %tmp.48 = getv ? :poiFlashMs;
-        %tmp.49 = sub %tmp.46 %tmp.48;
-        lputv %age.8 %tmp.49;
-        symbol [ age %age.8 2189 20 23 ];
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop" ]
+        %statusText.8 = local;
+        symbol [ statusText %statusText.8 2188 16 26 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_begin:
+        symbol [ isRecording %tmp.35 2188 29 40 ];
+        %tmp.35 = getv ? :isRecording;
+        bf %tmp.35 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_true:
+        %tmp.36 = "RECORDING";
+        push %tmp.36;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_else_false:
+        %tmp.37 = "Stopped";
+        push %tmp.37;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_end:
+        %tmp.38 = phi [%tmp.35 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_begin] [%tmp.36 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_true] [%tmp.37 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_else_false] [%tmp.38 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_29_2188_57_end];
+        lputv %statusText.8 %tmp.38;
+        symbol [ statusText %statusText.8 2188 16 26 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2189 12 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_16_2189_44_begin:
+        symbol [ isRecording %tmp.40 2189 16 27 ];
+        %tmp.40 = getv ? :isRecording;
+        bf %tmp.40 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_31_2189_44_true:
+        symbol [ poiFlashMs %tmp.42 2189 31 41 ];
+        %tmp.42 = getv ? :poiFlashMs;
+        %tmp.43 = 0;
+        %tmp.44 = gt %tmp.42 %tmp.43;
+        push %tmp.44;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_31_2189_44_end:
+        %tmp.45 = phi [%tmp.40 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_16_2189_44_begin] [%tmp.44 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_31_2189_44_true] [%tmp.45 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_31_2189_44_end];
+        bf %tmp.45 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_47_2198_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2190 16 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_20_2190_38_begin:
-        %tmp.50 = lgetv %age.8;
-        symbol [ age %tmp.50 2190 20 23 ];
-        %tmp.51 = 0;
-        %tmp.52 = gte %tmp.50 %tmp.51;
-        bf %tmp.52 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_32_2190_38_true:
-        %tmp.53 = lgetv %age.8;
-        symbol [ age %tmp.53 2190 32 35 ];
-        symbol [ POI_FLASH_MS %tmp.55 2190 38 50 ];
-        %tmp.55 = getv ? :POI_FLASH_MS;
-        %tmp.56 = lt %tmp.53 %tmp.55;
-        push %tmp.56;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_32_2190_38_end:
-        %tmp.57 = phi [%tmp.52 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_20_2190_38_begin] [%tmp.56 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_32_2190_38_true] [%tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_32_2190_38_end];
-        bf %tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_52_2193_16_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2191 20 ]
-        %tmp.58 = "POI #";
-        symbol [ poiCount %tmp.60 2191 43 51 ];
-        %tmp.60 = getv ? :poiCount;
-        %tmp.61 = add %tmp.58 %tmp.60;
-        lputv %statusText.7 %tmp.61;
-        symbol [ statusText %statusText.7 2191 20 30 ];
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_47_2198_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_47_2198_12_stop" ]
+        %age.9 = local;
+        symbol [ age %age.9 2190 20 23 ];
+        symbol [ System %tmp.46 2190 26 32 ];
+        %tmp.46 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.47 2190 33 41 ];
+        %tmp.47 = getv function %tmp.46 :getTimer;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        symbol [ poiFlashMs %tmp.50 2190 46 56 ];
+        %tmp.50 = getv ? :poiFlashMs;
+        %tmp.51 = sub %tmp.48 %tmp.50;
+        lputv %age.9 %tmp.51;
+        symbol [ age %age.9 2190 20 23 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2191 16 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_20_2191_38_begin:
+        %tmp.52 = lgetv %age.9;
+        symbol [ age %tmp.52 2191 20 23 ];
+        %tmp.53 = 0;
+        %tmp.54 = gte %tmp.52 %tmp.53;
+        bf %tmp.54 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_32_2191_38_true:
+        %tmp.55 = lgetv %age.9;
+        symbol [ age %tmp.55 2191 32 35 ];
+        symbol [ POI_FLASH_MS %tmp.57 2191 38 50 ];
+        %tmp.57 = getv ? :POI_FLASH_MS;
+        %tmp.58 = lt %tmp.55 %tmp.57;
+        push %tmp.58;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_32_2191_38_end:
+        %tmp.59 = phi [%tmp.54 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_20_2191_38_begin] [%tmp.58 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_32_2191_38_true] [%tmp.59 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_32_2191_38_end];
+        bf %tmp.59 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_52_2195_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2192 20 ]
-        %tmp.62 = lgetv %dc;
-        symbol [ dc %tmp.62 2192 20 22 ];
-        symbol [ setColor %tmp.63 2192 23 31 ];
-        %tmp.63 = getv function %tmp.62 :setColor;
-        symbol [ Graphics %tmp.64 2192 32 40 ];
-        %tmp.64 = getm $.Toybox.Graphics;
-        symbol [ COLOR_YELLOW %tmp.65 2192 41 53 ];
-        %tmp.65 = getv %tmp.64 :COLOR_YELLOW;
-        symbol [ Graphics %tmp.66 2192 55 63 ];
-        %tmp.66 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.67 2192 64 81 ];
-        %tmp.67 = getv %tmp.66 :COLOR_TRANSPARENT;
-        invoke %tmp.62 %tmp.63(%tmp.65, %tmp.67);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_52_2193_16_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_else_false:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2193_23_2195_16_start:
+        %tmp.60 = "POI #";
+        symbol [ poiCount %tmp.62 2192 43 51 ];
+        %tmp.62 = getv ? :poiCount;
+        %tmp.63 = add %tmp.60 %tmp.62;
+        lputv %statusText.8 %tmp.63;
+        symbol [ statusText %statusText.8 2192 20 30 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2193 20 ]
+        %tmp.64 = "POI saved";
+        lputv %noticeText.7 %tmp.64;
+        symbol [ noticeText %noticeText.7 2193 20 30 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2194 20 ]
-        %tmp.68 = 0;
-        symbol [ poiFlashMs ? 2194 20 30 ];
-        putv self :poiFlashMs %tmp.68;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2193_23_2195_16_stop:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2190_16_2195_16_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_47_2196_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2188_12_2196_12_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2197 12 ]
-        %tmp.69 = lgetv %dc;
-        symbol [ dc %tmp.69 2197 12 14 ];
-        symbol [ drawText %tmp.70 2197 15 23 ];
-        %tmp.70 = getv function %tmp.69 :drawText;
-        %tmp.71 = lgetv %w.2;
-        symbol [ w %tmp.71 2197 24 25 ];
-        %tmp.72 = 2;
-        %tmp.73 = div %tmp.71 %tmp.72;
-        %tmp.74 = lgetv %y.5;
-        symbol [ y %tmp.74 2197 31 32 ];
-        %tmp.75 = lgetv %font.1;
-        symbol [ font %tmp.75 2197 34 38 ];
-        %tmp.76 = lgetv %statusText.7;
-        symbol [ statusText %tmp.76 2197 40 50 ];
-        symbol [ Graphics %tmp.77 2197 52 60 ];
-        %tmp.77 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.78 2197 61 80 ];
-        %tmp.78 = getv %tmp.77 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.69 %tmp.70(%tmp.73, %tmp.74, %tmp.75, %tmp.76, %tmp.78);
+        %tmp.65 = lgetv %dc;
+        symbol [ dc %tmp.65 2194 20 22 ];
+        symbol [ setColor %tmp.66 2194 23 31 ];
+        %tmp.66 = getv function %tmp.65 :setColor;
+        symbol [ Graphics %tmp.67 2194 32 40 ];
+        %tmp.67 = getm $.Toybox.Graphics;
+        symbol [ COLOR_YELLOW %tmp.68 2194 41 53 ];
+        %tmp.68 = getv %tmp.67 :COLOR_YELLOW;
+        symbol [ Graphics %tmp.69 2194 55 63 ];
+        %tmp.69 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.70 2194 64 81 ];
+        %tmp.70 = getv %tmp.69 :COLOR_TRANSPARENT;
+        invoke %tmp.65 %tmp.66(%tmp.68, %tmp.70);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_52_2195_16_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_else_false:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2195_23_2197_16_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2196 20 ]
+        %tmp.71 = 0;
+        symbol [ poiFlashMs ? 2196 20 30 ];
+        putv self :poiFlashMs %tmp.71;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2195_23_2197_16_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2191_16_2197_16_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_47_2198_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2189_12_2198_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2199 12 ]
-        %tmp.79 = lgetv %y.5;
-        symbol [ y %tmp.79 2199 12 13 ];
-        %tmp.80 = lgetv %rowH.6;
-        symbol [ rowH %tmp.80 2199 17 21 ];
-        %tmp.81 = add %tmp.79 %tmp.80;
-        lputv %y.5 %tmp.81;
-        symbol [ y %y.5 2199 12 13 ];
+        %tmp.72 = lgetv %dc;
+        symbol [ dc %tmp.72 2199 12 14 ];
+        symbol [ drawText %tmp.73 2199 15 23 ];
+        %tmp.73 = getv function %tmp.72 :drawText;
+        %tmp.74 = lgetv %w.2;
+        symbol [ w %tmp.74 2199 24 25 ];
+        %tmp.75 = 2;
+        %tmp.76 = div %tmp.74 %tmp.75;
+        %tmp.77 = lgetv %y.5;
+        symbol [ y %tmp.77 2199 31 32 ];
+        %tmp.78 = lgetv %font.1;
+        symbol [ font %tmp.78 2199 34 38 ];
+        %tmp.79 = lgetv %statusText.8;
+        symbol [ statusText %tmp.79 2199 40 50 ];
+        symbol [ Graphics %tmp.80 2199 52 60 ];
+        %tmp.80 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.81 2199 61 80 ];
+        %tmp.81 = getv %tmp.80 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.72 %tmp.73(%tmp.76, %tmp.77, %tmp.78, %tmp.79, %tmp.81);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2201 12 ]
-        %tmp.82 = lgetv %dc;
-        symbol [ dc %tmp.82 2201 12 14 ];
-        symbol [ setColor %tmp.83 2201 15 23 ];
-        %tmp.83 = getv function %tmp.82 :setColor;
-        symbol [ Graphics %tmp.84 2201 24 32 ];
-        %tmp.84 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.85 2201 33 44 ];
-        %tmp.85 = getv %tmp.84 :COLOR_WHITE;
-        symbol [ Graphics %tmp.86 2201 46 54 ];
-        %tmp.86 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.87 2201 55 72 ];
-        %tmp.87 = getv %tmp.86 :COLOR_TRANSPARENT;
-        invoke %tmp.82 %tmp.83(%tmp.85, %tmp.87);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2202 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_16_2202_42_begin:
-        symbol [ isRecording %tmp.89 2202 16 27 ];
-        %tmp.89 = getv ? :isRecording;
-        bf %tmp.89 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_31_2202_42_true:
-        symbol [ poiCount %tmp.91 2202 31 39 ];
-        %tmp.91 = getv ? :poiCount;
-        %tmp.92 = 0;
-        %tmp.93 = gt %tmp.91 %tmp.92;
-        push %tmp.93;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_31_2202_42_end:
-        %tmp.94 = phi [%tmp.89 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_16_2202_42_begin] [%tmp.93 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_31_2202_42_true] [%tmp.94 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_31_2202_42_end];
-        bf %tmp.94 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_45_2206_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_12_2206_12_if_stmt:
+        %tmp.82 = lgetv %noticeText.7;
+        symbol [ noticeText %tmp.82 2201 16 26 ];
+        %tmp.83 = null;
+        %tmp.84 = ne %tmp.82 %tmp.83;
+        bf %tmp.84 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_12_2206_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_12_2206_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_36_2206_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2202 16 ]
+        %tmp.85 = lgetv %dc;
+        symbol [ dc %tmp.85 2202 16 18 ];
+        symbol [ setColor %tmp.86 2202 19 27 ];
+        %tmp.86 = getv function %tmp.85 :setColor;
+        symbol [ Graphics %tmp.87 2202 28 36 ];
+        %tmp.87 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.88 2202 37 48 ];
+        %tmp.88 = getv %tmp.87 :COLOR_BLACK;
+        symbol [ Graphics %tmp.89 2202 50 58 ];
+        %tmp.89 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.90 2202 59 76 ];
+        %tmp.90 = getv %tmp.89 :COLOR_TRANSPARENT;
+        invoke %tmp.85 %tmp.86(%tmp.88, %tmp.90);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2203 16 ]
-        %tmp.95 = lgetv %dc;
-        symbol [ dc %tmp.95 2203 16 18 ];
-        symbol [ drawText %tmp.96 2203 19 27 ];
-        %tmp.96 = getv function %tmp.95 :drawText;
-        %tmp.97 = lgetv %leftX.3;
-        symbol [ leftX %tmp.97 2203 28 33 ];
-        %tmp.98 = lgetv %y.5;
-        symbol [ y %tmp.98 2203 35 36 ];
-        %tmp.99 = lgetv %font.1;
-        symbol [ font %tmp.99 2203 38 42 ];
-        %tmp.100 = "POIs:";
-        symbol [ Graphics %tmp.101 2203 53 61 ];
-        %tmp.101 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.102 2203 62 79 ];
-        %tmp.102 = getv %tmp.101 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.95 %tmp.96(%tmp.97, %tmp.98, %tmp.99, %tmp.100, %tmp.102);
+        %tmp.91 = lgetv %dc;
+        symbol [ dc %tmp.91 2203 16 18 ];
+        symbol [ fillRectangle %tmp.92 2203 19 32 ];
+        %tmp.92 = getv function %tmp.91 :fillRectangle;
+        %tmp.93 = 8;
+        %tmp.94 = lgetv %y.5;
+        symbol [ y %tmp.94 2203 36 37 ];
+        %tmp.95 = lgetv %rowH.6;
+        symbol [ rowH %tmp.95 2203 40 44 ];
+        %tmp.96 = add %tmp.94 %tmp.95;
+        %tmp.97 = 4;
+        %tmp.98 = sub %tmp.96 %tmp.97;
+        %tmp.99 = lgetv %w.2;
+        symbol [ w %tmp.99 2203 50 51 ];
+        %tmp.100 = 16;
+        %tmp.101 = sub %tmp.99 %tmp.100;
+        %tmp.102 = lgetv %rowH.6;
+        symbol [ rowH %tmp.102 2203 58 62 ];
+        %tmp.103 = 4;
+        %tmp.104 = sub %tmp.102 %tmp.103;
+        invoke %tmp.91 %tmp.92(%tmp.93, %tmp.98, %tmp.101, %tmp.104);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2204 16 ]
-        %tmp.103 = lgetv %dc;
-        symbol [ dc %tmp.103 2204 16 18 ];
-        symbol [ drawText %tmp.104 2204 19 27 ];
-        %tmp.104 = getv function %tmp.103 :drawText;
-        %tmp.105 = lgetv %rightX.4;
-        symbol [ rightX %tmp.105 2204 28 34 ];
-        %tmp.106 = lgetv %y.5;
-        symbol [ y %tmp.106 2204 36 37 ];
-        %tmp.107 = lgetv %font.1;
-        symbol [ font %tmp.107 2204 39 43 ];
-        %tmp.108 = "";
-        symbol [ poiCount %tmp.110 2204 50 58 ];
-        %tmp.110 = getv ? :poiCount;
-        %tmp.111 = add %tmp.108 %tmp.110;
-        symbol [ Graphics %tmp.112 2204 60 68 ];
-        %tmp.112 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.113 2204 69 86 ];
-        %tmp.113 = getv %tmp.112 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.103 %tmp.104(%tmp.105, %tmp.106, %tmp.107, %tmp.111, %tmp.113);
+        %tmp.105 = lgetv %dc;
+        symbol [ dc %tmp.105 2204 16 18 ];
+        symbol [ setColor %tmp.106 2204 19 27 ];
+        %tmp.106 = getv function %tmp.105 :setColor;
+        symbol [ Graphics %tmp.107 2204 28 36 ];
+        %tmp.107 = getm $.Toybox.Graphics;
+        symbol [ COLOR_YELLOW %tmp.108 2204 37 49 ];
+        %tmp.108 = getv %tmp.107 :COLOR_YELLOW;
+        symbol [ Graphics %tmp.109 2204 51 59 ];
+        %tmp.109 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.110 2204 60 77 ];
+        %tmp.110 = getv %tmp.109 :COLOR_TRANSPARENT;
+        invoke %tmp.105 %tmp.106(%tmp.108, %tmp.110);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2205 16 ]
-        %tmp.114 = lgetv %y.5;
-        symbol [ y %tmp.114 2205 16 17 ];
-        %tmp.115 = lgetv %rowH.6;
-        symbol [ rowH %tmp.115 2205 21 25 ];
-        %tmp.116 = add %tmp.114 %tmp.115;
-        lputv %y.5 %tmp.116;
-        symbol [ y %y.5 2205 16 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_45_2206_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2202_12_2206_12_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2208 12 ]
-        %tmp.117 = lgetv %dc;
-        symbol [ dc %tmp.117 2208 12 14 ];
-        symbol [ drawText %tmp.118 2208 15 23 ];
-        %tmp.118 = getv function %tmp.117 :drawText;
-        %tmp.119 = lgetv %leftX.3;
-        symbol [ leftX %tmp.119 2208 24 29 ];
-        %tmp.120 = lgetv %y.5;
-        symbol [ y %tmp.120 2208 31 32 ];
+        %tmp.111 = lgetv %dc;
+        symbol [ dc %tmp.111 2205 16 18 ];
+        symbol [ drawText %tmp.112 2205 19 27 ];
+        %tmp.112 = getv function %tmp.111 :drawText;
+        %tmp.113 = lgetv %w.2;
+        symbol [ w %tmp.113 2205 28 29 ];
+        %tmp.114 = 2;
+        %tmp.115 = div %tmp.113 %tmp.114;
+        %tmp.116 = lgetv %y.5;
+        symbol [ y %tmp.116 2205 35 36 ];
+        %tmp.117 = lgetv %rowH.6;
+        symbol [ rowH %tmp.117 2205 39 43 ];
+        %tmp.118 = add %tmp.116 %tmp.117;
+        %tmp.119 = 4;
+        %tmp.120 = sub %tmp.118 %tmp.119;
         %tmp.121 = lgetv %font.1;
-        symbol [ font %tmp.121 2208 34 38 ];
-        %tmp.122 = "Mode:";
-        symbol [ Graphics %tmp.123 2208 49 57 ];
-        %tmp.123 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.124 2208 58 75 ];
-        %tmp.124 = getv %tmp.123 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.117 %tmp.118(%tmp.119, %tmp.120, %tmp.121, %tmp.122, %tmp.124);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2209 12 ]
-        %tmp.125 = lgetv %dc;
-        symbol [ dc %tmp.125 2209 12 14 ];
-        symbol [ drawText %tmp.126 2209 15 23 ];
-        %tmp.126 = getv function %tmp.125 :drawText;
-        %tmp.127 = lgetv %rightX.4;
-        symbol [ rightX %tmp.127 2209 24 30 ];
-        %tmp.128 = lgetv %y.5;
-        symbol [ y %tmp.128 2209 32 33 ];
-        %tmp.129 = lgetv %font.1;
-        symbol [ font %tmp.129 2209 35 39 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_begin:
-        symbol [ isUnderwater %tmp.131 2209 41 53 ];
-        %tmp.131 = getv ? :isUnderwater;
-        bf %tmp.131 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_true:
-        %tmp.132 = "Underwater";
-        push %tmp.132;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_else_false:
-        %tmp.133 = "Land/Surf";
-        push %tmp.133;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_end:
-        %tmp.134 = phi [%tmp.131 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_begin] [%tmp.132 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_true] [%tmp.133 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_else_false] [%tmp.134 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2209_41_2209_71_end];
-        symbol [ Graphics %tmp.135 2209 84 92 ];
-        %tmp.135 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.136 2209 93 110 ];
-        %tmp.136 = getv %tmp.135 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.125 %tmp.126(%tmp.127, %tmp.128, %tmp.129, %tmp.134, %tmp.136);
+        symbol [ font %tmp.121 2205 49 53 ];
+        %tmp.122 = lgetv %noticeText.7;
+        symbol [ noticeText %tmp.122 2205 55 65 ];
+        %tmp.123 = as %tmp.122 { (!Null) };
+        symbol [ Graphics %tmp.124 2205 67 75 ];
+        %tmp.124 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.125 2205 76 95 ];
+        %tmp.125 = getv %tmp.124 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.111 %tmp.112(%tmp.115, %tmp.120, %tmp.121, %tmp.123, %tmp.125);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_36_2206_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_12_2206_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2201_12_2206_12_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2208 12 ]
+        %tmp.126 = lgetv %y.5;
+        symbol [ y %tmp.126 2208 12 13 ];
+        %tmp.127 = lgetv %rowH.6;
+        symbol [ rowH %tmp.127 2208 17 21 ];
+        %tmp.128 = add %tmp.126 %tmp.127;
+        lputv %y.5 %tmp.128;
+        symbol [ y %y.5 2208 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2210 12 ]
+        %tmp.129 = lgetv %dc;
+        symbol [ dc %tmp.129 2210 12 14 ];
+        symbol [ setColor %tmp.130 2210 15 23 ];
+        %tmp.130 = getv function %tmp.129 :setColor;
+        symbol [ Graphics %tmp.131 2210 24 32 ];
+        %tmp.131 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.132 2210 33 44 ];
+        %tmp.132 = getv %tmp.131 :COLOR_WHITE;
+        symbol [ Graphics %tmp.133 2210 46 54 ];
+        %tmp.133 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.134 2210 55 72 ];
+        %tmp.134 = getv %tmp.133 :COLOR_TRANSPARENT;
+        invoke %tmp.129 %tmp.130(%tmp.132, %tmp.134);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2211 12 ]
-        %tmp.137 = lgetv %y.5;
-        symbol [ y %tmp.137 2211 12 13 ];
-        %tmp.138 = lgetv %rowH.6;
-        symbol [ rowH %tmp.138 2211 17 21 ];
-        %tmp.139 = add %tmp.137 %tmp.138;
-        lputv %y.5 %tmp.139;
-        symbol [ y %y.5 2211 12 13 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2212 12 ]
-        %tmp.140 = lgetv %dc;
-        symbol [ dc %tmp.140 2212 12 14 ];
-        symbol [ drawText %tmp.141 2212 15 23 ];
-        %tmp.141 = getv function %tmp.140 :drawText;
-        %tmp.142 = lgetv %leftX.3;
-        symbol [ leftX %tmp.142 2212 24 29 ];
-        %tmp.143 = lgetv %y.5;
-        symbol [ y %tmp.143 2212 31 32 ];
-        %tmp.144 = lgetv %font.1;
-        symbol [ font %tmp.144 2212 34 38 ];
-        %tmp.145 = "GPS:";
-        symbol [ Graphics %tmp.146 2212 48 56 ];
-        %tmp.146 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.147 2212 57 74 ];
-        %tmp.147 = getv %tmp.146 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.140 %tmp.141(%tmp.142, %tmp.143, %tmp.144, %tmp.145, %tmp.147);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2213 12 ]
-        %tmp.148 = lgetv %dc;
-        symbol [ dc %tmp.148 2213 12 14 ];
-        symbol [ drawText %tmp.149 2213 15 23 ];
-        %tmp.149 = getv function %tmp.148 :drawText;
-        %tmp.150 = lgetv %rightX.4;
-        symbol [ rightX %tmp.150 2213 24 30 ];
-        %tmp.151 = lgetv %y.5;
-        symbol [ y %tmp.151 2213 32 33 ];
-        %tmp.152 = lgetv %font.1;
-        symbol [ font %tmp.152 2213 35 39 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_begin:
-        symbol [ hasGpsFix %tmp.154 2213 41 50 ];
-        %tmp.154 = getv ? :hasGpsFix;
-        bf %tmp.154 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_true:
-        %tmp.155 = "Yes";
-        push %tmp.155;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_else_false:
-        %tmp.156 = "No";
-        push %tmp.156;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_end:
-        %tmp.157 = phi [%tmp.154 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_begin] [%tmp.155 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_true] [%tmp.156 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_else_false] [%tmp.157 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2213_41_2213_61_end];
-        symbol [ Graphics %tmp.158 2213 67 75 ];
-        %tmp.158 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.159 2213 76 93 ];
-        %tmp.159 = getv %tmp.158 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.148 %tmp.149(%tmp.150, %tmp.151, %tmp.152, %tmp.157, %tmp.159);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2215 12 ]
-        %tmp.160 = lgetv %y.5;
-        symbol [ y %tmp.160 2215 12 13 ];
-        %tmp.161 = lgetv %rowH.6;
-        symbol [ rowH %tmp.161 2215 17 21 ];
-        %tmp.162 = add %tmp.160 %tmp.161;
-        lputv %y.5 %tmp.162;
-        symbol [ y %y.5 2215 12 13 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2216 12 ]
-        %tmp.163 = lgetv %dc;
-        symbol [ dc %tmp.163 2216 12 14 ];
-        symbol [ drawText %tmp.164 2216 15 23 ];
-        %tmp.164 = getv function %tmp.163 :drawText;
-        %tmp.165 = lgetv %leftX.3;
-        symbol [ leftX %tmp.165 2216 24 29 ];
-        %tmp.166 = lgetv %y.5;
-        symbol [ y %tmp.166 2216 31 32 ];
-        %tmp.167 = lgetv %font.1;
-        symbol [ font %tmp.167 2216 34 38 ];
-        %tmp.168 = "Q:";
-        symbol [ Graphics %tmp.169 2216 46 54 ];
-        %tmp.169 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.170 2216 55 72 ];
-        %tmp.170 = getv %tmp.169 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.163 %tmp.164(%tmp.165, %tmp.166, %tmp.167, %tmp.168, %tmp.170);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_stmt:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_16_2211_42_begin:
+        symbol [ isRecording %tmp.136 2211 16 27 ];
+        %tmp.136 = getv ? :isRecording;
+        bf %tmp.136 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_31_2211_42_true:
+        symbol [ poiCount %tmp.138 2211 31 39 ];
+        %tmp.138 = getv ? :poiCount;
+        %tmp.139 = 0;
+        %tmp.140 = gt %tmp.138 %tmp.139;
+        push %tmp.140;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_31_2211_42_end:
+        %tmp.141 = phi [%tmp.136 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_16_2211_42_begin] [%tmp.140 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_31_2211_42_true] [%tmp.141 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_31_2211_42_end];
+        bf %tmp.141 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_45_2215_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2212 16 ]
+        %tmp.142 = lgetv %dc;
+        symbol [ dc %tmp.142 2212 16 18 ];
+        symbol [ drawText %tmp.143 2212 19 27 ];
+        %tmp.143 = getv function %tmp.142 :drawText;
+        %tmp.144 = lgetv %leftX.3;
+        symbol [ leftX %tmp.144 2212 28 33 ];
+        %tmp.145 = lgetv %y.5;
+        symbol [ y %tmp.145 2212 35 36 ];
+        %tmp.146 = lgetv %font.1;
+        symbol [ font %tmp.146 2212 38 42 ];
+        %tmp.147 = "POIs:";
+        symbol [ Graphics %tmp.148 2212 53 61 ];
+        %tmp.148 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.149 2212 62 79 ];
+        %tmp.149 = getv %tmp.148 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.142 %tmp.143(%tmp.144, %tmp.145, %tmp.146, %tmp.147, %tmp.149);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2213 16 ]
+        %tmp.150 = lgetv %dc;
+        symbol [ dc %tmp.150 2213 16 18 ];
+        symbol [ drawText %tmp.151 2213 19 27 ];
+        %tmp.151 = getv function %tmp.150 :drawText;
+        %tmp.152 = lgetv %rightX.4;
+        symbol [ rightX %tmp.152 2213 28 34 ];
+        %tmp.153 = lgetv %y.5;
+        symbol [ y %tmp.153 2213 36 37 ];
+        %tmp.154 = lgetv %font.1;
+        symbol [ font %tmp.154 2213 39 43 ];
+        %tmp.155 = "";
+        symbol [ poiCount %tmp.157 2213 50 58 ];
+        %tmp.157 = getv ? :poiCount;
+        %tmp.158 = add %tmp.155 %tmp.157;
+        symbol [ Graphics %tmp.159 2213 60 68 ];
+        %tmp.159 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.160 2213 69 86 ];
+        %tmp.160 = getv %tmp.159 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.150 %tmp.151(%tmp.152, %tmp.153, %tmp.154, %tmp.158, %tmp.160);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2214 16 ]
+        %tmp.161 = lgetv %y.5;
+        symbol [ y %tmp.161 2214 16 17 ];
+        %tmp.162 = lgetv %rowH.6;
+        symbol [ rowH %tmp.162 2214 21 25 ];
+        %tmp.163 = add %tmp.161 %tmp.162;
+        lputv %y.5 %tmp.163;
+        symbol [ y %y.5 2214 16 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_45_2215_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2211_12_2215_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2217 12 ]
-        %tmp.171 = lgetv %dc;
-        symbol [ dc %tmp.171 2217 12 14 ];
-        symbol [ drawText %tmp.172 2217 15 23 ];
-        %tmp.172 = getv function %tmp.171 :drawText;
-        %tmp.173 = lgetv %rightX.4;
-        symbol [ rightX %tmp.173 2217 24 30 ];
-        %tmp.174 = lgetv %y.5;
-        symbol [ y %tmp.174 2217 32 33 ];
-        %tmp.175 = lgetv %font.1;
-        symbol [ font %tmp.175 2217 35 39 ];
-        %tmp.176 = "";
-        symbol [ gpsQuality %tmp.178 2217 46 56 ];
-        %tmp.178 = getv ? :gpsQuality;
-        %tmp.179 = add %tmp.176 %tmp.178;
-        symbol [ Graphics %tmp.180 2217 58 66 ];
-        %tmp.180 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.181 2217 67 84 ];
-        %tmp.181 = getv %tmp.180 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.171 %tmp.172(%tmp.173, %tmp.174, %tmp.175, %tmp.179, %tmp.181);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2219 12 ]
-        %tmp.182 = lgetv %y.5;
-        symbol [ y %tmp.182 2219 12 13 ];
-        %tmp.183 = lgetv %rowH.6;
-        symbol [ rowH %tmp.183 2219 17 21 ];
-        %tmp.184 = add %tmp.182 %tmp.183;
-        lputv %y.5 %tmp.184;
-        symbol [ y %y.5 2219 12 13 ];
+        %tmp.164 = lgetv %dc;
+        symbol [ dc %tmp.164 2217 12 14 ];
+        symbol [ drawText %tmp.165 2217 15 23 ];
+        %tmp.165 = getv function %tmp.164 :drawText;
+        %tmp.166 = lgetv %leftX.3;
+        symbol [ leftX %tmp.166 2217 24 29 ];
+        %tmp.167 = lgetv %y.5;
+        symbol [ y %tmp.167 2217 31 32 ];
+        %tmp.168 = lgetv %font.1;
+        symbol [ font %tmp.168 2217 34 38 ];
+        %tmp.169 = "Mode:";
+        symbol [ Graphics %tmp.170 2217 49 57 ];
+        %tmp.170 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.171 2217 58 75 ];
+        %tmp.171 = getv %tmp.170 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.164 %tmp.165(%tmp.166, %tmp.167, %tmp.168, %tmp.169, %tmp.171);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2218 12 ]
+        %tmp.172 = lgetv %dc;
+        symbol [ dc %tmp.172 2218 12 14 ];
+        symbol [ drawText %tmp.173 2218 15 23 ];
+        %tmp.173 = getv function %tmp.172 :drawText;
+        %tmp.174 = lgetv %rightX.4;
+        symbol [ rightX %tmp.174 2218 24 30 ];
+        %tmp.175 = lgetv %y.5;
+        symbol [ y %tmp.175 2218 32 33 ];
+        %tmp.176 = lgetv %font.1;
+        symbol [ font %tmp.176 2218 35 39 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_begin:
+        symbol [ isUnderwater %tmp.178 2218 41 53 ];
+        %tmp.178 = getv ? :isUnderwater;
+        bf %tmp.178 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_true:
+        %tmp.179 = "Underwater";
+        push %tmp.179;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_else_false:
+        %tmp.180 = "Land/Surf";
+        push %tmp.180;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_end:
+        %tmp.181 = phi [%tmp.178 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_begin] [%tmp.179 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_true] [%tmp.180 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_else_false] [%tmp.181 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2218_41_2218_71_end];
+        symbol [ Graphics %tmp.182 2218 84 92 ];
+        %tmp.182 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.183 2218 93 110 ];
+        %tmp.183 = getv %tmp.182 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.172 %tmp.173(%tmp.174, %tmp.175, %tmp.176, %tmp.181, %tmp.183);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2220 12 ]
-        %tmp.185 = lgetv %dc;
-        symbol [ dc %tmp.185 2220 12 14 ];
-        symbol [ drawText %tmp.186 2220 15 23 ];
-        %tmp.186 = getv function %tmp.185 :drawText;
-        %tmp.187 = lgetv %leftX.3;
-        symbol [ leftX %tmp.187 2220 24 29 ];
-        %tmp.188 = lgetv %y.5;
-        symbol [ y %tmp.188 2220 31 32 ];
-        %tmp.189 = lgetv %font.1;
-        symbol [ font %tmp.189 2220 34 38 ];
-        %tmp.190 = "Moving:";
-        symbol [ Graphics %tmp.191 2220 51 59 ];
-        %tmp.191 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.192 2220 60 77 ];
-        %tmp.192 = getv %tmp.191 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.185 %tmp.186(%tmp.187, %tmp.188, %tmp.189, %tmp.190, %tmp.192);
+        %tmp.184 = lgetv %y.5;
+        symbol [ y %tmp.184 2220 12 13 ];
+        %tmp.185 = lgetv %rowH.6;
+        symbol [ rowH %tmp.185 2220 17 21 ];
+        %tmp.186 = add %tmp.184 %tmp.185;
+        lputv %y.5 %tmp.186;
+        symbol [ y %y.5 2220 12 13 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2221 12 ]
-        %tmp.193 = lgetv %dc;
-        symbol [ dc %tmp.193 2221 12 14 ];
-        symbol [ drawText %tmp.194 2221 15 23 ];
-        %tmp.194 = getv function %tmp.193 :drawText;
-        %tmp.195 = lgetv %rightX.4;
-        symbol [ rightX %tmp.195 2221 24 30 ];
-        %tmp.196 = lgetv %y.5;
-        symbol [ y %tmp.196 2221 32 33 ];
-        %tmp.197 = lgetv %font.1;
-        symbol [ font %tmp.197 2221 35 39 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_43_2221_101_begin:
-        symbol [ movingConfidence %tmp.199 2221 43 59 ];
-        %tmp.199 = getv ? :movingConfidence;
-        symbol [ MOVING_CONFIDENCE_ON %tmp.201 2221 63 83 ];
-        %tmp.201 = getv ? :MOVING_CONFIDENCE_ON;
-        %tmp.202 = gte %tmp.199 %tmp.201;
-        bf %tmp.202 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_87_2221_101_true:
-        %tmp.203 = self;
-        symbol [ isStationary %tmp.204 2221 88 100 ];
-        %tmp.204 = getv function %tmp.203 :isStationary;
-        %tmp.205 = invoke %tmp.203 %tmp.204();
-        %tmp.206 = not %tmp.205;
-        push %tmp.206;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_87_2221_101_end:
-        %tmp.207 = phi [%tmp.202 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_43_2221_101_begin] [%tmp.206 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_87_2221_101_true] [%tmp.207 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_87_2221_101_end];
-        bf %tmp.207 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_true:
-        %tmp.208 = "Yes";
-        push %tmp.208;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_else_false:
-        %tmp.209 = "No";
-        push %tmp.209;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_end:
-        %tmp.210 = phi [%tmp.207 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_begin] [%tmp.208 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_true] [%tmp.209 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_else_false] [%tmp.210 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2221_42_2221_114_end];
-        symbol [ Graphics %tmp.211 2221 121 129 ];
-        %tmp.211 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.212 2221 130 147 ];
-        %tmp.212 = getv %tmp.211 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.193 %tmp.194(%tmp.195, %tmp.196, %tmp.197, %tmp.210, %tmp.212);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2223 12 ]
-        %tmp.213 = lgetv %y.5;
-        symbol [ y %tmp.213 2223 12 13 ];
-        %tmp.214 = lgetv %rowH.6;
-        symbol [ rowH %tmp.214 2223 17 21 ];
-        %tmp.215 = add %tmp.213 %tmp.214;
-        lputv %y.5 %tmp.215;
-        symbol [ y %y.5 2223 12 13 ];
+        %tmp.187 = lgetv %dc;
+        symbol [ dc %tmp.187 2221 12 14 ];
+        symbol [ drawText %tmp.188 2221 15 23 ];
+        %tmp.188 = getv function %tmp.187 :drawText;
+        %tmp.189 = lgetv %leftX.3;
+        symbol [ leftX %tmp.189 2221 24 29 ];
+        %tmp.190 = lgetv %y.5;
+        symbol [ y %tmp.190 2221 31 32 ];
+        %tmp.191 = lgetv %font.1;
+        symbol [ font %tmp.191 2221 34 38 ];
+        %tmp.192 = "GPS:";
+        symbol [ Graphics %tmp.193 2221 48 56 ];
+        %tmp.193 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.194 2221 57 74 ];
+        %tmp.194 = getv %tmp.193 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.187 %tmp.188(%tmp.189, %tmp.190, %tmp.191, %tmp.192, %tmp.194);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2222 12 ]
+        %tmp.195 = lgetv %dc;
+        symbol [ dc %tmp.195 2222 12 14 ];
+        symbol [ drawText %tmp.196 2222 15 23 ];
+        %tmp.196 = getv function %tmp.195 :drawText;
+        %tmp.197 = lgetv %rightX.4;
+        symbol [ rightX %tmp.197 2222 24 30 ];
+        %tmp.198 = lgetv %y.5;
+        symbol [ y %tmp.198 2222 32 33 ];
+        %tmp.199 = lgetv %font.1;
+        symbol [ font %tmp.199 2222 35 39 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_begin:
+        symbol [ hasGpsFix %tmp.201 2222 41 50 ];
+        %tmp.201 = getv ? :hasGpsFix;
+        bf %tmp.201 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_true:
+        %tmp.202 = "Yes";
+        push %tmp.202;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_else_false:
+        %tmp.203 = "No";
+        push %tmp.203;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_end:
+        %tmp.204 = phi [%tmp.201 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_begin] [%tmp.202 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_true] [%tmp.203 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_else_false] [%tmp.204 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2222_41_2222_61_end];
+        symbol [ Graphics %tmp.205 2222 67 75 ];
+        %tmp.205 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.206 2222 76 93 ];
+        %tmp.206 = getv %tmp.205 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.195 %tmp.196(%tmp.197, %tmp.198, %tmp.199, %tmp.204, %tmp.206);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2224 12 ]
-        %tmp.216 = lgetv %dc;
-        symbol [ dc %tmp.216 2224 12 14 ];
-        symbol [ drawText %tmp.217 2224 15 23 ];
-        %tmp.217 = getv function %tmp.216 :drawText;
-        %tmp.218 = lgetv %leftX.3;
-        symbol [ leftX %tmp.218 2224 24 29 ];
-        %tmp.219 = lgetv %y.5;
-        symbol [ y %tmp.219 2224 31 32 ];
-        %tmp.220 = lgetv %font.1;
-        symbol [ font %tmp.220 2224 34 38 ];
-        %tmp.221 = "Depth:";
-        symbol [ Graphics %tmp.222 2224 50 58 ];
-        %tmp.222 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.223 2224 59 76 ];
-        %tmp.223 = getv %tmp.222 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.216 %tmp.217(%tmp.218, %tmp.219, %tmp.220, %tmp.221, %tmp.223);
+        %tmp.207 = lgetv %y.5;
+        symbol [ y %tmp.207 2224 12 13 ];
+        %tmp.208 = lgetv %rowH.6;
+        symbol [ rowH %tmp.208 2224 17 21 ];
+        %tmp.209 = add %tmp.207 %tmp.208;
+        lputv %y.5 %tmp.209;
+        symbol [ y %y.5 2224 12 13 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2225 12 ]
-        %tmp.224 = lgetv %dc;
-        symbol [ dc %tmp.224 2225 12 14 ];
-        symbol [ drawText %tmp.225 2225 15 23 ];
-        %tmp.225 = getv function %tmp.224 :drawText;
-        %tmp.226 = lgetv %rightX.4;
-        symbol [ rightX %tmp.226 2225 24 30 ];
-        %tmp.227 = lgetv %y.5;
-        symbol [ y %tmp.227 2225 32 33 ];
-        %tmp.228 = lgetv %font.1;
-        symbol [ font %tmp.228 2225 35 39 ];
-        symbol [ currentDepth %tmp.230 2225 41 53 ];
-        %tmp.230 = getv ? :currentDepth;
-        symbol [ format %tmp.231 2225 54 60 ];
-        %tmp.231 = getv function %tmp.230 :format;
-        %tmp.232 = "%.1f";
-        %tmp.233 = invoke %tmp.230 %tmp.231(%tmp.232);
-        %tmp.234 = "m";
-        %tmp.235 = add %tmp.233 %tmp.234;
-        symbol [ Graphics %tmp.236 2225 76 84 ];
-        %tmp.236 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.237 2225 85 102 ];
-        %tmp.237 = getv %tmp.236 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.224 %tmp.225(%tmp.226, %tmp.227, %tmp.228, %tmp.235, %tmp.237);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2227 12 ]
-        %tmp.238 = lgetv %y.5;
-        symbol [ y %tmp.238 2227 12 13 ];
-        %tmp.239 = lgetv %rowH.6;
-        symbol [ rowH %tmp.239 2227 17 21 ];
-        %tmp.240 = add %tmp.238 %tmp.239;
-        lputv %y.5 %tmp.240;
-        symbol [ y %y.5 2227 12 13 ];
+        %tmp.210 = lgetv %dc;
+        symbol [ dc %tmp.210 2225 12 14 ];
+        symbol [ drawText %tmp.211 2225 15 23 ];
+        %tmp.211 = getv function %tmp.210 :drawText;
+        %tmp.212 = lgetv %leftX.3;
+        symbol [ leftX %tmp.212 2225 24 29 ];
+        %tmp.213 = lgetv %y.5;
+        symbol [ y %tmp.213 2225 31 32 ];
+        %tmp.214 = lgetv %font.1;
+        symbol [ font %tmp.214 2225 34 38 ];
+        %tmp.215 = "Q:";
+        symbol [ Graphics %tmp.216 2225 46 54 ];
+        %tmp.216 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.217 2225 55 72 ];
+        %tmp.217 = getv %tmp.216 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.210 %tmp.211(%tmp.212, %tmp.213, %tmp.214, %tmp.215, %tmp.217);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2226 12 ]
+        %tmp.218 = lgetv %dc;
+        symbol [ dc %tmp.218 2226 12 14 ];
+        symbol [ drawText %tmp.219 2226 15 23 ];
+        %tmp.219 = getv function %tmp.218 :drawText;
+        %tmp.220 = lgetv %rightX.4;
+        symbol [ rightX %tmp.220 2226 24 30 ];
+        %tmp.221 = lgetv %y.5;
+        symbol [ y %tmp.221 2226 32 33 ];
+        %tmp.222 = lgetv %font.1;
+        symbol [ font %tmp.222 2226 35 39 ];
+        %tmp.223 = "";
+        symbol [ gpsQuality %tmp.225 2226 46 56 ];
+        %tmp.225 = getv ? :gpsQuality;
+        %tmp.226 = add %tmp.223 %tmp.225;
+        symbol [ Graphics %tmp.227 2226 58 66 ];
+        %tmp.227 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.228 2226 67 84 ];
+        %tmp.228 = getv %tmp.227 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.218 %tmp.219(%tmp.220, %tmp.221, %tmp.222, %tmp.226, %tmp.228);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2228 12 ]
-        %tmp.241 = lgetv %dc;
-        symbol [ dc %tmp.241 2228 12 14 ];
-        symbol [ drawText %tmp.242 2228 15 23 ];
-        %tmp.242 = getv function %tmp.241 :drawText;
-        %tmp.243 = lgetv %leftX.3;
-        symbol [ leftX %tmp.243 2228 24 29 ];
-        %tmp.244 = lgetv %y.5;
-        symbol [ y %tmp.244 2228 31 32 ];
-        %tmp.245 = lgetv %font.1;
-        symbol [ font %tmp.245 2228 34 38 ];
-        %tmp.246 = "Asc:";
-        symbol [ Graphics %tmp.247 2228 48 56 ];
-        %tmp.247 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.248 2228 57 74 ];
-        %tmp.248 = getv %tmp.247 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.241 %tmp.242(%tmp.243, %tmp.244, %tmp.245, %tmp.246, %tmp.248);
+        %tmp.229 = lgetv %y.5;
+        symbol [ y %tmp.229 2228 12 13 ];
+        %tmp.230 = lgetv %rowH.6;
+        symbol [ rowH %tmp.230 2228 17 21 ];
+        %tmp.231 = add %tmp.229 %tmp.230;
+        lputv %y.5 %tmp.231;
+        symbol [ y %y.5 2228 12 13 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2229 12 ]
-        %tmp.249 = lgetv %dc;
-        symbol [ dc %tmp.249 2229 12 14 ];
-        symbol [ drawText %tmp.250 2229 15 23 ];
-        %tmp.250 = getv function %tmp.249 :drawText;
-        %tmp.251 = lgetv %rightX.4;
-        symbol [ rightX %tmp.251 2229 24 30 ];
-        %tmp.252 = lgetv %y.5;
-        symbol [ y %tmp.252 2229 32 33 ];
-        %tmp.253 = lgetv %font.1;
-        symbol [ font %tmp.253 2229 35 39 ];
-        symbol [ currentAscentRateMps %tmp.255 2229 41 61 ];
-        %tmp.255 = getv ? :currentAscentRateMps;
-        symbol [ format %tmp.256 2229 62 68 ];
-        %tmp.256 = getv function %tmp.255 :format;
-        %tmp.257 = "%.2f";
-        %tmp.258 = invoke %tmp.255 %tmp.256(%tmp.257);
-        %tmp.259 = "m/s";
-        %tmp.260 = add %tmp.258 %tmp.259;
-        symbol [ Graphics %tmp.261 2229 86 94 ];
-        %tmp.261 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.262 2229 95 112 ];
-        %tmp.262 = getv %tmp.261 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.249 %tmp.250(%tmp.251, %tmp.252, %tmp.253, %tmp.260, %tmp.262);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2231 12 ]
-        %tmp.263 = lgetv %y.5;
-        symbol [ y %tmp.263 2231 12 13 ];
-        %tmp.264 = lgetv %rowH.6;
-        symbol [ rowH %tmp.264 2231 17 21 ];
-        %tmp.265 = add %tmp.263 %tmp.264;
-        lputv %y.5 %tmp.265;
-        symbol [ y %y.5 2231 12 13 ];
+        %tmp.232 = lgetv %dc;
+        symbol [ dc %tmp.232 2229 12 14 ];
+        symbol [ drawText %tmp.233 2229 15 23 ];
+        %tmp.233 = getv function %tmp.232 :drawText;
+        %tmp.234 = lgetv %leftX.3;
+        symbol [ leftX %tmp.234 2229 24 29 ];
+        %tmp.235 = lgetv %y.5;
+        symbol [ y %tmp.235 2229 31 32 ];
+        %tmp.236 = lgetv %font.1;
+        symbol [ font %tmp.236 2229 34 38 ];
+        %tmp.237 = "Moving:";
+        symbol [ Graphics %tmp.238 2229 51 59 ];
+        %tmp.238 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.239 2229 60 77 ];
+        %tmp.239 = getv %tmp.238 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.232 %tmp.233(%tmp.234, %tmp.235, %tmp.236, %tmp.237, %tmp.239);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2230 12 ]
+        %tmp.240 = lgetv %dc;
+        symbol [ dc %tmp.240 2230 12 14 ];
+        symbol [ drawText %tmp.241 2230 15 23 ];
+        %tmp.241 = getv function %tmp.240 :drawText;
+        %tmp.242 = lgetv %rightX.4;
+        symbol [ rightX %tmp.242 2230 24 30 ];
+        %tmp.243 = lgetv %y.5;
+        symbol [ y %tmp.243 2230 32 33 ];
+        %tmp.244 = lgetv %font.1;
+        symbol [ font %tmp.244 2230 35 39 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_43_2230_101_begin:
+        symbol [ movingConfidence %tmp.246 2230 43 59 ];
+        %tmp.246 = getv ? :movingConfidence;
+        symbol [ MOVING_CONFIDENCE_ON %tmp.248 2230 63 83 ];
+        %tmp.248 = getv ? :MOVING_CONFIDENCE_ON;
+        %tmp.249 = gte %tmp.246 %tmp.248;
+        bf %tmp.249 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_87_2230_101_true:
+        %tmp.250 = self;
+        symbol [ isStationary %tmp.251 2230 88 100 ];
+        %tmp.251 = getv function %tmp.250 :isStationary;
+        %tmp.252 = invoke %tmp.250 %tmp.251();
+        %tmp.253 = not %tmp.252;
+        push %tmp.253;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_87_2230_101_end:
+        %tmp.254 = phi [%tmp.249 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_43_2230_101_begin] [%tmp.253 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_87_2230_101_true] [%tmp.254 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_87_2230_101_end];
+        bf %tmp.254 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_true:
+        %tmp.255 = "Yes";
+        push %tmp.255;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_else_false:
+        %tmp.256 = "No";
+        push %tmp.256;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_end:
+        %tmp.257 = phi [%tmp.254 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_begin] [%tmp.255 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_true] [%tmp.256 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_else_false] [%tmp.257 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2230_42_2230_114_end];
+        symbol [ Graphics %tmp.258 2230 121 129 ];
+        %tmp.258 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.259 2230 130 147 ];
+        %tmp.259 = getv %tmp.258 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.240 %tmp.241(%tmp.242, %tmp.243, %tmp.244, %tmp.257, %tmp.259);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2232 12 ]
-        %tmp.266 = lgetv %dc;
-        symbol [ dc %tmp.266 2232 12 14 ];
-        symbol [ drawText %tmp.267 2232 15 23 ];
-        %tmp.267 = getv function %tmp.266 :drawText;
-        %tmp.268 = lgetv %leftX.3;
-        symbol [ leftX %tmp.268 2232 24 29 ];
-        %tmp.269 = lgetv %y.5;
-        symbol [ y %tmp.269 2232 31 32 ];
-        %tmp.270 = lgetv %font.1;
-        symbol [ font %tmp.270 2232 34 38 ];
-        %tmp.271 = "HR:";
-        symbol [ Graphics %tmp.272 2232 47 55 ];
-        %tmp.272 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.273 2232 56 73 ];
-        %tmp.273 = getv %tmp.272 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.266 %tmp.267(%tmp.268, %tmp.269, %tmp.270, %tmp.271, %tmp.273);
+        %tmp.260 = lgetv %y.5;
+        symbol [ y %tmp.260 2232 12 13 ];
+        %tmp.261 = lgetv %rowH.6;
+        symbol [ rowH %tmp.261 2232 17 21 ];
+        %tmp.262 = add %tmp.260 %tmp.261;
+        lputv %y.5 %tmp.262;
+        symbol [ y %y.5 2232 12 13 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2233 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_stmt:
-        symbol [ heartRate %tmp.275 2233 16 25 ];
-        %tmp.275 = getv ? :heartRate;
-        %tmp.276 = 0;
-        %tmp.277 = gt %tmp.275 %tmp.276;
-        bf %tmp.277 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_31_2235_12_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2234 16 ]
-        %tmp.278 = lgetv %dc;
-        symbol [ dc %tmp.278 2234 16 18 ];
-        symbol [ drawText %tmp.279 2234 19 27 ];
-        %tmp.279 = getv function %tmp.278 :drawText;
-        %tmp.280 = lgetv %rightX.4;
-        symbol [ rightX %tmp.280 2234 28 34 ];
-        %tmp.281 = lgetv %y.5;
-        symbol [ y %tmp.281 2234 36 37 ];
-        %tmp.282 = lgetv %font.1;
-        symbol [ font %tmp.282 2234 39 43 ];
-        symbol [ heartRate %tmp.284 2234 45 54 ];
-        %tmp.284 = getv ? :heartRate;
-        symbol [ format %tmp.285 2234 55 61 ];
-        %tmp.285 = getv function %tmp.284 :format;
-        %tmp.286 = "%d";
-        %tmp.287 = invoke %tmp.284 %tmp.285(%tmp.286);
-        %tmp.288 = " bpm";
-        %tmp.289 = add %tmp.287 %tmp.288;
-        symbol [ Graphics %tmp.290 2234 78 86 ];
-        %tmp.290 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.291 2234 87 104 ];
-        %tmp.291 = getv %tmp.290 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.278 %tmp.279(%tmp.280, %tmp.281, %tmp.282, %tmp.289, %tmp.291);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_31_2235_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_else_false:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2235_19_2237_12_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2236 16 ]
-        %tmp.292 = lgetv %dc;
-        symbol [ dc %tmp.292 2236 16 18 ];
-        symbol [ drawText %tmp.293 2236 19 27 ];
-        %tmp.293 = getv function %tmp.292 :drawText;
-        %tmp.294 = lgetv %rightX.4;
-        symbol [ rightX %tmp.294 2236 28 34 ];
-        %tmp.295 = lgetv %y.5;
-        symbol [ y %tmp.295 2236 36 37 ];
-        %tmp.296 = lgetv %font.1;
-        symbol [ font %tmp.296 2236 39 43 ];
-        %tmp.297 = "--";
-        symbol [ Graphics %tmp.298 2236 51 59 ];
-        %tmp.298 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.299 2236 60 77 ];
-        %tmp.299 = getv %tmp.298 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.292 %tmp.293(%tmp.294, %tmp.295, %tmp.296, %tmp.297, %tmp.299);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2235_19_2237_12_stop:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2233_12_2237_12_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2239 12 ]
-        %tmp.300 = lgetv %y.5;
-        symbol [ y %tmp.300 2239 12 13 ];
-        %tmp.301 = lgetv %rowH.6;
-        symbol [ rowH %tmp.301 2239 17 21 ];
-        %tmp.302 = add %tmp.300 %tmp.301;
-        lputv %y.5 %tmp.302;
-        symbol [ y %y.5 2239 12 13 ];
+        %tmp.263 = lgetv %dc;
+        symbol [ dc %tmp.263 2233 12 14 ];
+        symbol [ drawText %tmp.264 2233 15 23 ];
+        %tmp.264 = getv function %tmp.263 :drawText;
+        %tmp.265 = lgetv %leftX.3;
+        symbol [ leftX %tmp.265 2233 24 29 ];
+        %tmp.266 = lgetv %y.5;
+        symbol [ y %tmp.266 2233 31 32 ];
+        %tmp.267 = lgetv %font.1;
+        symbol [ font %tmp.267 2233 34 38 ];
+        %tmp.268 = "Depth:";
+        symbol [ Graphics %tmp.269 2233 50 58 ];
+        %tmp.269 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.270 2233 59 76 ];
+        %tmp.270 = getv %tmp.269 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.263 %tmp.264(%tmp.265, %tmp.266, %tmp.267, %tmp.268, %tmp.270);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2234 12 ]
+        %tmp.271 = lgetv %dc;
+        symbol [ dc %tmp.271 2234 12 14 ];
+        symbol [ drawText %tmp.272 2234 15 23 ];
+        %tmp.272 = getv function %tmp.271 :drawText;
+        %tmp.273 = lgetv %rightX.4;
+        symbol [ rightX %tmp.273 2234 24 30 ];
+        %tmp.274 = lgetv %y.5;
+        symbol [ y %tmp.274 2234 32 33 ];
+        %tmp.275 = lgetv %font.1;
+        symbol [ font %tmp.275 2234 35 39 ];
+        symbol [ currentDepth %tmp.277 2234 41 53 ];
+        %tmp.277 = getv ? :currentDepth;
+        symbol [ format %tmp.278 2234 54 60 ];
+        %tmp.278 = getv function %tmp.277 :format;
+        %tmp.279 = "%.1f";
+        %tmp.280 = invoke %tmp.277 %tmp.278(%tmp.279);
+        %tmp.281 = "m";
+        %tmp.282 = add %tmp.280 %tmp.281;
+        symbol [ Graphics %tmp.283 2234 76 84 ];
+        %tmp.283 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.284 2234 85 102 ];
+        %tmp.284 = getv %tmp.283 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.271 %tmp.272(%tmp.273, %tmp.274, %tmp.275, %tmp.282, %tmp.284);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2236 12 ]
+        %tmp.285 = lgetv %y.5;
+        symbol [ y %tmp.285 2236 12 13 ];
+        %tmp.286 = lgetv %rowH.6;
+        symbol [ rowH %tmp.286 2236 17 21 ];
+        %tmp.287 = add %tmp.285 %tmp.286;
+        lputv %y.5 %tmp.287;
+        symbol [ y %y.5 2236 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2237 12 ]
+        %tmp.288 = lgetv %dc;
+        symbol [ dc %tmp.288 2237 12 14 ];
+        symbol [ drawText %tmp.289 2237 15 23 ];
+        %tmp.289 = getv function %tmp.288 :drawText;
+        %tmp.290 = lgetv %leftX.3;
+        symbol [ leftX %tmp.290 2237 24 29 ];
+        %tmp.291 = lgetv %y.5;
+        symbol [ y %tmp.291 2237 31 32 ];
+        %tmp.292 = lgetv %font.1;
+        symbol [ font %tmp.292 2237 34 38 ];
+        %tmp.293 = "Asc:";
+        symbol [ Graphics %tmp.294 2237 48 56 ];
+        %tmp.294 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.295 2237 57 74 ];
+        %tmp.295 = getv %tmp.294 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.288 %tmp.289(%tmp.290, %tmp.291, %tmp.292, %tmp.293, %tmp.295);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2238 12 ]
+        %tmp.296 = lgetv %dc;
+        symbol [ dc %tmp.296 2238 12 14 ];
+        symbol [ drawText %tmp.297 2238 15 23 ];
+        %tmp.297 = getv function %tmp.296 :drawText;
+        %tmp.298 = lgetv %rightX.4;
+        symbol [ rightX %tmp.298 2238 24 30 ];
+        %tmp.299 = lgetv %y.5;
+        symbol [ y %tmp.299 2238 32 33 ];
+        %tmp.300 = lgetv %font.1;
+        symbol [ font %tmp.300 2238 35 39 ];
+        symbol [ currentAscentRateMps %tmp.302 2238 41 61 ];
+        %tmp.302 = getv ? :currentAscentRateMps;
+        symbol [ format %tmp.303 2238 62 68 ];
+        %tmp.303 = getv function %tmp.302 :format;
+        %tmp.304 = "%.2f";
+        %tmp.305 = invoke %tmp.302 %tmp.303(%tmp.304);
+        %tmp.306 = "m/s";
+        %tmp.307 = add %tmp.305 %tmp.306;
+        symbol [ Graphics %tmp.308 2238 86 94 ];
+        %tmp.308 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.309 2238 95 112 ];
+        %tmp.309 = getv %tmp.308 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.296 %tmp.297(%tmp.298, %tmp.299, %tmp.300, %tmp.307, %tmp.309);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2240 12 ]
-        %tmp.303 = lgetv %dc;
-        symbol [ dc %tmp.303 2240 12 14 ];
-        symbol [ drawText %tmp.304 2240 15 23 ];
-        %tmp.304 = getv function %tmp.303 :drawText;
-        %tmp.305 = lgetv %leftX.3;
-        symbol [ leftX %tmp.305 2240 24 29 ];
-        %tmp.306 = lgetv %y.5;
-        symbol [ y %tmp.306 2240 31 32 ];
-        %tmp.307 = lgetv %font.1;
-        symbol [ font %tmp.307 2240 34 38 ];
-        %tmp.308 = "Motion:";
-        symbol [ Graphics %tmp.309 2240 51 59 ];
-        %tmp.309 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.310 2240 60 77 ];
-        %tmp.310 = getv %tmp.309 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.303 %tmp.304(%tmp.305, %tmp.306, %tmp.307, %tmp.308, %tmp.310);
+        %tmp.310 = lgetv %y.5;
+        symbol [ y %tmp.310 2240 12 13 ];
+        %tmp.311 = lgetv %rowH.6;
+        symbol [ rowH %tmp.311 2240 17 21 ];
+        %tmp.312 = add %tmp.310 %tmp.311;
+        lputv %y.5 %tmp.312;
+        symbol [ y %y.5 2240 12 13 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2241 12 ]
-        %tmp.311 = lgetv %dc;
-        symbol [ dc %tmp.311 2241 12 14 ];
-        symbol [ drawText %tmp.312 2241 15 23 ];
-        %tmp.312 = getv function %tmp.311 :drawText;
-        %tmp.313 = lgetv %rightX.4;
-        symbol [ rightX %tmp.313 2241 24 30 ];
-        %tmp.314 = lgetv %y.5;
-        symbol [ y %tmp.314 2241 32 33 ];
-        %tmp.315 = lgetv %font.1;
-        symbol [ font %tmp.315 2241 35 39 ];
-        symbol [ motionScoreMg %tmp.317 2241 41 54 ];
-        %tmp.317 = getv ? :motionScoreMg;
-        symbol [ format %tmp.318 2241 55 61 ];
-        %tmp.318 = getv function %tmp.317 :format;
-        %tmp.319 = "%.0f";
-        %tmp.320 = invoke %tmp.317 %tmp.318(%tmp.319);
-        %tmp.321 = "mg";
-        %tmp.322 = add %tmp.320 %tmp.321;
-        symbol [ Graphics %tmp.323 2241 78 86 ];
-        %tmp.323 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.324 2241 87 104 ];
-        %tmp.324 = getv %tmp.323 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.311 %tmp.312(%tmp.313, %tmp.314, %tmp.315, %tmp.322, %tmp.324);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2243 12 ]
-        %tmp.325 = lgetv %y.5;
-        symbol [ y %tmp.325 2243 12 13 ];
-        %tmp.326 = lgetv %rowH.6;
-        symbol [ rowH %tmp.326 2243 17 21 ];
-        %tmp.327 = 2;
-        %tmp.328 = sub %tmp.326 %tmp.327;
-        %tmp.329 = add %tmp.325 %tmp.328;
-        lputv %y.5 %tmp.329;
-        symbol [ y %y.5 2243 12 13 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2245 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_12_2254_12_if_stmt:
-        symbol [ calibrationActive %tmp.331 2245 16 33 ];
-        %tmp.331 = getv ? :calibrationActive;
-        bf %tmp.331 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_12_2254_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_12_2254_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2246 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_stop" ]
-        %elapsed.9 = local;
-        symbol [ elapsed %elapsed.9 2246 20 27 ];
-        symbol [ System %tmp.332 2246 30 36 ];
-        %tmp.332 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.333 2246 37 45 ];
-        %tmp.333 = getv function %tmp.332 :getTimer;
-        %tmp.334 = invoke %tmp.332 %tmp.333();
-        symbol [ calibrationStartMs %tmp.336 2246 50 68 ];
-        %tmp.336 = getv ? :calibrationStartMs;
-        %tmp.337 = sub %tmp.334 %tmp.336;
-        lputv %elapsed.9 %tmp.337;
-        symbol [ elapsed %elapsed.9 2246 20 27 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2247 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_stop" ]
-        %remain.10 = local;
-        symbol [ remain %remain.10 2247 20 26 ];
-        symbol [ CALIBRATION_DURATION_MS %tmp.339 2247 29 52 ];
-        %tmp.339 = getv ? :CALIBRATION_DURATION_MS;
-        %tmp.340 = lgetv %elapsed.9;
-        symbol [ elapsed %tmp.340 2247 55 62 ];
-        %tmp.341 = sub %tmp.339 %tmp.340;
-        lputv %remain.10 %tmp.341;
-        symbol [ remain %remain.10 2247 20 26 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2248 16 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_16_2250_16_if_stmt:
-        %tmp.342 = lgetv %remain.10;
-        symbol [ remain %tmp.342 2248 20 26 ];
-        %tmp.343 = 0;
-        %tmp.344 = lt %tmp.342 %tmp.343;
-        bf %tmp.344 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_16_2250_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_16_2250_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_32_2250_16_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2249 20 ]
-        %tmp.345 = 0;
-        lputv %remain.10 %tmp.345;
-        symbol [ remain %remain.10 2249 20 26 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_32_2250_16_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_16_2250_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2248_16_2250_16_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2251 16 ]
-        %tmp.346 = lgetv %dc;
-        symbol [ dc %tmp.346 2251 16 18 ];
-        symbol [ drawText %tmp.347 2251 19 27 ];
-        %tmp.347 = getv function %tmp.346 :drawText;
-        %tmp.348 = lgetv %leftX.3;
-        symbol [ leftX %tmp.348 2251 28 33 ];
-        %tmp.349 = lgetv %y.5;
-        symbol [ y %tmp.349 2251 35 36 ];
-        %tmp.350 = lgetv %font.1;
-        symbol [ font %tmp.350 2251 38 42 ];
-        %tmp.351 = "Cal:";
-        symbol [ Graphics %tmp.352 2251 52 60 ];
-        %tmp.352 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.353 2251 61 78 ];
-        %tmp.353 = getv %tmp.352 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.346 %tmp.347(%tmp.348, %tmp.349, %tmp.350, %tmp.351, %tmp.353);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2252 16 ]
-        %tmp.354 = lgetv %dc;
-        symbol [ dc %tmp.354 2252 16 18 ];
-        symbol [ drawText %tmp.355 2252 19 27 ];
-        %tmp.355 = getv function %tmp.354 :drawText;
-        %tmp.356 = lgetv %rightX.4;
-        symbol [ rightX %tmp.356 2252 28 34 ];
-        %tmp.357 = lgetv %y.5;
-        symbol [ y %tmp.357 2252 36 37 ];
-        %tmp.358 = lgetv %font.1;
-        symbol [ font %tmp.358 2252 39 43 ];
-        %tmp.359 = lgetv %remain.10;
-        symbol [ remain %tmp.359 2252 45 51 ];
-        %tmp.360 = "ms";
-        %tmp.361 = add %tmp.359 %tmp.360;
-        symbol [ Graphics %tmp.362 2252 60 68 ];
-        %tmp.362 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.363 2252 69 86 ];
-        %tmp.363 = getv %tmp.362 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.354 %tmp.355(%tmp.356, %tmp.357, %tmp.358, %tmp.361, %tmp.363);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2253 16 ]
-        %tmp.364 = lgetv %y.5;
-        symbol [ y %tmp.364 2253 16 17 ];
-        %tmp.365 = lgetv %rowH.6;
-        symbol [ rowH %tmp.365 2253 21 25 ];
-        %tmp.366 = add %tmp.364 %tmp.365;
-        lputv %y.5 %tmp.366;
-        symbol [ y %y.5 2253 16 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_35_2254_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_12_2254_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2245_12_2254_12_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2256 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_stmt:
-        symbol [ kalman %tmp.368 2256 16 22 ];
-        %tmp.368 = getv ? :kalman;
-        %tmp.369 = null;
-        %tmp.370 = ne %tmp.368 %tmp.369;
-        bf %tmp.370 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_32_2263_12_start:
+        %tmp.313 = lgetv %dc;
+        symbol [ dc %tmp.313 2241 12 14 ];
+        symbol [ drawText %tmp.314 2241 15 23 ];
+        %tmp.314 = getv function %tmp.313 :drawText;
+        %tmp.315 = lgetv %leftX.3;
+        symbol [ leftX %tmp.315 2241 24 29 ];
+        %tmp.316 = lgetv %y.5;
+        symbol [ y %tmp.316 2241 31 32 ];
+        %tmp.317 = lgetv %font.1;
+        symbol [ font %tmp.317 2241 34 38 ];
+        %tmp.318 = "HR:";
+        symbol [ Graphics %tmp.319 2241 47 55 ];
+        %tmp.319 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.320 2241 56 73 ];
+        %tmp.320 = getv %tmp.319 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.313 %tmp.314(%tmp.315, %tmp.316, %tmp.317, %tmp.318, %tmp.320);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2242 12 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_stmt:
+        symbol [ heartRate %tmp.322 2242 16 25 ];
+        %tmp.322 = getv ? :heartRate;
+        %tmp.323 = 0;
+        %tmp.324 = gt %tmp.322 %tmp.323;
+        bf %tmp.324 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_31_2244_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2243 16 ]
+        %tmp.325 = lgetv %dc;
+        symbol [ dc %tmp.325 2243 16 18 ];
+        symbol [ drawText %tmp.326 2243 19 27 ];
+        %tmp.326 = getv function %tmp.325 :drawText;
+        %tmp.327 = lgetv %rightX.4;
+        symbol [ rightX %tmp.327 2243 28 34 ];
+        %tmp.328 = lgetv %y.5;
+        symbol [ y %tmp.328 2243 36 37 ];
+        %tmp.329 = lgetv %font.1;
+        symbol [ font %tmp.329 2243 39 43 ];
+        symbol [ heartRate %tmp.331 2243 45 54 ];
+        %tmp.331 = getv ? :heartRate;
+        symbol [ format %tmp.332 2243 55 61 ];
+        %tmp.332 = getv function %tmp.331 :format;
+        %tmp.333 = "%d";
+        %tmp.334 = invoke %tmp.331 %tmp.332(%tmp.333);
+        %tmp.335 = " bpm";
+        %tmp.336 = add %tmp.334 %tmp.335;
+        symbol [ Graphics %tmp.337 2243 78 86 ];
+        %tmp.337 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.338 2243 87 104 ];
+        %tmp.338 = getv %tmp.337 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.325 %tmp.326(%tmp.327, %tmp.328, %tmp.329, %tmp.336, %tmp.338);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_31_2244_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_else_false:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2244_19_2246_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2245 16 ]
+        %tmp.339 = lgetv %dc;
+        symbol [ dc %tmp.339 2245 16 18 ];
+        symbol [ drawText %tmp.340 2245 19 27 ];
+        %tmp.340 = getv function %tmp.339 :drawText;
+        %tmp.341 = lgetv %rightX.4;
+        symbol [ rightX %tmp.341 2245 28 34 ];
+        %tmp.342 = lgetv %y.5;
+        symbol [ y %tmp.342 2245 36 37 ];
+        %tmp.343 = lgetv %font.1;
+        symbol [ font %tmp.343 2245 39 43 ];
+        %tmp.344 = "--";
+        symbol [ Graphics %tmp.345 2245 51 59 ];
+        %tmp.345 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.346 2245 60 77 ];
+        %tmp.346 = getv %tmp.345 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.339 %tmp.340(%tmp.341, %tmp.342, %tmp.343, %tmp.344, %tmp.346);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2244_19_2246_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2242_12_2246_12_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2248 12 ]
+        %tmp.347 = lgetv %y.5;
+        symbol [ y %tmp.347 2248 12 13 ];
+        %tmp.348 = lgetv %rowH.6;
+        symbol [ rowH %tmp.348 2248 17 21 ];
+        %tmp.349 = add %tmp.347 %tmp.348;
+        lputv %y.5 %tmp.349;
+        symbol [ y %y.5 2248 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2249 12 ]
+        %tmp.350 = lgetv %dc;
+        symbol [ dc %tmp.350 2249 12 14 ];
+        symbol [ drawText %tmp.351 2249 15 23 ];
+        %tmp.351 = getv function %tmp.350 :drawText;
+        %tmp.352 = lgetv %leftX.3;
+        symbol [ leftX %tmp.352 2249 24 29 ];
+        %tmp.353 = lgetv %y.5;
+        symbol [ y %tmp.353 2249 31 32 ];
+        %tmp.354 = lgetv %font.1;
+        symbol [ font %tmp.354 2249 34 38 ];
+        %tmp.355 = "Motion:";
+        symbol [ Graphics %tmp.356 2249 51 59 ];
+        %tmp.356 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.357 2249 60 77 ];
+        %tmp.357 = getv %tmp.356 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.350 %tmp.351(%tmp.352, %tmp.353, %tmp.354, %tmp.355, %tmp.357);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2250 12 ]
+        %tmp.358 = lgetv %dc;
+        symbol [ dc %tmp.358 2250 12 14 ];
+        symbol [ drawText %tmp.359 2250 15 23 ];
+        %tmp.359 = getv function %tmp.358 :drawText;
+        %tmp.360 = lgetv %rightX.4;
+        symbol [ rightX %tmp.360 2250 24 30 ];
+        %tmp.361 = lgetv %y.5;
+        symbol [ y %tmp.361 2250 32 33 ];
+        %tmp.362 = lgetv %font.1;
+        symbol [ font %tmp.362 2250 35 39 ];
+        symbol [ motionScoreMg %tmp.364 2250 41 54 ];
+        %tmp.364 = getv ? :motionScoreMg;
+        symbol [ format %tmp.365 2250 55 61 ];
+        %tmp.365 = getv function %tmp.364 :format;
+        %tmp.366 = "%.0f";
+        %tmp.367 = invoke %tmp.364 %tmp.365(%tmp.366);
+        %tmp.368 = "mg";
+        %tmp.369 = add %tmp.367 %tmp.368;
+        symbol [ Graphics %tmp.370 2250 78 86 ];
+        %tmp.370 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.371 2250 87 104 ];
+        %tmp.371 = getv %tmp.370 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.358 %tmp.359(%tmp.360, %tmp.361, %tmp.362, %tmp.369, %tmp.371);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2252 12 ]
+        %tmp.372 = lgetv %y.5;
+        symbol [ y %tmp.372 2252 12 13 ];
+        %tmp.373 = lgetv %rowH.6;
+        symbol [ rowH %tmp.373 2252 17 21 ];
+        %tmp.374 = 2;
+        %tmp.375 = sub %tmp.373 %tmp.374;
+        %tmp.376 = add %tmp.372 %tmp.375;
+        lputv %y.5 %tmp.376;
+        symbol [ y %y.5 2252 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2254 12 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_12_2263_12_if_stmt:
+        symbol [ calibrationActive %tmp.378 2254 16 33 ];
+        %tmp.378 = getv ? :calibrationActive;
+        bf %tmp.378 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_12_2263_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_12_2263_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2255 16 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_stop" ]
+        %elapsed.10 = local;
+        symbol [ elapsed %elapsed.10 2255 20 27 ];
+        symbol [ System %tmp.379 2255 30 36 ];
+        %tmp.379 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.380 2255 37 45 ];
+        %tmp.380 = getv function %tmp.379 :getTimer;
+        %tmp.381 = invoke %tmp.379 %tmp.380();
+        symbol [ calibrationStartMs %tmp.383 2255 50 68 ];
+        %tmp.383 = getv ? :calibrationStartMs;
+        %tmp.384 = sub %tmp.381 %tmp.383;
+        lputv %elapsed.10 %tmp.384;
+        symbol [ elapsed %elapsed.10 2255 20 27 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2256 16 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_stop" ]
+        %remain.11 = local;
+        symbol [ remain %remain.11 2256 20 26 ];
+        symbol [ CALIBRATION_DURATION_MS %tmp.386 2256 29 52 ];
+        %tmp.386 = getv ? :CALIBRATION_DURATION_MS;
+        %tmp.387 = lgetv %elapsed.10;
+        symbol [ elapsed %tmp.387 2256 55 62 ];
+        %tmp.388 = sub %tmp.386 %tmp.387;
+        lputv %remain.11 %tmp.388;
+        symbol [ remain %remain.11 2256 20 26 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2257 16 ]
-        %tmp.371 = lgetv %dc;
-        symbol [ dc %tmp.371 2257 16 18 ];
-        symbol [ drawText %tmp.372 2257 19 27 ];
-        %tmp.372 = getv function %tmp.371 :drawText;
-        %tmp.373 = lgetv %leftX.3;
-        symbol [ leftX %tmp.373 2257 28 33 ];
-        %tmp.374 = lgetv %y.5;
-        symbol [ y %tmp.374 2257 35 36 ];
-        %tmp.375 = lgetv %font.1;
-        symbol [ font %tmp.375 2257 38 42 ];
-        %tmp.376 = "KF E:";
-        symbol [ Graphics %tmp.377 2257 53 61 ];
-        %tmp.377 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.378 2257 62 79 ];
-        %tmp.378 = getv %tmp.377 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.371 %tmp.372(%tmp.373, %tmp.374, %tmp.375, %tmp.376, %tmp.378);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2258 16 ]
-        %tmp.379 = lgetv %dc;
-        symbol [ dc %tmp.379 2258 16 18 ];
-        symbol [ drawText %tmp.380 2258 19 27 ];
-        %tmp.380 = getv function %tmp.379 :drawText;
-        %tmp.381 = lgetv %rightX.4;
-        symbol [ rightX %tmp.381 2258 28 34 ];
-        %tmp.382 = lgetv %y.5;
-        symbol [ y %tmp.382 2258 36 37 ];
-        %tmp.383 = lgetv %font.1;
-        symbol [ font %tmp.383 2258 39 43 ];
-        symbol [ kalman %tmp.385 2258 45 51 ];
-        %tmp.385 = getv ? :kalman;
-        symbol [ getEast %tmp.386 2258 52 59 ];
-        %tmp.386 = getv function %tmp.385 :getEast;
-        %tmp.387 = invoke %tmp.385 %tmp.386();
-        symbol [ format %tmp.388 2258 62 68 ];
-        %tmp.388 = getv function %tmp.387 :format;
-        %tmp.389 = "%.1f";
-        %tmp.390 = invoke %tmp.387 %tmp.388(%tmp.389);
-        %tmp.391 = "m";
-        %tmp.392 = add %tmp.390 %tmp.391;
-        symbol [ Graphics %tmp.393 2258 84 92 ];
-        %tmp.393 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.394 2258 93 110 ];
-        %tmp.394 = getv %tmp.393 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.379 %tmp.380(%tmp.381, %tmp.382, %tmp.383, %tmp.392, %tmp.394);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2259 16 ]
-        %tmp.395 = lgetv %y.5;
-        symbol [ y %tmp.395 2259 16 17 ];
-        %tmp.396 = lgetv %rowH.6;
-        symbol [ rowH %tmp.396 2259 21 25 ];
-        %tmp.397 = add %tmp.395 %tmp.396;
-        lputv %y.5 %tmp.397;
-        symbol [ y %y.5 2259 16 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_16_2259_16_if_stmt:
+        %tmp.389 = lgetv %remain.11;
+        symbol [ remain %tmp.389 2257 20 26 ];
+        %tmp.390 = 0;
+        %tmp.391 = lt %tmp.389 %tmp.390;
+        bf %tmp.391 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_16_2259_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_16_2259_16_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_32_2259_16_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2258 20 ]
+        %tmp.392 = 0;
+        lputv %remain.11 %tmp.392;
+        symbol [ remain %remain.11 2258 20 26 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_32_2259_16_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_16_2259_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2257_16_2259_16_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2260 16 ]
-        %tmp.398 = lgetv %dc;
-        symbol [ dc %tmp.398 2260 16 18 ];
-        symbol [ drawText %tmp.399 2260 19 27 ];
-        %tmp.399 = getv function %tmp.398 :drawText;
-        %tmp.400 = lgetv %leftX.3;
-        symbol [ leftX %tmp.400 2260 28 33 ];
-        %tmp.401 = lgetv %y.5;
-        symbol [ y %tmp.401 2260 35 36 ];
-        %tmp.402 = lgetv %font.1;
-        symbol [ font %tmp.402 2260 38 42 ];
-        %tmp.403 = "KF N:";
-        symbol [ Graphics %tmp.404 2260 53 61 ];
-        %tmp.404 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.405 2260 62 79 ];
-        %tmp.405 = getv %tmp.404 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.398 %tmp.399(%tmp.400, %tmp.401, %tmp.402, %tmp.403, %tmp.405);
+        %tmp.393 = lgetv %dc;
+        symbol [ dc %tmp.393 2260 16 18 ];
+        symbol [ drawText %tmp.394 2260 19 27 ];
+        %tmp.394 = getv function %tmp.393 :drawText;
+        %tmp.395 = lgetv %leftX.3;
+        symbol [ leftX %tmp.395 2260 28 33 ];
+        %tmp.396 = lgetv %y.5;
+        symbol [ y %tmp.396 2260 35 36 ];
+        %tmp.397 = lgetv %font.1;
+        symbol [ font %tmp.397 2260 38 42 ];
+        %tmp.398 = "Cal:";
+        symbol [ Graphics %tmp.399 2260 52 60 ];
+        %tmp.399 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.400 2260 61 78 ];
+        %tmp.400 = getv %tmp.399 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.393 %tmp.394(%tmp.395, %tmp.396, %tmp.397, %tmp.398, %tmp.400);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2261 16 ]
-        %tmp.406 = lgetv %dc;
-        symbol [ dc %tmp.406 2261 16 18 ];
-        symbol [ drawText %tmp.407 2261 19 27 ];
-        %tmp.407 = getv function %tmp.406 :drawText;
-        %tmp.408 = lgetv %rightX.4;
-        symbol [ rightX %tmp.408 2261 28 34 ];
-        %tmp.409 = lgetv %y.5;
-        symbol [ y %tmp.409 2261 36 37 ];
-        %tmp.410 = lgetv %font.1;
-        symbol [ font %tmp.410 2261 39 43 ];
-        symbol [ kalman %tmp.412 2261 45 51 ];
-        %tmp.412 = getv ? :kalman;
-        symbol [ getNorth %tmp.413 2261 52 60 ];
-        %tmp.413 = getv function %tmp.412 :getNorth;
-        %tmp.414 = invoke %tmp.412 %tmp.413();
-        symbol [ format %tmp.415 2261 63 69 ];
-        %tmp.415 = getv function %tmp.414 :format;
-        %tmp.416 = "%.1f";
-        %tmp.417 = invoke %tmp.414 %tmp.415(%tmp.416);
-        %tmp.418 = "m";
-        %tmp.419 = add %tmp.417 %tmp.418;
-        symbol [ Graphics %tmp.420 2261 85 93 ];
-        %tmp.420 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.421 2261 94 111 ];
-        %tmp.421 = getv %tmp.420 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.406 %tmp.407(%tmp.408, %tmp.409, %tmp.410, %tmp.419, %tmp.421);
+        %tmp.401 = lgetv %dc;
+        symbol [ dc %tmp.401 2261 16 18 ];
+        symbol [ drawText %tmp.402 2261 19 27 ];
+        %tmp.402 = getv function %tmp.401 :drawText;
+        %tmp.403 = lgetv %rightX.4;
+        symbol [ rightX %tmp.403 2261 28 34 ];
+        %tmp.404 = lgetv %y.5;
+        symbol [ y %tmp.404 2261 36 37 ];
+        %tmp.405 = lgetv %font.1;
+        symbol [ font %tmp.405 2261 39 43 ];
+        %tmp.406 = lgetv %remain.11;
+        symbol [ remain %tmp.406 2261 45 51 ];
+        %tmp.407 = "ms";
+        %tmp.408 = add %tmp.406 %tmp.407;
+        symbol [ Graphics %tmp.409 2261 60 68 ];
+        %tmp.409 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.410 2261 69 86 ];
+        %tmp.410 = getv %tmp.409 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.401 %tmp.402(%tmp.403, %tmp.404, %tmp.405, %tmp.408, %tmp.410);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2262 16 ]
-        %tmp.422 = lgetv %y.5;
-        symbol [ y %tmp.422 2262 16 17 ];
-        %tmp.423 = lgetv %rowH.6;
-        symbol [ rowH %tmp.423 2262 21 25 ];
-        %tmp.424 = add %tmp.422 %tmp.423;
-        lputv %y.5 %tmp.424;
+        %tmp.411 = lgetv %y.5;
+        symbol [ y %tmp.411 2262 16 17 ];
+        %tmp.412 = lgetv %rowH.6;
+        symbol [ rowH %tmp.412 2262 21 25 ];
+        %tmp.413 = add %tmp.411 %tmp.412;
+        lputv %y.5 %tmp.413;
         symbol [ y %y.5 2262 16 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_32_2263_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_false:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2263 19 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_19_2273_12_if_stmt:
-        symbol [ dr %tmp.426 2263 23 25 ];
-        %tmp.426 = getv ? :dr;
-        %tmp.427 = null;
-        %tmp.428 = ne %tmp.426 %tmp.427;
-        bf %tmp.428 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_19_2273_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_19_2273_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_35_2273_12_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2264 16 ]
-        %tmp.429 = lgetv %dc;
-        symbol [ dc %tmp.429 2264 16 18 ];
-        symbol [ drawText %tmp.430 2264 19 27 ];
-        %tmp.430 = getv function %tmp.429 :drawText;
-        %tmp.431 = lgetv %leftX.3;
-        symbol [ leftX %tmp.431 2264 28 33 ];
-        %tmp.432 = lgetv %y.5;
-        symbol [ y %tmp.432 2264 35 36 ];
-        %tmp.433 = lgetv %font.1;
-        symbol [ font %tmp.433 2264 38 42 ];
-        %tmp.434 = "DR E:";
-        symbol [ Graphics %tmp.435 2264 53 61 ];
-        %tmp.435 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.436 2264 62 79 ];
-        %tmp.436 = getv %tmp.435 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.429 %tmp.430(%tmp.431, %tmp.432, %tmp.433, %tmp.434, %tmp.436);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2265 16 ]
-        %tmp.437 = lgetv %dc;
-        symbol [ dc %tmp.437 2265 16 18 ];
-        symbol [ drawText %tmp.438 2265 19 27 ];
-        %tmp.438 = getv function %tmp.437 :drawText;
-        %tmp.439 = lgetv %rightX.4;
-        symbol [ rightX %tmp.439 2265 28 34 ];
-        %tmp.440 = lgetv %y.5;
-        symbol [ y %tmp.440 2265 36 37 ];
-        %tmp.441 = lgetv %font.1;
-        symbol [ font %tmp.441 2265 39 43 ];
-        symbol [ dr %tmp.443 2265 45 47 ];
-        %tmp.443 = getv ? :dr;
-        symbol [ getEastMeters %tmp.444 2265 48 61 ];
-        %tmp.444 = getv function %tmp.443 :getEastMeters;
-        %tmp.445 = invoke %tmp.443 %tmp.444();
-        symbol [ format %tmp.446 2265 64 70 ];
-        %tmp.446 = getv function %tmp.445 :format;
-        %tmp.447 = "%.1f";
-        %tmp.448 = invoke %tmp.445 %tmp.446(%tmp.447);
-        %tmp.449 = "m";
-        %tmp.450 = add %tmp.448 %tmp.449;
-        symbol [ Graphics %tmp.451 2265 86 94 ];
-        %tmp.451 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.452 2265 95 112 ];
-        %tmp.452 = getv %tmp.451 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.437 %tmp.438(%tmp.439, %tmp.440, %tmp.441, %tmp.450, %tmp.452);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_35_2263_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_12_2263_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2254_12_2263_12_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2265 12 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_stmt:
+        symbol [ kalman %tmp.415 2265 16 22 ];
+        %tmp.415 = getv ? :kalman;
+        %tmp.416 = null;
+        %tmp.417 = ne %tmp.415 %tmp.416;
+        bf %tmp.417 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_32_2272_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2266 16 ]
-        %tmp.453 = lgetv %y.5;
-        symbol [ y %tmp.453 2266 16 17 ];
-        %tmp.454 = lgetv %rowH.6;
-        symbol [ rowH %tmp.454 2266 21 25 ];
-        %tmp.455 = add %tmp.453 %tmp.454;
-        lputv %y.5 %tmp.455;
-        symbol [ y %y.5 2266 16 17 ];
+        %tmp.418 = lgetv %dc;
+        symbol [ dc %tmp.418 2266 16 18 ];
+        symbol [ drawText %tmp.419 2266 19 27 ];
+        %tmp.419 = getv function %tmp.418 :drawText;
+        %tmp.420 = lgetv %leftX.3;
+        symbol [ leftX %tmp.420 2266 28 33 ];
+        %tmp.421 = lgetv %y.5;
+        symbol [ y %tmp.421 2266 35 36 ];
+        %tmp.422 = lgetv %font.1;
+        symbol [ font %tmp.422 2266 38 42 ];
+        %tmp.423 = "KF E:";
+        symbol [ Graphics %tmp.424 2266 53 61 ];
+        %tmp.424 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.425 2266 62 79 ];
+        %tmp.425 = getv %tmp.424 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.418 %tmp.419(%tmp.420, %tmp.421, %tmp.422, %tmp.423, %tmp.425);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2267 16 ]
-        %tmp.456 = lgetv %dc;
-        symbol [ dc %tmp.456 2267 16 18 ];
-        symbol [ drawText %tmp.457 2267 19 27 ];
-        %tmp.457 = getv function %tmp.456 :drawText;
-        %tmp.458 = lgetv %leftX.3;
-        symbol [ leftX %tmp.458 2267 28 33 ];
-        %tmp.459 = lgetv %y.5;
-        symbol [ y %tmp.459 2267 35 36 ];
-        %tmp.460 = lgetv %font.1;
-        symbol [ font %tmp.460 2267 38 42 ];
-        %tmp.461 = "DR N:";
-        symbol [ Graphics %tmp.462 2267 53 61 ];
-        %tmp.462 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.463 2267 62 79 ];
-        %tmp.463 = getv %tmp.462 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.456 %tmp.457(%tmp.458, %tmp.459, %tmp.460, %tmp.461, %tmp.463);
+        %tmp.426 = lgetv %dc;
+        symbol [ dc %tmp.426 2267 16 18 ];
+        symbol [ drawText %tmp.427 2267 19 27 ];
+        %tmp.427 = getv function %tmp.426 :drawText;
+        %tmp.428 = lgetv %rightX.4;
+        symbol [ rightX %tmp.428 2267 28 34 ];
+        %tmp.429 = lgetv %y.5;
+        symbol [ y %tmp.429 2267 36 37 ];
+        %tmp.430 = lgetv %font.1;
+        symbol [ font %tmp.430 2267 39 43 ];
+        symbol [ kalman %tmp.432 2267 45 51 ];
+        %tmp.432 = getv ? :kalman;
+        symbol [ getEast %tmp.433 2267 52 59 ];
+        %tmp.433 = getv function %tmp.432 :getEast;
+        %tmp.434 = invoke %tmp.432 %tmp.433();
+        symbol [ format %tmp.435 2267 62 68 ];
+        %tmp.435 = getv function %tmp.434 :format;
+        %tmp.436 = "%.1f";
+        %tmp.437 = invoke %tmp.434 %tmp.435(%tmp.436);
+        %tmp.438 = "m";
+        %tmp.439 = add %tmp.437 %tmp.438;
+        symbol [ Graphics %tmp.440 2267 84 92 ];
+        %tmp.440 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.441 2267 93 110 ];
+        %tmp.441 = getv %tmp.440 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.426 %tmp.427(%tmp.428, %tmp.429, %tmp.430, %tmp.439, %tmp.441);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2268 16 ]
-        %tmp.464 = lgetv %dc;
-        symbol [ dc %tmp.464 2268 16 18 ];
-        symbol [ drawText %tmp.465 2268 19 27 ];
-        %tmp.465 = getv function %tmp.464 :drawText;
-        %tmp.466 = lgetv %rightX.4;
-        symbol [ rightX %tmp.466 2268 28 34 ];
-        %tmp.467 = lgetv %y.5;
-        symbol [ y %tmp.467 2268 36 37 ];
-        %tmp.468 = lgetv %font.1;
-        symbol [ font %tmp.468 2268 39 43 ];
-        symbol [ dr %tmp.470 2268 45 47 ];
-        %tmp.470 = getv ? :dr;
-        symbol [ getNorthMeters %tmp.471 2268 48 62 ];
-        %tmp.471 = getv function %tmp.470 :getNorthMeters;
-        %tmp.472 = invoke %tmp.470 %tmp.471();
-        symbol [ format %tmp.473 2268 65 71 ];
-        %tmp.473 = getv function %tmp.472 :format;
-        %tmp.474 = "%.1f";
-        %tmp.475 = invoke %tmp.472 %tmp.473(%tmp.474);
-        %tmp.476 = "m";
-        %tmp.477 = add %tmp.475 %tmp.476;
-        symbol [ Graphics %tmp.478 2268 87 95 ];
-        %tmp.478 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.479 2268 96 113 ];
-        %tmp.479 = getv %tmp.478 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.464 %tmp.465(%tmp.466, %tmp.467, %tmp.468, %tmp.477, %tmp.479);
+        %tmp.442 = lgetv %y.5;
+        symbol [ y %tmp.442 2268 16 17 ];
+        %tmp.443 = lgetv %rowH.6;
+        symbol [ rowH %tmp.443 2268 21 25 ];
+        %tmp.444 = add %tmp.442 %tmp.443;
+        lputv %y.5 %tmp.444;
+        symbol [ y %y.5 2268 16 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2269 16 ]
-        %tmp.480 = lgetv %y.5;
-        symbol [ y %tmp.480 2269 16 17 ];
-        %tmp.481 = lgetv %rowH.6;
-        symbol [ rowH %tmp.481 2269 21 25 ];
-        %tmp.482 = add %tmp.480 %tmp.481;
-        lputv %y.5 %tmp.482;
-        symbol [ y %y.5 2269 16 17 ];
+        %tmp.445 = lgetv %dc;
+        symbol [ dc %tmp.445 2269 16 18 ];
+        symbol [ drawText %tmp.446 2269 19 27 ];
+        %tmp.446 = getv function %tmp.445 :drawText;
+        %tmp.447 = lgetv %leftX.3;
+        symbol [ leftX %tmp.447 2269 28 33 ];
+        %tmp.448 = lgetv %y.5;
+        symbol [ y %tmp.448 2269 35 36 ];
+        %tmp.449 = lgetv %font.1;
+        symbol [ font %tmp.449 2269 38 42 ];
+        %tmp.450 = "KF N:";
+        symbol [ Graphics %tmp.451 2269 53 61 ];
+        %tmp.451 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.452 2269 62 79 ];
+        %tmp.452 = getv %tmp.451 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.445 %tmp.446(%tmp.447, %tmp.448, %tmp.449, %tmp.450, %tmp.452);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2270 16 ]
-        %tmp.483 = lgetv %dc;
-        symbol [ dc %tmp.483 2270 16 18 ];
-        symbol [ drawText %tmp.484 2270 19 27 ];
-        %tmp.484 = getv function %tmp.483 :drawText;
-        %tmp.485 = lgetv %leftX.3;
-        symbol [ leftX %tmp.485 2270 28 33 ];
-        %tmp.486 = lgetv %y.5;
-        symbol [ y %tmp.486 2270 35 36 ];
-        %tmp.487 = lgetv %font.1;
-        symbol [ font %tmp.487 2270 38 42 ];
-        %tmp.488 = "Dist:";
-        symbol [ Graphics %tmp.489 2270 53 61 ];
-        %tmp.489 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.490 2270 62 79 ];
-        %tmp.490 = getv %tmp.489 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.483 %tmp.484(%tmp.485, %tmp.486, %tmp.487, %tmp.488, %tmp.490);
+        %tmp.453 = lgetv %dc;
+        symbol [ dc %tmp.453 2270 16 18 ];
+        symbol [ drawText %tmp.454 2270 19 27 ];
+        %tmp.454 = getv function %tmp.453 :drawText;
+        %tmp.455 = lgetv %rightX.4;
+        symbol [ rightX %tmp.455 2270 28 34 ];
+        %tmp.456 = lgetv %y.5;
+        symbol [ y %tmp.456 2270 36 37 ];
+        %tmp.457 = lgetv %font.1;
+        symbol [ font %tmp.457 2270 39 43 ];
+        symbol [ kalman %tmp.459 2270 45 51 ];
+        %tmp.459 = getv ? :kalman;
+        symbol [ getNorth %tmp.460 2270 52 60 ];
+        %tmp.460 = getv function %tmp.459 :getNorth;
+        %tmp.461 = invoke %tmp.459 %tmp.460();
+        symbol [ format %tmp.462 2270 63 69 ];
+        %tmp.462 = getv function %tmp.461 :format;
+        %tmp.463 = "%.1f";
+        %tmp.464 = invoke %tmp.461 %tmp.462(%tmp.463);
+        %tmp.465 = "m";
+        %tmp.466 = add %tmp.464 %tmp.465;
+        symbol [ Graphics %tmp.467 2270 85 93 ];
+        %tmp.467 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.468 2270 94 111 ];
+        %tmp.468 = getv %tmp.467 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.453 %tmp.454(%tmp.455, %tmp.456, %tmp.457, %tmp.466, %tmp.468);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2271 16 ]
-        %tmp.491 = lgetv %dc;
-        symbol [ dc %tmp.491 2271 16 18 ];
-        symbol [ drawText %tmp.492 2271 19 27 ];
-        %tmp.492 = getv function %tmp.491 :drawText;
-        %tmp.493 = lgetv %rightX.4;
-        symbol [ rightX %tmp.493 2271 28 34 ];
-        %tmp.494 = lgetv %y.5;
-        symbol [ y %tmp.494 2271 36 37 ];
-        %tmp.495 = lgetv %font.1;
-        symbol [ font %tmp.495 2271 39 43 ];
-        symbol [ dr %tmp.497 2271 45 47 ];
-        %tmp.497 = getv ? :dr;
-        symbol [ getTotalDistanceMeters %tmp.498 2271 48 70 ];
-        %tmp.498 = getv function %tmp.497 :getTotalDistanceMeters;
-        %tmp.499 = invoke %tmp.497 %tmp.498();
-        symbol [ format %tmp.500 2271 73 79 ];
-        %tmp.500 = getv function %tmp.499 :format;
-        %tmp.501 = "%.0f";
-        %tmp.502 = invoke %tmp.499 %tmp.500(%tmp.501);
-        %tmp.503 = "m";
-        %tmp.504 = add %tmp.502 %tmp.503;
-        symbol [ Graphics %tmp.505 2271 95 103 ];
-        %tmp.505 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.506 2271 104 121 ];
-        %tmp.506 = getv %tmp.505 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.491 %tmp.492(%tmp.493, %tmp.494, %tmp.495, %tmp.504, %tmp.506);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2272 16 ]
-        %tmp.507 = lgetv %y.5;
-        symbol [ y %tmp.507 2272 16 17 ];
-        %tmp.508 = lgetv %rowH.6;
-        symbol [ rowH %tmp.508 2272 21 25 ];
-        %tmp.509 = add %tmp.507 %tmp.508;
-        lputv %y.5 %tmp.509;
-        symbol [ y %y.5 2272 16 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_35_2273_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_19_2273_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2263_19_2273_12_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2256_12_2273_12_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2275 12 ]
-        %tmp.510 = lgetv %dc;
-        symbol [ dc %tmp.510 2275 12 14 ];
-        symbol [ drawText %tmp.511 2275 15 23 ];
-        %tmp.511 = getv function %tmp.510 :drawText;
-        %tmp.512 = lgetv %leftX.3;
-        symbol [ leftX %tmp.512 2275 24 29 ];
-        %tmp.513 = lgetv %y.5;
-        symbol [ y %tmp.513 2275 31 32 ];
-        %tmp.514 = lgetv %font.1;
-        symbol [ font %tmp.514 2275 34 38 ];
-        %tmp.515 = "Spd:";
-        symbol [ Graphics %tmp.516 2275 48 56 ];
-        %tmp.516 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.517 2275 57 74 ];
-        %tmp.517 = getv %tmp.516 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.510 %tmp.511(%tmp.512, %tmp.513, %tmp.514, %tmp.515, %tmp.517);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2276 12 ]
-        %tmp.518 = lgetv %dc;
-        symbol [ dc %tmp.518 2276 12 14 ];
-        symbol [ drawText %tmp.519 2276 15 23 ];
-        %tmp.519 = getv function %tmp.518 :drawText;
-        %tmp.520 = lgetv %rightX.4;
-        symbol [ rightX %tmp.520 2276 24 30 ];
-        %tmp.521 = lgetv %y.5;
-        symbol [ y %tmp.521 2276 32 33 ];
-        %tmp.522 = lgetv %font.1;
-        symbol [ font %tmp.522 2276 35 39 ];
-        symbol [ speed %tmp.524 2276 41 46 ];
-        %tmp.524 = getv ? :speed;
-        symbol [ format %tmp.525 2276 47 53 ];
-        %tmp.525 = getv function %tmp.524 :format;
-        %tmp.526 = "%.2f";
-        %tmp.527 = invoke %tmp.524 %tmp.525(%tmp.526);
-        %tmp.528 = "m/s";
+        %tmp.469 = lgetv %y.5;
+        symbol [ y %tmp.469 2271 16 17 ];
+        %tmp.470 = lgetv %rowH.6;
+        symbol [ rowH %tmp.470 2271 21 25 ];
+        %tmp.471 = add %tmp.469 %tmp.470;
+        lputv %y.5 %tmp.471;
+        symbol [ y %y.5 2271 16 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_32_2272_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_false:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2272 19 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_19_2282_12_if_stmt:
+        symbol [ dr %tmp.473 2272 23 25 ];
+        %tmp.473 = getv ? :dr;
+        %tmp.474 = null;
+        %tmp.475 = ne %tmp.473 %tmp.474;
+        bf %tmp.475 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_19_2282_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_19_2282_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_35_2282_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2273 16 ]
+        %tmp.476 = lgetv %dc;
+        symbol [ dc %tmp.476 2273 16 18 ];
+        symbol [ drawText %tmp.477 2273 19 27 ];
+        %tmp.477 = getv function %tmp.476 :drawText;
+        %tmp.478 = lgetv %leftX.3;
+        symbol [ leftX %tmp.478 2273 28 33 ];
+        %tmp.479 = lgetv %y.5;
+        symbol [ y %tmp.479 2273 35 36 ];
+        %tmp.480 = lgetv %font.1;
+        symbol [ font %tmp.480 2273 38 42 ];
+        %tmp.481 = "DR E:";
+        symbol [ Graphics %tmp.482 2273 53 61 ];
+        %tmp.482 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.483 2273 62 79 ];
+        %tmp.483 = getv %tmp.482 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.476 %tmp.477(%tmp.478, %tmp.479, %tmp.480, %tmp.481, %tmp.483);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2274 16 ]
+        %tmp.484 = lgetv %dc;
+        symbol [ dc %tmp.484 2274 16 18 ];
+        symbol [ drawText %tmp.485 2274 19 27 ];
+        %tmp.485 = getv function %tmp.484 :drawText;
+        %tmp.486 = lgetv %rightX.4;
+        symbol [ rightX %tmp.486 2274 28 34 ];
+        %tmp.487 = lgetv %y.5;
+        symbol [ y %tmp.487 2274 36 37 ];
+        %tmp.488 = lgetv %font.1;
+        symbol [ font %tmp.488 2274 39 43 ];
+        symbol [ dr %tmp.490 2274 45 47 ];
+        %tmp.490 = getv ? :dr;
+        symbol [ getEastMeters %tmp.491 2274 48 61 ];
+        %tmp.491 = getv function %tmp.490 :getEastMeters;
+        %tmp.492 = invoke %tmp.490 %tmp.491();
+        symbol [ format %tmp.493 2274 64 70 ];
+        %tmp.493 = getv function %tmp.492 :format;
+        %tmp.494 = "%.1f";
+        %tmp.495 = invoke %tmp.492 %tmp.493(%tmp.494);
+        %tmp.496 = "m";
+        %tmp.497 = add %tmp.495 %tmp.496;
+        symbol [ Graphics %tmp.498 2274 86 94 ];
+        %tmp.498 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.499 2274 95 112 ];
+        %tmp.499 = getv %tmp.498 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.484 %tmp.485(%tmp.486, %tmp.487, %tmp.488, %tmp.497, %tmp.499);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2275 16 ]
+        %tmp.500 = lgetv %y.5;
+        symbol [ y %tmp.500 2275 16 17 ];
+        %tmp.501 = lgetv %rowH.6;
+        symbol [ rowH %tmp.501 2275 21 25 ];
+        %tmp.502 = add %tmp.500 %tmp.501;
+        lputv %y.5 %tmp.502;
+        symbol [ y %y.5 2275 16 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2276 16 ]
+        %tmp.503 = lgetv %dc;
+        symbol [ dc %tmp.503 2276 16 18 ];
+        symbol [ drawText %tmp.504 2276 19 27 ];
+        %tmp.504 = getv function %tmp.503 :drawText;
+        %tmp.505 = lgetv %leftX.3;
+        symbol [ leftX %tmp.505 2276 28 33 ];
+        %tmp.506 = lgetv %y.5;
+        symbol [ y %tmp.506 2276 35 36 ];
+        %tmp.507 = lgetv %font.1;
+        symbol [ font %tmp.507 2276 38 42 ];
+        %tmp.508 = "DR N:";
+        symbol [ Graphics %tmp.509 2276 53 61 ];
+        %tmp.509 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.510 2276 62 79 ];
+        %tmp.510 = getv %tmp.509 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.503 %tmp.504(%tmp.505, %tmp.506, %tmp.507, %tmp.508, %tmp.510);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2277 16 ]
+        %tmp.511 = lgetv %dc;
+        symbol [ dc %tmp.511 2277 16 18 ];
+        symbol [ drawText %tmp.512 2277 19 27 ];
+        %tmp.512 = getv function %tmp.511 :drawText;
+        %tmp.513 = lgetv %rightX.4;
+        symbol [ rightX %tmp.513 2277 28 34 ];
+        %tmp.514 = lgetv %y.5;
+        symbol [ y %tmp.514 2277 36 37 ];
+        %tmp.515 = lgetv %font.1;
+        symbol [ font %tmp.515 2277 39 43 ];
+        symbol [ dr %tmp.517 2277 45 47 ];
+        %tmp.517 = getv ? :dr;
+        symbol [ getNorthMeters %tmp.518 2277 48 62 ];
+        %tmp.518 = getv function %tmp.517 :getNorthMeters;
+        %tmp.519 = invoke %tmp.517 %tmp.518();
+        symbol [ format %tmp.520 2277 65 71 ];
+        %tmp.520 = getv function %tmp.519 :format;
+        %tmp.521 = "%.1f";
+        %tmp.522 = invoke %tmp.519 %tmp.520(%tmp.521);
+        %tmp.523 = "m";
+        %tmp.524 = add %tmp.522 %tmp.523;
+        symbol [ Graphics %tmp.525 2277 87 95 ];
+        %tmp.525 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.526 2277 96 113 ];
+        %tmp.526 = getv %tmp.525 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.511 %tmp.512(%tmp.513, %tmp.514, %tmp.515, %tmp.524, %tmp.526);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2278 16 ]
+        %tmp.527 = lgetv %y.5;
+        symbol [ y %tmp.527 2278 16 17 ];
+        %tmp.528 = lgetv %rowH.6;
+        symbol [ rowH %tmp.528 2278 21 25 ];
         %tmp.529 = add %tmp.527 %tmp.528;
-        symbol [ Graphics %tmp.530 2276 71 79 ];
-        %tmp.530 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.531 2276 80 97 ];
-        %tmp.531 = getv %tmp.530 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.518 %tmp.519(%tmp.520, %tmp.521, %tmp.522, %tmp.529, %tmp.531);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2279 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_12_2309_12_if_stmt:
-        symbol [ n2Model %tmp.533 2279 16 23 ];
-        %tmp.533 = getv ? :n2Model;
-        %tmp.534 = null;
-        %tmp.535 = ne %tmp.533 %tmp.534;
-        bf %tmp.535 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_12_2309_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_12_2309_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_start:
+        lputv %y.5 %tmp.529;
+        symbol [ y %y.5 2278 16 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2279 16 ]
+        %tmp.530 = lgetv %dc;
+        symbol [ dc %tmp.530 2279 16 18 ];
+        symbol [ drawText %tmp.531 2279 19 27 ];
+        %tmp.531 = getv function %tmp.530 :drawText;
+        %tmp.532 = lgetv %leftX.3;
+        symbol [ leftX %tmp.532 2279 28 33 ];
+        %tmp.533 = lgetv %y.5;
+        symbol [ y %tmp.533 2279 35 36 ];
+        %tmp.534 = lgetv %font.1;
+        symbol [ font %tmp.534 2279 38 42 ];
+        %tmp.535 = "Dist:";
+        symbol [ Graphics %tmp.536 2279 53 61 ];
+        %tmp.536 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.537 2279 62 79 ];
+        %tmp.537 = getv %tmp.536 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.530 %tmp.531(%tmp.532, %tmp.533, %tmp.534, %tmp.535, %tmp.537);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2280 16 ]
-        %tmp.536 = lgetv %y.5;
-        symbol [ y %tmp.536 2280 16 17 ];
-        %tmp.537 = lgetv %rowH.6;
-        symbol [ rowH %tmp.537 2280 21 25 ];
-        %tmp.538 = add %tmp.536 %tmp.537;
-        lputv %y.5 %tmp.538;
-        symbol [ y %y.5 2280 16 17 ];
+        %tmp.538 = lgetv %dc;
+        symbol [ dc %tmp.538 2280 16 18 ];
+        symbol [ drawText %tmp.539 2280 19 27 ];
+        %tmp.539 = getv function %tmp.538 :drawText;
+        %tmp.540 = lgetv %rightX.4;
+        symbol [ rightX %tmp.540 2280 28 34 ];
+        %tmp.541 = lgetv %y.5;
+        symbol [ y %tmp.541 2280 36 37 ];
+        %tmp.542 = lgetv %font.1;
+        symbol [ font %tmp.542 2280 39 43 ];
+        symbol [ dr %tmp.544 2280 45 47 ];
+        %tmp.544 = getv ? :dr;
+        symbol [ getTotalDistanceMeters %tmp.545 2280 48 70 ];
+        %tmp.545 = getv function %tmp.544 :getTotalDistanceMeters;
+        %tmp.546 = invoke %tmp.544 %tmp.545();
+        symbol [ format %tmp.547 2280 73 79 ];
+        %tmp.547 = getv function %tmp.546 :format;
+        %tmp.548 = "%.0f";
+        %tmp.549 = invoke %tmp.546 %tmp.547(%tmp.548);
+        %tmp.550 = "m";
+        %tmp.551 = add %tmp.549 %tmp.550;
+        symbol [ Graphics %tmp.552 2280 95 103 ];
+        %tmp.552 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.553 2280 104 121 ];
+        %tmp.553 = getv %tmp.552 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.538 %tmp.539(%tmp.540, %tmp.541, %tmp.542, %tmp.551, %tmp.553);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2281 16 ]
-        %tmp.539 = lgetv %dc;
-        symbol [ dc %tmp.539 2281 16 18 ];
-        symbol [ drawText %tmp.540 2281 19 27 ];
-        %tmp.540 = getv function %tmp.539 :drawText;
-        %tmp.541 = lgetv %leftX.3;
-        symbol [ leftX %tmp.541 2281 28 33 ];
-        %tmp.542 = lgetv %y.5;
-        symbol [ y %tmp.542 2281 35 36 ];
-        %tmp.543 = lgetv %font.1;
-        symbol [ font %tmp.543 2281 38 42 ];
-        %tmp.544 = "N2:";
-        symbol [ Graphics %tmp.545 2281 51 59 ];
-        %tmp.545 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.546 2281 60 77 ];
-        %tmp.546 = getv %tmp.545 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.539 %tmp.540(%tmp.541, %tmp.542, %tmp.543, %tmp.544, %tmp.546);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2282 16 ]
-        %tmp.547 = lgetv %dc;
-        symbol [ dc %tmp.547 2282 16 18 ];
-        symbol [ drawText %tmp.548 2282 19 27 ];
-        %tmp.548 = getv function %tmp.547 :drawText;
-        %tmp.549 = lgetv %rightX.4;
-        symbol [ rightX %tmp.549 2282 28 34 ];
-        %tmp.550 = lgetv %y.5;
-        symbol [ y %tmp.550 2282 36 37 ];
-        %tmp.551 = lgetv %font.1;
-        symbol [ font %tmp.551 2282 39 43 ];
-        symbol [ n2Model %tmp.553 2282 45 52 ];
-        %tmp.553 = getv ? :n2Model;
-        symbol [ getLoading %tmp.554 2282 53 63 ];
-        %tmp.554 = getv function %tmp.553 :getLoading;
-        %tmp.555 = invoke %tmp.553 %tmp.554();
-        symbol [ format %tmp.556 2282 66 72 ];
-        %tmp.556 = getv function %tmp.555 :format;
-        %tmp.557 = "%.0f";
-        %tmp.558 = invoke %tmp.555 %tmp.556(%tmp.557);
-        %tmp.559 = "%";
-        %tmp.560 = add %tmp.558 %tmp.559;
-        symbol [ Graphics %tmp.561 2282 88 96 ];
-        %tmp.561 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.562 2282 97 114 ];
-        %tmp.562 = getv %tmp.561 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.547 %tmp.548(%tmp.549, %tmp.550, %tmp.551, %tmp.560, %tmp.562);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2284 16 ]
-        %tmp.563 = lgetv %y.5;
-        symbol [ y %tmp.563 2284 16 17 ];
-        %tmp.564 = lgetv %rowH.6;
-        symbol [ rowH %tmp.564 2284 21 25 ];
-        %tmp.565 = add %tmp.563 %tmp.564;
-        lputv %y.5 %tmp.565;
-        symbol [ y %y.5 2284 16 17 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2285 16 ]
-        %tmp.566 = lgetv %dc;
-        symbol [ dc %tmp.566 2285 16 18 ];
-        symbol [ drawText %tmp.567 2285 19 27 ];
-        %tmp.567 = getv function %tmp.566 :drawText;
-        %tmp.568 = lgetv %leftX.3;
-        symbol [ leftX %tmp.568 2285 28 33 ];
-        %tmp.569 = lgetv %y.5;
-        symbol [ y %tmp.569 2285 35 36 ];
-        %tmp.570 = lgetv %font.1;
-        symbol [ font %tmp.570 2285 38 42 ];
-        %tmp.571 = "Max:";
-        symbol [ Graphics %tmp.572 2285 52 60 ];
-        %tmp.572 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.573 2285 61 78 ];
-        %tmp.573 = getv %tmp.572 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.566 %tmp.567(%tmp.568, %tmp.569, %tmp.570, %tmp.571, %tmp.573);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2286 16 ]
-        %tmp.574 = lgetv %dc;
-        symbol [ dc %tmp.574 2286 16 18 ];
-        symbol [ drawText %tmp.575 2286 19 27 ];
-        %tmp.575 = getv function %tmp.574 :drawText;
-        %tmp.576 = lgetv %rightX.4;
-        symbol [ rightX %tmp.576 2286 28 34 ];
-        %tmp.577 = lgetv %y.5;
-        symbol [ y %tmp.577 2286 36 37 ];
-        %tmp.578 = lgetv %font.1;
-        symbol [ font %tmp.578 2286 39 43 ];
-        symbol [ n2Model %tmp.580 2286 45 52 ];
+        %tmp.554 = lgetv %y.5;
+        symbol [ y %tmp.554 2281 16 17 ];
+        %tmp.555 = lgetv %rowH.6;
+        symbol [ rowH %tmp.555 2281 21 25 ];
+        %tmp.556 = add %tmp.554 %tmp.555;
+        lputv %y.5 %tmp.556;
+        symbol [ y %y.5 2281 16 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_35_2282_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_19_2282_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2272_19_2282_12_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2265_12_2282_12_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2284 12 ]
+        %tmp.557 = lgetv %dc;
+        symbol [ dc %tmp.557 2284 12 14 ];
+        symbol [ drawText %tmp.558 2284 15 23 ];
+        %tmp.558 = getv function %tmp.557 :drawText;
+        %tmp.559 = lgetv %leftX.3;
+        symbol [ leftX %tmp.559 2284 24 29 ];
+        %tmp.560 = lgetv %y.5;
+        symbol [ y %tmp.560 2284 31 32 ];
+        %tmp.561 = lgetv %font.1;
+        symbol [ font %tmp.561 2284 34 38 ];
+        %tmp.562 = "Spd:";
+        symbol [ Graphics %tmp.563 2284 48 56 ];
+        %tmp.563 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.564 2284 57 74 ];
+        %tmp.564 = getv %tmp.563 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.557 %tmp.558(%tmp.559, %tmp.560, %tmp.561, %tmp.562, %tmp.564);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2285 12 ]
+        %tmp.565 = lgetv %dc;
+        symbol [ dc %tmp.565 2285 12 14 ];
+        symbol [ drawText %tmp.566 2285 15 23 ];
+        %tmp.566 = getv function %tmp.565 :drawText;
+        %tmp.567 = lgetv %rightX.4;
+        symbol [ rightX %tmp.567 2285 24 30 ];
+        %tmp.568 = lgetv %y.5;
+        symbol [ y %tmp.568 2285 32 33 ];
+        %tmp.569 = lgetv %font.1;
+        symbol [ font %tmp.569 2285 35 39 ];
+        symbol [ speed %tmp.571 2285 41 46 ];
+        %tmp.571 = getv ? :speed;
+        symbol [ format %tmp.572 2285 47 53 ];
+        %tmp.572 = getv function %tmp.571 :format;
+        %tmp.573 = "%.2f";
+        %tmp.574 = invoke %tmp.571 %tmp.572(%tmp.573);
+        %tmp.575 = "m/s";
+        %tmp.576 = add %tmp.574 %tmp.575;
+        symbol [ Graphics %tmp.577 2285 71 79 ];
+        %tmp.577 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.578 2285 80 97 ];
+        %tmp.578 = getv %tmp.577 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.565 %tmp.566(%tmp.567, %tmp.568, %tmp.569, %tmp.576, %tmp.578);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2288 12 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_12_2318_12_if_stmt:
+        symbol [ n2Model %tmp.580 2288 16 23 ];
         %tmp.580 = getv ? :n2Model;
-        symbol [ getMaxLoading %tmp.581 2286 53 66 ];
-        %tmp.581 = getv function %tmp.580 :getMaxLoading;
-        %tmp.582 = invoke %tmp.580 %tmp.581();
-        symbol [ format %tmp.583 2286 69 75 ];
-        %tmp.583 = getv function %tmp.582 :format;
-        %tmp.584 = "%.0f";
-        %tmp.585 = invoke %tmp.582 %tmp.583(%tmp.584);
-        %tmp.586 = "%";
-        %tmp.587 = add %tmp.585 %tmp.586;
-        symbol [ Graphics %tmp.588 2286 91 99 ];
-        %tmp.588 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.589 2286 100 117 ];
-        %tmp.589 = getv %tmp.588 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.574 %tmp.575(%tmp.576, %tmp.577, %tmp.578, %tmp.587, %tmp.589);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2288 16 ]
-        %tmp.590 = lgetv %y.5;
-        symbol [ y %tmp.590 2288 16 17 ];
-        %tmp.591 = lgetv %rowH.6;
-        symbol [ rowH %tmp.591 2288 21 25 ];
-        %tmp.592 = add %tmp.590 %tmp.591;
-        lputv %y.5 %tmp.592;
-        symbol [ y %y.5 2288 16 17 ];
+        %tmp.581 = null;
+        %tmp.582 = ne %tmp.580 %tmp.581;
+        bf %tmp.582 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_12_2318_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_12_2318_12_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2289 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_stop" ]
-        %band.11 = local;
-        symbol [ band %band.11 2289 20 24 ];
-        symbol [ n2Model %tmp.594 2289 27 34 ];
-        %tmp.594 = getv ? :n2Model;
-        symbol [ getRiskBand %tmp.595 2289 35 46 ];
-        %tmp.595 = getv function %tmp.594 :getRiskBand;
-        %tmp.596 = invoke %tmp.594 %tmp.595();
-        lputv %band.11 %tmp.596;
-        symbol [ band %band.11 2289 20 24 ];
+        %tmp.583 = lgetv %y.5;
+        symbol [ y %tmp.583 2289 16 17 ];
+        %tmp.584 = lgetv %rowH.6;
+        symbol [ rowH %tmp.584 2289 21 25 ];
+        %tmp.585 = add %tmp.583 %tmp.584;
+        lputv %y.5 %tmp.585;
+        symbol [ y %y.5 2289 16 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2290 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_stop" ]
-        %bandText.12 = local;
-        symbol [ bandText %bandText.12 2290 20 28 ];
-        %tmp.597 = "LOW";
-        lputv %bandText.12 %tmp.597;
-        symbol [ bandText %bandText.12 2290 20 28 ];
+        %tmp.586 = lgetv %dc;
+        symbol [ dc %tmp.586 2290 16 18 ];
+        symbol [ drawText %tmp.587 2290 19 27 ];
+        %tmp.587 = getv function %tmp.586 :drawText;
+        %tmp.588 = lgetv %leftX.3;
+        symbol [ leftX %tmp.588 2290 28 33 ];
+        %tmp.589 = lgetv %y.5;
+        symbol [ y %tmp.589 2290 35 36 ];
+        %tmp.590 = lgetv %font.1;
+        symbol [ font %tmp.590 2290 38 42 ];
+        %tmp.591 = "N2:";
+        symbol [ Graphics %tmp.592 2290 51 59 ];
+        %tmp.592 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.593 2290 60 77 ];
+        %tmp.593 = getv %tmp.592 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.586 %tmp.587(%tmp.588, %tmp.589, %tmp.590, %tmp.591, %tmp.593);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2291 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_stop" ]
-        %bandColor.13 = local;
-        symbol [ bandColor %bandColor.13 2291 20 29 ];
-        symbol [ Graphics %tmp.598 2291 32 40 ];
-        %tmp.598 = getm $.Toybox.Graphics;
-        symbol [ COLOR_GREEN %tmp.599 2291 41 52 ];
-        %tmp.599 = getv %tmp.598 :COLOR_GREEN;
-        lputv %bandColor.13 %tmp.599;
-        symbol [ bandColor %bandColor.13 2291 20 29 ];
+        %tmp.594 = lgetv %dc;
+        symbol [ dc %tmp.594 2291 16 18 ];
+        symbol [ drawText %tmp.595 2291 19 27 ];
+        %tmp.595 = getv function %tmp.594 :drawText;
+        %tmp.596 = lgetv %rightX.4;
+        symbol [ rightX %tmp.596 2291 28 34 ];
+        %tmp.597 = lgetv %y.5;
+        symbol [ y %tmp.597 2291 36 37 ];
+        %tmp.598 = lgetv %font.1;
+        symbol [ font %tmp.598 2291 39 43 ];
+        symbol [ n2Model %tmp.600 2291 45 52 ];
+        %tmp.600 = getv ? :n2Model;
+        symbol [ getLoading %tmp.601 2291 53 63 ];
+        %tmp.601 = getv function %tmp.600 :getLoading;
+        %tmp.602 = invoke %tmp.600 %tmp.601();
+        symbol [ format %tmp.603 2291 66 72 ];
+        %tmp.603 = getv function %tmp.602 :format;
+        %tmp.604 = "%.0f";
+        %tmp.605 = invoke %tmp.602 %tmp.603(%tmp.604);
+        %tmp.606 = "%";
+        %tmp.607 = add %tmp.605 %tmp.606;
+        symbol [ Graphics %tmp.608 2291 88 96 ];
+        %tmp.608 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.609 2291 97 114 ];
+        %tmp.609 = getv %tmp.608 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.594 %tmp.595(%tmp.596, %tmp.597, %tmp.598, %tmp.607, %tmp.609);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2293 16 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_stmt:
-        %tmp.600 = lgetv %band.11;
-        symbol [ band %tmp.600 2293 20 24 ];
-        %tmp.601 = 1;
-        %tmp.602 = eq %tmp.600 %tmp.601;
-        bf %tmp.602 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_31_2296_16_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2294 20 ]
-        %tmp.603 = "MOD";
-        lputv %bandText.12 %tmp.603;
-        symbol [ bandText %bandText.12 2294 20 28 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2295 20 ]
-        symbol [ Graphics %tmp.604 2295 32 40 ];
-        %tmp.604 = getm $.Toybox.Graphics;
-        symbol [ COLOR_YELLOW %tmp.605 2295 41 53 ];
-        %tmp.605 = getv %tmp.604 :COLOR_YELLOW;
-        lputv %bandColor.13 %tmp.605;
-        symbol [ bandColor %bandColor.13 2295 20 29 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_31_2296_16_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_false:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2296 23 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_stmt:
-        %tmp.606 = lgetv %band.11;
-        symbol [ band %tmp.606 2296 27 31 ];
-        %tmp.607 = 2;
-        %tmp.608 = eq %tmp.606 %tmp.607;
-        bf %tmp.608 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_38_2299_16_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2297 20 ]
-        %tmp.609 = "ELEV";
-        lputv %bandText.12 %tmp.609;
-        symbol [ bandText %bandText.12 2297 20 28 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2298 20 ]
-        symbol [ Graphics %tmp.610 2298 32 40 ];
-        %tmp.610 = getm $.Toybox.Graphics;
-        symbol [ COLOR_ORANGE %tmp.611 2298 41 53 ];
-        %tmp.611 = getv %tmp.610 :COLOR_ORANGE;
-        lputv %bandColor.13 %tmp.611;
-        symbol [ bandColor %bandColor.13 2298 20 29 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_38_2299_16_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_false:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2299 23 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_23_2302_16_if_stmt:
-        %tmp.612 = lgetv %band.11;
-        symbol [ band %tmp.612 2299 27 31 ];
-        %tmp.613 = 3;
-        %tmp.614 = eq %tmp.612 %tmp.613;
-        bf %tmp.614 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_23_2302_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_23_2302_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_38_2302_16_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2300 20 ]
-        %tmp.615 = "HIGH";
-        lputv %bandText.12 %tmp.615;
-        symbol [ bandText %bandText.12 2300 20 28 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2301 20 ]
-        symbol [ Graphics %tmp.616 2301 32 40 ];
-        %tmp.616 = getm $.Toybox.Graphics;
-        symbol [ COLOR_RED %tmp.617 2301 41 50 ];
-        %tmp.617 = getv %tmp.616 :COLOR_RED;
-        lputv %bandColor.13 %tmp.617;
-        symbol [ bandColor %bandColor.13 2301 20 29 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_38_2302_16_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_23_2302_16_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2299_23_2302_16_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2296_23_2302_16_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2293_16_2302_16_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2304 16 ]
-        %tmp.618 = lgetv %dc;
-        symbol [ dc %tmp.618 2304 16 18 ];
-        symbol [ setColor %tmp.619 2304 19 27 ];
-        %tmp.619 = getv function %tmp.618 :setColor;
-        %tmp.620 = lgetv %bandColor.13;
-        symbol [ bandColor %tmp.620 2304 28 37 ];
-        symbol [ Graphics %tmp.621 2304 39 47 ];
-        %tmp.621 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.622 2304 48 65 ];
-        %tmp.622 = getv %tmp.621 :COLOR_TRANSPARENT;
-        invoke %tmp.618 %tmp.619(%tmp.620, %tmp.622);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2305 16 ]
-        %tmp.623 = lgetv %dc;
-        symbol [ dc %tmp.623 2305 16 18 ];
-        symbol [ drawText %tmp.624 2305 19 27 ];
-        %tmp.624 = getv function %tmp.623 :drawText;
-        %tmp.625 = lgetv %leftX.3;
-        symbol [ leftX %tmp.625 2305 28 33 ];
-        %tmp.626 = lgetv %y.5;
-        symbol [ y %tmp.626 2305 35 36 ];
-        %tmp.627 = lgetv %font.1;
-        symbol [ font %tmp.627 2305 38 42 ];
-        %tmp.628 = "Risk:";
-        symbol [ Graphics %tmp.629 2305 53 61 ];
-        %tmp.629 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.630 2305 62 79 ];
-        %tmp.630 = getv %tmp.629 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.623 %tmp.624(%tmp.625, %tmp.626, %tmp.627, %tmp.628, %tmp.630);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2306 16 ]
-        %tmp.631 = lgetv %dc;
-        symbol [ dc %tmp.631 2306 16 18 ];
-        symbol [ drawText %tmp.632 2306 19 27 ];
-        %tmp.632 = getv function %tmp.631 :drawText;
-        %tmp.633 = lgetv %rightX.4;
-        symbol [ rightX %tmp.633 2306 28 34 ];
-        %tmp.634 = lgetv %y.5;
-        symbol [ y %tmp.634 2306 36 37 ];
-        %tmp.635 = lgetv %font.1;
-        symbol [ font %tmp.635 2306 39 43 ];
-        %tmp.636 = lgetv %bandText.12;
-        symbol [ bandText %tmp.636 2306 45 53 ];
-        symbol [ Graphics %tmp.637 2306 55 63 ];
-        %tmp.637 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_LEFT %tmp.638 2306 64 81 ];
-        %tmp.638 = getv %tmp.637 :TEXT_JUSTIFY_LEFT;
-        invoke %tmp.631 %tmp.632(%tmp.633, %tmp.634, %tmp.635, %tmp.636, %tmp.638);
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2308 16 ]
-        %tmp.639 = lgetv %dc;
-        symbol [ dc %tmp.639 2308 16 18 ];
-        symbol [ setColor %tmp.640 2308 19 27 ];
-        %tmp.640 = getv function %tmp.639 :setColor;
-        symbol [ Graphics %tmp.641 2308 28 36 ];
-        %tmp.641 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.642 2308 37 48 ];
-        %tmp.642 = getv %tmp.641 :COLOR_WHITE;
-        symbol [ Graphics %tmp.643 2308 50 58 ];
-        %tmp.643 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.644 2308 59 76 ];
-        %tmp.644 = getv %tmp.643 :COLOR_TRANSPARENT;
-        invoke %tmp.639 %tmp.640(%tmp.642, %tmp.644);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_33_2309_12_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_12_2309_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2279_12_2309_12_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2310_8_stop:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_endTry:
-        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_catch:
-        %tmp.645 = exception;
-        push %tmp.645;
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2310 10 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_catch" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_10_2312_8_end" ]
-        %e.14 = local;
-        symbol [ e %e.14 2310 17 18 ];
-        %tmp.646 = dup %tmp.645;
-        lputv %e.14 %tmp.646;
-        symbol [ e %e.14 2310 17 18 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_20_2312_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2311 12 ]
-        symbol [ System %tmp.647 2311 12 18 ];
-        %tmp.647 = getm $.Toybox.System;
-        symbol [ println %tmp.648 2311 19 26 ];
-        %tmp.648 = getv function %tmp.647 :println;
-        %tmp.649 = "Draw error: ";
-        %tmp.650 = self;
-        symbol [ errorToString %tmp.651 2311 44 57 ];
-        %tmp.651 = getv function %tmp.650 :errorToString;
-        %tmp.652 = lgetv %e.14;
-        symbol [ e %tmp.652 2311 58 59 ];
-        %tmp.653 = invoke %tmp.650 %tmp.651(%tmp.652);
-        %tmp.654 = add %tmp.649 %tmp.653;
-        invoke %tmp.647 %tmp.648(%tmp.654);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_20_2312_8_stop:
-        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally;
+        %tmp.610 = lgetv %y.5;
+        symbol [ y %tmp.610 2293 16 17 ];
+        %tmp.611 = lgetv %rowH.6;
+        symbol [ rowH %tmp.611 2293 21 25 ];
+        %tmp.612 = add %tmp.610 %tmp.611;
+        lputv %y.5 %tmp.612;
+        symbol [ y %y.5 2293 16 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2294 16 ]
+        %tmp.613 = lgetv %dc;
+        symbol [ dc %tmp.613 2294 16 18 ];
+        symbol [ drawText %tmp.614 2294 19 27 ];
+        %tmp.614 = getv function %tmp.613 :drawText;
+        %tmp.615 = lgetv %leftX.3;
+        symbol [ leftX %tmp.615 2294 28 33 ];
+        %tmp.616 = lgetv %y.5;
+        symbol [ y %tmp.616 2294 35 36 ];
+        %tmp.617 = lgetv %font.1;
+        symbol [ font %tmp.617 2294 38 42 ];
+        %tmp.618 = "Max:";
+        symbol [ Graphics %tmp.619 2294 52 60 ];
+        %tmp.619 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.620 2294 61 78 ];
+        %tmp.620 = getv %tmp.619 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.613 %tmp.614(%tmp.615, %tmp.616, %tmp.617, %tmp.618, %tmp.620);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2295 16 ]
+        %tmp.621 = lgetv %dc;
+        symbol [ dc %tmp.621 2295 16 18 ];
+        symbol [ drawText %tmp.622 2295 19 27 ];
+        %tmp.622 = getv function %tmp.621 :drawText;
+        %tmp.623 = lgetv %rightX.4;
+        symbol [ rightX %tmp.623 2295 28 34 ];
+        %tmp.624 = lgetv %y.5;
+        symbol [ y %tmp.624 2295 36 37 ];
+        %tmp.625 = lgetv %font.1;
+        symbol [ font %tmp.625 2295 39 43 ];
+        symbol [ n2Model %tmp.627 2295 45 52 ];
+        %tmp.627 = getv ? :n2Model;
+        symbol [ getMaxLoading %tmp.628 2295 53 66 ];
+        %tmp.628 = getv function %tmp.627 :getMaxLoading;
+        %tmp.629 = invoke %tmp.627 %tmp.628();
+        symbol [ format %tmp.630 2295 69 75 ];
+        %tmp.630 = getv function %tmp.629 :format;
+        %tmp.631 = "%.0f";
+        %tmp.632 = invoke %tmp.629 %tmp.630(%tmp.631);
+        %tmp.633 = "%";
+        %tmp.634 = add %tmp.632 %tmp.633;
+        symbol [ Graphics %tmp.635 2295 91 99 ];
+        %tmp.635 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.636 2295 100 117 ];
+        %tmp.636 = getv %tmp.635 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.621 %tmp.622(%tmp.623, %tmp.624, %tmp.625, %tmp.634, %tmp.636);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2297 16 ]
+        %tmp.637 = lgetv %y.5;
+        symbol [ y %tmp.637 2297 16 17 ];
+        %tmp.638 = lgetv %rowH.6;
+        symbol [ rowH %tmp.638 2297 21 25 ];
+        %tmp.639 = add %tmp.637 %tmp.638;
+        lputv %y.5 %tmp.639;
+        symbol [ y %y.5 2297 16 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2298 16 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_stop" ]
+        %band.12 = local;
+        symbol [ band %band.12 2298 20 24 ];
+        symbol [ n2Model %tmp.641 2298 27 34 ];
+        %tmp.641 = getv ? :n2Model;
+        symbol [ getRiskBand %tmp.642 2298 35 46 ];
+        %tmp.642 = getv function %tmp.641 :getRiskBand;
+        %tmp.643 = invoke %tmp.641 %tmp.642();
+        lputv %band.12 %tmp.643;
+        symbol [ band %band.12 2298 20 24 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2299 16 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_stop" ]
+        %bandText.13 = local;
+        symbol [ bandText %bandText.13 2299 20 28 ];
+        %tmp.644 = "LOW";
+        lputv %bandText.13 %tmp.644;
+        symbol [ bandText %bandText.13 2299 20 28 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2300 16 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_stop" ]
+        %bandColor.14 = local;
+        symbol [ bandColor %bandColor.14 2300 20 29 ];
+        symbol [ Graphics %tmp.645 2300 32 40 ];
+        %tmp.645 = getm $.Toybox.Graphics;
+        symbol [ COLOR_GREEN %tmp.646 2300 41 52 ];
+        %tmp.646 = getv %tmp.645 :COLOR_GREEN;
+        lputv %bandColor.14 %tmp.646;
+        symbol [ bandColor %bandColor.14 2300 20 29 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2302 16 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_stmt:
+        %tmp.647 = lgetv %band.12;
+        symbol [ band %tmp.647 2302 20 24 ];
+        %tmp.648 = 1;
+        %tmp.649 = eq %tmp.647 %tmp.648;
+        bf %tmp.649 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_31_2305_16_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2303 20 ]
+        %tmp.650 = "MOD";
+        lputv %bandText.13 %tmp.650;
+        symbol [ bandText %bandText.13 2303 20 28 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2304 20 ]
+        symbol [ Graphics %tmp.651 2304 32 40 ];
+        %tmp.651 = getm $.Toybox.Graphics;
+        symbol [ COLOR_YELLOW %tmp.652 2304 41 53 ];
+        %tmp.652 = getv %tmp.651 :COLOR_YELLOW;
+        lputv %bandColor.14 %tmp.652;
+        symbol [ bandColor %bandColor.14 2304 20 29 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_31_2305_16_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_false:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2305 23 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_stmt:
+        %tmp.653 = lgetv %band.12;
+        symbol [ band %tmp.653 2305 27 31 ];
+        %tmp.654 = 2;
+        %tmp.655 = eq %tmp.653 %tmp.654;
+        bf %tmp.655 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_38_2308_16_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2306 20 ]
+        %tmp.656 = "ELEV";
+        lputv %bandText.13 %tmp.656;
+        symbol [ bandText %bandText.13 2306 20 28 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2307 20 ]
+        symbol [ Graphics %tmp.657 2307 32 40 ];
+        %tmp.657 = getm $.Toybox.Graphics;
+        symbol [ COLOR_ORANGE %tmp.658 2307 41 53 ];
+        %tmp.658 = getv %tmp.657 :COLOR_ORANGE;
+        lputv %bandColor.14 %tmp.658;
+        symbol [ bandColor %bandColor.14 2307 20 29 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_38_2308_16_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_false:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2308 23 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_23_2311_16_if_stmt:
+        %tmp.659 = lgetv %band.12;
+        symbol [ band %tmp.659 2308 27 31 ];
+        %tmp.660 = 3;
+        %tmp.661 = eq %tmp.659 %tmp.660;
+        bf %tmp.661 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_23_2311_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_23_2311_16_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_38_2311_16_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2309 20 ]
+        %tmp.662 = "HIGH";
+        lputv %bandText.13 %tmp.662;
+        symbol [ bandText %bandText.13 2309 20 28 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2310 20 ]
+        symbol [ Graphics %tmp.663 2310 32 40 ];
+        %tmp.663 = getm $.Toybox.Graphics;
+        symbol [ COLOR_RED %tmp.664 2310 41 50 ];
+        %tmp.664 = getv %tmp.663 :COLOR_RED;
+        lputv %bandColor.14 %tmp.664;
+        symbol [ bandColor %bandColor.14 2310 20 29 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_38_2311_16_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_23_2311_16_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2308_23_2311_16_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2305_23_2311_16_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2302_16_2311_16_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2313 16 ]
+        %tmp.665 = lgetv %dc;
+        symbol [ dc %tmp.665 2313 16 18 ];
+        symbol [ setColor %tmp.666 2313 19 27 ];
+        %tmp.666 = getv function %tmp.665 :setColor;
+        %tmp.667 = lgetv %bandColor.14;
+        symbol [ bandColor %tmp.667 2313 28 37 ];
+        symbol [ Graphics %tmp.668 2313 39 47 ];
+        %tmp.668 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.669 2313 48 65 ];
+        %tmp.669 = getv %tmp.668 :COLOR_TRANSPARENT;
+        invoke %tmp.665 %tmp.666(%tmp.667, %tmp.669);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2314 16 ]
+        %tmp.670 = lgetv %dc;
+        symbol [ dc %tmp.670 2314 16 18 ];
+        symbol [ drawText %tmp.671 2314 19 27 ];
+        %tmp.671 = getv function %tmp.670 :drawText;
+        %tmp.672 = lgetv %leftX.3;
+        symbol [ leftX %tmp.672 2314 28 33 ];
+        %tmp.673 = lgetv %y.5;
+        symbol [ y %tmp.673 2314 35 36 ];
+        %tmp.674 = lgetv %font.1;
+        symbol [ font %tmp.674 2314 38 42 ];
+        %tmp.675 = "Risk:";
+        symbol [ Graphics %tmp.676 2314 53 61 ];
+        %tmp.676 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.677 2314 62 79 ];
+        %tmp.677 = getv %tmp.676 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.670 %tmp.671(%tmp.672, %tmp.673, %tmp.674, %tmp.675, %tmp.677);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2315 16 ]
+        %tmp.678 = lgetv %dc;
+        symbol [ dc %tmp.678 2315 16 18 ];
+        symbol [ drawText %tmp.679 2315 19 27 ];
+        %tmp.679 = getv function %tmp.678 :drawText;
+        %tmp.680 = lgetv %rightX.4;
+        symbol [ rightX %tmp.680 2315 28 34 ];
+        %tmp.681 = lgetv %y.5;
+        symbol [ y %tmp.681 2315 36 37 ];
+        %tmp.682 = lgetv %font.1;
+        symbol [ font %tmp.682 2315 39 43 ];
+        %tmp.683 = lgetv %bandText.13;
+        symbol [ bandText %tmp.683 2315 45 53 ];
+        symbol [ Graphics %tmp.684 2315 55 63 ];
+        %tmp.684 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.685 2315 64 81 ];
+        %tmp.685 = getv %tmp.684 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.678 %tmp.679(%tmp.680, %tmp.681, %tmp.682, %tmp.683, %tmp.685);
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2317 16 ]
+        %tmp.686 = lgetv %dc;
+        symbol [ dc %tmp.686 2317 16 18 ];
+        symbol [ setColor %tmp.687 2317 19 27 ];
+        %tmp.687 = getv function %tmp.686 :setColor;
+        symbol [ Graphics %tmp.688 2317 28 36 ];
+        %tmp.688 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.689 2317 37 48 ];
+        %tmp.689 = getv %tmp.688 :COLOR_WHITE;
+        symbol [ Graphics %tmp.690 2317 50 58 ];
+        %tmp.690 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.691 2317 59 76 ];
+        %tmp.691 = getv %tmp.690 :COLOR_TRANSPARENT;
+        invoke %tmp.686 %tmp.687(%tmp.689, %tmp.691);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_33_2318_12_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_12_2318_12_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2288_12_2318_12_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_12_2319_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_endTry:
+        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally;
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_catch:
+        %tmp.692 = exception;
+        push %tmp.692;
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2319 10 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_catch" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_10_2321_8_end" ]
+        %e.15 = local;
+        symbol [ e %e.15 2319 17 18 ];
+        %tmp.693 = dup %tmp.692;
+        lputv %e.15 %tmp.693;
+        symbol [ e %e.15 2319 17 18 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_20_2321_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2320 12 ]
+        symbol [ System %tmp.694 2320 12 18 ];
+        %tmp.694 = getm $.Toybox.System;
+        symbol [ println %tmp.695 2320 19 26 ];
+        %tmp.695 = getv function %tmp.694 :println;
+        %tmp.696 = "Draw error: ";
+        %tmp.697 = self;
+        symbol [ errorToString %tmp.698 2320 44 57 ];
+        %tmp.698 = getv function %tmp.697 :errorToString;
+        %tmp.699 = lgetv %e.15;
+        symbol [ e %tmp.699 2320 58 59 ];
+        %tmp.700 = invoke %tmp.697 %tmp.698(%tmp.699);
+        %tmp.701 = add %tmp.696 %tmp.700;
+        invoke %tmp.694 %tmp.695(%tmp.701);
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_20_2321_8_stop:
+        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally;
         pop;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_10_2312_8_end:
-        try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_10_2312_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2310_10_2312_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally;
-        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally;
-        throw %tmp.645;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_finally:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_10_2321_8_end:
+        try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_10_2321_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2319_10_2321_8_end @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally;
+        jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally;
+        throw %tmp.692;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_finally:
         jsrret;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2312_8_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2175_40_2313_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2176_8_2321_8_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2175_40_2322_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 2315; @symbol_functiondef = [prepareToExit,2315,13,26]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 2324; @symbol_functiondef = [prepareToExit,2324,13,26]; ]
     function prepareToExit() as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2315_37_2322_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2316 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_8_2318_8_if_stmt:
-        symbol [ isRecording %tmp.2 2316 12 23 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2324_37_2331_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2325 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_8_2327_8_if_stmt:
+        symbol [ isRecording %tmp.2 2325 12 23 ];
         %tmp.2 = getv ? :isRecording;
-        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_8_2318_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_8_2318_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_25_2318_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2317 12 ]
+        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_8_2327_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_8_2327_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_25_2327_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2326 12 ]
         %tmp.3 = self;
-        symbol [ stopSession %tmp.4 2317 12 23 ];
+        symbol [ stopSession %tmp.4 2326 12 23 ];
         %tmp.4 = getv function %tmp.3 :stopSession;
         invoke %tmp.3 %tmp.4();
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_25_2318_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_8_2318_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2316_8_2318_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2319 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_25_2327_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_8_2327_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2325_8_2327_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2328 8 ]
         %tmp.5 = self;
-        symbol [ stopTimerOnly %tmp.6 2319 8 21 ];
+        symbol [ stopTimerOnly %tmp.6 2328 8 21 ];
         %tmp.6 = getv function %tmp.5 :stopTimerOnly;
         invoke %tmp.5 %tmp.6();
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2320 8 ]
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2329 8 ]
         %tmp.7 = self;
-        symbol [ stopMotionListener %tmp.8 2320 8 26 ];
+        symbol [ stopMotionListener %tmp.8 2329 8 26 ];
         %tmp.8 = getv function %tmp.7 :stopMotionListener;
         invoke %tmp.7 %tmp.8();
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2321 8 ]
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2330 8 ]
         %tmp.9 = self;
-        symbol [ stopGps %tmp.10 2321 8 15 ];
+        symbol [ stopGps %tmp.10 2330 8 15 ];
         %tmp.10 = getv function %tmp.9 :stopGps;
         invoke %tmp.9 %tmp.10();
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2315_37_2322_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2324_37_2331_4_stop:
     }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 1; ]

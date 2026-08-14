@@ -2,7 +2,7 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class gsensrosApp extends Application.AppBase {
+class diveTrackApp extends Application.AppBase {
 
     // Stores the actual running view so onStop() can clean up the real
     // instance instead of a throwaway one created on the fly.
@@ -29,6 +29,6 @@ class gsensrosApp extends Application.AppBase {
     }
 }
 
-function getApp() as gsensrosApp {
-    return Application.getApp() as gsensrosApp;
+function getApp() as diveTrackApp {
+    return Application.getApp() as diveTrackApp;
 }
