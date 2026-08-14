@@ -24,10 +24,10 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
         return view.onMenu();
     }
 
-    // Instinct 2 / 2X: upper-left CTRL / Light button → KEY_LIGHT
+    // Instinct 2 / 2X: use the UP button for POI marking
     function onKey(evt as WatchUi.KeyEvent) as Boolean {
         var key = evt.getKey();
-        if (key == WatchUi.KEY_LIGHT || key == WatchUi.KEY_MENU) {
+        if (key == WatchUi.KEY_UP || key == WatchUi.KEY_MENU) {
             return view.handlePoiAction();   // mark POI while recording
         }
         return false;              // leave other keys to the system

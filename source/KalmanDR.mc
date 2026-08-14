@@ -46,6 +46,7 @@ class KalmanDR {
     var referenceLat = 0.0f;
     var referenceLon = 0.0f;
     var hasReference = false;
+    var gpsLossTimeSec = 0.0f;
 
     // Scratch buffers – always Float-literal seeded (Monkey C rejects new[n] → Null[])
     var sigma as Array<Float>;
@@ -118,6 +119,7 @@ class KalmanDR {
         setP(2, 2, 4.0f);
         setP(3, 3, 4.0f);
         hasReference = false;
+        gpsLossTimeSec = 0.0f;
     }
 
     function setReference(lat as Float, lon as Float) as Void {
@@ -304,9 +306,15 @@ class KalmanDR {
         if (!gpsAvailable) {
             qPos = Q_POS_LOSS;
             qVel = Q_VEL_LOSS;
+            gpsLossTimeSec += dt;
         } else if (headingConfidence < 0.8f) {
             qPos = Q_POS + 0.05f;
             qVel = Q_VEL + 0.06f;
+        } else if (gpsLossTimeSec > 0.0f) {
+            gpsLossTimeSec -= dt * 0.5f;
+            if (gpsLossTimeSec < 0.0f) {
+                gpsLossTimeSec = 0.0f;
+            }
         }
 
         if (motionConfidence != null && motionConfidence < 6) {
@@ -314,12 +322,17 @@ class KalmanDR {
             qVel *= 1.25f;
         }
 
+        var uncertaintyScale = 1.0f + (gpsLossTimeSec * 0.24f);
+        if (uncertaintyScale > 2.6f) {
+            uncertaintyScale = 2.6f;
+        }
+
         // Reuse the existing predict path with a small bias injected via covariance.
         predict(speedMps, headingRad, dt);
-        setP(0, 0, getP(0, 0) + qPos * dt * 0.5f);
-        setP(1, 1, getP(1, 1) + qPos * dt * 0.5f);
-        setP(2, 2, getP(2, 2) + qVel * dt * 0.5f);
-        setP(3, 3, getP(3, 3) + qVel * dt * 0.5f);
+        setP(0, 0, getP(0, 0) + qPos * dt * 0.5f * uncertaintyScale);
+        setP(1, 1, getP(1, 1) + qPos * dt * 0.5f * uncertaintyScale);
+        setP(2, 2, getP(2, 2) + qVel * dt * 0.5f * uncertaintyScale);
+        setP(3, 3, getP(3, 3) + qVel * dt * 0.5f * uncertaintyScale);
     }
 
     function updateGps(lat as Float, lon as Float, quality as Number) as Void {
@@ -393,6 +406,11 @@ class KalmanDR {
         }
         if (getP(1, 1) < r * 0.25f) {
             setP(1, 1, r * 0.25f);
+        }
+        if (gpsLossTimeSec > 0.0f) {
+            var recoveryBias = 1.0f + (gpsLossTimeSec * 0.08f);
+            setP(0, 0, getP(0, 0) + (r * 0.12f * recoveryBias));
+            setP(1, 1, getP(1, 1) + (r * 0.12f * recoveryBias));
         }
         // Soften cross terms
         setP(0, 1, getP(0, 1) * 0.85f);

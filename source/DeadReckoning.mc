@@ -26,6 +26,7 @@ class DeadReckoning {
     var headingSinCache = 0.0f;
     var headingCosCache = 0.0f;
     var lastHeadingCacheRad = 0.0f;
+    var recentNoiseFloorMps = 0.0f;
 
     const MAX_DT_SEC = 2.0f;
     const MIN_DT_SEC = 0.01f;
@@ -167,6 +168,7 @@ class DeadReckoning {
         refreshHeadingCache(headingRad);
 
         var clampedInputSpeed = sanitizeSpeed(newSpeedMps);
+        var accelMagnitude = Math.sqrt((accelX * accelX) + (accelY * accelY) + (accelZ * accelZ));
 
         if (!movementAllowed || clampedInputSpeed <= SPEED_DEADBAND_MPS) {
             speedMps = speedMps * SPEED_DECAY_WHEN_STOPPED;
@@ -175,15 +177,14 @@ class DeadReckoning {
             }
             return;
         }
-
-        var accelMagnitude = Math.sqrt((accelX * accelX) + (accelY * accelY) + (accelZ * accelZ));
         var accelDelta = accelMagnitude - 9.81f;
         if (accelDelta < 0.0f) {
             accelDelta = 0.0f;
         }
         var accelGain = 0.35f + (0.65f * clampFloat(accelDelta / 3.0f, 0.0f, 1.0f));
         var effectiveSpeed = clampedInputSpeed * accelGain;
-        var deadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        var baseDeadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        var deadband = getAdaptiveDeadband(baseDeadband, headingConfidence, clampedInputSpeed, dt, accelMagnitude);
         if (headingConfidence < 0.65f) {
             effectiveSpeed *= 0.75f;
         }
@@ -332,6 +333,40 @@ class DeadReckoning {
             headingCosCache = Math.cos(h);
             lastHeadingCacheRad = h;
         }
+    }
+
+    function getAdaptiveDeadband(baseDeadband as Float, headingConfidence as Float, inputSpeedMps as Float, dt as Float, accelMagnitude as Float) as Float {
+        var speedDelta = speedMps - inputSpeedMps;
+        if (speedDelta < 0.0f) {
+            speedDelta = -speedDelta;
+        }
+        var accelNoise = accelMagnitude - 9.81f;
+        if (accelNoise < 0.0f) {
+            accelNoise = 0.0f;
+        }
+        var noiseEstimate = (speedDelta * 0.20f) + (accelNoise * 0.015f);
+        if (noiseEstimate < 0.0f) {
+            noiseEstimate = 0.0f;
+        }
+        if (noiseEstimate > 0.12f) {
+            noiseEstimate = 0.12f;
+        }
+        recentNoiseFloorMps = recentNoiseFloorMps * 0.86f + noiseEstimate * 0.14f;
+
+        var adaptive = baseDeadband + recentNoiseFloorMps * 0.45f;
+        if (headingConfidence < 0.65f) {
+            adaptive += 0.015f;
+        }
+        if (inputSpeedMps > baseDeadband * 2.0f && speedMps > baseDeadband * 1.5f) {
+            adaptive = baseDeadband * 0.85f;
+        }
+        if (adaptive < baseDeadband) {
+            adaptive = baseDeadband;
+        }
+        if (adaptive > 0.18f) {
+            adaptive = 0.18f;
+        }
+        return adaptive;
     }
 
     function sanitizeSpeed(value as Float) as Float {
