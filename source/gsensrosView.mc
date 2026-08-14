@@ -36,9 +36,9 @@ class gsensrosView extends WatchUi.View {
     var gpsActive = false;
     var gpsFixLostAtMs = 0;
     var gpsRecoveryUntilMs = 0;
-    const GPS_LOSS_HOLD_MS = 3000;
+    const GPS_LOSS_HOLD_MS = 1000;
     var lastDrGpsCorrectionMs = 0;
-    const DR_GPS_CORRECTION_INTERVAL_MS = 2000;
+    const DR_GPS_CORRECTION_INTERVAL_MS = 1000;
 
     var entryLat = 0.0f;
     var entryLon = 0.0f;
@@ -943,9 +943,9 @@ class gsensrosView extends WatchUi.View {
 
     function isGpsQualityUsable(q as Number or Null) as Boolean {
         if (q == null) {
-            return false;
+            return true;
         }
-        return q == Position.QUALITY_USABLE || q == Position.QUALITY_GOOD;
+        return q != Position.QUALITY_NOT_AVAILABLE;
     }
 
     function readSensors(info as Sensor.Info or Null) as Void {
