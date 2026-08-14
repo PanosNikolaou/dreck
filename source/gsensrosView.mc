@@ -160,6 +160,7 @@ class gsensrosView extends WatchUi.View {
     const FIELD_MAX_N2     = 25;
     const FIELD_POI_EAST   = 26;
     const FIELD_POI_NORTH  = 27;
+    const FIELD_DR_DIAG    = 28;
 
     const MAX_POIS = 30;
 
@@ -192,10 +193,12 @@ class gsensrosView extends WatchUi.View {
     var poiLonField = null as FitContributor.Field or Null;
     var poiEastField = null as FitContributor.Field or Null;
     var poiNorthField = null as FitContributor.Field or Null;
+    var drDiagField = null as FitContributor.Field or Null;
 
     var poiCount = 0;
     var poiFlashMs = 0;           // UI: show "POI #n" briefly after mark
     const POI_FLASH_MS = 2000;
+    var drDiagFitEnabled = true;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -259,10 +262,14 @@ class gsensrosView extends WatchUi.View {
     var lastFitGpsFix = null as Number or Null;
     var lastFitHeading = null as Float or Null;
     var lastFitMoving = null as Number or Null;
+    var lastFitDrDiag = null as Number or Null;
     var lastFitHr = null as Number or Null;          // NEW
     var lastFitAscent = null as Float or Null;       // NEW
     var lastFitSpo2 = null as Number or Null;        // NEW
     var lastFitTemp = null as Float or Null;         // NEW
+
+    const MAX_DR_DIAG_LOGS = 120;
+    var drDiagCount = 0;
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
@@ -317,6 +324,7 @@ class gsensrosView extends WatchUi.View {
             resetHeadingEstimate();
             movingConfidence = 0;
             fitWriteTick = 0;
+            drDiagCount = 0;
             lastDrGpsCorrectionMs = 0;
             lastUpdateMs = System.getTimer();
             heartRate = 0;
@@ -344,6 +352,9 @@ class gsensrosView extends WatchUi.View {
     function onHide() as Void {
         try {
             System.println("=== HIDING VIEW ===");
+            if (drDiagCount > 0) {
+                System.println("DRDIAG summary: logged=" + drDiagCount);
+            }
             stopTimerOnly();
             stopMotionListener();
             stopGps();
@@ -382,6 +393,41 @@ class gsensrosView extends WatchUi.View {
 
         calibrationActive = false;
         System.println("Calibration complete");
+    }
+
+    function logDrDiagnostics(
+        nowMs as Number,
+        gpsUsable as Boolean,
+        headingConf as Float,
+        motionScore as Float,
+        estSpeed as Float,
+        stepEast as Float,
+        stepNorth as Float,
+        depthM as Float
+    ) as Void {
+        if (drDiagCount >= MAX_DR_DIAG_LOGS) {
+            return;
+        }
+
+        if (drDiagCount >= MAX_DR_DIAG_LOGS) {
+            return;
+        }
+
+        drDiagCount += 1;
+
+        System.println(
+            "DRDIAG #" + drDiagCount +
+            " t=" + nowMs +
+            " gps=" + (gpsUsable ? 1 : 0) +
+            " hConf=" + headingConf.format("%.2f") +
+            " motion=" + motionScore.format("%.1f") +
+            " gyr=" + gyroZ.format("%.3f") +
+            " speed=" + estSpeed.format("%.3f") +
+            " step=" + stepEast.format("%.3f") + "," + stepNorth.format("%.3f") +
+            " depth=" + depthM.format("%.2f") +
+            " hr=" + heartRate +
+            " spo2=" + spo2
+        );
     }
 
     function timerCallback() as Void {
@@ -493,6 +539,16 @@ class gsensrosView extends WatchUi.View {
 
                 if (dr != null && shouldAdvanceSensorDr) {
                     dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, drSpeed, true, drHeadingConfidence);
+                }
+
+                if (gpsSignalLost) {
+                    var diagStepEast = 0.0f;
+                    var diagStepNorth = 0.0f;
+                    if (dr != null) {
+                        diagStepEast = dr.lastAcceptedDx;
+                        diagStepNorth = dr.lastAcceptedDy;
+                    }
+                    logDrDiagnostics(nowMs, false, drHeadingConfidence, motionScoreMg, drSpeed, diagStepEast, diagStepNorth, currentDepth);
                 }
 
                 if (dr != null && hasUsableGps && drGpsBlend > 0.0f) {
@@ -1460,6 +1516,7 @@ class gsensrosView extends WatchUi.View {
     // CTRL / Menu button → drop a POI on the current DR route while recording
     function onMenu() as Boolean {
         try {
+            toggleDrDiagnosticsFit();
             if (!isRecording) {
                 System.println("POI ignored – not recording");
                 return true;
@@ -1781,6 +1838,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         poiIdField      = safeCreateField("POI_Id",    FIELD_POI_ID,     FitContributor.DATA_TYPE_UINT32,  "");
         poiLatField     = safeCreateField("POI_Lat",   FIELD_POI_LAT,    FitContributor.DATA_TYPE_FLOAT,  "deg");
         poiLonField     = safeCreateField("POI_Lon",   FIELD_POI_LON,    FitContributor.DATA_TYPE_FLOAT,  "deg");
+        drDiagField     = drDiagFitEnabled ? safeCreateField("DR_Diag", FIELD_DR_DIAG, FitContributor.DATA_TYPE_UINT32, "") : null;
 
         // Not created on-device (stay null) – UI only / avoids field-limit crash:
         // n2*, hr, ascent, spo2, temp, gps lat/lon, poi east/north, session summaries
@@ -1925,6 +1983,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         poiLonField = null;
         poiEastField = null;
         poiNorthField = null;
+        drDiagField = null;
         clearLastFitValues();
     }
 
@@ -1942,6 +2001,23 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         } catch (e) {
             System.println("resetDepthCalibration error: " + errorToString(e));
         }
+    }
+
+    function toggleDrDiagnosticsFit() as Void {
+        drDiagFitEnabled = !drDiagFitEnabled;
+        if (!drDiagFitEnabled) {
+            System.println("DR diagnostics FIT disabled");
+        } else {
+            System.println("DR diagnostics FIT enabled");
+        }
+    }
+
+    function packDrDiagnosticsValue(gpsUsable as Boolean, headingConf as Float, motionScore as Float, estSpeed as Float, gyroZValue as Float) as Number {
+        var gpsBit = gpsUsable ? 1 : 0;
+        var headingByte = clampFloat(headingConf * 255.0f, 0.0f, 255.0f).toNumber();
+        var motionByte = clampFloat(motionScore, 0.0f, 255.0f).toNumber();
+        var gyroByte = clampFloat(gyroZValue * 100.0f, 0.0f, 255.0f).toNumber();
+        return ((gpsBit << 24) + (headingByte << 16) + (motionByte << 8) + gyroByte).toNumber();
     }
 
     function isFiniteValue(v as Float or Null) as Boolean {
@@ -2046,6 +2122,12 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 gpsLonField.setData(longitude);
             }
 
+            if (drDiagField != null && drDiagFitEnabled) {
+                var diagHeadingConf = getHeadingConfidenceForDr();
+                var diagPayload = packDrDiagnosticsValue(hasGpsFix, diagHeadingConf, motionScoreMg, estSpeed, gyroZ);
+                lastFitDrDiag = writeUIntField(drDiagField, diagPayload, lastFitDrDiag);
+            }
+
             if (n2Model != null) {
                 lastFitN2Load = writeFloatField(n2LoadField, n2Model.getLoading(), lastFitN2Load, 0.1f);
                 lastFitN2Max = writeFloatField(n2MaxField, n2Model.getMaxLoading(), lastFitN2Max, 0.1f);
@@ -2100,6 +2182,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             var rightX = w / 2 + 4;
             var y = 8 + scrollY;
             var rowH = 18;
+            var noticeText = null as String or Null;
 
             dc.setColor(isRecording ? Graphics.COLOR_GREEN : Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
             var statusText = isRecording ? "RECORDING" : "Stopped";
@@ -2107,12 +2190,20 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 var age = System.getTimer() - poiFlashMs;
                 if (age >= 0 && age < POI_FLASH_MS) {
                     statusText = "POI #" + poiCount;
+                    noticeText = "POI saved";
                     dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
                 } else {
                     poiFlashMs = 0;
                 }
             }
             dc.drawText(w / 2, y, font, statusText, Graphics.TEXT_JUSTIFY_CENTER);
+
+            if (noticeText != null) {
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(8, y + rowH - 4, w - 16, rowH - 4);
+                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(w / 2, y + rowH - 4, font, noticeText, Graphics.TEXT_JUSTIFY_CENTER);
+            }
 
             y += rowH;
 
