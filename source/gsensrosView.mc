@@ -1626,15 +1626,7 @@ class gsensrosView extends WatchUi.View {
             }
         }
 
-        // Optional lap marker – shows as a split in Garmin Connect
-        try {
-            if (session != null && (session has :addLap)) {
-                session.addLap();
-            }
-        } catch (e) {
-            // not all devices expose addLap
-        }
-
+        // POIs are stored as custom FIT record values only; do not create a lap split.
         poiFlashMs = System.getTimer();
         showPoiNotice("POI saved");
         System.println("POI #" + poiCount + " E=" + eastVal.format("%.1f")
