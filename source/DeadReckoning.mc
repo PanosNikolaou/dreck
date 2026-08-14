@@ -6,6 +6,8 @@ class DeadReckoning {
 
     var eastMeters = 0.0f;
     var northMeters = 0.0f;
+    var altitudeMeters = 0.0f;
+    var verticalVelocityMps = 0.0f;
 
     var headingRad = 0.0f;
     var speedMps = 0.0f;
@@ -34,9 +36,9 @@ class DeadReckoning {
     const MAX_DT_SEC = 2.0f;
     const MIN_DT_SEC = 0.01f;
 
-    const HEADING_ALPHA_SLOW = 0.06f;
-    const HEADING_ALPHA_FAST = 0.12f;
-    const MAX_HEADING_CORRECTION_RAD = 0.20f;
+    const HEADING_ALPHA_SLOW = 0.05f;
+    const HEADING_ALPHA_FAST = 0.10f;
+    const MAX_HEADING_CORRECTION_RAD = 0.18f;
 
     const SPEED_ALPHA_RISE = 0.24f;
     const SPEED_ALPHA_FALL = 0.14f;
@@ -61,6 +63,8 @@ class DeadReckoning {
     function reset() as Void {
         eastMeters = 0.0f;
         northMeters = 0.0f;
+        altitudeMeters = 0.0f;
+        verticalVelocityMps = 0.0f;
         headingRad = 0.0f;
         speedMps = 0.0f;
         totalDistanceMeters = 0.0f;
@@ -160,7 +164,14 @@ class DeadReckoning {
                 correctedHeading = targetHeading;
                 hasHeadingLock = true;
             } else {
-                var alpha = chooseHeadingAlpha(speedMps, headingConfidence);
+                var alpha = chooseHeadingAlpha(speedMps, headingConfidence, verticalVelocityMps);
+                var reliabilityBoost = 1.0f;
+                if (headingConfidence < 0.65f) {
+                    reliabilityBoost = 0.70f;
+                } else if (headingConfidence > 0.85f) {
+                    reliabilityBoost = 1.10f;
+                }
+                alpha = alpha * reliabilityBoost;
                 var error = normalizeAngle(targetHeading - predictedHeading);
                 error = clampFloat(error, -MAX_HEADING_CORRECTION_RAD, MAX_HEADING_CORRECTION_RAD);
                 lastHeadingErrorRad = error;
@@ -191,6 +202,17 @@ class DeadReckoning {
         var effectiveSpeed = clampedInputSpeed * accelGain;
         var baseDeadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
         var deadband = getAdaptiveDeadband(baseDeadband, headingConfidence, clampedInputSpeed, dt, accelMagnitude);
+        var verticalRatePenalty = 0.0f;
+        var absVerticalRate = verticalVelocityMps;
+        if (absVerticalRate < 0.0f) {
+            absVerticalRate = -absVerticalRate;
+        }
+        if (absVerticalRate > 0.18f) {
+            verticalRatePenalty = 0.020f;
+        } else if (absVerticalRate > 0.08f) {
+            verticalRatePenalty = 0.010f;
+        }
+        deadband += verticalRatePenalty;
         if (headingConfidence < 0.65f) {
             effectiveSpeed *= 0.75f;
         }
@@ -216,6 +238,8 @@ class DeadReckoning {
 
         var stepEast = speedMps * headingSinCache * dt;
         var stepNorth = speedMps * headingCosCache * dt;
+        var verticalStep = verticalVelocityMps * dt;
+        altitudeMeters += verticalStep;
         var stepDistance = Math.sqrt((stepEast * stepEast) + (stepNorth * stepNorth));
 
         if (stepDistance < MIN_STEP_DISTANCE_M || stepDistance > MAX_STEP_DISTANCE_M) {
@@ -318,6 +342,29 @@ class DeadReckoning {
         movementAccepted = true;
     }
 
+    function updateVerticalState(ascentRateMps as Float, dt as Float) as Void {
+        if (dt <= 0.0f || dt > MAX_DT_SEC) {
+            return;
+        }
+
+        var verticalStep = ascentRateMps * dt;
+        altitudeMeters += verticalStep;
+        verticalVelocityMps = lowPass(verticalVelocityMps, ascentRateMps, 0.16f);
+    }
+
+    function setVerticalState(newAltitudeMeters as Float, newVerticalVelocityMps as Float) as Void {
+        altitudeMeters = newAltitudeMeters;
+        verticalVelocityMps = newVerticalVelocityMps;
+    }
+
+    function getAltitudeMeters() as Float {
+        return altitudeMeters;
+    }
+
+    function getVerticalVelocityMps() as Float {
+        return verticalVelocityMps;
+    }
+
     function getDRData() as Dictionary {
         return {
             :east => eastMeters,
@@ -326,6 +373,8 @@ class DeadReckoning {
             :headingDeg => normalizeDegrees(Math.toDegrees(headingRad)),
             :distance => totalDistanceMeters,
             :speed => speedMps,
+            :altitude => altitudeMeters,
+            :verticalVelocity => verticalVelocityMps,
             :stepDistance => lastStepDistanceMeters,
             :stepEast => lastAcceptedDx,
             :stepNorth => lastAcceptedDy,
@@ -363,14 +412,24 @@ class DeadReckoning {
         return hasHeadingLock;
     }
 
-    function chooseHeadingAlpha(currentSpeedMps as Float, headingConfidence as Float) as Float {
+    function chooseHeadingAlpha(currentSpeedMps as Float, headingConfidence as Float, verticalRateMps as Float) as Float {
         var conf = clampFloat(headingConfidence, 0.0f, 1.0f);
-
-        if (currentSpeedMps >= 0.7f) {
-            return HEADING_ALPHA_FAST * conf;
+        var verticalFactor = 1.0f;
+        var absVerticalRate = verticalRateMps;
+        if (absVerticalRate < 0.0f) {
+            absVerticalRate = -absVerticalRate;
+        }
+        if (absVerticalRate > 0.20f) {
+            verticalFactor = 0.72f;
+        } else if (absVerticalRate > 0.08f) {
+            verticalFactor = 0.86f;
         }
 
-        return HEADING_ALPHA_SLOW * conf;
+        if (currentSpeedMps >= 0.7f) {
+            return HEADING_ALPHA_FAST * conf * verticalFactor;
+        }
+
+        return HEADING_ALPHA_SLOW * conf * verticalFactor;
     }
 
     function refreshHeadingCache(h as Float) as Void {

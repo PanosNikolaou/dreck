@@ -546,6 +546,7 @@ class gsensrosView extends WatchUi.View {
                 }
 
                 if (dr != null) {
+                    dr.updateVerticalState(currentAscentRateMps, dt);
                     dr.setContext(isUnderwater);
                 }
 

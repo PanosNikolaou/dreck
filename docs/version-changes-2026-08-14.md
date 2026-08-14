@@ -28,6 +28,10 @@ This update improves GPS-assisted dead reckoning, keeps the app functional witho
 - Custom fields for DR position, depth, speed, heading, motion, GPS fix state, and POI markers remain part of the FIT record stream.
 - The system now better reflects the active GPS/DR state in the recorded data.
 
+### 6. Suggested next improvements
+- Adaptive Heading Alpha: the complementary blend factor used by heading corrections could be weighted dynamically based on magnetometer reliability, inclination quality, or estimated magnetic interference rather than relying on a fixed blend.
+- Vertical Integration: if the tracking use case benefits from it, the state vector could be extended from a 2D East-North plane to include altitude and vertical velocity to better compensate for terrain gradients and improve ground-track distance estimates.
+
 ## Impact
 - Better continuous tracking when GPS signal is weak or interrupted.
 - Less jitter and smoother route progression during GPS transitions.
