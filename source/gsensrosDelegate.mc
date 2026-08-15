@@ -5,6 +5,8 @@ import Toybox.WatchUi;
 class gsensrosDelegate extends WatchUi.BehaviorDelegate {
 
     var view as gsensrosView;
+    var suppressNextSelect = false;
+    var suppressUntilMs = 0;
 
     function initialize(view as gsensrosView) {
         BehaviorDelegate.initialize();
@@ -12,6 +14,11 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onSelect() as Boolean {
+        var nowMs = System.getTimer();
+        if (suppressNextSelect && nowMs < suppressUntilMs) {
+            suppressNextSelect = false;
+            return true;
+        }
         return view.onSelect();
     }
 
@@ -21,13 +28,17 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
 
     // Menu key on some devices – same POI action
     function onMenu() as Boolean {
-        return view.onMenu();
+        suppressNextSelect = true;
+        suppressUntilMs = System.getTimer() + 200;
+        return view.handlePoiAction();
     }
 
     // Instinct 2 / 2X: use the UP button for POI marking
     function onKey(evt as WatchUi.KeyEvent) as Boolean {
         var key = evt.getKey();
         if (key == WatchUi.KEY_UP || key == WatchUi.KEY_MENU) {
+            suppressNextSelect = true;
+            suppressUntilMs = System.getTimer() + 200;
             return view.handlePoiAction();   // mark POI while recording
         }
         return false;              // leave other keys to the system
