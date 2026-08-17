@@ -518,7 +518,6 @@ class gsensrosView extends WatchUi.View {
                 );
                 var drSpeed = drFusion.get(:drSpeed) as Float;
                 var drHeadingConfidence = drFusion.get(:drHeadingConfidence) as Float;
-                var drGpsBlend = drFusion.get(:drGpsBlend) as Float;
 
                 if (gpsSignalLost) {
                     var diagStepEast = 0.0f;
@@ -528,22 +527,6 @@ class gsensrosView extends WatchUi.View {
                         diagStepNorth = dr.lastAcceptedDy;
                     }
                     logDrDiagnostics(nowMs, false, drHeadingConfidence, motionScoreMg, drSpeed, diagStepEast, diagStepNorth, currentDepth);
-                }
-
-                if (dr != null && hasUsableGps && drGpsBlend > 0.0f) {
-                    if (kalman != null) {
-                        dr.applyPositionCorrection(kalman.getEast(), kalman.getNorth(), drGpsBlend);
-                    } else if (isFiniteValue(latitude) && isFiniteValue(longitude) && hasEntryPosition) {
-                        var latRefRad = entryLat * 0.017453292519943295f;
-                        var metersPerDegLat = 111000.0f;
-                        var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
-                        if (metersPerDegLon < 1000.0f) {
-                            metersPerDegLon = 1000.0f;
-                        }
-                        var refEast = (longitude - entryLon) * metersPerDegLon;
-                        var refNorth = (latitude - entryLat) * metersPerDegLat;
-                        dr.applyPositionCorrection(refEast, refNorth, drGpsBlend);
-                    }
                 }
 
                 fitWriteTick += 1;
@@ -1454,9 +1437,13 @@ class gsensrosView extends WatchUi.View {
 
     function getGpsLossDrSpeed(estSpeed as Float) as Float {
         if (estSpeed <= 0.0f) {
-            return 0.0f;
+            if (filteredSpeedEst > 0.0f) {
+                estSpeed = filteredSpeedEst;
+            } else {
+                return 0.0f;
+            }
         }
-        if (movingConfidence < MOVING_CONFIDENCE_ON) {
+        if (movingConfidence < MOVING_CONFIDENCE_ON && motionScoreMg < (MIN_SENSOR_MOTION_MG * 0.85f) && !isMotionDetected) {
             return 0.0f;
         }
 
@@ -1551,7 +1538,8 @@ class gsensrosView extends WatchUi.View {
             dr.updateWithSpeedAndConfidence(accelX, accelY, accelZ, gyroZ, effectiveHeading, dt, drSpeed, true, drHeadingConfidence);
         }
 
-        if (dr != null && drGpsBlend > 0.0f) {
+        var shouldApplyDrCorrection = (hasUsableGps || gpsSignalLost || drFallbackActive);
+        if (dr != null && drGpsBlend > 0.0f && shouldApplyDrCorrection) {
             if (kalman != null) {
                 dr.applyPositionCorrection(kalman.getEast(), kalman.getNorth(), drGpsBlend);
             } else if (hasUsableGps && isFiniteValue(latitude) && isFiniteValue(longitude) && hasEntryPosition) {
@@ -1748,7 +1736,9 @@ class gsensrosView extends WatchUi.View {
 
             if (kalman != null) {
                 kalman.reset();
-                if (hasGpsFix) {
+                if (hasEntryPosition) {
+                    kalman.setReference(entryLat, entryLon);
+                } else if (hasGpsFix) {
                     kalman.setReference(entryLat, entryLon);
                 }
             }
