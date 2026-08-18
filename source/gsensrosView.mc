@@ -207,6 +207,8 @@ class gsensrosView extends WatchUi.View {
     var surfaceAltitude = 0.0f;
     var surfacePressurePa = 101325.0f;
     var surfacePressureSum = 0.0f;
+    var pressureCalibrationSamples = 0;
+    var altitudeCalibrationSamples = 0;
     var depthFilter = 0.0f;
     var calibrationSamples = 0;
     const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
@@ -215,6 +217,10 @@ class gsensrosView extends WatchUi.View {
     var lastSurfacePressureRecalMs = 0;
     var usePressureDepth = false;   // true once we have a pressure-based surface cal
     const SURFACE_PRESSURE_RECAL_INTERVAL_MS = 180000;
+    const PRESSURE_DEPTH_WEIGHT = 0.90f;
+    const ALT_DEPTH_WEIGHT = 0.10f;
+    const ALT_DEPTH_BLEND_FULL_DIFF_M = 2.0f;
+    const ALT_DEPTH_BLEND_OFF_DIFF_M = 6.0f;
 
     var motionScoreMg = 0.0f;
     var motionBaselineMg = 0.0f;
@@ -1078,27 +1084,33 @@ class gsensrosView extends WatchUi.View {
             if (calibrationSamples < CALIBRATION_COUNT) {
                 if (hasPressure && pressurePa > 80000.0f && pressurePa < 110000.0f) {
                     surfacePressureSum += pressurePa;
+                    pressureCalibrationSamples += 1;
                     usePressureDepth = true;
                 }
                 if (altValid) {
                     surfaceAltitudeSum += rawAlt;
+                    altitudeCalibrationSamples += 1;
                 }
                 calibrationSamples += 1;
 
                 if (calibrationSamples == CALIBRATION_COUNT) {
-                    if (usePressureDepth && surfacePressureSum > 0.0f) {
-                        surfacePressurePa = surfacePressureSum / CALIBRATION_COUNT.toFloat();
+                    var minCalSamples = (CALIBRATION_COUNT / 2).toNumber();
+
+                    if (usePressureDepth && pressureCalibrationSamples >= minCalSamples && surfacePressureSum > 0.0f) {
+                        surfacePressurePa = surfacePressureSum / pressureCalibrationSamples.toFloat();
                     } else {
                         usePressureDepth = false;
                         surfacePressurePa = DEFAULT_SURFACE_PA;
                     }
-                    if (surfaceAltitudeSum != 0.0f) {
-                        surfaceAltitude = surfaceAltitudeSum / CALIBRATION_COUNT.toFloat();
+                    if (altitudeCalibrationSamples > 0) {
+                        surfaceAltitude = surfaceAltitudeSum / altitudeCalibrationSamples.toFloat();
                     }
                     depthFilter = 0.0f;
                     System.println("Depth cal done: P0=" + surfacePressurePa.format("%.0f")
                         + " Pa  alt0=" + surfaceAltitude.format("%.1f")
-                        + " useP=" + usePressureDepth);
+                        + " useP=" + usePressureDepth
+                        + " pCal=" + pressureCalibrationSamples
+                        + " aCal=" + altitudeCalibrationSamples);
                 }
                 currentDepth = 0.0f;
                 return;
@@ -1128,13 +1140,34 @@ class gsensrosView extends WatchUi.View {
             }
 
             // ---------- Raw depth ----------
-            var rawDepth = 0.0f;
+            var pressureDepth = null as Float or Null;
+            var altitudeDepth = null as Float or Null;
+
             if (usePressureDepth && hasPressure && pressurePa > 50000.0f) {
-                // Positive depth when pressure rises above surface reference
-                rawDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
-            } else if (altValid) {
-                // Fallback: altitude drop relative to surface altitude
-                rawDepth = surfaceAltitude - rawAlt;
+                pressureDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
+            }
+
+            if (altValid) {
+                altitudeDepth = surfaceAltitude - rawAlt;
+            }
+
+            var rawDepth = 0.0f;
+            if (pressureDepth != null && altitudeDepth != null) {
+                var diff = absFloat(pressureDepth - altitudeDepth);
+                var altitudeBlendWeight = 0.0f;
+
+                if (diff <= ALT_DEPTH_BLEND_FULL_DIFF_M) {
+                    altitudeBlendWeight = ALT_DEPTH_WEIGHT;
+                } else if (diff < ALT_DEPTH_BLEND_OFF_DIFF_M) {
+                    var t = (diff - ALT_DEPTH_BLEND_FULL_DIFF_M) / (ALT_DEPTH_BLEND_OFF_DIFF_M - ALT_DEPTH_BLEND_FULL_DIFF_M);
+                    altitudeBlendWeight = ALT_DEPTH_WEIGHT * (1.0f - t);
+                }
+
+                rawDepth = (pressureDepth * PRESSURE_DEPTH_WEIGHT) + (altitudeDepth * altitudeBlendWeight);
+            } else if (pressureDepth != null) {
+                rawDepth = pressureDepth;
+            } else if (altitudeDepth != null) {
+                rawDepth = altitudeDepth;
             } else {
                 // No usable sensor this tick – hold previous filtered value
                 return;
@@ -2060,6 +2093,8 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             surfaceAltitudeSum = 0.0f;
             surfaceAltitude = 0.0f;
             surfacePressureSum = 0.0f;
+            pressureCalibrationSamples = 0;
+            altitudeCalibrationSamples = 0;
             surfacePressurePa = DEFAULT_SURFACE_PA;
             depthFilter = 0.0f;
             calibrationSamples = 0;
