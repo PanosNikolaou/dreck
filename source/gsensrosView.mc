@@ -36,7 +36,9 @@ class gsensrosView extends WatchUi.View {
     var gpsActive = false;
     var gpsFixLostAtMs = 0;
     var gpsRecoveryUntilMs = 0;
+    var lastGpsEventMs = 0;
     const GPS_LOSS_HOLD_MS = 1000;
+    const GPS_FIX_MAX_AGE_MS = 15000;
     var lastDrGpsCorrectionMs = 0;
     const DR_GPS_CORRECTION_INTERVAL_MS = 1000;
 
@@ -590,8 +592,16 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
+    function isGpsFreshEnough() as Boolean {
+        if (lastGpsEventMs <= 0) {
+            return false;
+        }
+        return (System.getTimer() - lastGpsEventMs) <= GPS_FIX_MAX_AGE_MS;
+    }
+
     function onPosition(info as Position.Info) as Void {
         try {
+            lastGpsEventMs = System.getTimer();
             updateGpsState(info, true);
         } catch (e) {
             System.println("onPosition error: " + errorToString(e));
@@ -1237,13 +1247,27 @@ class gsensrosView extends WatchUi.View {
 
         if (posInfo != null) {
             gpsQuality = getPositionQuality(posInfo);
+        }
 
-            if (posInfo.position != null && isGpsQualityUsable(gpsQuality)) {
-                var coords = posInfo.position.toDegrees();
-                latitude = coords[0].toFloat();
-                longitude = coords[1].toFloat();
-                hasGpsFix = true;
+        var hasUsableSample = posInfo != null
+            && posInfo.position != null
+            && isGpsQualityUsable(gpsQuality);
+
+        if (hasUsableSample) {
+            var coords = posInfo.position.toDegrees();
+            var lat = coords[0].toFloat();
+            var lon = coords[1].toFloat();
+
+            if (lat >= -90.0f && lat <= 90.0f && lon >= -180.0f && lon <= 180.0f
+                && (lat != 0.0f || lon != 0.0f)) {
+                latitude = lat;
+                longitude = lon;
             }
+        }
+
+        var freshEnough = isGpsFreshEnough();
+        if (freshEnough && latitude != 0.0f && longitude != 0.0f) {
+            hasGpsFix = true;
         }
 
         if (hasGpsFix) {
