@@ -883,9 +883,25 @@ class gsensrosView extends WatchUi.View {
 
     function isGpsQualityUsable(q as Number or Null) as Boolean {
         if (q == null) {
+            return false;
+        }
+        if (q == Position.QUALITY_NOT_AVAILABLE) {
+            return false;
+        }
+
+        if (q == Position.QUALITY_GOOD
+            || q == Position.QUALITY_USABLE
+            || q == Position.QUALITY_POOR) {
             return true;
         }
-        return q != Position.QUALITY_NOT_AVAILABLE;
+
+        // Some Garmin APIs report a meter-based accuracy value instead of the enum.
+        // Only accept a realistic fix quality range; reject stale/invalid positions.
+        if (q > 0.0 && q <= 50.0) {
+            return true;
+        }
+
+        return false;
     }
 
     function readSensors(info as Sensor.Info or Null) as Void {

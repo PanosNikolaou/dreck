@@ -141,56 +141,43 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_37_55_45
         symbol [ key %key.1 38 12 15 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 39 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_12_39_52_begin:
         %tmp.4 = lgetv %key.1;
         symbol [ key %tmp.4 39 12 15 ];
         symbol [ WatchUi %tmp.5 39 19 26 ];
         %tmp.5 = getm $.Toybox.WatchUi;
-        symbol [ KEY_UP %tmp.6 39 27 33 ];
-        %tmp.6 = getv %tmp.5 :KEY_UP;
+        symbol [ KEY_MENU %tmp.6 39 27 35 ];
+        %tmp.6 = getv %tmp.5 :KEY_MENU;
         %tmp.7 = eq %tmp.4 %tmp.6;
-        bt %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_39_52_false:
-        %tmp.8 = lgetv %key.1;
-        symbol [ key %tmp.8 39 37 40 ];
-        symbol [ WatchUi %tmp.9 39 44 51 ];
-        %tmp.9 = getm $.Toybox.WatchUi;
-        symbol [ KEY_MENU %tmp.10 39 52 60 ];
-        %tmp.10 = getv %tmp.9 :KEY_MENU;
-        %tmp.11 = eq %tmp.8 %tmp.10;
-        push %tmp.11;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_39_52_end:
-        %tmp.12 = phi [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_12_39_52_begin] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_39_52_false] [%tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_39_52_end];
-        bf %tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_end;
+        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_62_43_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_43_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 40 12 ]
-        %tmp.13 = true;
+        %tmp.8 = true;
         symbol [ suppressNextSelect ? 40 12 30 ];
-        putv self :suppressNextSelect %tmp.13;
+        putv self :suppressNextSelect %tmp.8;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 41 12 ]
-        symbol [ System %tmp.14 41 30 36 ];
-        %tmp.14 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.15 41 37 45 ];
-        %tmp.15 = getv function %tmp.14 :getTimer;
-        %tmp.16 = invoke %tmp.14 %tmp.15();
-        %tmp.17 = 200;
-        %tmp.18 = add %tmp.16 %tmp.17;
+        symbol [ System %tmp.9 41 30 36 ];
+        %tmp.9 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.10 41 37 45 ];
+        %tmp.10 = getv function %tmp.9 :getTimer;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        %tmp.12 = 200;
+        %tmp.13 = add %tmp.11 %tmp.12;
         symbol [ suppressUntilMs ? 41 12 27 ];
-        putv self :suppressUntilMs %tmp.18;
+        putv self :suppressUntilMs %tmp.13;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 42 12 ]
-        symbol [ view %tmp.20 42 19 23 ];
-        %tmp.20 = getv ? :view;
-        symbol [ handlePoiAction %tmp.21 42 24 39 ];
-        %tmp.21 = getv function %tmp.20 :handlePoiAction;
-        %tmp.22 = invoke %tmp.20 %tmp.21();
-        ret %tmp.22;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_62_43_8_stop:
+        symbol [ view %tmp.15 42 19 23 ];
+        %tmp.15 = getv ? :view;
+        symbol [ handlePoiAction %tmp.16 42 24 39 ];
+        %tmp.16 = getv function %tmp.15 :handlePoiAction;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        ret %tmp.17;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_37_43_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_39_8_43_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc" 44 8 ]
-        %tmp.23 = false;
-        ret %tmp.23;
+        %tmp.18 = false;
+        ret %tmp.18;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosDelegate_mc_37_55_45_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosDelegate.mc"; @line = 47; @position = 8; @symbol_vardef = [lastScrollRequestMs,47,8,27]; ]

@@ -33,15 +33,15 @@ class gsensrosDelegate extends WatchUi.BehaviorDelegate {
         return view.handlePoiAction();
     }
 
-    // Instinct 2 / 2X: use the UP button for POI marking
+    // Keep the hardware Up/Down keys for page scrolling; reserve the menu button for POI actions.
     function onKey(evt as WatchUi.KeyEvent) as Boolean {
         var key = evt.getKey();
-        if (key == WatchUi.KEY_UP || key == WatchUi.KEY_MENU) {
+        if (key == WatchUi.KEY_MENU) {
             suppressNextSelect = true;
             suppressUntilMs = System.getTimer() + 200;
             return view.handlePoiAction();   // mark POI while recording
         }
-        return false;              // leave other keys to the system
+        return false;              // leave Up/Down and other keys to the system
     }
 
     var lastScrollRequestMs = 0;
