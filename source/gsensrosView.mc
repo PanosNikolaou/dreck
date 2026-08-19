@@ -117,8 +117,12 @@ class gsensrosView extends WatchUi.View {
     // Dive-state hysteresis (prevents instant start->stop at the surface)
     var diveStartMs = 0;
     var shallowSampleCount = 0;
+    var diveStartConfidence = 0;
+    var diveStopConfidence = 0;
     const MIN_DIVE_DURATION_MS = 10000;
     const SHALLOW_SAMPLES_TO_STOP = 5;
+    const DIVE_START_CONFIDENCE_THRESHOLD = 2;
+    const DIVE_STOP_CONFIDENCE_THRESHOLD = 3;
 
     // Additional health data
     var spo2 = 0;                          // NEW - pulse oximetry, %
@@ -861,6 +865,8 @@ class gsensrosView extends WatchUi.View {
         biometricHrBaseline = 0;
         biometricSpo2Baseline = 0.0f;
         biometricBaselineReady = false;
+        diveStartConfidence = 0;
+        diveStopConfidence = 0;
     }
 
     function resetHeadingEstimate() as Void {
@@ -1280,39 +1286,53 @@ class gsensrosView extends WatchUi.View {
             if (!isRecording) {
                 isUnderwater = false;
                 shallowSampleCount = 0;
+                diveStartConfidence = 0;
+                diveStopConfidence = 0;
                 return;
             }
 
-            if (!isUnderwater && currentDepth > DIVE_START_DEPTH_M) {
-                isUnderwater = true;
-                diveStartMs = System.getTimer();
-                shallowSampleCount = 0;
-                return;
-            }
-
-            if (isUnderwater) {
-                var elapsed = System.getTimer() - diveStartMs;
-
-                // Don't allow auto-stop until a minimum dive duration has passed;
-                // avoids the instant start->stop loop caused by depth noise.
-                if (elapsed < MIN_DIVE_DURATION_MS) {
-                    return;
-                }
-
-                var backOnStartingLand = isNearEntryPosition();
-                var nearSurface = currentDepth <= SURFACE_STOP_DEPTH_M;
-
-                // Only end the dive once we are shallow and back at the land position
-                // where recording started and the GPS signal was captured.
-                if (nearSurface && backOnStartingLand) {
-                    shallowSampleCount += 1;
-                    if (shallowSampleCount >= SHALLOW_SAMPLES_TO_STOP) {
-                        isUnderwater = false;
+            if (!isUnderwater) {
+                if (currentDepth > DIVE_START_DEPTH_M && currentDepth <= MAX_DEPTH_M) {
+                    diveStartConfidence += 1;
+                    diveStopConfidence = 0;
+                    if (diveStartConfidence >= DIVE_START_CONFIDENCE_THRESHOLD) {
+                        isUnderwater = true;
+                        diveStartMs = System.getTimer();
                         shallowSampleCount = 0;
+                        diveStartConfidence = 0;
+                        diveStopConfidence = 0;
                     }
                 } else {
-                    shallowSampleCount = 0;
+                    diveStartConfidence = 0;
+                    diveStopConfidence = 0;
                 }
+                return;
+            }
+
+            var elapsed = System.getTimer() - diveStartMs;
+
+            // Don't allow auto-stop until a minimum dive duration has passed;
+            // avoids the instant start->stop loop caused by depth noise.
+            if (elapsed < MIN_DIVE_DURATION_MS) {
+                return;
+            }
+
+            var backOnStartingLand = isNearEntryPosition();
+            var nearSurface = currentDepth <= SURFACE_STOP_DEPTH_M;
+
+            // Only end the dive once we are shallow and back at the land position
+            // where recording started and the GPS signal was captured.
+            if (nearSurface && backOnStartingLand) {
+                diveStopConfidence += 1;
+                if (diveStopConfidence >= DIVE_STOP_CONFIDENCE_THRESHOLD) {
+                    isUnderwater = false;
+                    shallowSampleCount = 0;
+                    diveStopConfidence = 0;
+                    diveStartConfidence = 0;
+                }
+            } else {
+                diveStopConfidence = 0;
+                shallowSampleCount = 0;
             }
         } catch (e) {
             System.println("processDiveState error: " + errorToString(e));
@@ -1455,13 +1475,13 @@ class gsensrosView extends WatchUi.View {
         if (isGpsRecoveryHoldActive()) {
             return false;
         }
-        if (estSpeed < DR_MOVE_SPEED_THRESHOLD_MPS) {
+        if (estSpeed < (DR_MOVE_SPEED_THRESHOLD_MPS * 1.2f)) {
             return false;
         }
-        if (movingConfidence < MIN_SENSOR_CONFIDENCE) {
+        if (movingConfidence < (MIN_SENSOR_CONFIDENCE + 1)) {
             return false;
         }
-        if (motionScoreMg < MIN_SENSOR_MOTION_MG) {
+        if (motionScoreMg < (MIN_SENSOR_MOTION_MG + 5.0f)) {
             return false;
         }
         if (isStationary()) {
@@ -1477,13 +1497,13 @@ class gsensrosView extends WatchUi.View {
         if (getHeadingConfidenceForDr() < MIN_HEADING_CONFIDENCE_FOR_DR) {
             return false;
         }
-        if (estSpeed < (DR_MOVE_SPEED_THRESHOLD_MPS * 0.70f)) {
+        if (estSpeed < (DR_MOVE_SPEED_THRESHOLD_MPS * 0.85f)) {
             return false;
         }
-        if (movingConfidence < (MIN_SENSOR_CONFIDENCE - 1)) {
+        if (movingConfidence < MIN_SENSOR_CONFIDENCE) {
             return false;
         }
-        if (motionScoreMg < (MIN_SENSOR_MOTION_MG * 0.85f)) {
+        if (motionScoreMg < (MIN_SENSOR_MOTION_MG + 2.0f)) {
             return false;
         }
         if (isStationary()) {

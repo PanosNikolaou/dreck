@@ -1,0 +1,79 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [System,2,14,20]; ]
+import Toybox.System;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 7; @symbol_classdef = [ConfirmStopDelegate,7,6,25]; @symbol_extends<0> = [WatchUi,7,34,41]; @symbol_extends<1> = [ConfirmationDelegate,7,42,62]; ]
+class ConfirmStopDelegate extends WatchUi.ConfirmationDelegate {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 9; @position = 8; @symbol_vardef = [view,9,8,12]; @symbol_type<0> = [gsensrosView,9,16,28]; ]
+    var view as gsensrosView;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 11; @symbol_functiondef = [initialize,11,13,23]; @symbol_param<0> = [view,11,24,28]; @symbol_param<0>_type<0> = [gsensrosView,11,32,44]; ]
+    function initialize(view as gsensrosView) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_11_46_14_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 12 8 ]
+        symbol [ ConfirmationDelegate %tmp.2 12 8 28 ];
+        %tmp.2 = getv ? :ConfirmationDelegate;
+        symbol [ initialize %tmp.3 12 29 39 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 13 8 ]
+        symbol [ self %self 13 8 12 ];
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 13 20 24 ];
+        symbol [ view ? 13 13 17 ];
+        putv self :view %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_11_46_14_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 16; @symbol_functiondef = [onResponse,16,13,23]; @symbol_param<0> = [response,16,24,32]; @symbol_param<0>_type<0> = [WatchUi,16,36,43]; @symbol_param<0>_type<1> = [Confirm,16,44,51]; @symbol_return<0> = [Boolean,16,56,63]; ]
+    function onResponse(response as WatchUi.Confirm) as Boolean {
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_16_64_24_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 17 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_8_21_8_if_stmt:
+        %tmp.1 = lgetv %response;
+        symbol [ response %tmp.1 17 12 20 ];
+        symbol [ WatchUi %tmp.2 17 24 31 ];
+        %tmp.2 = getm $.Toybox.WatchUi;
+        symbol [ CONFIRM_YES %tmp.3 17 32 43 ];
+        %tmp.3 = getv %tmp.2 :CONFIRM_YES;
+        %tmp.4 = eq %tmp.1 %tmp.3;
+        bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_8_21_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_8_21_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_45_21_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 18 12 ]
+        symbol [ view %tmp.6 18 12 16 ];
+        %tmp.6 = getv ? :view;
+        symbol [ stopSession %tmp.7 18 17 28 ];
+        %tmp.7 = getv function %tmp.6 :stopSession;
+        invoke %tmp.6 %tmp.7();
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 19 12 ]
+        symbol [ view %tmp.9 19 12 16 ];
+        %tmp.9 = getv ? :view;
+        symbol [ prepareToExit %tmp.10 19 17 30 ];
+        %tmp.10 = getv function %tmp.9 :prepareToExit;
+        invoke %tmp.9 %tmp.10();
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 20 12 ]
+        symbol [ System %tmp.11 20 12 18 ];
+        %tmp.11 = getm $.Toybox.System;
+        symbol [ exit %tmp.12 20 19 23 ];
+        %tmp.12 = getv function %tmp.11 :exit;
+        invoke %tmp.11 %tmp.12();
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_45_21_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_8_21_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_17_8_21_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc" 23 8 ]
+        %tmp.13 = true;
+        ret %tmp.13;
+_home_panagiotis_Documents_gsensors_gsensros_ConfirmStopDelegate_mc_16_64_24_4_stop:
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/ConfirmStopDelegate.mc"; @line = 1; ]
+<init> {
+}
