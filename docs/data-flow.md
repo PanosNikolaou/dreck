@@ -87,12 +87,14 @@ Priority order:
 
 ## Dive State Transitions
 
+The app uses a shallow-water threshold and an entry-point GPS anchor instead of stopping on depth alone.
+
 ```
          ┌──────────────────────────┐
          │  Surface (isUnderwater = false) │
          └────────────┬─────────────┘
                       │
-              currentDepth > 1.5m
+             currentDepth > 0.5m
                       │
                       ▼
          ┌──────────────────────────┐
@@ -100,13 +102,19 @@ Priority order:
          │  (isUnderwater = true)    │
          └────────────┬─────────────┘
                       │
-              currentDepth ≤ 0.5m
+      currentDepth ≤ 0.5m AND within 5m of start GPS
                       │
                       ▼
          ┌──────────────────────────┐
          │  Surface (isUnderwater = false) │
          └──────────────────────────┘
 ```
+
+Important details:
+- A dive begins once depth exceeds 0.5 m while recording is active.
+- A dive does not end just because the user is near the surface.
+- The app requires both shallow depth and a valid return to the start GPS point (radius 5 m) before flipping back to surface state.
+- Invalid altitude / pressure values are rejected before depth is updated, which prevents false readings from bad sensor samples.
 
 ## Session Lifecycle
 

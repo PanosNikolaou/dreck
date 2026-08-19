@@ -101,8 +101,9 @@ class gsensrosView extends WatchUi.View {
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
     const DEPTH_NOISE_FLOOR_M   = 0.4f;    // ignore anything below this
-    const DIVE_START_DEPTH_M    = 1.5f;
-    const SURFACE_STOP_DEPTH_M  = 0.5f;
+    const DIVE_START_DEPTH_M    = 0.5f;    // start dive detection once just below the surface
+    const SURFACE_STOP_DEPTH_M  = 0.5f;    // surface noise gate; actual stop uses return to start GPS point
+    const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
     const MAX_DEPTH_M           = 80.0f;   // hard clamp (tech diving upper bound)
@@ -1256,6 +1257,24 @@ class gsensrosView extends WatchUi.View {
         }
     }
 
+    function isNearEntryPosition() as Boolean {
+        if (!hasEntryPosition || !hasGpsFix || !isGpsQualityUsable(gpsQuality)) {
+            return false;
+        }
+
+        var latRefRad = entryLat * 0.017453292519943295f;
+        var metersPerDegLat = 111000.0f;
+        var metersPerDegLon = 111000.0f * Math.cos(latRefRad);
+        if (metersPerDegLon < 1000.0f) {
+            metersPerDegLon = 1000.0f;
+        }
+
+        var eastDelta = (longitude - entryLon) * metersPerDegLon;
+        var northDelta = (latitude - entryLat) * metersPerDegLat;
+        var distanceM = Math.sqrt((eastDelta * eastDelta) + (northDelta * northDelta));
+        return distanceM <= LAND_RETURN_RADIUS_M;
+    }
+
     function processDiveState() as Void {
         try {
             if (!isRecording) {
@@ -1280,7 +1299,12 @@ class gsensrosView extends WatchUi.View {
                     return;
                 }
 
-                if (currentDepth <= SURFACE_STOP_DEPTH_M) {
+                var backOnStartingLand = isNearEntryPosition();
+                var nearSurface = currentDepth <= SURFACE_STOP_DEPTH_M;
+
+                // Only end the dive once we are shallow and back at the land position
+                // where recording started and the GPS signal was captured.
+                if (nearSurface && backOnStartingLand) {
                     shallowSampleCount += 1;
                     if (shallowSampleCount >= SHALLOW_SAMPLES_TO_STOP) {
                         isUnderwater = false;

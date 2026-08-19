@@ -476,8 +476,9 @@ function processDiveState() as Void
 Determines whether the user is underwater.
 
 ### Logic
-- If depth exceeds `DIVE_START_DEPTH_M`, set underwater true.
-- If depth falls below `SURFACE_STOP_DEPTH_M`, set underwater false.
+- If recording is active and depth exceeds `DIVE_START_DEPTH_M` (`0.5 m`), set underwater true.
+- The dive remains active until depth is at or below `SURFACE_STOP_DEPTH_M` (`0.5 m`) and the current position is within `LAND_RETURN_RADIUS_M` (`5 m`) of the captured start GPS point.
+- The app intentionally ignores invalid altitude and pressure data before updating depth, preventing false spikes or garbage values from claiming a dive start/stop.
 
 ---
 

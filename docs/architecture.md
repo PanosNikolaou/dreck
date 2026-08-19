@@ -25,7 +25,8 @@ Collects raw sensor data and user input events.
 Processes raw sensor data into meaningful state estimates.
 
 - **Motion Detection**: Adaptive baseline learning, high-pass filtering, exponential variance, unified hysteresis
-- **Depth Estimation**: Altitude-relative depth with surface calibration and continuous recalibration
+- **Depth Estimation**: Altitude-relative depth with surface calibration, strict validity gating for bad barometric data, and continuous recalibration
+- **Dive State Detection**: Start at 0.5 m depth and stop only when shallow (≤ 0.5 m) and within 5 m of the recording start GPS point
 - **Heading Estimation**: Three-tier source selection (true heading → magnetometer → gyro integration → DR fallback)
 - **Speed Estimation**: GPS speed preferred; motion-based fallback when GPS unavailable
 - **Dead Reckoning**: 2D position integration using speed × heading with heading correction

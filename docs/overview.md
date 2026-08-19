@@ -9,8 +9,8 @@ gsensros is a Garmin Connect IQ watch face application designed for dive and lan
 - **Heading Estimation**: Hierarchical heading source selection (true heading → magnetometer → gyro integration → dead reckoning fallback)
 - **Dead Reckoning**: 2D position tracking using speed and heading with GPS correction
 - **Kalman Filter**: 4-state Kalman filter for GPS-corrected east/north position estimation
-- **Depth Estimation**: Altitude-based depth calculation with surface calibration and automatic recalibration
-- **Dive State Detection**: Automatic classification of underwater vs. land surface state
+- **Depth Estimation**: Altitude-based depth calculation with surface calibration, strict validation of barometric values, and automatic recalibration
+- **Dive State Detection**: Starts at 0.5 m depth and ends only when the user is back at 0.5 m or shallower and within 5 m of the start GPS point
 - **Nitrogen Loading**: Simplified Haldane-style multi-tissue nitrogen model for dive risk assessment
 - **FIT Recording**: Activity recording with custom FIT fields for post-dive analysis
 - **UI Display**: Real-time watch display of all tracking metrics with scrollable layout

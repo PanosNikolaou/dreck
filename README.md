@@ -218,7 +218,7 @@ Converts radians to degrees.
 Estimates depth from altitude relative to a calibrated surface reference.
 
 #### `processDiveState()`
-Determines whether the user is underwater by comparing depth to the underwater thresholds.
+Determines whether the user is underwater using the live depth threshold and the recorded GPS entry point. The app marks the dive as started once depth exceeds 0.5 m. It ends only when the depth is at or below 0.5 m and the current GPS position is within 5 m of the original recording start location, which prevents false stop events while the user is still near the surface in a different place.
 
 ### Speed and motion estimation
 
