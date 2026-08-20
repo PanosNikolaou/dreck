@@ -102,9 +102,9 @@ class gsensrosView extends WatchUi.View {
     var heartRate = 0;                        // NEW
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
-    const DEPTH_NOISE_FLOOR_M   = 0.4f;    // ignore anything below this
-    const DIVE_START_DEPTH_M    = 0.5f;    // start dive detection once just below the surface
-    const SURFACE_STOP_DEPTH_M  = 0.5f;    // surface noise gate; actual stop uses return to start GPS point
+    const DEPTH_NOISE_FLOOR_M   = 0.10f;   // keep valid shallow samples (e.g. 0.02–0.39 m) instead of zeroing the entire dive
+    const DIVE_START_DEPTH_M    = 0.20f;   // start dive detection on valid shallow movement, matching the Suunto trace
+    const SURFACE_STOP_DEPTH_M  = 0.25f;   // surface noise gate; actual stop uses return to start GPS point
     const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry

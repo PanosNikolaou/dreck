@@ -458,11 +458,11 @@ class gsensrosView extends WatchUi.View {
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 104; @position = 10; @symbol_constdef = [SURFACE_RECAL_ALPHA,104,10,29]; ]
     const SURFACE_RECAL_ALPHA = 0.02f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 105; @position = 10; @symbol_constdef = [DEPTH_NOISE_FLOOR_M,105,10,29]; ]
-    const DEPTH_NOISE_FLOOR_M = 0.4f;
+    const DEPTH_NOISE_FLOOR_M = 0.10f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 106; @position = 10; @symbol_constdef = [DIVE_START_DEPTH_M,106,10,28]; ]
-    const DIVE_START_DEPTH_M = 0.5f;
+    const DIVE_START_DEPTH_M = 0.20f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 107; @position = 10; @symbol_constdef = [SURFACE_STOP_DEPTH_M,107,10,30]; ]
-    const SURFACE_STOP_DEPTH_M = 0.5f;
+    const SURFACE_STOP_DEPTH_M = 0.25f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 108; @position = 10; @symbol_constdef = [LAND_RETURN_RADIUS_M,108,10,30]; ]
     const LAND_RETURN_RADIUS_M = 5.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 111; @position = 10; @symbol_constdef = [MAX_DEPTH_M,111,10,21]; ]
