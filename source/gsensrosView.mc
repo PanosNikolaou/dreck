@@ -11,6 +11,7 @@ import Toybox.FitContributor;
 import Toybox.Math;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
+import Toybox.Application;
 
 class gsensrosView extends WatchUi.View {
 
@@ -209,6 +210,9 @@ class gsensrosView extends WatchUi.View {
     const POI_FLASH_MS = 2000;
     const POI_NOTICE_MS = 1600;
     var drDiagFitEnabled = true;
+
+    var diveLogKey = null as String or Null;
+    var diveLogText = null as String or Null;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -411,6 +415,55 @@ class gsensrosView extends WatchUi.View {
         System.println("Calibration complete");
     }
 
+    function openDiveLogFile() as Void {
+        try {
+            closeDiveLogFile();
+
+            var now = Time.now();
+            var info = Gregorian.info(now, Time.FORMAT_SHORT);
+            var stamp = Lang.format("$1$-$2$-$3$-$4$-$5$-$6$", [
+                info.year.format("%04d"),
+                info.month.format("%02d"),
+                info.day.format("%02d"),
+                info.hour.format("%02d"),
+                info.min.format("%02d"),
+                info.sec.format("%02d")
+            ]);
+
+            diveLogKey = "dive_log_" + stamp;
+            diveLogText = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
+            Application.Storage.setValue(diveLogKey, diveLogText);
+            System.println("Dive log started: " + diveLogKey);
+        } catch (e) {
+            System.println("openDiveLogFile error: " + errorToString(e));
+            diveLogKey = null;
+            diveLogText = null;
+        }
+    }
+
+    function closeDiveLogFile() as Void {
+        if (diveLogKey != null) {
+            if (diveLogText != null) {
+                Application.Storage.setValue(diveLogKey, diveLogText);
+            }
+            diveLogKey = null;
+            diveLogText = null;
+        }
+    }
+
+    function writeDiveLogLine(line as String) as Void {
+        if (diveLogKey == null || diveLogText == null || line == null || line.length() == 0) {
+            return;
+        }
+
+        try {
+            diveLogText += line + "\n";
+            Application.Storage.setValue(diveLogKey, diveLogText);
+        } catch (e) {
+            System.println("Dive log write error: " + errorToString(e));
+        }
+    }
+
     function logDrDiagnostics(
         nowMs as Number,
         gpsUsable as Boolean,
@@ -425,11 +478,20 @@ class gsensrosView extends WatchUi.View {
             return;
         }
 
-        if (drDiagCount >= MAX_DR_DIAG_LOGS) {
-            return;
-        }
-
         drDiagCount += 1;
+
+        var line = Lang.format("$1$,$2$,$3$,$4$,$5$,$6$,$7$,$8$,$9$,$10$", [
+            nowMs,
+            (gpsUsable ? 1 : 0),
+            headingConf.format("%.2f"),
+            motionScore.format("%.1f"),
+            estSpeed.format("%.3f"),
+            stepEast.format("%.3f"),
+            stepNorth.format("%.3f"),
+            depthM.format("%.2f"),
+            heartRate,
+            spo2
+        ]);
 
         System.println(
             "DRDIAG #" + drDiagCount +
@@ -444,6 +506,7 @@ class gsensrosView extends WatchUi.View {
             " hr=" + heartRate +
             " spo2=" + spo2
         );
+        writeDiveLogLine(line);
     }
 
     function timerCallback() as Void {
@@ -1829,6 +1892,7 @@ class gsensrosView extends WatchUi.View {
             startGps();
             captureEntryPosition();
             startRecording();
+            openDiveLogFile();
 
             if (!isRecording) {
                 return;
@@ -1906,6 +1970,7 @@ class gsensrosView extends WatchUi.View {
             }
 
             shutdownSessionSafe();
+            closeDiveLogFile();
             maxDepthSeen = 0.0f;
             diveTimeMs = 0;
             maxN2LoadSeen = 0.0f;
@@ -2049,6 +2114,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             poiCount = 0;
             poiFlashMs = 0;
             System.println("Recording STARTED");
+            openDiveLogFile();
         } else {
             System.println("session.start() returned false");
             clearFitFields();
