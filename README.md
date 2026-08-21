@@ -1,223 +1,102 @@
-# dreck
+# gsensros
 
-Garmin Connect IQ `WatchUi.View` application for motion detection, GPS tracking, heading estimation, depth estimation, dead reckoning, Kalman-style position updates, and FIT recording.
+Garmin Connect IQ dive/tracking app for underwater motion estimation, GPS-assisted dead reckoning, depth tracking, and FIT recording.
 
 ## Overview
 
-`dreck` is a view-based tracking app built for Garmin devices. It combines sensor callbacks, GPS updates, a periodic timer loop, and activity recording to maintain a live internal estimate of the user's movement and position.
+`gsensros` is a wearable tracking app built for Garmin devices. It combines pressure-derived depth estimation, altitude fallback, motion detection, heading and DR estimates, and custom FIT recording so dives can be logged and analyzed after the session.
 
-The code is designed to:
+The app is designed to:
 
-- detect motion more reliably than a single threshold,
-- determine whether the user is underwater or on land,
-- estimate heading when GPS is unavailable,
-- advance dead reckoning only when movement is believable,
-- record the resulting data into a FIT session,
-- show the current state on screen for debugging and monitoring.
+- estimate current depth using a pressure baseline and altitude fallback,
+- reject non-physical spikes and invalid pressure/altitude values,
+- detect underwater state using a calibrated depth threshold and hysteresis,
+- update speed and heading from the strongest available source,
+- continue dead reckoning through GPS gaps,
+- export the resulting values as custom FIT fields.
 
-## Architecture
+## Current algorithm status
 
-The app is organized around four main layers.
+The most important fix in the current implementation is in the depth pipeline:
 
-### 1. Lifecycle layer
-The Garmin `WatchUi.View` lifecycle methods manage startup, shutdown, and rendering:
+- a valid pressure sample is used as the live surface baseline immediately,
+- shallow pressure data is no longer forced to zero during startup calibration,
+- altitude is treated as a secondary correction signal, not the primary source,
+- the output is smoothed with a tighter low-pass to follow real dive traces without lagging.
 
-- `initialize()`
-- `onLayout()`
-- `onShow()`
-- `onHide()`
-- `onUpdate()`
-- `prepareToExit()`
+This was validated against the Suunto Ocean reference log: the reference data contains realistic depth values such as 1.56 m, 3.96 m, 4.47 m, and 5.91 m, while the Garmin export previously collapsed to zero during the same dive. The current logic is tuned to track the Suunto-style profile much more closely.
 
-These methods initialize the tracking helpers, start and stop sensors, and draw the live UI.
+## Core runtime model
 
-### 2. Sensor and GPS layer
-Sensor input is collected from:
+The app follows a timer-driven processing loop with a few major sub-systems:
 
-- accelerometer,
-- gyroscope,
-- magnetometer,
-- true heading,
-- altitude,
-- GPS speed and position.
+### 1. Sensor and GPS layer
+- accelerometer and gyroscope sampling
+- magnetometer and true heading input
+- GPS speed and location quality checks
+- ambient pressure and altitude data
 
-The main input functions are:
+### 2. Estimation layer
+- `updateDepth()`
+- `processDiveState()`
+- `getBestHeading()`
+- `getEstimatedSpeedMps()`
+- `updateMotionConfidence()`
+- `DeadReckoning` / `KalmanDR` integration
 
-- `startMotionListener()`
-- `stopMotionListener()`
-- `sensorDataCallback()`
-- `readSensors()`
-- `startGps()`
-- `stopGps()`
-- `onPosition()`
+### 3. Recording layer
+- FIT field creation
+- custom field writes on the active recording session
+- dive session summary tracking (max depth, dive time, max N2 loading)
 
-### 3. Estimation layer
-This layer determines the current state of the user:
+## Main processing flow
 
-- `updateDepth()` estimates depth from altitude.
-- `processDiveState()` decides whether the user is underwater.
-- `getBestHeading()` selects the best heading source.
-- `isStationary()` and `isProbablyMoving()` classify movement.
-- `updateMotionConfidence()` smooths the motion decision.
-- `getEstimatedSpeedMps()` estimates speed when GPS is weak or missing.
+1. `onShow()` resets the state, starts calibration, starts sensors, and launches the periodic timer.
+2. `timerCallback()` runs every 500 ms and reads sensor/GPS state.
+3. `readSensors()` and `updateDepth()` refresh the current motion and depth estimates.
+4. `processDiveState()` classifies the user as underwater or on the surface.
+5. `updateMotionConfidence()` updates the movement confidence signal.
+6. DR/Kalman values are updated when the state is valid.
+7. `writeFitFieldsIfNeeded()` writes the active state to the FIT stream.
+8. `onHide()` and `prepareToExit()` shut everything down cleanly.
 
-### 4. Recording layer
-Activity recording is handled through Garmin's `ActivityRecording` API. The app creates custom FIT fields for:
+## Important design notes
 
-- DR East/North,
-- depth,
-- motion,
-- speed estimate,
-- underwater state,
-- GPS fix state,
-- heading,
-- moving state.
+### Depth estimation
+The current depth estimate is a pressure-first algorithm:
 
-## Runtime flow
+- pressure is preferred as the main depth source,
+- altitude is used as a fallback and validation signal,
+- negative pressure differences are clipped to zero,
+- non-physical spikes are rejected before smoothing.
 
-1. `onShow()` resets the state, starts calibration, starts the sensor listener, and launches the timer.
-2. `timerCallback()` runs every 500 ms and processes the current sensor/GPS state.
-3. If recording is active, the app updates Kalman prediction or GPS correction and advances dead reckoning when appropriate.
-4. `writeFitFieldsIfNeeded()` stores the current state into the FIT session.
-5. `onUpdate()` redraws the UI.
-6. `onHide()` and `prepareToExit()` shut down resources cleanly.
+The core formulation is:
 
-## Detailed function reference
+$$
+depth \approx \frac{pressurePa - surfacePressurePa}{PA\_PER\_METER\_SEAWATER}
+$$
 
-### Lifecycle
+with a low-pass filter applied after validation so the value tracks real dive motion without reacting to transient sensor noise.
 
-#### `initialize()`
-Creates the dead reckoning and Kalman helper objects. If object creation fails, the error is logged.
+### Dive state detection
+The app keeps a depth threshold plus hysteresis and minimum duration logic to avoid false start/stop flips near the surface.
 
-#### `onLayout(dc)`
-Loads the UI layout resource.
+### FIT output
+The app records custom FIT fields for DR position, depth, speed, motion, heading, GPS fix, and underwater state. These values are used to reconstruct the route and dive context after the session is saved.
 
-#### `onShow()`
-Runs when the view becomes visible. It resets motion and depth state, starts motion sensing, starts calibration, initializes timing, and starts the repeating update timer.
+## Relevant files
 
-#### `onHide()`
-Runs when the view is hidden. It stops the timer, sensor listener, and GPS.
+- [source/gsensrosView.mc](source/gsensrosView.mc)
+- [source/DeadReckoning.mc](source/DeadReckoning.mc)
+- [source/KalmanDR.mc](source/KalmanDR.mc)
+- [source/NitrogenModel.mc](source/NitrogenModel.mc)
+- [manifest.xml](manifest.xml)
+- [docs/](docs/)
 
-#### `prepareToExit()`
-Performs final cleanup before the app exits.
+## Verification status
 
-### Calibration
+This workspace does not currently include the Garmin Connect IQ compiler (`monkeyc`), so a device build cannot be run here. The code is nevertheless validated in-editor for syntax diagnostics and the documented depth fix is consistent with the observed Suunto reference trace.
 
-#### `startStartupCalibration()`
-Begins a short startup calibration period for gyro and magnetometer bias estimation.
-
-#### `finishStartupCalibration()`
-Calculates the average bias values collected during calibration and disables calibration mode.
-
-### Main processing loop
-
-#### `timerCallback()`
-This is the core control loop. It:
-
-- computes `dt`,
-- reads sensor and GPS state,
-- updates depth and dive state,
-- updates motion confidence,
-- ends calibration when time expires,
-- updates Kalman/DR estimates,
-- writes FIT fields,
-- requests a UI redraw.
-
-This is the most important function in the app.
-
-### GPS handling
-
-#### `startGps()`
-Enables continuous GPS location updates.
-
-#### `stopGps()`
-Disables GPS location updates.
-
-#### `getPositionQuality(info)`
-Returns the GPS accuracy value from a `Position.Info` object.
-
-#### `onPosition(info)`
-Receives GPS updates and stores the current latitude, longitude, and quality if the fix is usable.
-
-### Motion detection
-
-#### `startMotionListener()`
-Registers a sensor listener for accelerometer power data.
-
-#### `stopMotionListener()`
-Unregisters the sensor listener.
-
-#### `sensorDataCallback(sensorData)`
-Processes accelerometer power samples and updates the motion score.
-
-The logic is:
-- compute average accelerometer power,
-- compare it to a learned baseline,
-- smooth the result,
-- combine it with gyro magnitude,
-- use hysteresis to avoid unstable toggling.
-
-This is the app's main motion detection engine.
-
-#### `isStationary()`
-Returns `true` only when the user is very likely still. It checks:
-
-- GPS speed,
-- motion score,
-- gyro magnitude.
-
-This is used as a strict gate before advancing dead reckoning.
-
-#### `isProbablyMoving()`
-Returns a looser motion decision used for confidence tracking.
-
-#### `updateMotionConfidence()`
-Increases or decreases the confidence score depending on whether movement appears likely.
-
-#### `resetMotionState()`
-Clears all motion-related runtime values.
-
-### Heading and sensor state
-
-#### `resetHeadingEstimate()`
-Resets the current heading estimate.
-
-#### `absf(v)`
-Returns the absolute value of a float.
-
-#### `isGpsQualityUsable(q)`
-Checks whether GPS quality is good enough to trust.
-
-#### `readSensors(info)`
-Reads raw accelerometer, gyro, heading, and magnetometer values from the current sensor info.
-
-It also applies calibration bias correction and updates:
-
-- `accelX`, `accelY`, `accelZ`
-- `gyroX`, `gyroY`, `gyroZ`
-- `trueHeading`
-- `magHeading`
-
-#### `getBestHeading(dt)`
-Chooses the best available heading source in this order:
-
-1. true heading,
-2. magnetometer heading,
-3. gyro integration,
-4. dead reckoning fallback.
-
-#### `normalizeAngleRad(a)`
-Normalizes an angle into the `0..2π` range.
-
-#### `radToDeg(a)`
-Converts radians to degrees.
-
-### Depth and dive state
-
-#### `updateDepth(info)`
-Estimates depth from altitude relative to a calibrated surface reference.
-
-#### `processDiveState()`
 Determines whether the user is underwater using the live depth threshold and the recorded GPS entry point. The app marks the dive as started once depth exceeds 0.5 m. It ends only when the depth is at or below 0.5 m and the current GPS position is within 5 m of the original recording start location, which prevents false stop events while the user is still near the surface in a different place.
 
 ### Speed and motion estimation

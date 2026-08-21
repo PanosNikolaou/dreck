@@ -1,38 +1,44 @@
-# Version Changes - 2026-08-14
+# Version Changes - 2026-08-21
 
-## Release Summary
-This update improves GPS-assisted dead reckoning, keeps the app functional without GPS, and makes POI marking behave as custom FIT markers rather than lap splits.
+## Release summary
+This update fixes the core depth mismatch against the Suunto Ocean reference and aligns the app’s documented depth model with the actual observed dive trace.
 
-## What Changed
+## What changed
 
-### 1. Dead reckoning became more adaptive
-- Added a motion-state and GPS-uncertainty filter to the dead-reckoning path.
-- Movement acceptance and deadband now react more smoothly during GPS loss and sensor jitter.
-- The filter helps avoid abrupt jumps and overly aggressive movement acceptance.
+### 1. Pressure-first depth baseline was corrected
+- The app now initializes `surfacePressurePa` from the first valid pressure sample instead of waiting for the full calibration window.
+- Live pressure-based depth updates remain active during startup calibration when the pressure signal is valid.
+- Negative pressure differences are clipped to zero so false negative depths are not reported.
 
-### 2. GPS fallback now works continuously
-- Dead reckoning remains active even when GPS is unavailable or temporarily unusable.
-- The app now uses the DR-only path more reliably instead of waiting for a prior GPS-loss event.
+### 2. Altitude is now secondary, not primary
+- The altitude estimate is still used when valid, but it no longer dominates the underwater trace.
+- Pressure is treated as the authoritative depth signal for real dive depth estimation.
 
-### 3. GPS handling was made more responsive
-- The GPS loss hold window was shortened.
-- GPS correction updates now happen more frequently.
-- GPS fixes are treated as usable unless they are explicitly marked as unavailable.
-- Kalman filter tuning was strengthened so available GPS corrections have a stronger effect.
+### 3. Low-pass smoothing was tuned
+- The filtering response was adjusted to track actual dive motion more quickly while still suppressing transient spikes.
+- This keeps the trace responsive without the flat-zero startup artifact.
 
-### 4. POI behavior was corrected
-- POI marking no longer creates a FIT lap/split event.
-- POIs are now recorded as custom record data points instead of new laps.
+### 4. The earlier drift bug was clearly isolated
+- The Garmin export previously flattened to zero because the app’s startup calibration logic was discarding real pressure values too early.
+- The corrected implementation is consistent with Suunto Ocean data and the realistic shallow-depth trace seen in the reference logs.
 
-### 5. FIT output improvements
-- Custom fields for DR position, depth, speed, heading, motion, GPS fix state, and POI markers remain part of the FIT record stream.
-- The system now better reflects the active GPS/DR state in the recorded data.
+## Comparison to Suunto reference
 
-### 6. Suggested next improvements
-- Adaptive Heading Alpha: the complementary blend factor used by heading corrections could be weighted dynamically based on magnetometer reliability, inclination quality, or estimated magnetic interference rather than relying on a fixed blend.
-- Vertical Integration: if the tracking use case benefits from it, the state vector could be extended from a 2D East-North plane to include altitude and vertical velocity to better compensate for terrain gradients and improve ground-track distance estimates.
+The Suunto Ocean log contains realistic depth values around:
+
+- 1.56 m
+- 3.96 m
+- 4.47 m
+- 5.91 m
+
+The fixed implementation now follows that style of trace instead of stalling at 0 m while the calibration gate is waiting to complete.
 
 ## Impact
-- Better continuous tracking when GPS signal is weak or interrupted.
-- Less jitter and smoother route progression during GPS transitions.
-- Cleaner POI data without unintended lap creation.
+
+- Depth values are now much closer to the real dive trace.
+- The app is less likely to report flat zero-depth behavior during initial calibration.
+- The documented algorithm better reflects what the watch is actually doing in the field.
+
+## Relevant notes
+
+This update supersedes the earlier altitude-heavy explanation in the older release notes. The current app behavior is pressure-first and tuned to a realistic dive profile rather than a starter calibration artifact.

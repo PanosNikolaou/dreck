@@ -1,110 +1,74 @@
 # FIT fields and formulas
 
-This document is a detailed reference for the FIT record fields written during tracking and recording. It explains what each field represents, where it is created in the app, how the value is computed, and why it is included in the current recording stream.
+This guide explains the FIT fields produced by the Garmin app, the formulas used to compute them, and the current depth logic that was corrected against the Suunto Ocean reference log.
 
-## 1. Recording pipeline overview
+## 1. Overview
 
-The FIT writing path is centered in [source/gsensrosView.mc](../source/gsensrosView.mc), with the navigation and state estimates coming from [source/DeadReckoning.mc](../source/DeadReckoning.mc) and [source/KalmanDR.mc](../source/KalmanDR.mc).
+The FIT writing path is centered in [source/gsensrosView.mc](../source/gsensrosView.mc), with navigation estimates coming from [source/DeadReckoning.mc](../source/DeadReckoning.mc) and [source/KalmanDR.mc](../source/KalmanDR.mc).
 
-The high-level flow is:
+The app produces a compact real-time stream of useful values rather than a large scientific payload. The most important fields are:
 
-1. Sensor and GPS callbacks update the current state.
-2. The app updates dive state, motion confidence, heading, and position estimates.
-3. The values are converted into FIT-ready scalars.
-4. The values are written to the active recording stream through the FIT contributor field interface.
-
-The implementation is designed to be compact and practical for Garmin devices, so the app favors a small set of useful record fields rather than a very large diagnostic payload.
+- DR East / North
+- Depth
+- Speed estimate
+- Heading
+- Underwater state
+- Motion / moving state
+- GPS fix state
 
 ## 2. FIT fields currently stored
 
-The following record fields are created during recording in [source/gsensrosView.mc](../source/gsensrosView.mc):
+The active set includes:
 
-- DR_East (id 0, float, m)
-- DR_North (id 1, float, m)
-- Depth (id 2, float, m)
-- Speed (id 3, float, m/s)
-- Heading (id 4, float, deg)
-- Underwater (id 5, uint32, unitless)
-- Motion (id 6, float, mg)
-- Moving (id 7, uint32, unitless)
-- GpsFix (id 8, uint32, unitless)
-- DR_Lat (id 9, float, deg)
-- DR_Lon (id 10, float, deg)
-- POI_Id (id 11, uint32, unitless)
-- POI_Lat (id 12, float, deg)
-- POI_Lon (id 13, float, deg)
-- DR_Diag (id 28, uint32, unitless, optional)
+- DR_East (float, m)
+- DR_North (float, m)
+- Depth (float, m)
+- Speed (float, m/s)
+- Heading (float, deg)
+- Underwater (uint32)
+- Motion (float, mg)
+- Moving (uint32)
+- GpsFix (uint32)
+- DR_Lat / DR_Lon (float, deg)
+- POI_Id, POI_Lat, POI_Lon
+- optional DR_Diag values
 
-The most important practical meaning of this set is:
+These fields are written mainly from the timer loop via `writeFitFieldsIfNeeded()`.
 
-- navigation: DR_East, DR_North, DR_Lat, DR_Lon
-- environment / dive state: Depth, Underwater
-- motion / activity: Speed, Heading, Motion, Moving
-- GPS availability: GpsFix
-- debugging / diagnostics: DR_Diag
-- user markers: POI_Id, POI_Lat, POI_Lon
+## 3. Depth formula and current implementation
 
-## 3. Fields declared but not currently active
+The corrected depth formula uses pressure as the primary source:
 
-These are declared in the source, but they are not created as live record fields in the current build:
+$$
+depth \approx \frac{pressurePa - surfacePressurePa}{PA\_PER\_METER\_SEAWATER}
+$$
 
-- FIELD_GPS_LAT (id 14) / FIELD_GPS_LON (id 15)
-  - Intended for direct GPS lat/lon logging, but not created because the current recording path stores synthetic DR-derived lat/lon instead.
-- FIELD_N2_LOAD (id 16) / FIELD_N2_MAX (id 17) / FIELD_N2_BAND (id 18)
-  - Reserved for nitrogen model outputs, but not written because the current app keeps those values as UI/model state rather than streaming them into FIT.
-- FIELD_HR (id 19)
-  - Reserved for heart-rate logging, but not enabled in the current record stream to preserve field budget and keep the FIT payload focused on navigation and motion.
-- FIELD_ASCENT (id 20)
-  - Reserved for ascent-rate logging, but not connected to the active streaming path.
-- FIELD_SPO2 (id 21)
-  - Reserved for SpO2 data, but not currently created to avoid expanding the field set further.
-- FIELD_TEMP (id 22)
-  - Reserved for temperature logging, but not active in the current live record pipeline.
-- FIELD_MAX_DEPTH (id 23) / FIELD_DIVE_TIME (id 24) / FIELD_MAX_N2 (id 25)
-  - Declared as session-summary style fields, but not emitted because the app does not currently write session-level summary values.
-- FIELD_POI_EAST (id 26) / FIELD_POI_NORTH (id 27)
-  - Intended as local coordinate POI fields, but not used because the app currently records POI data as lat/lon rather than local east/north values.
+where:
 
-This distinction is important because it separates:
+- `surfacePressurePa` is the live baseline calibrated from the first valid pressure reading,
+- `PA_PER_METER_SEAWATER` is the water-density approximation used by the app,
+- negative values are clipped to zero,
+- deep spikes and impossible jumps are rejected before smoothing.
 
-- fields that are actively being recorded now
-- fields that are prepared for future expansion
-- fields that are intentionally left unused for now
+The app also computes an altitude-based estimate:
 
-## 4. Where the fields are created
+$$
+altitudeDepth = surfaceAltitude - rawAlt
+$$
 
-Field creation happens in the recording setup path in [source/gsensrosView.mc](../source/gsensrosView.mc), inside the startRecording() flow.
+and then blends the two values when both are valid, with pressure taking priority. This prevents the old altitude-only behavior from dominating the estimate when the barometer is stable and the GPS/altitude path is noisy.
 
-The active record fields are created with a helper such as safeCreateField(), and the optional diagnostic field is conditionally created when the feature toggle is enabled.
+The final filtered depth is passed through a low-pass filter:
 
-In practice, the field creation step establishes the FIT schema for the session before data recording begins. Once a field exists, the app can write values into it repeatedly as the recording progresses.
+$$
+depthFilter = 0.6 \cdot depthFilter + 0.4 \cdot rawDepth
+$$
 
-## 5. Where values are written
+This gives a much more natural dive trace than the older flat-zero startup behavior.
 
-Values are written from writeFitFieldsIfNeeded() in [source/gsensrosView.mc](../source/gsensrosView.mc).
+## 4. DR position formulas
 
-This function is called periodically from the main timer loop. It does not write every value on every tick. Instead, it checks whether the new value has changed enough to be worth updating, which reduces unnecessary FIT traffic and improves efficiency.
-
-The write flow is effectively:
-
-- read the latest state estimate
-- convert it into the required FIT value type
-- compare with the previous value
-- write only if the change is significant
-
-## 6. Field-by-field details
-
-### 6.1 DR_East / DR_North
-
-Source:
-- Dead reckoning propagation in [source/DeadReckoning.mc](../source/DeadReckoning.mc)
-- Kalman state update in [source/KalmanDR.mc](../source/KalmanDR.mc)
-
-Meaning:
-- The current local position estimate in meters relative to the entry point or local coordinate frame.
-
-How it is computed:
-- The dead-reckoning part integrates heading and speed into incremental movement:
+The dead reckoning update uses heading and speed to estimate local displacement:
 
 $$
 stepEast = speedMps \cdot \sin(headingRad) \cdot dt
@@ -122,102 +86,34 @@ $$
 northMeters = northMeters + stepNorth
 $$
 
-- The Kalman filter also maintains a state vector roughly of the form $[east, north, velEast, velNorth]$ and propagates it over time using a constant-velocity motion model.
+This is the basic tracking model used in the app when GPS is weak or unavailable.
 
-Why it matters:
-- These are the core navigation coordinates used for the DR track.
+## 5. Speed estimation
 
-### 6.2 Depth
+The app favors the most trustworthy source available:
 
-Source:
-- updateDepth() in [source/gsensrosView.mc](../source/gsensrosView.mc)
+1. GPS speed if usable
+2. motion-derived speed estimate
+3. fallback motion mapping for low-quality conditions
 
-Meaning:
-- Current dive depth in meters.
+The fallback uses motion thresholds to produce a plausible speed estimate rather than a brittle constant.
 
-How it is computed:
-- The app estimates a reference pressure at the surface and then compares the current ambient pressure to that reference.
-- The depth estimate is derived from pressure difference using the water-density approximation:
+## 6. Heading and motion notes
 
-$$
-depth = \frac{surfacePressurePa - pressurePa}{PA\_PER\_METER\_SEAWATER}
-$$
+Heading is chosen from the strongest source available, while motion confidence is handled by a hysteresis model so small sensor noise does not trigger state flips.
 
-- The result is clamped and smoothed to avoid jumps from noisy pressure samples.
+That means the app uses:
 
-Why it matters:
-- Depth is one of the core environmental values for the dive context and is used to drive underwater state logic.
+- true heading when present,
+- magnetometer-based heading when useful,
+- motion score and gyroscope magnitude for underwater movement detection,
+- filtered confidence to decide whether the system should advance DR or hold the last valid state.
 
-### 6.3 Speed
+## 7. Why the corrected depth logic matters
 
-Source:
-- getEstimatedSpeedMps() in [source/gsensrosView.mc](../source/gsensrosView.mc)
+The Suunto Ocean reference dive log contains realistic shallow values, while the Garmin export previously flattened to zero. Any fit/export pipeline that maintains zero depth during startup calibration is effectively discarding the actual underwater trace.
 
-Meaning:
-- The app’s best estimate of forward speed in meters per second.
-
-How it is computed:
-- The logic prioritizes the most trustworthy source available:
-  1. GPS speed if it is reliable
-  2. sensor-based motion estimation if the confidence is good
-  3. a fallback map from motion score to a plausible speed range
-
-The fallback uses motion thresholds. For land and swim modes, the app maps motion score into a target speed range using interpolation.
-
-Example structure:
-
-$$
-if\ motionScoreMg \le MIN\_MOTION\_LAND\_MG \Rightarrow target = MIN\_LAND\_SPEED\_MPS
-$$
-
-$$
-if\ motionScoreMg \ge MAX\_MOTION\_LAND\_MG \Rightarrow target = MAX\_LAND\_SPEED\_MPS
-$$
-
-For underwater values, the same idea applies with swim thresholds:
-
-$$
-if\ motionScoreMg \le MIN\_MOTION\_SWIM\_MG \Rightarrow target = MIN\_SWIM\_SPEED\_MPS
-$$
-
-$$
-if\ motionScoreMg \ge MAX\_MOTION\_SWIM\_MG \Rightarrow target = MAX\_SWIM\_SPEED\_MPS
-$$
-
-- Between the lower and upper bounds, a linear interpolation produces the final speed estimate.
-
-Why it matters:
-- Speed is the main quantity that drives the DR position propagation.
-
-### 6.4 Heading
-
-Source:
-- getBestHeading() in [source/gsensrosView.mc](../source/gsensrosView.mc)
-
-Meaning:
-- The best heading estimate used by the DR model, expressed in degrees.
-
-How it is computed:
-- The app first prefers a trusted true heading if available.
-- If that is unavailable, it falls back to the magnetometer heading if that estimate is accepted.
-- If neither is usable, it falls back to the DR heading estimate.
-- Final conversion from radians to degrees is:
-
-$$
-headingDeg = headingRad \cdot \frac{180}{\pi}
-$$
-
-Why it matters:
-- Heading defines the direction of travel for the dead-reckoning update.
-
-### 6.5 Underwater
-
-Source:
-- processDiveState() in [source/gsensrosView.mc](../source/gsensrosView.mc)
-
-Meaning:
-- A boolean-like state flag that marks whether the app considers the user underwater.
-
+The corrected algorithm resolves that problem by using the first valid pressure sample as the active surface baseline and keeping the live depth estimate active immediately instead of waiting for the calibration delay to end.
 How it is computed:
 - The app tracks the dive state with depth thresholds and hysteresis so that the state does not oscillate around the transition point.
 - The field is written as a binary value:

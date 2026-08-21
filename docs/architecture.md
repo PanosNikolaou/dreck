@@ -1,72 +1,85 @@
 # gsensros Architecture
 
-## Layer Design
+## Layer design
 
-The application follows a layered architecture with four distinct layers:
+The app follows a layered design that keeps sensor input, estimation, and recording separated but connected through the central `gsensrosView` controller.
 
-### 1. Lifecycle Layer
+### 1. Lifecycle layer
 
-Manages application startup, shutdown, and view transitions.
+Manages startup, shutdown, and view transitions.
 
-- **gsensrosApp**: Application entry point extending `Application.AppBase`. Implements `onStart()`, `onStop()`, and `getInitialView()`.
-- **gsensrosView**: View lifecycle methods `initialize()`, `onLayout()`, `onShow()`, `onHide()`, `onUpdate()`, `prepareToExit()`.
+- `gsensrosApp`: application entry point
+- `gsensrosView`: lifecycle methods and the core runtime state machine
+- `gsensrosDelegate`: input handling and user interaction
+- `ConfirmStopDelegate`: stop confirmation flow
 
-### 2. Sensor & Input Layer
+### 2. Sensor and input layer
 
-Collects raw sensor data and user input events.
+Collects raw data from the watch hardware and the environment.
 
-- **Sensor**: Accelerometer, gyroscope, magnetometer, heart rate, altitude via `Sensor.registerSensorDataListener()`
-- **Position**: GPS location via `Position.enableLocationEvents()`
-- **Input**: Button presses (`onSelect`, `onBack`) and page scrolling handled by delegates
-- **Timer**: 500ms periodic callback (`timerCallback`) drives the main processing loop
+- `Sensor.getInfo()` for accelerometer, gyroscope, heading, and pressure-related values
+- `Position.getInfo()` for GPS quality and location data
+- timer sampling at 500 ms for the main processing loop
+- button and navigation delegate events
 
-### 3. Estimation Layer
+### 3. Estimation layer
 
-Processes raw sensor data into meaningful state estimates.
+Transforms raw measurements into useful state estimates.
 
-- **Motion Detection**: Adaptive baseline learning, high-pass filtering, exponential variance, unified hysteresis
-- **Depth Estimation**: Altitude-relative depth with surface calibration, strict validity gating for bad barometric data, and continuous recalibration
-- **Dive State Detection**: Start at 0.5 m depth and stop only when shallow (≤ 0.5 m) and within 5 m of the recording start GPS point
-- **Heading Estimation**: Three-tier source selection (true heading → magnetometer → gyro integration → DR fallback)
-- **Speed Estimation**: GPS speed preferred; motion-based fallback when GPS unavailable
-- **Dead Reckoning**: 2D position integration using speed × heading with heading correction
-- **Kalman Filter**: 4-state (east, north, velEast, velNorth) Kalman filter with GPS corrections
-- **Nitrogen Model**: Haldane-style multi-tissue on-gassing/off-gassing model
+- `updateDepth()`: pressure-derived depth estimate with altitude fallback
+- `processDiveState()`: underwater vs surface classification with hysteresis
+- `getBestHeading()`: heading priority selection
+- `getEstimatedSpeedMps()`: motion/GPS speed fusion
+- `updateMotionConfidence()`: stage-based movement confidence assessment
+- `DeadReckoning` and `KalmanDR`: drift-resistant navigation updates
+- `NitrogenModel`: simplified nitrogen loading model
 
-### 4. Recording Layer
+### 4. Recording layer
 
-Manages activity recording and FIT file creation.
+Writes the final state into the FIT file for post-session analysis.
 
-- **ActivityRecording**: Garmin API for creating and managing activity sessions
-- **FitContributor**: Custom FIT fields for DR position, depth, motion, speed, heading, etc.
-- **Session Management**: Start, stop, save with proper resource cleanup
+- custom field creation for DR east/north, depth, speed, heading, GPS fix, and underwater state
+- `writeFitFieldsIfNeeded()` throttles updates to avoid too-frequent FIT writes
+- summary fields for max depth and dive timing
 
-## Class Relationships
+## Class relationships
 
-```
+```text
 gsensrosApp
-  └── creates gsensrosView + gsensrosDelegate
+  └── creates gsensrosView and delegate
         ├── gsensrosView
-        │     ├── DeadReckoning (dr)
-        │     ├── KalmanDR (kalman)
-        │     ├── NitrogenModel (n2Model)
-        │     ├── Timer (updateTimer)
-        │     └── Sensor/Position listeners
+        │     ├── DeadReckoning
+        │     ├── KalmanDR
+        │     ├── NitrogenModel
+        │     ├── Sensor + Position listeners
+        │     └── Timer callback
         ├── gsensrosDelegate
-        │     └── delegates to gsensrosView
         └── ConfirmStopDelegate
-              └── delegates to gsensrosView (stop/prepareToExit)
 ```
 
-## Data Flow Summary
+## Depth architecture
 
-1. Sensors and GPS feed raw data into `gsensrosView`
-2. `timerCallback` (500ms) orchestrates the processing pipeline:
-   - `readSensors()` → raw sensor values
-   - `updateDepth()` → depth estimate
-   - `updateGPS()` → position and speed
-   - `processDiveState()` → underwater flag
-   - `updateMotionConfidence()` → moving state
-   - Kalman/DR position updates
-   - `writeFitFieldsIfNeeded()` → FIT recording
-3. `onUpdate()` renders current state to the display
+The most significant fixed component is the depth model:
+
+- a valid pressure sample becomes the active surface reference immediately,
+- pressure is used as the primary depth source,
+- altitude is secondary and only blended when it is valid,
+- negative values and impossible jumps are rejected,
+- a low-pass stage keeps the track smooth without losing the real dive profile.
+
+This differs materially from the earlier altitude-first design and is the reason the current app matches the Suunto reference much more closely.
+
+## Runtime flow
+
+1. `onShow()` resets state and starts calibration.
+2. `timerCallback()` computes `dt` and reads sensor state.
+3. `updateDepth()` uses pressure and altitude to estimate the current depth.
+4. `processDiveState()` decides whether the user is underwater.
+5. `updateMotionConfidence()` updates movement confidence.
+6. DR/Kalman state is advanced using the strongest available signals.
+7. `writeFitFieldsIfNeeded()` stores the final estimate in FIT.
+8. `onHide()` and `prepareToExit()` cleanly stop the session and resources.
+
+## Important constraints
+
+Garmin Connect IQ is not a native dive platform. The app behaves as a custom underwater tracker on top of a surface activity model, so the implementation must treat depth and underwater state as heuristic estimates rather than a Garmin native dive API.

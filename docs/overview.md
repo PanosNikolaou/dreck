@@ -1,21 +1,23 @@
 # gsensros - Project Overview
 
-gsensros is a Garmin Connect IQ watch face application designed for dive and land-based motion tracking. It runs on Garmin devices (tested on Instinct 2X Solar) and provides real-time monitoring of navigation metrics including dead reckoning position, GPS position, depth, heading, motion state, speed estimation, and nitrogen loading.
+gsensros is a Garmin Connect IQ app for dive/tracking workflows on wearable devices. It combines GPS, inertial sensing, pressure-derived depth estimation, and FIT export to build a practical underwater tracking and logging system for Garmin watches.
 
-## Key Features
+## Current status
 
-- **Motion Detection**: Multi-stage motion detection using accelerometer and gyroscope data with adaptive baseline learning and hysteresis
-- **GPS Tracking**: Continuous GPS location updates with quality-based validation
-- **Heading Estimation**: Hierarchical heading source selection (true heading → magnetometer → gyro integration → dead reckoning fallback)
-- **Dead Reckoning**: 2D position tracking using speed and heading with GPS correction
-- **Kalman Filter**: 4-state Kalman filter for GPS-corrected east/north position estimation
-- **Depth Estimation**: Altitude-based depth calculation with surface calibration, strict validation of barometric values, and automatic recalibration
-- **Dive State Detection**: Starts at 0.5 m depth and ends only when the user is back at 0.5 m or shallower and within 5 m of the start GPS point
-- **Nitrogen Loading**: Simplified Haldane-style multi-tissue nitrogen model for dive risk assessment
-- **FIT Recording**: Activity recording with custom FIT fields for post-dive analysis
-- **UI Display**: Real-time watch display of all tracking metrics with scrollable layout
+The most recent fix was the depth pipeline correction. The app now starts from a valid pressure baseline immediately instead of waiting for the full calibration cycle, which avoids the false zero-depth behavior seen when comparing against the Suunto Ocean reference log.
 
-## Device and Build Info
+## Key features
+
+- Pressure-first depth estimation with altitude fallback and validation
+- Startup calibration that keeps the first valid pressure sample as the live surface reference
+- Non-physical depth spike rejection and clamp logic
+- Dive-state detection with hysteresis and shallow-water logic
+- Motion detection using motion score, gyro magnitude, and adaptive baseline tracking
+- GPS quality gating and dead-reckoning fallback when the position signal degrades
+- FIT output for DR position, depth, speed, heading, motion, GPS fix, and underwater state
+- Nitrogen loading model and UI summary outputs
+
+## Device and build info
 
 | Property | Value |
 |----------|-------|
@@ -27,51 +29,59 @@ gsensros is a Garmin Connect IQ watch face application designed for dive and lan
 | Build Output | `build/gsensros.prg` |
 | FIT Contributions | `build/gsensros-fit_contributions.json` |
 
-## Permissions Required
+## Depth algorithm summary
+
+The current depth logic is designed to match realistic dive traces, not just the altitude sensor:
+
+- primary source: ambient pressure
+- secondary source: altitude difference from a calibrated surface level
+- rejection: negative or impossible values are clipped to zero
+- filtering: a low-pass smoothing stage damps transient sensor spikes
+- calibration: first valid surface pressure becomes the baseline for the live dive trace
+
+This is the core change that corrected the discrepancy against the Suunto Ocean samples.
+
+## Permissions required
 
 | Permission | Purpose |
 |------------|---------|
-| Sensor | Accelerometer, gyroscope, magnetometer data |
-| SensorHistory | Historical sensor data access |
-| SensorLogging | Sensor logging support |
+| Sensor | Accelerometer, gyroscope, magnetometer, and pressure/altitude data |
 | Positioning | GPS location access |
-| Fit | Activity recording and FIT file creation |
+| Fit | Activity session creation and FIT serialization |
 | FitContributor | Custom FIT field creation |
-| Communications | Bluetooth connectivity |
+| Communications | Bluetooth and app-to-device communication |
 | BluetoothLowEnergy | BLE device communication |
-| Ant | ANT+ sensor support |
-| Notifications | Notification delivery |
+| Ant | ANT+ support |
+| Notifications | UI and alert support |
 | PushNotification | Push notification support |
 | UserProfile | User profile access |
 | PersistedContent | Data persistence |
-| PersistedLocations | Location data persistence |
-| ComplicationPublisher | Watch face complication publishing |
+| PersistedLocations | Persisted location storage |
+| ComplicationPublisher | Complication support |
 
-## Project Structure
+## Project structure
 
-```
+```text
 gsensros/
-├── manifest.xml                   # App manifest
-├── monkey.jungle                  # Build configuration (project.manifest = manifest.xml)
-├── ConfirmStopDelegate.mc         # Confirmation dialog delegate (root-level source)
-├── source/                        # Monkey C source directory
-│   ├── gsensrosApp.mc           # Application entry point
-│   ├── gsensrosView.mc          # Main view (1488 lines, core logic)
-│   ├── gsensrosDelegate.mc      # Input behavior delegate
-│   ├── gsensrosMenuDelegate.mc  # Menu delegate (placeholder)
-│   ├── DeadReckoning.mc           # DR engine (334 lines)
-│   ├── KalmanDR.mc                # Kalman filter (107 lines)
-│   └── NitrogenModel.mc           # Nitrogen model (100 lines)
+├── manifest.xml
+├── monkey.jungle
+├── ConfirmStopDelegate.mc
+├── source/
+│   ├── gsensrosApp.mc
+│   ├── gsensrosView.mc
+│   ├── gsensrosDelegate.mc
+│   ├── gsensrosMenuDelegate.mc
+│   ├── DeadReckoning.mc
+│   ├── KalmanDR.mc
+│   └── NitrogenModel.mc
 ├── resources/
 │   ├── drawables/
-│   │   ├── drawables.xml
-│   │   ├── launcher_icon.svg
-│   │   └── monkey.png
 │   ├── layouts/
-│   │   └── layout.xml
 │   ├── menus/
-│   │   └── menu.xml
 │   └── strings/
-│       └── strings.xml
-└── docs/                          # This documentation
+├── docs/
+├── README.md
+├── garmin_dive_app_documentation.md
+├── Dead_Reckoning_Kalman_Garmin_Report.md
+└── build/
 ```

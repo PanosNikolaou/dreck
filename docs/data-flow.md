@@ -1,152 +1,122 @@
 # gsensros Data Flow
 
-## Main Processing Loop (timerCallback — 500ms)
+## Main processing loop (500 ms)
 
-```
+```text
 timerCallback()
   │
-  ├─ compute dt (time since last callback)
-  │
+  ├─ compute dt
   ├─ readSensors(sensorInfo)
-  │     ├─ heartRate → heartRate
-  │     ├─ accel[x,y,z] → accelX, accelY, accelZ
-  │     ├─ gyro[x,y,z] → gyroX, gyroY, gyroZ (bias-corrected)
-  │     ├─ heading → trueHeading, headingEstimate
-  │     └─ mag[x,y,z] → magHeading (when heading unavailable)
+  │     ├─ heart rate / SpO2 / temp
+  │     ├─ accelerometer and gyroscope
+  │     ├─ heading and magnetometer
+  │     └─ ambient pressure and altitude data
   │
   ├─ updateDepth(sensorInfo)
-  │     ├─ calibrates surface altitude (first 15 samples)
-  │     ├─ adapts surface altitude when on deck
-  │     └─ computes currentDepth = surfaceAltitude - rawAltitude
+  │     ├─ collect valid pressure samples
+  │     ├─ seed surface baseline from first valid reading
+  │     ├─ compute pressure depth
+  │     ├─ compute altitude depth if valid
+  │     ├─ reject impossible jumps
+  │     └─ apply low-pass smoothing
   │
   ├─ updateGPS(sensorInfo, posInfo)
-  │     ├─ reads GPS speed from sensorInfo
-  │     └─ reads GPS position from posInfo
+  │     ├─ GPS quality check
+  │     └─ update location, speed, fix state
   │
   ├─ processDiveState()
-  │     └─ sets isUnderwater based on depth thresholds
+  │     └─ classify underwater / surface state with hysteresis
   │
   ├─ updateMotionConfidence()
-  │     └─ updates movingConfidence counter
+  │     └─ motion score and confidence tracking
   │
-  ├─ compute currentAscentRateMps = (lastDepth - currentDepth) / dt
+  ├─ currentAscentRateMps = (lastDepthForAscent - currentDepth) / dt
   │
   ├─ n2Model.update(currentDepth, dt, isUnderwater, currentAscentRateMps)
   │
-  ├─ [recording only]
-  │     ├─ getEstimatedSpeedMps() → estSpeed
-  │     ├─ getBestHeading(dt) → bestHeading
-  │     ├─ kalman.updateGps(lat, lon) [if GPS fix available]
-  │     ├─ kalman.predict(estSpeed, heading, dt) [if no GPS fix]
-  │     ├─ dr.updateWithSpeed(accel, gyro, heading, dt, estSpeed)
-  │     │   [if should advance DR]
-  │     └─ writeFitFieldsIfNeeded(estSpeed, heading) [every 2 ticks]
+  ├─ if recording is active:
+  │     ├─ getEstimatedSpeedMps()
+  │     ├─ getBestHeading(dt)
+  │     ├─ update DR / Kalman fusion
+  │     └─ writeFitFieldsIfNeeded()
   │
   └─ WatchUi.requestUpdate()
-        └─ onUpdate(dc) [renders UI]
 ```
 
-## Motion Detection Pipeline
+## Depth calculation path
 
-```
-sensorDataCallback(sensorData)
+```text
+pressurePa
   │
-  ├─ For each accelerometer sample:
-  │     magnitude = sqrt(ax² + ay² + az²)
-  │     highPass = magnitude - lastAccelMag
-  │     lastAccelMag = lerp(lastAccelMag, magnitude, 0.85)
-  │     motionVar = lerp(motionVar, highPass², 0.20)
+  ├─ valid surface sample? -> set surfacePressurePa
   │
-  ├─ gyroMag = sqrt(gyroX² + gyroY² + gyroZ²)
+  └─ current depth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER
+           if pressurePa > 50000 Pa and surfacePressurePa valid
+
+altitude
   │
-  ├─ rawScore = sqrt(motionVar) * 1000 + gyroMag * 80
+  └─ if valid, altitudeDepth = surfaceAltitude - rawAlt
+
+final depth
   │
-  ├─ Adapt baseline:
-  │     baseline = lerp(baseline, rawScore, alpha)
-  │     alpha = 0.08 if stationary, 0.015 if moving
+  ├─ if both pressure and altitude are valid:
+  │     blend pressure and altitude with pressure priority
   │
-  ├─ motionScoreMg = lerp(motionScoreMg, abs(rawScore - baseline), 0.70)
+  ├─ if only pressure is valid: use pressure depth
   │
-  └─ updateMotionState() with hysteresis:
-        onThreshold = 18 (underwater) or 22 (land)
-        offThreshold = 8 (underwater) or 10 (land)
-        riseCounter += 1 if above onThreshold
-        fallCounter -= 1 if below offThreshold
-        isMotionDetected = (riseCounter >= 2) or (fallCounter <= -4)
+  ├─ if only altitude is valid: use altitude depth
+  │
+  └─ clamp and smooth before storing in currentDepth
 ```
 
-## Heading Source Selection (getBestHeading)
+## Motion detection pipeline
 
+```text
+sensorDataCallback()
+  │
+  ├─ read raw accelerometer sample(s)
+  ├─ compute magnitude and high-pass signal
+  ├─ update motion variance and adaptive baseline
+  ├─ convert to motionScoreMg
+  ├─ hysteresis gating (motion on/off)
+  └─ update isMotionDetected and movingConfidence
 ```
+
+## Heading selection
+
+```text
 Priority order:
-1. trueHeading         (from Sensor.Info.heading)
-2. magHeading          (from magnetometer, when true heading unavailable)
-3. headingEstimate     (gyro-integrated estimate, when moving)
-4. dr.getHeadingRad()  (dead reckoning heading, last resort)
+1. true heading
+2. magnetometer heading
+3. last valid DR heading / gyro-assisted estimate
+``` 
+
+## Dive-state transitions
+
+```text
+Surface
+  └─ currentDepth > DIVE_START_DEPTH_M -> Dive start
+Dive
+  └─ currentDepth <= SURFACE_STOP_DEPTH_M and return near entry point -> end dive
 ```
 
-## Dive State Transitions
+## Session lifecycle
 
-The app uses a shallow-water threshold and an entry-point GPS anchor instead of stopping on depth alone.
+```text
+startSession()
+  ├─ reset state
+  ├─ start GPS
+  ├─ start recording
+  ├─ create FIT fields
+  └─ begin timer
 
-```
-         ┌──────────────────────────┐
-         │  Surface (isUnderwater = false) │
-         └────────────┬─────────────┘
-                      │
-             currentDepth > 0.5m
-                      │
-                      ▼
-         ┌──────────────────────────┐
-         │  Underwater               │
-         │  (isUnderwater = true)    │
-         └────────────┬─────────────┘
-                      │
-      currentDepth ≤ 0.5m AND within 5m of start GPS
-                      │
-                      ▼
-         ┌──────────────────────────┐
-         │  Surface (isUnderwater = false) │
-         └──────────────────────────┘
+stopSession()
+  ├─ stop recording
+  ├─ save session
+  ├─ stop GPS
+  └─ reset state
 ```
 
-Important details:
-- A dive begins once depth exceeds 0.5 m while recording is active.
-- A dive does not end just because the user is near the surface.
-- The app requires both shallow depth and a valid return to the start GPS point (radius 5 m) before flipping back to surface state.
-- Invalid altitude / pressure values are rejected before depth is updated, which prevents false readings from bad sensor samples.
+## Why the fix matters
 
-## Session Lifecycle
-
-```
-onSelect() [center button]
-  │
-  ├─ [not recording] → startSession()
-  │     ├─ startGps()
-  │     ├─ captureEntryPosition()
-  │     ├─ startRecording()
-  │     │     ├─ shutdownSessionWithoutSave() [close previous]
-  │     │     ├─ ActivityRecording.createSession()
-  │     │     ├─ safeCreateField() for each FIT field
-  │     │     └─ session.start()
-  │     ├─ reset heading, motion, Kalman, DR
-  │     └─ lastUpdateMs = now
-  │
-  └─ [recording] → stopSession()
-        ├─ shutdownSessionSafe()
-        │     ├─ session.stop()
-        │     └─ session.save()
-        ├─ captureExitPosition()
-        ├─ stopGps()
-        ├─ reset depth, motion, heading
-        └─ set hasEntryPosition = false
-
-onBack() [back button]
-  │
-  ├─ [recording] → push Confirmation dialog
-  │     └─ ConfirmStopDelegate.onResponse()
-  │           ├─ [YES] → stopSession() + prepareToExit() → pop views
-  │           └─ [NO]  → pop confirmation dialog only
-  │
-  └─ [not recording] → prepareToExit() → return false (system handles exit)
-```
+The original pressure/altitude design could fall into a startup calibration dead zone and hold zero-depth values until the calibration window completed. Using the first valid pressure sample as the baseline eliminates that lag and keeps the trace aligned with the Suunto Ocean reference.
