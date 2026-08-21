@@ -686,8 +686,15 @@ class gsensrosView extends WatchUi.View {
                 :accelerometer => {
                     :enabled => true,
                     :sampleRate => sampleRate,
-                    :includePower => true,
-                    // raw axes are usually available by default when sampleRate is set
+                    :includePower => true
+                },
+                :gyroscope => {
+                    :enabled => true,
+                    :sampleRate => sampleRate
+                },
+                :magnetometer => {
+                    :enabled => true,
+                    :sampleRate => sampleRate
                 }
             };
 
@@ -748,48 +755,61 @@ class gsensrosView extends WatchUi.View {
 
     function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         try {
-            if (sensorData == null || !(sensorData has :accelerometerData) || sensorData.accelerometerData == null) {
+            if (sensorData == null) {
                 return;
             }
 
-            var accData = sensorData.accelerometerData;
+            if (sensorData has :accelerometerData && sensorData.accelerometerData != null) {
+                var accData = sensorData.accelerometerData;
 
-            // Prefer the raw samples if available (better than power)
-            if (accData has :x && accData.x != null && accData.x.size() > 0) {
-                var count = accData.x.size();
-                var i = 0;
-                while (i < count) {
-                    var ax = accData.x[i].toFloat();
-                    var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
-                    var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
+                // Prefer the raw samples if available (better than power)
+                if (accData has :x && accData.x != null && accData.x.size() > 0) {
+                    var count = accData.x.size();
+                    var i = 0;
+                    while (i < count) {
+                        var ax = accData.x[i].toFloat();
+                        var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
+                        var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
 
-                    updateMotionFromAccel(ax, ay, az);
-                    i += 1;
-                }
-            }
-            // Fallback to power if raw axes are not present
-            else if (accData has :power && accData.power != null) {
-                var p = accData.power;
-                var count = p.size();
-                if (count <= 0) { return; }
-
-                var sumPower = 0.0f;
-                var validCount = 0;
-                var i = 0;
-                while (i < count) {
-                    if (p[i] != null) {
-                        sumPower += p[i].toFloat();
-                        validCount += 1;
+                        updateMotionFromAccel(ax, ay, az);
+                        i += 1;
                     }
-                    i += 1;
                 }
-                if (validCount <= 0) { return; }
+                // Fallback to power if raw axes are not present
+                else if (accData has :power && accData.power != null) {
+                    var p = accData.power;
+                    var count = p.size();
+                    if (count <= 0) { return; }
 
-                var avgPower = sumPower / validCount.toFloat();
-                // Treat power as a crude magnitude for the high-pass path
-                updateMotionFromAccel(avgPower, 0.0f, 0.0f);
-            } else {
-                return;
+                    var sumPower = 0.0f;
+                    var validCount = 0;
+                    var i = 0;
+                    while (i < count) {
+                        if (p[i] != null) {
+                            sumPower += p[i].toFloat();
+                            validCount += 1;
+                        }
+                        i += 1;
+                    }
+                    if (validCount <= 0) { return; }
+
+                    var avgPower = sumPower / validCount.toFloat();
+                    updateMotionFromAccel(avgPower, 0.0f, 0.0f);
+                }
+            }
+
+            if (sensorData has :gyroscopeData && sensorData.gyroscopeData != null) {
+                var gyroData = sensorData.gyroscopeData;
+                if (gyroData has :x && gyroData.x != null && gyroData.x.size() > 0) {
+                    var count = gyroData.x.size();
+                    var i = 0;
+                    while (i < count) {
+                        gyroX = (gyroData has :x && gyroData.x != null) ? gyroData.x[i].toFloat() : 0.0f;
+                        gyroY = (gyroData has :y && gyroData.y != null) ? gyroData.y[i].toFloat() : 0.0f;
+                        gyroZ = (gyroData has :z && gyroData.z != null) ? gyroData.z[i].toFloat() : 0.0f;
+                        i += 1;
+                    }
+                }
             }
 
             // --- Combined score ---
@@ -1303,21 +1323,23 @@ class gsensrosView extends WatchUi.View {
                 rawDepth = prev - maxDelta;
             }
 
-            // Match the Suunto-style depth bursts more closely: keep shallow samples live,
-            // but react quickly to genuine transitions and keep a tighter hold near the
-            // surface to avoid a laggy, round-shouldered trace.
-            var depthAlpha = 0.60f;
+            // Match the Suunto-style depth bursts more closely: keep shallow samples alive,
+            // react quickly to real transitions, and avoid a laggy, rounded trace near the
+            // surface while still rejecting actual noise spikes.
+            var depthAlpha = 0.58f;
             var depthDelta = absFloat(rawDepth - depthFilter);
-            if (rawDepth <= 1.0f) {
-                depthAlpha = 0.45f;
-            } else if (rawDepth > 2.0f) {
-                depthAlpha = 0.35f;
+            if (rawDepth <= 0.75f) {
+                depthAlpha = 0.52f;
+            } else if (rawDepth <= 2.0f) {
+                depthAlpha = 0.42f;
+            } else {
+                depthAlpha = 0.28f;
             }
-            if (depthDelta > 1.25f) {
-                depthAlpha = 0.30f;
+            if (depthDelta > 1.5f) {
+                depthAlpha = 0.22f;
             }
-            if (depthDelta < 0.15f) {
-                depthAlpha = 0.75f;
+            if (depthDelta < 0.12f) {
+                depthAlpha = 0.78f;
             }
             depthFilter = (depthFilter * (1.0f - depthAlpha)) + (rawDepth * depthAlpha);
 
