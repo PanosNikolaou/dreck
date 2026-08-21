@@ -1179,6 +1179,11 @@ class gsensrosView extends WatchUi.View {
             // ---------- Initial surface calibration ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
                 if (hasPressure && pressurePa > 80000.0f && pressurePa < 110000.0f) {
+                    // Use the very first valid pressure sample as a live baseline so the
+                    // app does not sit at depth = 0 m while the startup calibration window runs.
+                    if (pressureCalibrationSamples == 0) {
+                        surfacePressurePa = pressurePa;
+                    }
                     surfacePressureSum += pressurePa;
                     pressureCalibrationSamples += 1;
                     usePressureDepth = true;
@@ -1194,6 +1199,8 @@ class gsensrosView extends WatchUi.View {
 
                     if (usePressureDepth && pressureCalibrationSamples >= minCalSamples && surfacePressureSum > 0.0f) {
                         surfacePressurePa = surfacePressureSum / pressureCalibrationSamples.toFloat();
+                    } else if (pressureCalibrationSamples > 0 && surfacePressureSum > 0.0f) {
+                        surfacePressurePa = surfacePressureSum / pressureCalibrationSamples.toFloat();
                     } else {
                         usePressureDepth = false;
                         surfacePressurePa = DEFAULT_SURFACE_PA;
@@ -1207,6 +1214,17 @@ class gsensrosView extends WatchUi.View {
                         + " useP=" + usePressureDepth
                         + " pCal=" + pressureCalibrationSamples
                         + " aCal=" + altitudeCalibrationSamples);
+                }
+                // If we already have a valid initial pressure baseline, keep the live depth
+                // estimate running instead of returning zero during the warm-up window.
+                if (pressureCalibrationSamples > 0 && usePressureDepth) {
+                    if (hasPressure && pressurePa > 50000.0f) {
+                        currentDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
+                        if (currentDepth < 0.0f) {
+                            currentDepth = 0.0f;
+                        }
+                        return;
+                    }
                 }
                 currentDepth = 0.0f;
                 return;
@@ -1241,10 +1259,16 @@ class gsensrosView extends WatchUi.View {
 
             if (usePressureDepth && hasPressure && pressurePa > 50000.0f) {
                 pressureDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
+                if (pressureDepth < 0.0f) {
+                    pressureDepth = 0.0f;
+                }
             }
 
             if (altValid) {
                 altitudeDepth = surfaceAltitude - rawAlt;
+                if (altitudeDepth < 0.0f) {
+                    altitudeDepth = 0.0f;
+                }
             }
 
             var rawDepth = 0.0f;
@@ -1278,8 +1302,10 @@ class gsensrosView extends WatchUi.View {
                 rawDepth = prev - maxDelta;
             }
 
-            // Low-pass
-            depthFilter = (depthFilter * 0.70f) + (rawDepth * 0.30f);
+            // Low-pass tuned to track a real dive trace without lagging the surface
+            // transition. This keeps the pressure-based depth estimate responsive while
+            // still filtering short-lived spikes from the barometer.
+            depthFilter = (depthFilter * 0.60f) + (rawDepth * 0.40f);
 
             // Noise floor
             if (depthFilter < DEPTH_NOISE_FLOOR_M) {
