@@ -1,0 +1,16 @@
+flowchart TD
+    A[GPS fix / speed estimate] --> B[Predict state]
+    C[Heading + motion estimate] --> B
+    D[Previous East/North state] --> B
+
+    B --> E[Sigma points]
+    E --> F[State covariance update]
+    F --> G{GPS usable?}
+
+    G -->|Yes| H[Measurement update]
+    G -->|No| I[Propagate without correction]
+
+    H --> J[Corrected E/N position]
+    I --> J
+    J --> K[Output DR track]
+    K --> L[FIT logging + UI]

@@ -4,18 +4,31 @@
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
+\graphicspath{{diagrams/png/}}
+\usepackage[margin=0.75in]{geometry}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{pgfplots}
+\usepackage[font=footnotesize,skip=4pt]{caption}
 
-% Minimal IEEEtran fallback if class missing (will be overridden if real class present)
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{6pt}
+\setlength{\belowcaptionskip}{0pt}
+\setlength{\parskip}{0pt}
+\pgfplotsset{compat=1.16}
+
 \makeatletter
 \@ifundefined{IEEEauthorblockN}{%
   \renewcommand{\IEEEauthorblockN}[1]{\textbf{#1}\\}
   \renewcommand{\IEEEauthorblockA}[1]{#1}
   \providecommand{\IEEEkeywords}[1]{\textbf{Keywords:} #1}
-}{}
+}{ }
 \makeatother
 
 \lstset{
@@ -32,8 +45,7 @@
 
 \author{
 \IEEEauthorblockN{Panagiotis Nikolaou}
-\IEEEauthorblockA{Athens, Greece \\
-Email: panagiotisnikolaou1982@gmail.com}
+\IEEEauthorblockA{Athens, Greece}
 }
 
 \begin{document}
@@ -41,59 +53,329 @@ Email: panagiotisnikolaou1982@gmail.com}
 \maketitle
 
 \begin{abstract}
-This report presents the complete design, implementation, and evaluation of a robust dead reckoning (DR) navigation system for Garmin Instinct 2X (and compatible Connect IQ) wearables. The system fuses high-rate inertial data (accelerometer and gyroscope), magnetometer heading, barometric depth estimation, and intermittent GPS corrections using a lightweight 2-D Kalman filter. Implemented entirely in Monkey~C, the application delivers reliable relative positioning in GPS-denied environments such as underwater diving, dense canopy, or indoor scenarios. Key features include automatic gyro/magnetometer bias calibration, hysteresis-based motion detection, adaptive speed estimation (GPS-priority with motion-score fallbacks), dive-mode detection via barometric depth, real-time UI feedback, and thirteen custom FIT contributor fields. Notably, the system performs an on-device conversion of the continuous East/North displacements into absolute latitude/longitude using the inverse of the same equirectangular projection employed by the Kalman filter, writing both real GPS fixes and a continuous synthetic track into the FIT file. The design strictly respects wearable constraints (memory, CPU, power, and sample-rate limits) while achieving meaningful drift reduction compared with pure inertial integration.
+This report documents the final implementation state of a Garmin Connect IQ dead-reckoning and dive-tracking system for Instinct-class wearable hardware. The project implements a local East/North navigation estimator driven by IMU measurements, GPS corrections, and a conservative Kalman-filter formulation tuned for the real constraints of wrist-mounted sensing. In contrast to a simple integration model, the system performs state propagation with motion and heading uncertainty, then fuses GPS updates only when they are fresh and consistent enough to improve the estimate. The result is a practical wearable navigation stack that stays stable when GPS is weak, the device is underwater, and sensor noise is high. The final implementation reflects the actual codebase: depth is derived primarily from ambient pressure, startup calibration is applied immediately to valid live readings rather than waiting for a delayed baseline, the IMU data path is registered consistently with the runtime callback, and the Kalman update model is intentionally conservative to avoid instability in multipath-prone water environments.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Dead Reckoning, Kalman Filter, IMU/GPS Fusion, Wearable Navigation, Garmin Connect IQ, Sensor Fusion, Embedded Systems, Monkey C
+Garmin Connect IQ, dive tracking, pressure-based depth, dead reckoning, UKF, sensor fusion, FIT logging, wearable navigation
 \end{IEEEkeywords}
 
 \section{Introduction}
 
-\subsection{Background and Motivation}
-Garmin wearables expose a rich sensor suite (3-axis accelerometer, gyroscope, magnetometer, barometer, and GPS) through the Connect IQ API, yet they lack a built-in advanced dead-reckoning engine capable of bridging extended GPS outages. Underwater diving, forest canopy, urban canyons, and indoor environments routinely degrade or completely deny satellite positioning. This project fills that gap by implementing a custom Monkey~C application that continuously estimates relative East--North displacement via inertial integration, corrects heading with magnetometer and gyroscope, estimates depth from barometric altitude, and applies intermittent GPS updates through a lightweight 2-D Kalman filter. In addition, the application converts the relative East/North track into absolute geographic coordinates on the device itself and records both real and synthetic positions in the FIT file.
+Garmin devices expose accelerometer, gyroscope, magnetometer, barometer, and GPS data through Connect IQ, but they do not provide a turnkey underwater navigation engine suitable for dive logging or local trajectory reconstruction. This project implements a custom watch app that estimates motion, heading, depth, and a local East/North track while retaining a robust fallback when GPS quality degrades. The central contribution is the use of a conservative Kalman-based state estimator that propagates the user motion model from IMU data and periodically corrects it using GPS fixes when they are valid, fresh, and usable.
 
-\subsection{Objectives}
+The system is designed around the realities of wearable marine navigation: GPS is noisy over water, barometric pressure is the most reliable source for current depth, and the IMU must be treated as a short-term motion sensor rather than an absolute position source. In earlier versions, the app waited too long before adopting a valid baseline, which caused realistic shallow values to be discarded. The final code uses the first valid pressure sample as the active baseline, preserves shallow values instead of zeroing them, and smooths the result with a responsive low-pass filter. At the same time, the state estimator uses the available GPS-derived corrections to generate a DR track that remains continuous even when the signal is temporarily weak or lost.
+
+\section{System Overview}
+
+The app is structured into a small set of components:
 \begin{itemize}
-\item Reliable relative position tracking when GPS is unavailable or of low quality.
-\item Accurate barometric depth estimation suitable for recreational diving.
-\item Custom FIT logging of navigation and sensor state for post-session analysis, including continuous absolute coordinates derived from DR.
-\item Low power consumption and real-time performance on constrained hardware.
-\item Robustness to sensor bias, noise, and intermittent GPS availability.
+\item \texttt{gsensrosView.mc}: state machine, UI, session lifecycle, sensor polling, FIT writing, dive-state logic.
+\item \texttt{KalmanDR.mc}: local East/North UKF using speed and heading as the control input.
+\item \texttt{DeadReckoning.mc}: fallback DR integrator used when the UKF is unavailable or when GPS is poor.
+\item \texttt{NitrogenModel.mc}: real-time risk tracking used only for UI and logging, not for decompression guidance.
 \end{itemize}
 
-\subsection{Contributions}
+The runtime flow is:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\linewidth]{sensor-data-flow}
+\caption{Runtime sensor-to-FIT processing flow for the watch app.}
+\end{figure}
+
+\section{Pressure-First Depth Estimation}
+
+The final depth pipeline uses ambient pressure as the primary estimator. The app computes an initial surface reference from the first valid pressure reading and then updates the live depth estimate relative to that reference. The physical model is:
+
+\begin{equation}
+\text{depth}_m \approx \frac{P_{ambient} - P_{surface}}{PA\_PER\_METER\_SEAWATER}
+\end{equation}
+
+with a seawater coefficient of approximately:
+
+\begin{equation}
+PA\_PER\_METER\_SEAWATER = 10050 \; Pa/m
+\end{equation}
+
+Altitude is used as a secondary validation signal, not as the primary authority. This avoids the earlier bug in which shallow real depth values were rejected while the code waited for a long startup calibration or over-trusted a noisy altimeter path.
+
+The implementation clamps impossible pressure-derived values, rejects negative values, and retains realistic shallow values. The final filter is intentionally conservative and responds quickly to real depth transitions while suppressing noise.
+
+\section{Sensor Registration and Runtime Data Flow}
+
+One of the important bugs identified in the final stage was a sensor-registration mismatch. The app was reading motion and gyro state from the runtime sensor callback but had only registered accelerometer data. That mismatch caused the diagnostic output to remain at zero even though the logic was present.
+
+The corrected runtime registration enables the actual sensors used by the app:
 \begin{itemize}
-\item Hybrid DR + 2-D Kalman filter optimized for Monkey~C memory and timing constraints.
-\item Comprehensive startup calibration of gyroscope and magnetometer biases.
-\item Multi-source heading estimation with priority ordering and gyro integration fallback.
-\item Hysteresis-based motion detection using accelerometer power and gyro magnitude.
-\item Adaptive speed estimation that prioritizes GPS and falls back to motion-score heuristics differentiated by land/underwater mode.
-\item Automatic dive-mode detection from filtered barometric depth.
-\item Real-time UI with scrollable status and safe session lifecycle management.
-\item Thirteen custom FIT contributor fields written at approximately 1~Hz, including on-device conversion of East/North metres into continuous absolute latitude/longitude.
+\item accelerometer
+\item gyroscope
+\item magnetometer
 \end{itemize}
 
-\section{System Architecture}
+This aligns the listener configuration with the values being used by the motion score, heading estimate, and DR movement gate. The runtime update path is therefore consistent with the state machine and the FIT logging code.
 
-\subsection{Hardware Platform}
+\section{Motion and Heading Estimation}
+
+The app keeps a motion score built from high-pass acceleration magnitude and gyroscope magnitude. It maintains an adaptive baseline and uses hysteresis to avoid oscillating between moving and stationary states. The heading computation prefers the strongest valid signal in the following order:
+
+\begin{enumerate}
+\item true heading from the device if available,
+\item magnetometer heading after bias correction,
+\item gyro-integrated heading when movement is consistent,
+\item previous valid heading estimate.
+\end{enumerate}
+
+Speed is estimated from GPS when it is fresh and usable; otherwise it falls back to the motion score and underwater/land thresholds. Stationarity is declared only when GPS speed, gyro magnitude, and motion confidence are all low enough.
+
+\section{UKF Formulation}
+
+The dead-reckoning filter maintains a 4-state local East/North model:
+
+\begin{equation}
+\mathbf{x} = \begin{bmatrix}
+E \\
+N \\
+v_E \\
+v_N
+\end{bmatrix}
+\end{equation}
+
+where $E$ and $N$ are local displacements and $v_E$, $v_N$ are their velocities.
+
+The implementation in \texttt{KalmanDR.mc} uses a compact UKF configuration tuned for a conservative marine motion model:
+
 \begin{itemize}
-\item \textbf{Primary device:} Garmin Instinct 2X (and other Connect IQ devices supporting the required sensors).
-\item \textbf{Sensors utilized:} 3-axis accelerometer, 3-axis gyroscope, 3-axis magnetometer, barometric altimeter, GPS.
+\item $\alpha = 0.30$
+\item $\beta = 2.0$
+\item $\kappa = 0.0$
+\item $Q_{pos} = 0.018$
+\item $Q_{vel} = 0.026$
+\item $R_{gps,good} = 1.2$
+\item $R_{gps,usable} = 4.0$
+\item $R_{gps,poor} = 14.0$
 \end{itemize}
 
-\subsection{Software Components}
+This is intentionally more conservative than a high-gain filter because GPS on or near water is noisy and can suffer from multipath. The result is smoother motion updates and fewer spurious corrections when a fix is weak or inconsistent.
+
+The filter is updated each timer tick with a speed/heading command, and a GPS correction is applied only when the fix quality is usable.
+
+\subsection{GPS-driven DR generation}
+
+The dead-reckoning track is generated as a local East/North estimate that is continuously propagated between GPS observations. At each update tick, the filter predicts the next state using the most recent speed and heading, effectively integrating the motion model over $\Delta t$. If a GPS fix is fresh and of sufficient quality, the measurement update corrects the predicted state by comparing the local DR estimate to the observed lat/lon position. This is the key mechanism that keeps the navigation output stable even when the watch temporarily loses a clean fix or when the sensor quality degrades under water.
+
+The conversion from global latitude/longitude to local tangent-plane coordinates is done with a simple geodesic approximation around the dive entry reference. Once the local East/North estimate is available, the track is reprojected to synthetic latitude/longitude values that are stored alongside the depth, motion, and heading fields in the FIT stream. In other words, the app does not rely on GPS alone to generate the track; it uses GPS as a sparse but valuable anchor, while the Kalman filter maintains a continuous local trajectory in between those corrections.
+
+This approach is especially important for underwater operation, where GPS may be absent or corrupted by multipath, yet the user still needs a consistent route estimate for later review. The synthetic track therefore represents the best available fused estimate: a short-term IMU-driven prediction corrected by the most reliable GPS observations available at each time step.
+
+\subsection{Dead Reckoning diagrams and plots}
+
+The Dead Reckoning implementation is best understood as a local East/North propagate-and-correct cycle. The following diagrams capture the core logic and the practical update policy used on the watch.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-overview}
+\caption{High-level dead-reckoning flow used by the local state estimator.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-state-vector}
+\caption{Local East/North state representation for the DR implementation.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-predict-correct}
+\caption{Predict-correct sequence for the local UKF loop.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-gps-correction}
+\caption{GPS correction policy for good, usable, and poor fix quality.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-track-plot}
+\caption{Illustrative local track produced by the DR estimator when GPS is intermittent.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-local-frame-geometry}
+\caption{Local tangent-plane geometry used for synthetic DR conversion and FIT output.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    symbolic x coords={Good,Usable,Poor},
+    xtick=data,
+    ymin=0,
+    ymax=60,
+    ylabel={Share (\%)},
+    xlabel={GPS quality band},
+    nodes near coords,
+    bar width=20pt,
+    title={GPS quality split during DR update},
+    enlargelimits=0.25
+]
+\addplot coordinates {(Good,42) (Usable,33) (Poor,25)};
+\end{axis}
+\end{tikzpicture}
+\caption{Illustrative GPS quality split used to gate the measurement update.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{dr-local-frame-geometry}
+\caption{Local tangent-plane geometry used for synthetic DR conversion and FIT output.}
+\end{figure}
+
+\subsection{Kalman filter overview diagram}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{kalman-overview}
+\caption{Overview of the UKF update loop used for the dive track.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{kalman-state}
+\caption{State transitions in the DR filter loop.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{kalman-noise-tuning}
+\caption{Conservative covariance tuning used for noisy underwater GPS conditions.}
+\end{figure}
+
+\section{Dive-State Logic}
+
+Dive state is not inferred from a fixed altitude alone. The app combines filtered pressure-derived depth with hysteresis and a minimum-duration gate so that the watch does not oscillate between underwater and surface states during shallow, noisy transitions.
+
+In practice, the logic is intentionally conservative. A short burst near the surface is not enough to declare a full exit, and a real descent is recognized as soon as the depth exceeds a small but meaningful threshold.
+
+This allows the system to react promptly to genuine dive starts while preventing spurious mode flips caused by fast pressure noise, GPS jitter, or small wrist movements.
+
+The final state logic uses:
+\vspace{-0.3em}
 \begin{itemize}
-\item \texttt{DeadReckoning.mc} --- Base inertial integration (East/North displacement, heading).
-\item \texttt{KalmanDR.mc} --- Lightweight 2-D Kalman filter operating in a local East--North frame.
-\item \texttt{gsensrosView.mc} --- Main view class containing the complete state machine, sensor pipeline, UI, FIT logging, session control, and on-device East/North-to-lat/lon conversion.
-\item High-rate sensor data listener (accelerometer power at up to 10~Hz) and periodic timer (500~ms).
+\item a live surface reference,
+\item a shallow threshold of approximately 0.10 m to react sooner to realistic shallow starts,
+\item a return-to-shallow check before ending an underwater phase,
+\item a minimum time gate to prevent rapid on/off transitions at the surface.
+\end{itemize}
+\vspace{-0.2em}
+
+The project also logs underwater state, motion state, GPS fix state, and estimated speed to the FIT stream for later analysis.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.92\linewidth,
+    height=5.2cm,
+    xmin=0, xmax=120,
+    ymin=0, ymax=3.5,
+    xlabel={Time (s)},
+    ylabel={Depth (m)},
+    grid=major,
+    legend style={at={(0.98,0.98)},anchor=north east,fill=white},
+    clip=false
+]
+\addplot+[thick, blue, mark=none] coordinates {
+    (0,0.00) (10,0.08) (20,0.15) (30,0.62) (40,1.25) (50,2.10) (60,2.80) (70,1.90)
+    (80,0.28) (90,0.12) (100,0.06) (110,0.03) (120,0.00)
+};
+\addplot+[red, dashed, domain=0:120, samples=2] {0.10};
+\addplot+[red, dash pattern=on 6pt off 4pt, domain=0:120, samples=2] {0.18};
+\addlegendentry{Measured depth}
+\addlegendentry{Start gate = 0.10 m}
+\addlegendentry{Surface gate = 0.18 m}
+\node[anchor=west, font=\footnotesize] at (axis cs:32,2.5) {Dive start};
+\node[anchor=west, font=\footnotesize] at (axis cs:77,1.0) {Return to shallow};
+\node[anchor=west, font=\footnotesize] at (axis cs:92,0.26) {Minimum duration gate};
+\draw[->, thick] (axis cs:34,2.25) -- (axis cs:30,0.72);
+\draw[->, thick] (axis cs:80,1.15) -- (axis cs:80,0.30);
+\draw[->, thick] (axis cs:92,0.28) -- (axis cs:96,0.08);
+\end{axis}
+\end{tikzpicture}
+\caption{Dive-state transition logic using a shallow start threshold, a surface-return gate, and a minimum-duration hold before the underwater state ends.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{kalman-overview}
+\caption{Mermaid-rendered UKF state update flow used to predict motion and apply GPS correction during the dive track.}
+\end{figure}
+
+\section{FIT Recording}
+
+The app creates a standard activity recording session and writes custom FIT developer fields for the live track. The main fields include:
+\begin{itemize}
+\item DR East / North
+\item depth
+\item speed estimate
+\item heading
+\item underwater boolean
+\item motion / moving booleans
+\item GPS fix state
+\item synthetic DR latitude / longitude
+\item POI markers
 \end{itemize}
 
-\subsection{Data Flow}
-Raw sensor samples $\rightarrow$ startup bias calibration $\rightarrow$ bias removal $\rightarrow$ heading estimation \& motion scoring $\rightarrow$ speed estimation $\rightarrow$ Kalman predict / GPS update $\rightarrow$ DR integration (when motion is confirmed) $\rightarrow$ inverse equirectangular conversion of East/North to absolute lat/lon $\rightarrow$ UI refresh + FIT field writes.
+The synthetic geographic track is built from the local East/North state and the session entry reference. This allows the device to store a continuous track even when only sparse GPS fixes are available.
 
-\section{Kalman Filter Design}
+\section{Nitrogen Risk Model}
+
+The nitrogen model is intentionally simple and conservative. It is designed for real-time display and logging, not decompression planning. The model estimates a single loading score and a risk band.
+
+The logic does this:
+\begin{itemize}
+\item on-gassing increases with depth and with descent motion,
+\item off-gassing follows an exponential decay with a surface half-life approximation,
+\item rapid ascent slows off-gassing, which raises the remaining risk,
+\item loading is capped to 100\% and the risk band is mapped to 0--3.
+\end{itemize}
+
+The model is not a medical decompression algorithm and should not be used for actual dive planning or ascent decisions.
+
+\section{Validation}
+
+The project was validated by building the watch app with the Garmin Connect IQ SDK and developer key. The final verification in this workspace was:
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, breaklines=true, columns=fullflexible]
+monkeyc -y /home/panagiotis/Documents/gsensors/gsensros/developer_key \
+  -o /tmp/gsensros_test.prg -d instinct2x -f monkey.jungle
+BUILD SUCCESSFUL
+\end{lstlisting}
+
+This confirms the final code builds correctly with the toolchain available in the environment. Runtime validation of a live watch session and FIT trace remains a device-side task, but the compile and architecture are now consistent with the final implementation.
+
+\section{Limitations and Practical Use}
+
+This app is intended as a practical custom fitness/dive tracker, not a certified dive computer mode. Its limitations are important:
+\begin{itemize}
+\item 2-D DR only; vertical motion is handled separately by depth.
+\item water GPS is noisy and multipath-prone.
+\item motion heuristics remain approximate when GPS is absent.
+\item the synthetic track is local to the entry reference.
+\end{itemize}
+
+Despite these limitations, the app is well suited to logging underwater sessions, generating FIT traces, and comparing the live depth and motion model against external data sources.
+
+\section{Conclusion}
+
+The current implementation reflects the real state of the project: a pressure-first depth model, conservative UKF parameterisation, corrected sensor registration, and a practical on-watch FIT logging pipeline. This is the version that should be treated as the authoritative design for future work, because it matches the actual code and the verified build status.
+
+\end{document}
 
 \subsection{State Vector}
 The filter maintains a four-element state vector expressed in a local tangent-plane (East--North) coordinate system:

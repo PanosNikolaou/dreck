@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant State as Previous state x[k-1]
+    participant Control as Speed + heading u[k]
+    participant Model as State transition
+    participant Sigma as Sigma points
+    participant Cov as Covariance P[k-1]
+    participant GPS as GPS measurement
+    participant Kalman as UKF update
+    participant Out as E/N output
+
+    State->>Model: propagate with control input
+    Control->>Model: speed and heading
+    Cov->>Sigma: generate sigma-point spread
+    Sigma->>Model: predict candidate states
+    Model->>Kalman: predicted mean / covariance
+    GPS->>Kalman: measurement correction
+    Kalman->>Out: corrected position + velocity
+    Out->>Out: save FIT fields / UI values

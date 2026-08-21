@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant Prev as x[k-1], P[k-1]
+    participant Control as u[k] = speed + heading
+    participant Model as Local motion model
+    participant Sigma as Sigma points
+    participant GPS as GPS measurement
+    participant UKF as Unscented update
+    participant Next as x[k], P[k]
+
+    Prev->>Model: initialize state
+    Control->>Model: apply motion control
+    Prev->>Sigma: generate spread
+    Sigma->>Model: propagate candidates
+    Model->>UKF: predicted mean and covariance
+    GPS->>UKF: position correction if usable
+    UKF->>Next: corrected state estimate
+    Next->>Next: log DR track / FIT output

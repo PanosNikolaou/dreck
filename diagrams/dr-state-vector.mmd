@@ -1,0 +1,16 @@
+flowchart TD
+    X[State vector x = [E, N, vE, vN]^T] --> A[East displacement]
+    X --> B[North displacement]
+    X --> C[East velocity]
+    X --> D[North velocity]
+
+    A --> E[Local coordinate frame]
+    B --> E
+    C --> F[Speed heading input]
+    D --> F
+
+    F --> G[Predict step]
+    E --> G
+    G --> H[Covariance update]
+    H --> I[GPS correction]
+    I --> J[Next state estimate]

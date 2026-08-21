@@ -1,0 +1,7 @@
+flowchart LR
+    A[Sensor inputs] --> B[Bias correction]
+    B --> C[Motion and heading estimate]
+    C --> D[Speed estimate]
+    D --> E[UKF predict]
+    E --> F[GPS update]
+    F --> G[FIT write]

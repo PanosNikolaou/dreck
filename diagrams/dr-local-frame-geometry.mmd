@@ -1,0 +1,9 @@
+flowchart LR
+    A[Reference point at session start] --> B[Local East axis]
+    A --> C[Local North axis]
+    B --> D[East displacement e]
+    C --> E[North displacement n]
+    D --> F[Position estimate in local frame]
+    E --> F
+    F --> G[Convert to synthetic lat/lon]
+    G --> H[FIT track output]

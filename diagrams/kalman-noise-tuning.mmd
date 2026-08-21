@@ -1,0 +1,18 @@
+flowchart LR
+    A[Water + multipath GPS] --> B[High measurement noise]
+    C[Wrist-mounted drift] --> D[Moderate process noise]
+    E[Motion + heading noise] --> F[Conservative covariance tuning]
+
+    B --> G[R_gps_good = 1.2]
+    B --> H[R_gps_usable = 4.0]
+    B --> I[R_gps_poor = 14.0]
+
+    D --> J[Q_pos = 0.018]
+    D --> K[Q_vel = 0.026]
+
+    F --> L[Stable local East/North UKF]
+    G --> L
+    H --> L
+    I --> L
+    J --> L
+    K --> L

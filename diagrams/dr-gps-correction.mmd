@@ -1,0 +1,11 @@
+flowchart TD
+    A[Local state estimate] --> B[Compute innovation]
+    C[GPS fix] --> D{Fix quality}
+    D -->|Good| B
+    D -->|Usable| B
+    D -->|Poor| E[Ignore correction]
+    B --> F[Kalman gain]
+    F --> G[Correct position]
+    E --> H[Propagate with process noise]
+    G --> I[Updated DR track]
+    H --> I

@@ -1,0 +1,19 @@
+flowchart LR
+    A[Pressure\nAccelerometer\nGyroscope\nMagnetometer\nGPS] --> B[Sensor acquisition]
+    B --> C[Depth estimation]
+    B --> D[Motion + heading]
+    B --> E[GPS quality check]
+
+    C --> F[Live baseline\npressure-first depth]
+    D --> G[Movement confidence\nheading estimate]
+    E --> H[Local UKF state]
+
+    F --> I[Dive state logic]
+    G --> I
+    H --> I
+
+    I --> J[FIT recording]
+    I --> K[UI status + risk]
+    H --> L[Dead reckoning track]
+    J --> M[Saved dive trace]
+    L --> M

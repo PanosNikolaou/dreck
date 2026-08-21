@@ -1,0 +1,13 @@
+flowchart TD
+    A[Ambient pressure sample] --> B{Valid sample?}
+    B -->|No| C[Discard invalid sample]
+    B -->|Yes| D[Set live surface baseline]
+    D --> E[depth = (Pambient - Psurface) / 10050]
+    E --> F{Value plausible?}
+    F -->|No| G[Clamp / reject spike]
+    F -->|Yes| H[Low-pass smoothing]
+    H --> I[Depth output]
+    I --> J[Underwater detection]
+    J --> K[Session logging]
+
+    G --> L[Keep safe fallback] --> I

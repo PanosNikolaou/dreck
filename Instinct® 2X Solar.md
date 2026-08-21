@@ -1,192 +1,48 @@
-Instinct® 2X Solar
-Attribute	Value
-Id	instinct2x
-Screen Shape	semi-octagon
-Screen Size	176 x 176
-Display Colors	2
-Touch	False
-Buttons	enter, up, menu, down, esc
-Launcher Icon Size	62 x 62
-App Types
+# Instinct® 2X Solar target notes
 
-App Type	Memory Limit	Notes
-Background	32768	Requires Permission
-Data Field	32768	
-Glance	32768	Build as Widget
-Watch App	98304	
-Watch Face	65536	
-Widget	65536	
-Color Palette
+## Device summary
 
-0x000000	0xffffff
-2 Fields Layout
+- Model: Garmin Instinct 2X Solar
+- Device ID: instinct2x
+- Display: 176 x 176 semi-octagon
+- Colors: 2-color monochrome
+- Touchscreen: no
+- Buttons: Enter, Up, Menu, Down, Esc
+- Memory target for watch app: 98 KB
 
+## Why this device matters for the app
 
-2 Fields
-Name	Left	Top	Width	Height	Obscurity Flags	Obscure Left	Obscure Right	Obscure Top	Obscure Bottom
-Field 1	0	0	176	176	15	True	True	True	True
-Field 2	113	1	62	62	15	True	True	True	True
-3 Fields Layout
+This device is a good fit for a custom Connect IQ dive tracker because it provides the core sensors needed for the app to function:
 
+- 3-axis accelerometer
+- 3-axis gyroscope
+- 3-axis magnetometer
+- barometric pressure / altitude
+- GPS position
 
-3 Fields
-Name	Left	Top	Width	Height	Obscurity Flags	Obscure Left	Obscure Right	Obscure Top	Obscure Bottom
-Field 1	0	0	108	71	3	True	False	True	False
-Field 2	0	72	176	104	13	True	True	False	True
-Field 3	113	1	62	62	15	True	True	True	True
-4 Fields A Layout
+The app is designed to run as a practical watch app with conservative memory and CPU use. It does not depend on an unsupported native dive mode, and it remains compatible with the memory envelope available to a watch application on this platform.
 
+## App constraints on this watch
 
-4 Fields A
-Name	Left	Top	Width	Height	Obscurity Flags	Obscure Left	Obscure Right	Obscure Top	Obscure Bottom
-Field 1	0	0	108	55	3	True	False	True	False
-Field 2	0	56	176	65	0	False	False	False	False
-Field 3	0	122	176	54	13	True	True	False	True
-Field 4	113	1	62	62	15	True	True	True	True
-4 Fields B Layout
+The app intentionally keeps its logic compact:
 
+- local East/North state only for DR
+- small UKF state vector
+- simple pressure-based depth processing
+- conservative motion and GPS thresholds
+- reduced FIT field count to stay within device limits
 
-4 Fields B
-Name	Left	Top	Width	Height	Obscurity Flags	Obscure Left	Obscure Right	Obscure Top	Obscure Bottom
-Field 1	0	0	108	71	3	True	False	True	False
-Field 2	0	72	87	104	9	True	False	False	True
-Field 3	88	72	88	104	12	False	True	False	True
-Field 4	113	1	62	62	15	True	True	True	True
-5 Fields Layout
+## Sensor and UI realities
 
+This watch has a small monochrome field and a compact UI, so the app uses:
 
-5 Fields
-Name	Left	Top	Width	Height	Obscurity Flags	Obscure Left	Obscure Right	Obscure Top	Obscure Bottom
-Field 1	0	0	108	71	3	True	False	True	False
-Field 2	0	72	87	76	9	True	False	False	True
-Field 3	88	72	88	76	12	False	True	False	True
-Field 4	32	149	110	27	0	False	False	False	False
-Field 5	113	1	62	62	15	True	True	True	True
-Part Number 006-B4394-00
+- minimal text and compact layout blocks
+- a scrollable status view
+- low-frequency FIT writes
+- simple state transitions with hysteresis
 
-Languages
+This is enough to track a dive session, handle motion detection, and log a useful track without exceeding the watch’s practical limits.
 
-ara, bul, ces, dan, deu, dut, eng, est, fin, fre, gre, heb, hrv, hun, ind, ita, lav, lit, nob, pol, por, ron, rus, slo, slv, spa, swe, tur, ukr, zsm
+## Final design note
 
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	Roboto Condensed	21	006B388800_CDPG_ROBOTO_15M
-FONT_TINY	Roboto Condensed	21	006B388800_CDPG_ROBOTO_15M
-FONT_SMALL	Roboto Condensed	24	006B388800_CDPG_ROBOTO_18M
-FONT_MEDIUM	Roboto Condensed	27	006B388800_CDPG_ROBOTO_20M
-FONT_LARGE	Roboto Condensed	31	006B388800_CDPG_ROBOTO_23B
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	Roboto Condensed	24	006B388800_CDPG_ROBOTO_18M
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-zhs
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	Noto Sans SC Medium-94	19	NOTO_SANS_SC_MEDIUM-94_19
-FONT_TINY	Noto Sans SC Medium-94	19	NOTO_SANS_SC_MEDIUM-94_19
-FONT_SMALL	Noto Sans SC Medium-94	20	NOTO_SANS_SC_MEDIUM-94_20
-FONT_MEDIUM	Noto Sans SC Medium-94	22	NOTO_SANS_SC_MEDIUM-94_22
-FONT_LARGE	Noto Sans SC Bold-94	25	NOTO_SANS_SC_BOLD_94_CHN_25
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	Noto Sans SC Medium-94	20	NOTO_SANS_SC_MEDIUM-94_20
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-zht
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	Noto Sans SC Medium-94	19	NOTO_SANS_SC_MEDIUM-94_19
-FONT_TINY	Noto Sans SC Medium-94	19	NOTO_SANS_SC_MEDIUM-94_19
-FONT_SMALL	Noto Sans SC Medium-94	20	NOTO_SANS_SC_MEDIUM-94_20
-FONT_MEDIUM	Noto Sans SC Medium-94	22	NOTO_SANS_SC_MEDIUM-94_22
-FONT_LARGE	Noto Sans SC Bold-94	25	NOTO_SANS_SC_BOLD_94_CHN_25
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	Noto Sans SC Medium-94	20	NOTO_SANS_SC_MEDIUM-94_20
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-jpn
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	MotoyaLCedar-94	19	KOSUGI_REGULAR-94_JPN_19
-FONT_TINY	MotoyaLCedar-94	19	KOSUGI_REGULAR-94_JPN_19
-FONT_SMALL	MotoyaLCedar-94	20	KOSUGI_REGULAR-94_JPN_20
-FONT_MEDIUM	MotoyaLCedar-94	22	KOSUGI_REGULAR-94_JPN_22
-FONT_LARGE	MotoyaLCedar-94	25	KOSUGI_REGULAR-94_JPN_25B
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	MotoyaLCedar-94	20	KOSUGI_REGULAR-94_JPN_20
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-kor
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	NanumGothic-Bold-94	19	NANUM_GOTHIC_BOLD-94_KOR_19
-FONT_TINY	NanumGothic-Bold-94	19	NANUM_GOTHIC_BOLD-94_KOR_19
-FONT_SMALL	NanumGothic-Bold-94	20	NANUM_GOTHIC_BOLD-94_KOR_20
-FONT_MEDIUM	NanumGothic-Bold-94	22	NANUM_GOTHIC_BOLD-94_KOR_22
-FONT_LARGE	NanumGothicExtraBold-94	25	NANUM_GOTHIC_BOLD_KOR_25B
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	NanumGothic-Bold-94	20	NANUM_GOTHIC_BOLD-94_KOR_20
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-tha
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	Vera Sans	16	bitstreamVeraSans 16
-FONT_TINY	Vera Sans	16	bitstreamVeraSans 16
-FONT_SMALL	Vera Sans	16	bitstreamVeraSans 16
-FONT_MEDIUM	Vera Sans	21	bitstreamVeraSans 21
-FONT_LARGE	Vera Sans	27	bitstreamVeraSans 27
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	Vera Sans	16	bitstreamVeraSans 16
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
-Languages
-
-vie
-
-Fonts
-
-Font Symbol	Font Face	Font Size	Font
-FONT_XTINY	Roboto Condensed	16	ROBOTO_MEDIUM_VIET_16
-FONT_TINY	Roboto Condensed	16	ROBOTO_MEDIUM_VIET_16
-FONT_SMALL	Roboto Condensed	20	ROBOTO_MEDIUM_VIET_20
-FONT_MEDIUM	Roboto Condensed	20	ROBOTO_MEDIUM_VIET_20
-FONT_LARGE	Roboto Condensed	23	ROBOTO_CONDENSED_BOLD_VIET_23B
-FONT_NUMBER_MILD	Bebas Neue Bold DJV Glyph ttf	37	006B388800_0000_GARMIN_20
-FONT_NUMBER_MEDIUM	Bebas Neue Bold DJV Glyph ttf	43	006B388800_0000_GARMIN_32
-FONT_NUMBER_HOT	Bebas Neue Bold DJV Glyph ttf	47	006B388800_0000_GARMIN_30
-FONT_NUMBER_THAI_HOT	Bebas Neue Bold DJV Glyph ttf	59	006B388800_0000_GARMIN_41
-FONT_GLANCE	Roboto Condensed	20	ROBOTO_MEDIUM_VIET_20
-FONT_GLANCE_NUMBER	Bebas Neue Bold DJV Glyph ttf	27	006B388800_0000_GARMIN_16
+The app is tuned to this hardware and to the real operating conditions that matter on a watch: noisy water GPS, imperfect heading estimates, and a limited battery and CPU budget. The platform is therefore treated as a practical custom dive tracker rather than a replacement for a certified dive computer.

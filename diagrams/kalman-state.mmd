@@ -1,0 +1,9 @@
+stateDiagram-v2
+    [*] --> Init
+    Init --> Predict: Initialize E, N, vE, vN
+    Predict --> Correct: Heading + speed input
+    Correct --> Stable: GPS usable
+    Correct --> Propagate: GPS poor / absent
+    Stable --> Predict: Next timer tick
+    Propagate --> Predict: Next timer tick
+    Predict --> [*]: End of session

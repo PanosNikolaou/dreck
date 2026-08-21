@@ -1,0 +1,11 @@
+flowchart LR
+    A[Accelerometer\nGyroscope\nMagnetometer] --> B[Motion + heading model]
+    C[GPS fix + speed] --> D[DR correction]
+    E[Previous state\nE, N, vE, vN] --> F[Prediction step]
+    B --> F
+    F --> G{GPS usable?}
+    G -->|Yes| D
+    G -->|No| H[Continue local propagation]
+    D --> I[Corrected track]
+    H --> I
+    I --> J[FIT record + UI]

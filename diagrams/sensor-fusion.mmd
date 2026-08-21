@@ -1,0 +1,18 @@
+flowchart TD
+    A[Accelerometer] --> B[Motion score]
+    C[Gyroscope] --> B
+    D[Magnetometer] --> E[Heading estimate]
+    F[GPS fix] --> G[Speed + position update]
+    H[Barometer] --> I[Pressure-derived depth]
+
+    B --> J[Motion confidence]
+    E --> K[Heading confidence]
+    G --> L[UKF correction]
+    I --> M[Depth state]
+
+    J --> N[State machine]
+    K --> N
+    L --> N
+    M --> N
+
+    N --> O[FIT fields\nDepth / Speed / Heading / GPS / Motion]

@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{System Overview}{}% 2
+\BOOKMARK [1][-]{section.3}{Pressure-First Depth Estimation}{}% 3
+\BOOKMARK [1][-]{section.4}{Sensor Registration and Runtime Data Flow}{}% 4
+\BOOKMARK [1][-]{section.5}{Motion and Heading Estimation}{}% 5
+\BOOKMARK [1][-]{section.6}{UKF Formulation}{}% 6
+\BOOKMARK [2][-]{subsection.6.1}{GPS-driven DR generation}{section.6}% 7
+\BOOKMARK [2][-]{subsection.6.2}{Dead Reckoning diagrams and plots}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.3}{Kalman filter overview diagram}{section.6}% 9
+\BOOKMARK [1][-]{section.7}{Dive-State Logic}{}% 10
+\BOOKMARK [1][-]{section.8}{FIT Recording}{}% 11
+\BOOKMARK [1][-]{section.9}{Nitrogen Risk Model}{}% 12
+\BOOKMARK [1][-]{section.10}{Validation}{}% 13
+\BOOKMARK [1][-]{section.11}{Limitations and Practical Use}{}% 14
+\BOOKMARK [1][-]{section.12}{Conclusion}{}% 15

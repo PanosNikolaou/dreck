@@ -762,53 +762,69 @@ class gsensrosView extends WatchUi.View {
             if (sensorData has :accelerometerData && sensorData.accelerometerData != null) {
                 var accData = sensorData.accelerometerData;
 
-                // Prefer the raw samples if available (better than power)
-                if (accData has :x && accData.x != null && accData.x.size() > 0) {
-                    var count = accData.x.size();
-                    var i = 0;
-                    while (i < count) {
-                        var ax = accData.x[i].toFloat();
-                        var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
-                        var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
+                try {
+                    // Prefer the raw samples if available (better than power). Some devices
+                    // can return a scalar / stripped payload in this callback, so guard every
+                    // .size() and index access before we touch it.
+                    if (accData has :x && accData.x != null) {
+                        var xSamples = accData.x;
+                        var count = xSamples.size();
+                        if (count > 0) {
+                            var i = 0;
+                            while (i < count) {
+                                var ax = xSamples[i].toFloat();
+                                var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
+                                var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
 
-                        updateMotionFromAccel(ax, ay, az);
-                        i += 1;
-                    }
-                }
-                // Fallback to power if raw axes are not present
-                else if (accData has :power && accData.power != null) {
-                    var p = accData.power;
-                    var count = p.size();
-                    if (count <= 0) { return; }
-
-                    var sumPower = 0.0f;
-                    var validCount = 0;
-                    var i = 0;
-                    while (i < count) {
-                        if (p[i] != null) {
-                            sumPower += p[i].toFloat();
-                            validCount += 1;
+                                updateMotionFromAccel(ax, ay, az);
+                                i += 1;
+                            }
                         }
-                        i += 1;
                     }
-                    if (validCount <= 0) { return; }
-
-                    var avgPower = sumPower / validCount.toFloat();
-                    updateMotionFromAccel(avgPower, 0.0f, 0.0f);
+                    // Fallback to power if raw axes are not present.
+                    else if (accData has :power && accData.power != null) {
+                        var p = accData.power;
+                        var count = p.size();
+                        if (count > 0) {
+                            var sumPower = 0.0f;
+                            var validCount = 0;
+                            var i = 0;
+                            while (i < count) {
+                                if (p[i] != null) {
+                                    sumPower += p[i].toFloat();
+                                    validCount += 1;
+                                }
+                                i += 1;
+                            }
+                            if (validCount > 0) {
+                                var avgPower = sumPower / validCount.toFloat();
+                                updateMotionFromAccel(avgPower, 0.0f, 0.0f);
+                            }
+                        }
+                    }
+                } catch (e) {
+                    System.println("accelerometer payload parse error: " + errorToString(e));
                 }
             }
 
             if (sensorData has :gyroscopeData && sensorData.gyroscopeData != null) {
-                var gyroData = sensorData.gyroscopeData;
-                if (gyroData has :x && gyroData.x != null && gyroData.x.size() > 0) {
-                    var count = gyroData.x.size();
-                    var i = 0;
-                    while (i < count) {
-                        gyroX = (gyroData has :x && gyroData.x != null) ? gyroData.x[i].toFloat() : 0.0f;
-                        gyroY = (gyroData has :y && gyroData.y != null) ? gyroData.y[i].toFloat() : 0.0f;
-                        gyroZ = (gyroData has :z && gyroData.z != null) ? gyroData.z[i].toFloat() : 0.0f;
-                        i += 1;
+                try {
+                    var gyroData = sensorData.gyroscopeData;
+                    if (gyroData has :x && gyroData.x != null) {
+                        var xSamples = gyroData.x;
+                        var count = xSamples.size();
+                        if (count > 0) {
+                            var i = 0;
+                            while (i < count) {
+                                gyroX = (gyroData has :x && gyroData.x != null) ? xSamples[i].toFloat() : 0.0f;
+                                gyroY = (gyroData has :y && gyroData.y != null) ? gyroData.y[i].toFloat() : 0.0f;
+                                gyroZ = (gyroData has :z && gyroData.z != null) ? gyroData.z[i].toFloat() : 0.0f;
+                                i += 1;
+                            }
+                        }
                     }
+                } catch (e) {
+                    System.println("gyroscope payload parse error: " + errorToString(e));
                 }
             }
 
