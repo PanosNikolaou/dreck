@@ -14,26 +14,26 @@ class KalmanDR {
     const N = 4;                 // state dimension
     const N_SIGMA = 9;           // 2N+1 sigma points
 
-    // UKF parameters chosen for positive weights & stable on-device math.
-    // alpha=1, kappa=0, beta=2 → lambda = 1^2*(4+0)-4 = 0
-    // With lambda=0, sigma scale c = sqrt(N) = 2; Wm0=0, Wi=1/(2N).
-    // We use a slight positive lambda (set N+lambda = N+2) for better
-    // higher-order capture without negative mean weight.
-    const ALPHA = 1.0f;
+    // UKF parameters tuned for a constrained marine motion model: smaller sigma spread,
+    // Gaussian prior, and a stable on-watch implementation.
+    // alpha = 0.3 keeps sigma points tighter around the mean; beta = 2 is optimal for
+    // Gaussian priors; kappa = 0 keeps the transform conservative under watch constraints.
+    const ALPHA = 0.30f;
     const BETA  = 2.0f;
-    const KAPPA = 2.0f;          // → lambda = 1*(4+2)-4 = 2
-    const LAMBDA = 2.0f;
-    const C_SCALE = 2.44949f;    // sqrt(N+lambda) = sqrt(6) ≈ 2.449
+    const KAPPA = 0.0f;
+    const LAMBDA = 0.30f * 0.30f * (N.toFloat() + KAPPA) - N.toFloat();
+    const C_SCALE = 1.939f;      // sqrt(N + lambda) with alpha=0.3, kappa=0 → sqrt(3.84) ≈ 1.96
 
-    // Process / measurement noise
-    const Q_POS   = 0.05f;       // m^2 / s  position process
-    const Q_VEL   = 0.08f;       // (m/s)^2 / s  velocity process
-    const R_GPS_GOOD   = 2.5f;   // m^2
-    const R_GPS_USABLE = 10.0f;  // m^2
-    const R_GPS_POOR   = 30.0f;
-    const Q_POS_LOSS   = 0.12f;
-    const Q_VEL_LOSS   = 0.14f;
-    const R_GPS_LOSS_SCALE = 1.8f;
+    // Process / measurement noise tuned for smoother marine motion and multipath-heavy water GPS.
+    // Keep Q low enough that the filter trusts the motion model, but not so low that it drifts.
+    const Q_POS   = 0.018f;      // m^2 / s  position process
+    const Q_VEL   = 0.026f;      // (m/s)^2 / s  velocity process
+    const R_GPS_GOOD   = 1.2f;   // m^2
+    const R_GPS_USABLE = 4.0f;   // m^2
+    const R_GPS_POOR   = 14.0f;  // m^2
+    const Q_POS_LOSS   = 0.030f;
+    const Q_VEL_LOSS   = 0.045f;
+    const R_GPS_LOSS_SCALE = 2.2f;
     const MIN_PREDICT_SPEED_MPS = 0.08f;
     const MAX_PREDICT_SPEED_MPS = 2.2f;
 
@@ -308,8 +308,8 @@ class KalmanDR {
             qVel = Q_VEL_LOSS;
             gpsLossTimeSec += dt;
         } else if (headingConfidence < 0.8f) {
-            qPos = Q_POS + 0.03f;
-            qVel = Q_VEL + 0.04f;
+            qPos = Q_POS + 0.010f;
+            qVel = Q_VEL + 0.012f;
         } else if (gpsLossTimeSec > 0.0f) {
             gpsLossTimeSec -= dt * 0.6f;
             if (gpsLossTimeSec < 0.0f) {
@@ -318,21 +318,21 @@ class KalmanDR {
         }
 
         if (motionConfidence != null && motionConfidence < 6) {
-            qPos *= 1.10f;
-            qVel *= 1.10f;
+            qPos *= 1.08f;
+            qVel *= 1.08f;
         }
 
-        var uncertaintyScale = 1.0f + (gpsLossTimeSec * 0.18f);
-        if (uncertaintyScale > 2.0f) {
-            uncertaintyScale = 2.0f;
+        var uncertaintyScale = 1.0f + (gpsLossTimeSec * 0.14f);
+        if (uncertaintyScale > 1.8f) {
+            uncertaintyScale = 1.8f;
         }
 
-        // Reuse the existing predict path with a small bias injected via covariance.
+        // Reuse the existing predict path with a conservative covariance inflation.
         predict(speedMps, headingRad, dt);
-        setP(0, 0, getP(0, 0) + qPos * dt * 0.35f * uncertaintyScale);
-        setP(1, 1, getP(1, 1) + qPos * dt * 0.35f * uncertaintyScale);
-        setP(2, 2, getP(2, 2) + qVel * dt * 0.35f * uncertaintyScale);
-        setP(3, 3, getP(3, 3) + qVel * dt * 0.35f * uncertaintyScale);
+        setP(0, 0, getP(0, 0) + qPos * dt * 0.28f * uncertaintyScale);
+        setP(1, 1, getP(1, 1) + qPos * dt * 0.28f * uncertaintyScale);
+        setP(2, 2, getP(2, 2) + qVel * dt * 0.28f * uncertaintyScale);
+        setP(3, 3, getP(3, 3) + qVel * dt * 0.28f * uncertaintyScale);
     }
 
     function updateGps(lat as Float, lon as Float, quality as Number) as Void {
@@ -341,15 +341,22 @@ class KalmanDR {
             return;
         }
 
-        var r = R_GPS_USABLE * 0.70f;
+        // Water multipath and intermittent satellite visibility make GPS noisy.
+        // Lower R when the fix is clean, increase heavily when it is weak or unavailable.
+        var r = R_GPS_USABLE;
         if (quality == Position.QUALITY_GOOD) {
-            r = R_GPS_GOOD * 0.70f;
+            r = R_GPS_GOOD;
         } else if (quality == Position.QUALITY_POOR) {
-            r = R_GPS_POOR * 0.85f;
+            r = R_GPS_POOR;
         }
 
         if (quality == Position.QUALITY_NOT_AVAILABLE) {
-            r = R_GPS_POOR * R_GPS_LOSS_SCALE * 1.10f;
+            r = R_GPS_POOR * R_GPS_LOSS_SCALE * 1.15f;
+        }
+
+        // Extra conservative scaling when the fix is marginal or the platform is at the surface.
+        if (quality == Position.QUALITY_USABLE) {
+            r *= 1.25f;
         }
 
         var cosLat = Math.cos(referenceLat * Math.PI / 180.0f);
