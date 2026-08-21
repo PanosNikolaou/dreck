@@ -103,14 +103,14 @@ class gsensrosView extends WatchUi.View {
     var heartRate = 0;                        // NEW
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
-    const DEPTH_NOISE_FLOOR_M   = 0.10f;   // keep valid shallow samples (e.g. 0.02–0.39 m) instead of zeroing the entire dive
-    const DIVE_START_DEPTH_M    = 0.20f;   // start dive detection on valid shallow movement, matching the Suunto trace
-    const SURFACE_STOP_DEPTH_M  = 0.25f;   // surface noise gate; actual stop uses return to start GPS point
+    const DEPTH_NOISE_FLOOR_M   = 0.02f;   // keep even very shallow Suunto-like values instead of forcing them to zero
+    const DIVE_START_DEPTH_M    = 0.10f;   // react sooner to the Suunto-style shallow start pattern
+    const SURFACE_STOP_DEPTH_M  = 0.18f;   // surface noise gate; actual stop uses return to start GPS point
     const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
     const MAX_DEPTH_M           = 80.0f;   // hard clamp (tech diving upper bound)
-    const MAX_DEPTH_RATE_MPS    = 3.0f;    // max |d(depth)/dt| accepted (~180 m/min)
+    const MAX_DEPTH_RATE_MPS    = 4.0f;    // allow real dive motion without blocking normal shallow ascent/descent
     const MIN_VALID_ALT_M       = -120.0f; // reject GPS/baro altitude garbage
     const MAX_VALID_ALT_M       = 5000.0f;
     // Seawater approx: 1 m depth ≈ 10050 Pa over surface pressure
@@ -228,8 +228,8 @@ class gsensrosView extends WatchUi.View {
     var lastSurfacePressureRecalMs = 0;
     var usePressureDepth = false;   // true once we have a pressure-based surface cal
     const SURFACE_PRESSURE_RECAL_INTERVAL_MS = 180000;
-    const PRESSURE_DEPTH_WEIGHT = 0.90f;
-    const ALT_DEPTH_WEIGHT = 0.10f;
+    const PRESSURE_DEPTH_WEIGHT = 0.95f;
+    const ALT_DEPTH_WEIGHT = 0.05f;
     const ALT_DEPTH_BLEND_FULL_DIFF_M = 2.0f;
     const ALT_DEPTH_BLEND_OFF_DIFF_M = 6.0f;
 
@@ -1178,15 +1178,16 @@ class gsensrosView extends WatchUi.View {
 
             // ---------- Initial surface calibration ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
-                if (hasPressure && pressurePa > 80000.0f && pressurePa < 110000.0f) {
-                    // Use the very first valid pressure sample as a live baseline so the
-                    // app does not sit at depth = 0 m while the startup calibration window runs.
-                    if (pressureCalibrationSamples == 0) {
+                if (hasPressure && pressurePa > 70000.0f && pressurePa < 120000.0f) {
+                    // Lock a live baseline immediately using the first valid pressure sample.
+                    // This keeps reactive shallow depth values alive instead of waiting for the
+                    // full startup calibration window to complete.
+                    if (pressureCalibrationSamples == 0 || !usePressureDepth) {
                         surfacePressurePa = pressurePa;
+                        usePressureDepth = true;
                     }
                     surfacePressureSum += pressurePa;
                     pressureCalibrationSamples += 1;
-                    usePressureDepth = true;
                 }
                 if (altValid) {
                     surfaceAltitudeSum += rawAlt;
@@ -1302,12 +1303,25 @@ class gsensrosView extends WatchUi.View {
                 rawDepth = prev - maxDelta;
             }
 
-            // Low-pass tuned to track a real dive trace without lagging the surface
-            // transition. This keeps the pressure-based depth estimate responsive while
-            // still filtering short-lived spikes from the barometer.
-            depthFilter = (depthFilter * 0.60f) + (rawDepth * 0.40f);
+            // Match the Suunto-style depth bursts more closely: keep shallow samples live,
+            // but react quickly to genuine transitions and keep a tighter hold near the
+            // surface to avoid a laggy, round-shouldered trace.
+            var depthAlpha = 0.60f;
+            var depthDelta = absFloat(rawDepth - depthFilter);
+            if (rawDepth <= 1.0f) {
+                depthAlpha = 0.45f;
+            } else if (rawDepth > 2.0f) {
+                depthAlpha = 0.35f;
+            }
+            if (depthDelta > 1.25f) {
+                depthAlpha = 0.30f;
+            }
+            if (depthDelta < 0.15f) {
+                depthAlpha = 0.75f;
+            }
+            depthFilter = (depthFilter * (1.0f - depthAlpha)) + (rawDepth * depthAlpha);
 
-            // Noise floor
+            // Noise floor: keep tiny real shallow values visible, but still reject pure noise.
             if (depthFilter < DEPTH_NOISE_FLOOR_M) {
                 depthFilter = 0.0f;
             }
