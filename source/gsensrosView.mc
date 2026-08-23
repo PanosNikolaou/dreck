@@ -310,7 +310,7 @@ class gsensrosView extends WatchUi.View {
     const LAYOUT_TOP_RIGHT_Y = 10;
     const LAYOUT_TOP_RIGHT_W = 52;
     const LAYOUT_TOP_RIGHT_H = 52;
-    const LAYOUT_CONTENT_TOP = 72;
+    const LAYOUT_CONTENT_TOP = 76;
     const LAYOUT_CONTENT_LEFT = 8;
     const LAYOUT_CUTOUT_CENTER_X = 144;
     const LAYOUT_CUTOUT_CENTER_Y = 31;
@@ -2666,10 +2666,8 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NO FIX"), Graphics.TEXT_JUSTIFY_LEFT);
 
             if (noticeText != null) {
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 6, 12);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 55, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 48, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
             }
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
