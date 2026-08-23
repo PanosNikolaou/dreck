@@ -1954,796 +1954,828 @@ _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_368_39_385_
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 387; @symbol_functiondef = [getEastMeters,387,13,26]; @symbol_return<0> = [Float,387,32,37]; ]
     function getEastMeters() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_387_38_389_4_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_387_38_392_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 388 8 ]
-        symbol [ eastMeters %tmp.2 388 15 25 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_8_390_8_if_stmt:
+        symbol [ eastMeters %tmp.2 388 12 22 ];
         %tmp.2 = getv ? :eastMeters;
-        ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_387_38_389_4_stop:
+        symbol [ eastMeters %tmp.4 388 26 36 ];
+        %tmp.4 = getv ? :eastMeters;
+        %tmp.5 = ne %tmp.2 %tmp.4;
+        bf %tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_8_390_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_8_390_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_38_390_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 389 12 ]
+        %tmp.6 = 0.0f;
+        ret %tmp.6;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_38_390_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_8_390_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_388_8_390_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 391 8 ]
+        symbol [ eastMeters %tmp.8 391 15 25 ];
+        %tmp.8 = getv ? :eastMeters;
+        ret %tmp.8;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_387_38_392_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 391; @symbol_functiondef = [getNorthMeters,391,13,27]; @symbol_return<0> = [Float,391,33,38]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 394; @symbol_functiondef = [getNorthMeters,394,13,27]; @symbol_return<0> = [Float,394,33,38]; ]
     function getNorthMeters() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_391_39_393_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 392 8 ]
-        symbol [ northMeters %tmp.2 392 15 26 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_394_39_399_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 395 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_8_397_8_if_stmt:
+        symbol [ northMeters %tmp.2 395 12 23 ];
         %tmp.2 = getv ? :northMeters;
-        ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_391_39_393_4_stop:
+        symbol [ northMeters %tmp.4 395 27 38 ];
+        %tmp.4 = getv ? :northMeters;
+        %tmp.5 = ne %tmp.2 %tmp.4;
+        bf %tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_8_397_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_8_397_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_40_397_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 396 12 ]
+        %tmp.6 = 0.0f;
+        ret %tmp.6;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_40_397_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_8_397_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_8_397_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 398 8 ]
+        symbol [ northMeters %tmp.8 398 15 26 ];
+        %tmp.8 = getv ? :northMeters;
+        ret %tmp.8;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_394_39_399_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 395; @symbol_functiondef = [getHeadingRad,395,13,26]; @symbol_return<0> = [Float,395,32,37]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 401; @symbol_functiondef = [getHeadingRad,401,13,26]; @symbol_return<0> = [Float,401,32,37]; ]
     function getHeadingRad() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_38_397_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 396 8 ]
-        symbol [ headingRad %tmp.2 396 15 25 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_401_38_403_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 402 8 ]
+        symbol [ headingRad %tmp.2 402 15 25 ];
         %tmp.2 = getv ? :headingRad;
         ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_395_38_397_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_401_38_403_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 399; @symbol_functiondef = [getHeadingDeg,399,13,26]; @symbol_return<0> = [Float,399,32,37]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 405; @symbol_functiondef = [getHeadingDeg,405,13,26]; @symbol_return<0> = [Float,405,32,37]; ]
     function getHeadingDeg() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_399_38_401_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 400 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_405_38_407_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 406 8 ]
         %tmp.1 = self;
-        symbol [ normalizeDegrees %tmp.2 400 15 31 ];
+        symbol [ normalizeDegrees %tmp.2 406 15 31 ];
         %tmp.2 = getv function %tmp.1 :normalizeDegrees;
-        symbol [ Math %tmp.3 400 32 36 ];
+        symbol [ Math %tmp.3 406 32 36 ];
         %tmp.3 = getm $.Toybox.Math;
-        symbol [ toDegrees %tmp.4 400 37 46 ];
+        symbol [ toDegrees %tmp.4 406 37 46 ];
         %tmp.4 = getv function %tmp.3 :toDegrees;
-        symbol [ headingRad %tmp.6 400 47 57 ];
+        symbol [ headingRad %tmp.6 406 47 57 ];
         %tmp.6 = getv ? :headingRad;
         %tmp.7 = invoke %tmp.3 %tmp.4(%tmp.6);
         %tmp.8 = invoke %tmp.1 %tmp.2(%tmp.7);
         ret %tmp.8;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_399_38_401_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_405_38_407_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 403; @symbol_functiondef = [getSpeedMps,403,13,24]; @symbol_return<0> = [Float,403,30,35]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 409; @symbol_functiondef = [getSpeedMps,409,13,24]; @symbol_return<0> = [Float,409,30,35]; ]
     function getSpeedMps() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_403_36_405_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 404 8 ]
-        symbol [ speedMps %tmp.2 404 15 23 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_409_36_411_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 410 8 ]
+        symbol [ speedMps %tmp.2 410 15 23 ];
         %tmp.2 = getv ? :speedMps;
         ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_403_36_405_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_409_36_411_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 407; @symbol_functiondef = [getTotalDistanceMeters,407,13,35]; @symbol_return<0> = [Float,407,41,46]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 413; @symbol_functiondef = [getTotalDistanceMeters,413,13,35]; @symbol_return<0> = [Float,413,41,46]; ]
     function getTotalDistanceMeters() as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_407_47_409_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 408 8 ]
-        symbol [ totalDistanceMeters %tmp.2 408 15 34 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_413_47_415_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 414 8 ]
+        symbol [ totalDistanceMeters %tmp.2 414 15 34 ];
         %tmp.2 = getv ? :totalDistanceMeters;
         ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_407_47_409_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_413_47_415_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 411; @symbol_functiondef = [hasValidHeading,411,13,28]; @symbol_return<0> = [Boolean,411,34,41]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 417; @symbol_functiondef = [hasValidHeading,417,13,28]; @symbol_return<0> = [Boolean,417,34,41]; ]
     function hasValidHeading() as Boolean {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_411_42_413_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 412 8 ]
-        symbol [ hasHeadingLock %tmp.2 412 15 29 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_417_42_419_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 418 8 ]
+        symbol [ hasHeadingLock %tmp.2 418 15 29 ];
         %tmp.2 = getv ? :hasHeadingLock;
         ret %tmp.2;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_411_42_413_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_417_42_419_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 415; @symbol_functiondef = [chooseHeadingAlpha,415,13,31]; @symbol_param<0> = [currentSpeedMps,415,32,47]; @symbol_param<0>_type<0> = [Float,415,51,56]; @symbol_param<1> = [headingConfidence,415,58,75]; @symbol_param<1>_type<0> = [Float,415,79,84]; @symbol_param<2> = [verticalRateMps,415,86,101]; @symbol_param<2>_type<0> = [Float,415,105,110]; @symbol_return<0> = [Float,415,115,120]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 421; @symbol_functiondef = [chooseHeadingAlpha,421,13,31]; @symbol_param<0> = [currentSpeedMps,421,32,47]; @symbol_param<0>_type<0> = [Float,421,51,56]; @symbol_param<1> = [headingConfidence,421,58,75]; @symbol_param<1>_type<0> = [Float,421,79,84]; @symbol_param<2> = [verticalRateMps,421,86,101]; @symbol_param<2>_type<0> = [Float,421,105,110]; @symbol_return<0> = [Float,421,115,120]; ]
     function chooseHeadingAlpha(currentSpeedMps as Float, headingConfidence as Float, verticalRateMps as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 416 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_stop" ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 422 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_stop" ]
         %conf.1 = local;
-        symbol [ conf %conf.1 416 12 16 ];
+        symbol [ conf %conf.1 422 12 16 ];
         %tmp.1 = self;
-        symbol [ clampFloat %tmp.2 416 19 29 ];
+        symbol [ clampFloat %tmp.2 422 19 29 ];
         %tmp.2 = getv function %tmp.1 :clampFloat;
         %tmp.3 = lgetv %headingConfidence;
-        symbol [ headingConfidence %tmp.3 416 30 47 ];
+        symbol [ headingConfidence %tmp.3 422 30 47 ];
         %tmp.4 = 0.0f;
         %tmp.5 = 1.0f;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         lputv %conf.1 %tmp.6;
-        symbol [ conf %conf.1 416 12 16 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 417 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_stop" ]
+        symbol [ conf %conf.1 422 12 16 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 423 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_stop" ]
         %verticalFactor.2 = local;
-        symbol [ verticalFactor %verticalFactor.2 417 12 26 ];
+        symbol [ verticalFactor %verticalFactor.2 423 12 26 ];
         %tmp.7 = 1.0f;
         lputv %verticalFactor.2 %tmp.7;
-        symbol [ verticalFactor %verticalFactor.2 417 12 26 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 418 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_stop" ]
+        symbol [ verticalFactor %verticalFactor.2 423 12 26 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 424 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_stop" ]
         %absVerticalRate.3 = local;
-        symbol [ absVerticalRate %absVerticalRate.3 418 12 27 ];
+        symbol [ absVerticalRate %absVerticalRate.3 424 12 27 ];
         %tmp.8 = lgetv %verticalRateMps;
-        symbol [ verticalRateMps %tmp.8 418 30 45 ];
+        symbol [ verticalRateMps %tmp.8 424 30 45 ];
         lputv %absVerticalRate.3 %tmp.8;
-        symbol [ absVerticalRate %absVerticalRate.3 418 12 27 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 419 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_8_421_8_if_stmt:
+        symbol [ absVerticalRate %absVerticalRate.3 424 12 27 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 425 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_8_427_8_if_stmt:
         %tmp.9 = lgetv %absVerticalRate.3;
-        symbol [ absVerticalRate %tmp.9 419 12 27 ];
+        symbol [ absVerticalRate %tmp.9 425 12 27 ];
         %tmp.10 = 0.0f;
         %tmp.11 = lt %tmp.9 %tmp.10;
-        bf %tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_8_421_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_8_421_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_36_421_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 420 12 ]
+        bf %tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_8_427_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_8_427_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_36_427_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 426 12 ]
         %tmp.12 = lgetv %absVerticalRate.3;
-        symbol [ absVerticalRate %tmp.12 420 31 46 ];
+        symbol [ absVerticalRate %tmp.12 426 31 46 ];
         %tmp.13 = sub 0 %tmp.12;
         lputv %absVerticalRate.3 %tmp.13;
-        symbol [ absVerticalRate %absVerticalRate.3 420 12 27 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_36_421_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_8_421_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_419_8_421_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 422 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_stmt:
+        symbol [ absVerticalRate %absVerticalRate.3 426 12 27 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_36_427_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_8_427_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_425_8_427_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 428 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_stmt:
         %tmp.14 = lgetv %absVerticalRate.3;
-        symbol [ absVerticalRate %tmp.14 422 12 27 ];
+        symbol [ absVerticalRate %tmp.14 428 12 27 ];
         %tmp.15 = 0.20f;
         %tmp.16 = gt %tmp.14 %tmp.15;
-        bf %tmp.16 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_37_424_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 423 12 ]
-        %tmp.17 = 0.72f;
-        lputv %verticalFactor.2 %tmp.17;
-        symbol [ verticalFactor %verticalFactor.2 423 12 26 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_37_424_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_false:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 424 15 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_15_426_8_if_stmt:
-        %tmp.18 = lgetv %absVerticalRate.3;
-        symbol [ absVerticalRate %tmp.18 424 19 34 ];
-        %tmp.19 = 0.08f;
-        %tmp.20 = gt %tmp.18 %tmp.19;
-        bf %tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_15_426_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_15_426_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_44_426_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 425 12 ]
-        %tmp.21 = 0.86f;
-        lputv %verticalFactor.2 %tmp.21;
-        symbol [ verticalFactor %verticalFactor.2 425 12 26 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_44_426_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_15_426_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_424_15_426_8_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_422_8_426_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 428 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_430_8_if_stmt:
-        %tmp.22 = lgetv %currentSpeedMps;
-        symbol [ currentSpeedMps %tmp.22 428 12 27 ];
-        %tmp.23 = 0.7f;
-        %tmp.24 = gte %tmp.22 %tmp.23;
-        bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_430_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_430_8_if_true:
+        bf %tmp.16 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_37_430_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 429 12 ]
-        symbol [ HEADING_ALPHA_FAST %tmp.26 429 19 37 ];
+        %tmp.17 = 0.72f;
+        lputv %verticalFactor.2 %tmp.17;
+        symbol [ verticalFactor %verticalFactor.2 429 12 26 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_37_430_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_false:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 430 15 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_15_432_8_if_stmt:
+        %tmp.18 = lgetv %absVerticalRate.3;
+        symbol [ absVerticalRate %tmp.18 430 19 34 ];
+        %tmp.19 = 0.08f;
+        %tmp.20 = gt %tmp.18 %tmp.19;
+        bf %tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_15_432_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_15_432_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_44_432_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 431 12 ]
+        %tmp.21 = 0.86f;
+        lputv %verticalFactor.2 %tmp.21;
+        symbol [ verticalFactor %verticalFactor.2 431 12 26 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_44_432_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_15_432_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_430_15_432_8_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_432_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 434 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_8_436_8_if_stmt:
+        %tmp.22 = lgetv %currentSpeedMps;
+        symbol [ currentSpeedMps %tmp.22 434 12 27 ];
+        %tmp.23 = 0.7f;
+        %tmp.24 = gte %tmp.22 %tmp.23;
+        bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_8_436_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_8_436_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_37_436_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 435 12 ]
+        symbol [ HEADING_ALPHA_FAST %tmp.26 435 19 37 ];
         %tmp.26 = getv ? :HEADING_ALPHA_FAST;
         %tmp.27 = lgetv %conf.1;
-        symbol [ conf %tmp.27 429 40 44 ];
+        symbol [ conf %tmp.27 435 40 44 ];
         %tmp.28 = mul %tmp.26 %tmp.27;
         %tmp.29 = lgetv %verticalFactor.2;
-        symbol [ verticalFactor %tmp.29 429 47 61 ];
+        symbol [ verticalFactor %tmp.29 435 47 61 ];
         %tmp.30 = mul %tmp.28 %tmp.29;
         ret %tmp.30;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_37_430_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_430_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_428_8_430_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 432 8 ]
-        symbol [ HEADING_ALPHA_SLOW %tmp.32 432 15 33 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_37_436_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_8_436_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_434_8_436_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 438 8 ]
+        symbol [ HEADING_ALPHA_SLOW %tmp.32 438 15 33 ];
         %tmp.32 = getv ? :HEADING_ALPHA_SLOW;
         %tmp.33 = lgetv %conf.1;
-        symbol [ conf %tmp.33 432 36 40 ];
+        symbol [ conf %tmp.33 438 36 40 ];
         %tmp.34 = mul %tmp.32 %tmp.33;
         %tmp.35 = lgetv %verticalFactor.2;
-        symbol [ verticalFactor %tmp.35 432 43 57 ];
+        symbol [ verticalFactor %tmp.35 438 43 57 ];
         %tmp.36 = mul %tmp.34 %tmp.35;
         ret %tmp.36;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_415_121_433_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_421_121_439_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 435; @symbol_functiondef = [refreshHeadingCache,435,13,32]; @symbol_param<0> = [h,435,33,34]; @symbol_param<0>_type<0> = [Float,435,38,43]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 441; @symbol_functiondef = [refreshHeadingCache,441,13,32]; @symbol_param<0> = [h,441,33,34]; @symbol_param<0>_type<0> = [Float,441,38,43]; ]
     function refreshHeadingCache(h as Float) as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_435_53_441_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 436 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_8_440_8_if_stmt:
-        symbol [ lastHeadingCacheRad %tmp.2 436 12 31 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_441_53_447_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 442 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_8_446_8_if_stmt:
+        symbol [ lastHeadingCacheRad %tmp.2 442 12 31 ];
         %tmp.2 = getv ? :lastHeadingCacheRad;
         %tmp.3 = lgetv %h;
-        symbol [ h %tmp.3 436 35 36 ];
+        symbol [ h %tmp.3 442 35 36 ];
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_8_440_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_8_440_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_38_440_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 437 12 ]
-        symbol [ Math %tmp.5 437 30 34 ];
+        bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_8_446_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_8_446_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_38_446_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 443 12 ]
+        symbol [ Math %tmp.5 443 30 34 ];
         %tmp.5 = getm $.Toybox.Math;
-        symbol [ sin %tmp.6 437 35 38 ];
+        symbol [ sin %tmp.6 443 35 38 ];
         %tmp.6 = getv function %tmp.5 :sin;
         %tmp.7 = lgetv %h;
-        symbol [ h %tmp.7 437 39 40 ];
+        symbol [ h %tmp.7 443 39 40 ];
         %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
-        symbol [ headingSinCache ? 437 12 27 ];
+        symbol [ headingSinCache ? 443 12 27 ];
         putv self :headingSinCache %tmp.8;
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 438 12 ]
-        symbol [ Math %tmp.9 438 30 34 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 444 12 ]
+        symbol [ Math %tmp.9 444 30 34 ];
         %tmp.9 = getm $.Toybox.Math;
-        symbol [ cos %tmp.10 438 35 38 ];
+        symbol [ cos %tmp.10 444 35 38 ];
         %tmp.10 = getv function %tmp.9 :cos;
         %tmp.11 = lgetv %h;
-        symbol [ h %tmp.11 438 39 40 ];
+        symbol [ h %tmp.11 444 39 40 ];
         %tmp.12 = invoke %tmp.9 %tmp.10(%tmp.11);
-        symbol [ headingCosCache ? 438 12 27 ];
+        symbol [ headingCosCache ? 444 12 27 ];
         putv self :headingCosCache %tmp.12;
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 439 12 ]
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 445 12 ]
         %tmp.13 = lgetv %h;
-        symbol [ h %tmp.13 439 34 35 ];
-        symbol [ lastHeadingCacheRad ? 439 12 31 ];
+        symbol [ h %tmp.13 445 34 35 ];
+        symbol [ lastHeadingCacheRad ? 445 12 31 ];
         putv self :lastHeadingCacheRad %tmp.13;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_38_440_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_8_440_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_436_8_440_8_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_435_53_441_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_38_446_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_8_446_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_442_8_446_8_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_441_53_447_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 443; @symbol_functiondef = [getAdaptiveDeadband,443,13,32]; @symbol_param<0> = [baseDeadband,443,33,45]; @symbol_param<0>_type<0> = [Float,443,49,54]; @symbol_param<1> = [headingConfidence,443,56,73]; @symbol_param<1>_type<0> = [Float,443,77,82]; @symbol_param<2> = [inputSpeedMps,443,84,97]; @symbol_param<2>_type<0> = [Float,443,101,106]; @symbol_param<3> = [dt,443,108,110]; @symbol_param<3>_type<0> = [Float,443,114,119]; @symbol_param<4> = [accelMagnitude,443,121,135]; @symbol_param<4>_type<0> = [Float,443,139,144]; @symbol_return<0> = [Float,443,149,154]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 449; @symbol_functiondef = [getAdaptiveDeadband,449,13,32]; @symbol_param<0> = [baseDeadband,449,33,45]; @symbol_param<0>_type<0> = [Float,449,49,54]; @symbol_param<1> = [headingConfidence,449,56,73]; @symbol_param<1>_type<0> = [Float,449,77,82]; @symbol_param<2> = [inputSpeedMps,449,84,97]; @symbol_param<2>_type<0> = [Float,449,101,106]; @symbol_param<3> = [dt,449,108,110]; @symbol_param<3>_type<0> = [Float,449,114,119]; @symbol_param<4> = [accelMagnitude,449,121,135]; @symbol_param<4>_type<0> = [Float,449,139,144]; @symbol_return<0> = [Float,449,149,154]; ]
     function getAdaptiveDeadband(baseDeadband as Float, headingConfidence as Float, inputSpeedMps as Float, dt as Float, accelMagnitude as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 444 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop" ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 450 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop" ]
         %speedDelta.1 = local;
-        symbol [ speedDelta %speedDelta.1 444 12 22 ];
-        symbol [ speedMps %tmp.2 444 25 33 ];
+        symbol [ speedDelta %speedDelta.1 450 12 22 ];
+        symbol [ speedMps %tmp.2 450 25 33 ];
         %tmp.2 = getv ? :speedMps;
         %tmp.3 = lgetv %inputSpeedMps;
-        symbol [ inputSpeedMps %tmp.3 444 36 49 ];
+        symbol [ inputSpeedMps %tmp.3 450 36 49 ];
         %tmp.4 = sub %tmp.2 %tmp.3;
         lputv %speedDelta.1 %tmp.4;
-        symbol [ speedDelta %speedDelta.1 444 12 22 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 445 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_8_447_8_if_stmt:
+        symbol [ speedDelta %speedDelta.1 450 12 22 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 451 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_8_453_8_if_stmt:
         %tmp.5 = lgetv %speedDelta.1;
-        symbol [ speedDelta %tmp.5 445 12 22 ];
+        symbol [ speedDelta %tmp.5 451 12 22 ];
         %tmp.6 = 0.0f;
         %tmp.7 = lt %tmp.5 %tmp.6;
-        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_8_447_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_8_447_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_31_447_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 446 12 ]
+        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_8_453_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_8_453_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_31_453_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 452 12 ]
         %tmp.8 = lgetv %speedDelta.1;
-        symbol [ speedDelta %tmp.8 446 26 36 ];
+        symbol [ speedDelta %tmp.8 452 26 36 ];
         %tmp.9 = sub 0 %tmp.8;
         lputv %speedDelta.1 %tmp.9;
-        symbol [ speedDelta %speedDelta.1 446 12 22 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_31_447_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_8_447_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_445_8_447_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 448 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop" ]
+        symbol [ speedDelta %speedDelta.1 452 12 22 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_31_453_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_8_453_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_451_8_453_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 454 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop" ]
         %accelNoise.2 = local;
-        symbol [ accelNoise %accelNoise.2 448 12 22 ];
+        symbol [ accelNoise %accelNoise.2 454 12 22 ];
         %tmp.10 = lgetv %accelMagnitude;
-        symbol [ accelMagnitude %tmp.10 448 25 39 ];
+        symbol [ accelMagnitude %tmp.10 454 25 39 ];
         %tmp.11 = 9.81f;
         %tmp.12 = sub %tmp.10 %tmp.11;
         lputv %accelNoise.2 %tmp.12;
-        symbol [ accelNoise %accelNoise.2 448 12 22 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 449 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_8_451_8_if_stmt:
+        symbol [ accelNoise %accelNoise.2 454 12 22 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 455 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_8_457_8_if_stmt:
         %tmp.13 = lgetv %accelNoise.2;
-        symbol [ accelNoise %tmp.13 449 12 22 ];
+        symbol [ accelNoise %tmp.13 455 12 22 ];
         %tmp.14 = 0.0f;
         %tmp.15 = lt %tmp.13 %tmp.14;
-        bf %tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_8_451_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_8_451_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_31_451_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 450 12 ]
+        bf %tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_8_457_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_8_457_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_31_457_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 456 12 ]
         %tmp.16 = 0.0f;
         lputv %accelNoise.2 %tmp.16;
-        symbol [ accelNoise %accelNoise.2 450 12 22 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_31_451_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_8_451_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_8_451_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 452 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop" ]
+        symbol [ accelNoise %accelNoise.2 456 12 22 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_31_457_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_8_457_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_455_8_457_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 458 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop" ]
         %noiseEstimate.3 = local;
-        symbol [ noiseEstimate %noiseEstimate.3 452 12 25 ];
+        symbol [ noiseEstimate %noiseEstimate.3 458 12 25 ];
         %tmp.17 = lgetv %speedDelta.1;
-        symbol [ speedDelta %tmp.17 452 29 39 ];
+        symbol [ speedDelta %tmp.17 458 29 39 ];
         %tmp.18 = 0.20f;
         %tmp.19 = mul %tmp.17 %tmp.18;
         %tmp.20 = lgetv %accelNoise.2;
-        symbol [ accelNoise %tmp.20 452 52 62 ];
+        symbol [ accelNoise %tmp.20 458 52 62 ];
         %tmp.21 = 0.015f;
         %tmp.22 = mul %tmp.20 %tmp.21;
         %tmp.23 = add %tmp.19 %tmp.22;
         lputv %noiseEstimate.3 %tmp.23;
-        symbol [ noiseEstimate %noiseEstimate.3 452 12 25 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 453 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_8_455_8_if_stmt:
+        symbol [ noiseEstimate %noiseEstimate.3 458 12 25 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 459 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_8_461_8_if_stmt:
         %tmp.24 = lgetv %noiseEstimate.3;
-        symbol [ noiseEstimate %tmp.24 453 12 25 ];
+        symbol [ noiseEstimate %tmp.24 459 12 25 ];
         %tmp.25 = 0.0f;
         %tmp.26 = lt %tmp.24 %tmp.25;
-        bf %tmp.26 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_8_455_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_8_455_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_34_455_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 454 12 ]
+        bf %tmp.26 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_8_461_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_8_461_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_34_461_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 460 12 ]
         %tmp.27 = 0.0f;
         lputv %noiseEstimate.3 %tmp.27;
-        symbol [ noiseEstimate %noiseEstimate.3 454 12 25 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_34_455_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_8_455_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_453_8_455_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 456 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_8_458_8_if_stmt:
+        symbol [ noiseEstimate %noiseEstimate.3 460 12 25 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_34_461_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_8_461_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_459_8_461_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 462 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_8_464_8_if_stmt:
         %tmp.28 = lgetv %noiseEstimate.3;
-        symbol [ noiseEstimate %tmp.28 456 12 25 ];
+        symbol [ noiseEstimate %tmp.28 462 12 25 ];
         %tmp.29 = 0.12f;
         %tmp.30 = gt %tmp.28 %tmp.29;
-        bf %tmp.30 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_8_458_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_8_458_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_35_458_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 457 12 ]
+        bf %tmp.30 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_8_464_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_8_464_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_35_464_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 463 12 ]
         %tmp.31 = 0.12f;
         lputv %noiseEstimate.3 %tmp.31;
-        symbol [ noiseEstimate %noiseEstimate.3 457 12 25 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_35_458_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_8_458_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_456_8_458_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 459 8 ]
-        symbol [ recentNoiseFloorMps %tmp.33 459 30 49 ];
+        symbol [ noiseEstimate %noiseEstimate.3 463 12 25 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_35_464_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_8_464_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_462_8_464_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 465 8 ]
+        symbol [ recentNoiseFloorMps %tmp.33 465 30 49 ];
         %tmp.33 = getv ? :recentNoiseFloorMps;
         %tmp.34 = 0.86f;
         %tmp.35 = mul %tmp.33 %tmp.34;
         %tmp.36 = lgetv %noiseEstimate.3;
-        symbol [ noiseEstimate %tmp.36 459 60 73 ];
+        symbol [ noiseEstimate %tmp.36 465 60 73 ];
         %tmp.37 = 0.14f;
         %tmp.38 = mul %tmp.36 %tmp.37;
         %tmp.39 = add %tmp.35 %tmp.38;
-        symbol [ recentNoiseFloorMps ? 459 8 27 ];
+        symbol [ recentNoiseFloorMps ? 465 8 27 ];
         putv self :recentNoiseFloorMps %tmp.39;
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 461 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop" ]
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 467 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop" ]
         %adaptive.4 = local;
-        symbol [ adaptive %adaptive.4 461 12 20 ];
+        symbol [ adaptive %adaptive.4 467 12 20 ];
         %tmp.40 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.40 461 23 35 ];
-        symbol [ recentNoiseFloorMps %tmp.42 461 38 57 ];
+        symbol [ baseDeadband %tmp.40 467 23 35 ];
+        symbol [ recentNoiseFloorMps %tmp.42 467 38 57 ];
         %tmp.42 = getv ? :recentNoiseFloorMps;
         %tmp.43 = 0.45f;
         %tmp.44 = mul %tmp.42 %tmp.43;
         %tmp.45 = add %tmp.40 %tmp.44;
         lputv %adaptive.4 %tmp.45;
-        symbol [ adaptive %adaptive.4 461 12 20 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 462 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop" ]
+        symbol [ adaptive %adaptive.4 467 12 20 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 468 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop" ]
         %filterDeadband.5 = local;
-        symbol [ filterDeadband %filterDeadband.5 462 12 26 ];
+        symbol [ filterDeadband %filterDeadband.5 468 12 26 ];
         %tmp.46 = self;
-        symbol [ getMotionDeadband %tmp.47 462 29 46 ];
+        symbol [ getMotionDeadband %tmp.47 468 29 46 ];
         %tmp.47 = getv function %tmp.46 :getMotionDeadband;
         %tmp.48 = invoke %tmp.46 %tmp.47();
         lputv %filterDeadband.5 %tmp.48;
-        symbol [ filterDeadband %filterDeadband.5 462 12 26 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 463 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_8_465_8_if_stmt:
-        %tmp.49 = lgetv %filterDeadband.5;
-        symbol [ filterDeadband %tmp.49 463 12 26 ];
-        %tmp.50 = lgetv %adaptive.4;
-        symbol [ adaptive %tmp.50 463 29 37 ];
-        %tmp.51 = gt %tmp.49 %tmp.50;
-        bf %tmp.51 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_8_465_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_8_465_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_39_465_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 464 12 ]
-        %tmp.52 = lgetv %filterDeadband.5;
-        symbol [ filterDeadband %tmp.52 464 23 37 ];
-        lputv %adaptive.4 %tmp.52;
-        symbol [ adaptive %adaptive.4 464 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_39_465_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_8_465_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_463_8_465_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 466 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_8_468_8_if_stmt:
-        %tmp.53 = lgetv %headingConfidence;
-        symbol [ headingConfidence %tmp.53 466 12 29 ];
-        %tmp.54 = 0.65f;
-        %tmp.55 = lt %tmp.53 %tmp.54;
-        bf %tmp.55 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_8_468_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_8_468_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_39_468_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 467 12 ]
-        %tmp.56 = lgetv %adaptive.4;
-        symbol [ adaptive %tmp.56 467 12 20 ];
-        %tmp.57 = 0.010f;
-        %tmp.58 = add %tmp.56 %tmp.57;
-        lputv %adaptive.4 %tmp.58;
-        symbol [ adaptive %adaptive.4 467 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_39_468_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_8_468_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_466_8_468_8_if_end:
+        symbol [ filterDeadband %filterDeadband.5 468 12 26 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 469 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_12_469_77_begin:
-        %tmp.59 = lgetv %inputSpeedMps;
-        symbol [ inputSpeedMps %tmp.59 469 12 25 ];
-        %tmp.60 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.60 469 28 40 ];
-        %tmp.61 = 2.0f;
-        %tmp.62 = mul %tmp.60 %tmp.61;
-        %tmp.63 = gt %tmp.59 %tmp.62;
-        bf %tmp.63 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_51_469_77_true:
-        symbol [ speedMps %tmp.65 469 51 59 ];
-        %tmp.65 = getv ? :speedMps;
-        %tmp.66 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.66 469 62 74 ];
-        %tmp.67 = 1.5f;
-        %tmp.68 = mul %tmp.66 %tmp.67;
-        %tmp.69 = gt %tmp.65 %tmp.68;
-        push %tmp.69;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_51_469_77_end:
-        %tmp.70 = phi [%tmp.63 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_12_469_77_begin] [%tmp.69 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_51_469_77_true] [%tmp.70 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_51_469_77_end];
-        bf %tmp.70 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_end;
+        %tmp.49 = lgetv %filterDeadband.5;
+        symbol [ filterDeadband %tmp.49 469 12 26 ];
+        %tmp.50 = lgetv %adaptive.4;
+        symbol [ adaptive %tmp.50 469 29 37 ];
+        %tmp.51 = gt %tmp.49 %tmp.50;
+        bf %tmp.51 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_83_471_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_39_471_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 470 12 ]
-        %tmp.71 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.71 470 23 35 ];
-        %tmp.72 = 0.85f;
-        %tmp.73 = mul %tmp.71 %tmp.72;
-        lputv %adaptive.4 %tmp.73;
+        %tmp.52 = lgetv %filterDeadband.5;
+        symbol [ filterDeadband %tmp.52 470 23 37 ];
+        lputv %adaptive.4 %tmp.52;
         symbol [ adaptive %adaptive.4 470 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_83_471_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_39_471_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_469_8_471_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 472 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_stmt:
-        %tmp.74 = lgetv %adaptive.4;
-        symbol [ adaptive %tmp.74 472 12 20 ];
-        %tmp.75 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.75 472 23 35 ];
-        %tmp.76 = lt %tmp.74 %tmp.75;
-        bf %tmp.76 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_end;
+        %tmp.53 = lgetv %headingConfidence;
+        symbol [ headingConfidence %tmp.53 472 12 29 ];
+        %tmp.54 = 0.65f;
+        %tmp.55 = lt %tmp.53 %tmp.54;
+        bf %tmp.55 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_37_474_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_39_474_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 473 12 ]
-        %tmp.77 = lgetv %baseDeadband;
-        symbol [ baseDeadband %tmp.77 473 23 35 ];
-        lputv %adaptive.4 %tmp.77;
+        %tmp.56 = lgetv %adaptive.4;
+        symbol [ adaptive %tmp.56 473 12 20 ];
+        %tmp.57 = 0.010f;
+        %tmp.58 = add %tmp.56 %tmp.57;
+        lputv %adaptive.4 %tmp.58;
         symbol [ adaptive %adaptive.4 473 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_37_474_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_39_474_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_472_8_474_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 475 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_stmt:
-        %tmp.78 = lgetv %adaptive.4;
-        symbol [ adaptive %tmp.78 475 12 20 ];
-        %tmp.79 = 0.18f;
-        %tmp.80 = gt %tmp.78 %tmp.79;
-        bf %tmp.80 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_12_475_77_begin:
+        %tmp.59 = lgetv %inputSpeedMps;
+        symbol [ inputSpeedMps %tmp.59 475 12 25 ];
+        %tmp.60 = lgetv %baseDeadband;
+        symbol [ baseDeadband %tmp.60 475 28 40 ];
+        %tmp.61 = 2.0f;
+        %tmp.62 = mul %tmp.60 %tmp.61;
+        %tmp.63 = gt %tmp.59 %tmp.62;
+        bf %tmp.63 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_51_475_77_true:
+        symbol [ speedMps %tmp.65 475 51 59 ];
+        %tmp.65 = getv ? :speedMps;
+        %tmp.66 = lgetv %baseDeadband;
+        symbol [ baseDeadband %tmp.66 475 62 74 ];
+        %tmp.67 = 1.5f;
+        %tmp.68 = mul %tmp.66 %tmp.67;
+        %tmp.69 = gt %tmp.65 %tmp.68;
+        push %tmp.69;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_51_475_77_end:
+        %tmp.70 = phi [%tmp.63 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_12_475_77_begin] [%tmp.69 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_51_475_77_true] [%tmp.70 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_51_475_77_end];
+        bf %tmp.70 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_30_477_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_83_477_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 476 12 ]
-        %tmp.81 = 0.18f;
-        lputv %adaptive.4 %tmp.81;
+        %tmp.71 = lgetv %baseDeadband;
+        symbol [ baseDeadband %tmp.71 476 23 35 ];
+        %tmp.72 = 0.85f;
+        %tmp.73 = mul %tmp.71 %tmp.72;
+        lputv %adaptive.4 %tmp.73;
         symbol [ adaptive %adaptive.4 476 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_30_477_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_83_477_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_475_8_477_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 478 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_8_480_8_if_stmt:
+        %tmp.74 = lgetv %adaptive.4;
+        symbol [ adaptive %tmp.74 478 12 20 ];
+        %tmp.75 = lgetv %baseDeadband;
+        symbol [ baseDeadband %tmp.75 478 23 35 ];
+        %tmp.76 = lt %tmp.74 %tmp.75;
+        bf %tmp.76 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_8_480_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_8_480_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_37_480_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 479 12 ]
+        %tmp.77 = lgetv %baseDeadband;
+        symbol [ baseDeadband %tmp.77 479 23 35 ];
+        lputv %adaptive.4 %tmp.77;
+        symbol [ adaptive %adaptive.4 479 12 20 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_37_480_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_8_480_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_478_8_480_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 481 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_8_483_8_if_stmt:
+        %tmp.78 = lgetv %adaptive.4;
+        symbol [ adaptive %tmp.78 481 12 20 ];
+        %tmp.79 = 0.18f;
+        %tmp.80 = gt %tmp.78 %tmp.79;
+        bf %tmp.80 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_8_483_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_8_483_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_30_483_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 482 12 ]
+        %tmp.81 = 0.18f;
+        lputv %adaptive.4 %tmp.81;
+        symbol [ adaptive %adaptive.4 482 12 20 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_30_483_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_8_483_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_8_483_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 484 8 ]
         %tmp.82 = lgetv %adaptive.4;
-        symbol [ adaptive %tmp.82 478 15 23 ];
+        symbol [ adaptive %tmp.82 484 15 23 ];
         ret %tmp.82;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_443_155_479_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_449_155_485_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 481; @symbol_functiondef = [sanitizeSpeed,481,13,26]; @symbol_param<0> = [value,481,27,32]; @symbol_param<0>_type<0> = [Float,481,36,41]; @symbol_return<0> = [Float,481,46,51]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 487; @symbol_functiondef = [sanitizeSpeed,487,13,26]; @symbol_param<0> = [value,487,27,32]; @symbol_param<0>_type<0> = [Float,487,36,41]; @symbol_return<0> = [Float,487,46,51]; ]
     function sanitizeSpeed(value as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 482 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_stop" ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 488 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop" ]
         %maxSpeed.1 = local;
-        symbol [ maxSpeed %maxSpeed.1 482 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_begin:
-        symbol [ isUnderwaterMode %tmp.2 482 23 39 ];
+        symbol [ maxSpeed %maxSpeed.1 488 12 20 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_begin:
+        symbol [ isUnderwaterMode %tmp.2 488 23 39 ];
         %tmp.2 = getv ? :isUnderwaterMode;
-        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_true:
-        symbol [ MAX_SPEED_MPS_SWIM %tmp.4 482 42 60 ];
+        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_true:
+        symbol [ MAX_SPEED_MPS_SWIM %tmp.4 488 42 60 ];
         %tmp.4 = getv ? :MAX_SPEED_MPS_SWIM;
         push %tmp.4;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_else_false:
-        symbol [ MAX_SPEED_MPS_LAND %tmp.6 482 63 81 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false:
+        symbol [ MAX_SPEED_MPS_LAND %tmp.6 488 63 81 ];
         %tmp.6 = getv ? :MAX_SPEED_MPS_LAND;
         push %tmp.6;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_end:
-        %tmp.7 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_begin] [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_true] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_else_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_482_23_482_63_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end:
+        %tmp.7 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_begin] [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_true] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end];
         lputv %maxSpeed.1 %tmp.7;
-        symbol [ maxSpeed %maxSpeed.1 482 12 20 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 483 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_stop" ]
+        symbol [ maxSpeed %maxSpeed.1 488 12 20 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 489 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop" ]
         %deadband.2 = local;
-        symbol [ deadband %deadband.2 483 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_begin:
-        symbol [ isUnderwaterMode %tmp.9 483 23 39 ];
+        symbol [ deadband %deadband.2 489 12 20 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_begin:
+        symbol [ isUnderwaterMode %tmp.9 489 23 39 ];
         %tmp.9 = getv ? :isUnderwaterMode;
-        bf %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_true:
-        symbol [ UNDERWATER_SPEED_DEADBAND_MPS %tmp.11 483 42 71 ];
+        bf %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_true:
+        symbol [ UNDERWATER_SPEED_DEADBAND_MPS %tmp.11 489 42 71 ];
         %tmp.11 = getv ? :UNDERWATER_SPEED_DEADBAND_MPS;
         push %tmp.11;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_else_false:
-        symbol [ SPEED_DEADBAND_MPS %tmp.13 483 74 92 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false:
+        symbol [ SPEED_DEADBAND_MPS %tmp.13 489 74 92 ];
         %tmp.13 = getv ? :SPEED_DEADBAND_MPS;
         push %tmp.13;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_end:
-        %tmp.14 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_begin] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_true] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_else_false] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_483_23_483_74_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end:
+        %tmp.14 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_begin] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_true] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end];
         lputv %deadband.2 %tmp.14;
-        symbol [ deadband %deadband.2 483 12 20 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 484 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_stop" ]
+        symbol [ deadband %deadband.2 489 12 20 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 490 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop" ]
         %v.3 = local;
-        symbol [ v %v.3 484 12 13 ];
+        symbol [ v %v.3 490 12 13 ];
         %tmp.15 = self;
-        symbol [ clampFloat %tmp.16 484 16 26 ];
+        symbol [ clampFloat %tmp.16 490 16 26 ];
         %tmp.16 = getv function %tmp.15 :clampFloat;
         %tmp.17 = lgetv %value;
-        symbol [ value %tmp.17 484 27 32 ];
-        symbol [ MIN_SPEED_MPS %tmp.19 484 34 47 ];
+        symbol [ value %tmp.17 490 27 32 ];
+        symbol [ MIN_SPEED_MPS %tmp.19 490 34 47 ];
         %tmp.19 = getv ? :MIN_SPEED_MPS;
         %tmp.20 = lgetv %maxSpeed.1;
-        symbol [ maxSpeed %tmp.20 484 49 57 ];
+        symbol [ maxSpeed %tmp.20 490 49 57 ];
         %tmp.21 = invoke %tmp.15 %tmp.16(%tmp.17, %tmp.19, %tmp.20);
         lputv %v.3 %tmp.21;
-        symbol [ v %v.3 484 12 13 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 485 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_8_487_8_if_stmt:
+        symbol [ v %v.3 490 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 491 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_8_493_8_if_stmt:
         %tmp.22 = lgetv %v.3;
-        symbol [ v %tmp.22 485 12 13 ];
+        symbol [ v %tmp.22 491 12 13 ];
         %tmp.23 = lgetv %deadband.2;
-        symbol [ deadband %tmp.23 485 16 24 ];
+        symbol [ deadband %tmp.23 491 16 24 ];
         %tmp.24 = lt %tmp.22 %tmp.23;
-        bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_8_487_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_8_487_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_26_487_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 486 12 ]
+        bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_8_493_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_8_493_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_26_493_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 492 12 ]
         %tmp.25 = 0.0f;
         ret %tmp.25;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_26_487_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_8_487_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_485_8_487_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 488 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_26_493_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_8_493_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_8_493_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 494 8 ]
         %tmp.26 = lgetv %v.3;
-        symbol [ v %tmp.26 488 15 16 ];
+        symbol [ v %tmp.26 494 15 16 ];
         ret %tmp.26;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_481_52_489_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 491; @symbol_functiondef = [lowPass,491,13,20]; @symbol_param<0> = [current,491,21,28]; @symbol_param<0>_type<0> = [Float,491,32,37]; @symbol_param<1> = [incoming,491,39,47]; @symbol_param<1>_type<0> = [Float,491,51,56]; @symbol_param<2> = [alpha,491,58,63]; @symbol_param<2>_type<0> = [Float,491,67,72]; @symbol_return<0> = [Float,491,77,82]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 497; @symbol_functiondef = [lowPass,497,13,20]; @symbol_param<0> = [current,497,21,28]; @symbol_param<0>_type<0> = [Float,497,32,37]; @symbol_param<1> = [incoming,497,39,47]; @symbol_param<1>_type<0> = [Float,497,51,56]; @symbol_param<2> = [alpha,497,58,63]; @symbol_param<2>_type<0> = [Float,497,67,72]; @symbol_return<0> = [Float,497,77,82]; ]
     function lowPass(current as Float, incoming as Float, alpha as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_83_493_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 492 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_497_83_499_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 498 8 ]
         %tmp.1 = lgetv %current;
-        symbol [ current %tmp.1 492 15 22 ];
+        symbol [ current %tmp.1 498 15 22 ];
         %tmp.2 = lgetv %incoming;
-        symbol [ incoming %tmp.2 492 27 35 ];
+        symbol [ incoming %tmp.2 498 27 35 ];
         %tmp.3 = lgetv %current;
-        symbol [ current %tmp.3 492 38 45 ];
+        symbol [ current %tmp.3 498 38 45 ];
         %tmp.4 = sub %tmp.2 %tmp.3;
         %tmp.5 = lgetv %alpha;
-        symbol [ alpha %tmp.5 492 49 54 ];
+        symbol [ alpha %tmp.5 498 49 54 ];
         %tmp.6 = mul %tmp.4 %tmp.5;
         %tmp.7 = add %tmp.1 %tmp.6;
         ret %tmp.7;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_491_83_493_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_497_83_499_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 495; @symbol_functiondef = [clampFloat,495,13,23]; @symbol_param<0> = [value,495,24,29]; @symbol_param<0>_type<0> = [Float,495,33,38]; @symbol_param<1> = [minValue,495,40,48]; @symbol_param<1>_type<0> = [Float,495,52,57]; @symbol_param<2> = [maxValue,495,59,67]; @symbol_param<2>_type<0> = [Float,495,71,76]; @symbol_return<0> = [Float,495,81,86]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 501; @symbol_functiondef = [clampFloat,501,13,23]; @symbol_param<0> = [value,501,24,29]; @symbol_param<0>_type<0> = [Float,501,33,38]; @symbol_param<1> = [minValue,501,40,48]; @symbol_param<1>_type<0> = [Float,501,52,57]; @symbol_param<2> = [maxValue,501,59,67]; @symbol_param<2>_type<0> = [Float,501,71,76]; @symbol_return<0> = [Float,501,81,86]; ]
     function clampFloat(value as Float, minValue as Float, maxValue as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_495_87_503_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 496 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_8_498_8_if_stmt:
-        %tmp.1 = lgetv %value;
-        symbol [ value %tmp.1 496 12 17 ];
-        %tmp.2 = lgetv %minValue;
-        symbol [ minValue %tmp.2 496 20 28 ];
-        %tmp.3 = lt %tmp.1 %tmp.2;
-        bf %tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_8_498_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_8_498_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_30_498_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 497 12 ]
-        %tmp.4 = lgetv %minValue;
-        symbol [ minValue %tmp.4 497 19 27 ];
-        ret %tmp.4;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_30_498_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_8_498_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_496_8_498_8_if_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 499 8 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_8_501_8_if_stmt:
-        %tmp.5 = lgetv %value;
-        symbol [ value %tmp.5 499 12 17 ];
-        %tmp.6 = lgetv %maxValue;
-        symbol [ maxValue %tmp.6 499 20 28 ];
-        %tmp.7 = gt %tmp.5 %tmp.6;
-        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_8_501_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_8_501_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_30_501_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 500 12 ]
-        %tmp.8 = lgetv %maxValue;
-        symbol [ maxValue %tmp.8 500 19 27 ];
-        ret %tmp.8;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_30_501_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_8_501_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_499_8_501_8_if_end:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_501_87_509_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 502 8 ]
-        %tmp.9 = lgetv %value;
-        symbol [ value %tmp.9 502 15 20 ];
-        ret %tmp.9;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_495_87_503_4_stop:
-    }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 505; @symbol_functiondef = [normalizeAngle,505,13,27]; @symbol_param<0> = [a,505,28,29]; @symbol_param<0>_type<0> = [Float,505,33,38]; @symbol_return<0> = [Float,505,43,48]; ]
-    function normalizeAngle(a as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_49_517_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 506 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_49_517_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_49_517_4_stop" ]
-        %angle.1 = local;
-        symbol [ angle %angle.1 506 12 17 ];
-        %tmp.1 = lgetv %a;
-        symbol [ a %tmp.1 506 20 21 ];
-        lputv %angle.1 %tmp.1;
-        symbol [ angle %angle.1 506 12 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_8_504_8_if_stmt:
+        %tmp.1 = lgetv %value;
+        symbol [ value %tmp.1 502 12 17 ];
+        %tmp.2 = lgetv %minValue;
+        symbol [ minValue %tmp.2 502 20 28 ];
+        %tmp.3 = lt %tmp.1 %tmp.2;
+        bf %tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_8_504_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_8_504_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_30_504_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 503 12 ]
+        %tmp.4 = lgetv %minValue;
+        symbol [ minValue %tmp.4 503 19 27 ];
+        ret %tmp.4;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_30_504_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_8_504_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_502_8_504_8_if_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 505 8 ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_8_507_8_if_stmt:
+        %tmp.5 = lgetv %value;
+        symbol [ value %tmp.5 505 12 17 ];
+        %tmp.6 = lgetv %maxValue;
+        symbol [ maxValue %tmp.6 505 20 28 ];
+        %tmp.7 = gt %tmp.5 %tmp.6;
+        bf %tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_8_507_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_8_507_8_if_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_30_507_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 506 12 ]
+        %tmp.8 = lgetv %maxValue;
+        symbol [ maxValue %tmp.8 506 19 27 ];
+        ret %tmp.8;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_30_507_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_8_507_8_if_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_8_507_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 508 8 ]
-        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_test:
+        %tmp.9 = lgetv %value;
+        symbol [ value %tmp.9 508 15 20 ];
+        ret %tmp.9;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_501_87_509_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 511; @symbol_functiondef = [normalizeAngle,511,13,27]; @symbol_param<0> = [a,511,28,29]; @symbol_param<0>_type<0> = [Float,511,33,38]; @symbol_return<0> = [Float,511,43,48]; ]
+    function normalizeAngle(a as Float) as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_511_49_523_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 512 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_511_49_523_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_511_49_523_4_stop" ]
+        %angle.1 = local;
+        symbol [ angle %angle.1 512 12 17 ];
+        %tmp.1 = lgetv %a;
+        symbol [ a %tmp.1 512 20 21 ];
+        lputv %angle.1 %tmp.1;
+        symbol [ angle %angle.1 512 12 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 514 8 ]
+        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_test:
         %tmp.2 = lgetv %angle.1;
-        symbol [ angle %tmp.2 508 15 20 ];
-        symbol [ Math %tmp.3 508 23 27 ];
+        symbol [ angle %tmp.2 514 15 20 ];
+        symbol [ Math %tmp.3 514 23 27 ];
         %tmp.3 = getm $.Toybox.Math;
-        symbol [ PI %tmp.4 508 28 30 ];
+        symbol [ PI %tmp.4 514 28 30 ];
         %tmp.4 = getv %tmp.3 :PI;
         %tmp.5 = gt %tmp.2 %tmp.4;
-        bf %tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_32_510_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 509 12 ]
+        bf %tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_32_516_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 515 12 ]
         %tmp.6 = lgetv %angle.1;
-        symbol [ angle %tmp.6 509 12 17 ];
+        symbol [ angle %tmp.6 515 12 17 ];
         %tmp.7 = 2.0f;
-        symbol [ Math %tmp.8 509 29 33 ];
+        symbol [ Math %tmp.8 515 29 33 ];
         %tmp.8 = getm $.Toybox.Math;
-        symbol [ PI %tmp.9 509 34 36 ];
+        symbol [ PI %tmp.9 515 34 36 ];
         %tmp.9 = getv %tmp.8 :PI;
         %tmp.10 = mul %tmp.7 %tmp.9;
         %tmp.11 = sub %tmp.6 %tmp.10;
         lputv %angle.1 %tmp.11;
-        symbol [ angle %angle.1 509 12 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_32_510_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_test;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_508_8_510_8_while_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 512 8 ]
-        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_test:
+        symbol [ angle %angle.1 515 12 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_32_516_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_test;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_514_8_516_8_while_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 518 8 ]
+        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_test:
         %tmp.12 = lgetv %angle.1;
-        symbol [ angle %tmp.12 512 15 20 ];
-        symbol [ Math %tmp.13 512 24 28 ];
+        symbol [ angle %tmp.12 518 15 20 ];
+        symbol [ Math %tmp.13 518 24 28 ];
         %tmp.13 = getm $.Toybox.Math;
-        symbol [ PI %tmp.14 512 29 31 ];
+        symbol [ PI %tmp.14 518 29 31 ];
         %tmp.14 = getv %tmp.13 :PI;
         %tmp.15 = sub 0 %tmp.14;
         %tmp.16 = lt %tmp.12 %tmp.15;
-        bf %tmp.16 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_33_514_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 513 12 ]
+        bf %tmp.16 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_33_520_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 519 12 ]
         %tmp.17 = lgetv %angle.1;
-        symbol [ angle %tmp.17 513 12 17 ];
+        symbol [ angle %tmp.17 519 12 17 ];
         %tmp.18 = 2.0f;
-        symbol [ Math %tmp.19 513 29 33 ];
+        symbol [ Math %tmp.19 519 29 33 ];
         %tmp.19 = getm $.Toybox.Math;
-        symbol [ PI %tmp.20 513 34 36 ];
+        symbol [ PI %tmp.20 519 34 36 ];
         %tmp.20 = getv %tmp.19 :PI;
         %tmp.21 = mul %tmp.18 %tmp.20;
         %tmp.22 = add %tmp.17 %tmp.21;
         lputv %angle.1 %tmp.22;
-        symbol [ angle %angle.1 513 12 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_33_514_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_test;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_512_8_514_8_while_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 516 8 ]
-        %tmp.23 = lgetv %angle.1;
-        symbol [ angle %tmp.23 516 15 20 ];
-        ret %tmp.23;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_505_49_517_4_stop:
-    }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 519; @symbol_functiondef = [normalizeDegrees,519,13,29]; @symbol_param<0> = [deg,519,30,33]; @symbol_param<0>_type<0> = [Float,519,37,42]; @symbol_return<0> = [Float,519,47,52]; ]
-    function normalizeDegrees(deg as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_519_53_531_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 520 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_519_53_531_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_519_53_531_4_stop" ]
-        %d.1 = local;
-        symbol [ d %d.1 520 12 13 ];
-        %tmp.1 = lgetv %deg;
-        symbol [ deg %tmp.1 520 16 19 ];
-        lputv %d.1 %tmp.1;
-        symbol [ d %d.1 520 12 13 ];
+        symbol [ angle %angle.1 519 12 17 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_33_520_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_test;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_518_8_520_8_while_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 522 8 ]
-        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_test:
+        %tmp.23 = lgetv %angle.1;
+        symbol [ angle %tmp.23 522 15 20 ];
+        ret %tmp.23;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_511_49_523_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 525; @symbol_functiondef = [normalizeDegrees,525,13,29]; @symbol_param<0> = [deg,525,30,33]; @symbol_param<0>_type<0> = [Float,525,37,42]; @symbol_return<0> = [Float,525,47,52]; ]
+    function normalizeDegrees(deg as Float) as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_525_53_537_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 526 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_525_53_537_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_525_53_537_4_stop" ]
+        %d.1 = local;
+        symbol [ d %d.1 526 12 13 ];
+        %tmp.1 = lgetv %deg;
+        symbol [ deg %tmp.1 526 16 19 ];
+        lputv %d.1 %tmp.1;
+        symbol [ d %d.1 526 12 13 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 528 8 ]
+        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_test:
         %tmp.2 = lgetv %d.1;
-        symbol [ d %tmp.2 522 15 16 ];
+        symbol [ d %tmp.2 528 15 16 ];
         %tmp.3 = 360.0f;
         %tmp.4 = gte %tmp.2 %tmp.3;
-        bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_28_524_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 523 12 ]
+        bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_28_530_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 529 12 ]
         %tmp.5 = lgetv %d.1;
-        symbol [ d %tmp.5 523 12 13 ];
+        symbol [ d %tmp.5 529 12 13 ];
         %tmp.6 = 360.0f;
         %tmp.7 = sub %tmp.5 %tmp.6;
         lputv %d.1 %tmp.7;
-        symbol [ d %d.1 523 12 13 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_28_524_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_test;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_522_8_524_8_while_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 526 8 ]
-        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_test:
+        symbol [ d %d.1 529 12 13 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_28_530_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_test;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_528_8_530_8_while_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 532 8 ]
+        while @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_test @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_test:
         %tmp.8 = lgetv %d.1;
-        symbol [ d %tmp.8 526 15 16 ];
+        symbol [ d %tmp.8 532 15 16 ];
         %tmp.9 = 0.0f;
         %tmp.10 = lt %tmp.8 %tmp.9;
-        bf %tmp.10 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_25_528_8_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 527 12 ]
+        bf %tmp.10 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_25_534_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 533 12 ]
         %tmp.11 = lgetv %d.1;
-        symbol [ d %tmp.11 527 12 13 ];
+        symbol [ d %tmp.11 533 12 13 ];
         %tmp.12 = 360.0f;
         %tmp.13 = add %tmp.11 %tmp.12;
         lputv %d.1 %tmp.13;
-        symbol [ d %d.1 527 12 13 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_25_528_8_stop:
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_test;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_526_8_528_8_while_end:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 530 8 ]
+        symbol [ d %d.1 533 12 13 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_25_534_8_stop:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_test;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_532_8_534_8_while_end:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 536 8 ]
         %tmp.14 = lgetv %d.1;
-        symbol [ d %tmp.14 530 15 16 ];
+        symbol [ d %tmp.14 536 15 16 ];
         ret %tmp.14;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_519_53_531_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_525_53_537_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 533; @symbol_functiondef = [blendAngle,533,13,23]; @symbol_param<0> = [current,533,24,31]; @symbol_param<0>_type<0> = [Float,533,35,40]; @symbol_param<1> = [target,533,42,48]; @symbol_param<1>_type<0> = [Float,533,52,57]; @symbol_param<2> = [alpha,533,59,64]; @symbol_param<2>_type<0> = [Float,533,68,73]; @symbol_return<0> = [Float,533,78,83]; ]
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 539; @symbol_functiondef = [blendAngle,539,13,23]; @symbol_param<0> = [current,539,24,31]; @symbol_param<0>_type<0> = [Float,539,35,40]; @symbol_param<1> = [target,539,42,48]; @symbol_param<1>_type<0> = [Float,539,52,57]; @symbol_param<2> = [alpha,539,59,64]; @symbol_param<2>_type<0> = [Float,539,68,73]; @symbol_return<0> = [Float,539,78,83]; ]
     function blendAngle(current as Float, target as Float, alpha as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_533_84_536_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 534 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_533_84_536_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_533_84_536_4_stop" ]
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_539_84_542_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 540 8 ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_539_84_542_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_539_84_542_4_stop" ]
         %delta.1 = local;
-        symbol [ delta %delta.1 534 12 17 ];
+        symbol [ delta %delta.1 540 12 17 ];
         %tmp.1 = self;
-        symbol [ normalizeAngle %tmp.2 534 20 34 ];
+        symbol [ normalizeAngle %tmp.2 540 20 34 ];
         %tmp.2 = getv function %tmp.1 :normalizeAngle;
         %tmp.3 = lgetv %target;
-        symbol [ target %tmp.3 534 35 41 ];
+        symbol [ target %tmp.3 540 35 41 ];
         %tmp.4 = lgetv %current;
-        symbol [ current %tmp.4 534 44 51 ];
+        symbol [ current %tmp.4 540 44 51 ];
         %tmp.5 = sub %tmp.3 %tmp.4;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.5);
         lputv %delta.1 %tmp.6;
-        symbol [ delta %delta.1 534 12 17 ];
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 535 8 ]
+        symbol [ delta %delta.1 540 12 17 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 541 8 ]
         %tmp.7 = self;
-        symbol [ normalizeAngle %tmp.8 535 15 29 ];
+        symbol [ normalizeAngle %tmp.8 541 15 29 ];
         %tmp.8 = getv function %tmp.7 :normalizeAngle;
         %tmp.9 = lgetv %current;
-        symbol [ current %tmp.9 535 30 37 ];
+        symbol [ current %tmp.9 541 30 37 ];
         %tmp.10 = lgetv %delta.1;
-        symbol [ delta %tmp.10 535 41 46 ];
+        symbol [ delta %tmp.10 541 41 46 ];
         %tmp.11 = lgetv %alpha;
-        symbol [ alpha %tmp.11 535 49 54 ];
+        symbol [ alpha %tmp.11 541 49 54 ];
         %tmp.12 = mul %tmp.10 %tmp.11;
         %tmp.13 = add %tmp.9 %tmp.12;
         %tmp.14 = invoke %tmp.7 %tmp.8(%tmp.13);
         ret %tmp.14;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_533_84_536_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_539_84_542_4_stop:
     }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 1; ]

@@ -4,8 +4,8 @@ import Toybox.Application;
 import Toybox.Lang;
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
 import Toybox.WatchUi;
-[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 5; @symbol_classdef = [diveTrackApp,5,6,18]; @symbol_extends<0> = [Application,5,27,38]; @symbol_extends<1> = [AppBase,5,39,46]; ]
-class diveTrackApp extends Application.AppBase {
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 5; @symbol_classdef = [drFusionTrackApp,5,6,22]; @symbol_extends<0> = [Application,5,31,42]; @symbol_extends<1> = [AppBase,5,43,50]; ]
+class drFusionTrackApp extends Application.AppBase {
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 5; ]
     <init> {
     }
@@ -107,19 +107,19 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_25_68_29_4_st
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_25_68_29_4_stop:
     }
 }
-[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 32; @symbol_functiondef = [getApp,32,9,15]; @symbol_return<0> = [diveTrackApp,32,21,33]; ]
-function getApp() as diveTrackApp {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_32_34_34_0_start:
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 32; @symbol_functiondef = [getApp,32,9,15]; @symbol_return<0> = [drFusionTrackApp,32,21,37]; ]
+function getApp() as drFusionTrackApp {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_32_38_34_0_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc" 33 4 ]
     symbol [ Application %tmp.1 33 11 22 ];
     %tmp.1 = getm $.Toybox.Application;
     symbol [ getApp %tmp.2 33 23 29 ];
     %tmp.2 = getv function %tmp.1 :getApp;
     %tmp.3 = invoke %tmp.1 %tmp.2();
-    %tmp.4 = as %tmp.3 diveTrackApp;
-    symbol [ diveTrackApp %tmp.4 33 35 47 ];
+    %tmp.4 = as %tmp.3 drFusionTrackApp;
+    symbol [ drFusionTrackApp %tmp.4 33 35 51 ];
     ret %tmp.4;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_32_34_34_0_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosApp_mc_32_38_34_0_stop:
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosApp.mc"; @line = 1; ]
 <init> {

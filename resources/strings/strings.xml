@@ -2,7 +2,7 @@
     xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
     <strings>
-        <string id="AppName">DiveTrack</string>
+        <string id="AppName">DRFusionTrack</string>
         <string id="rec_header">REC: OFF</string>
         <string id="mode_header">MODE: SURF</string>
         <string id="gps_header">GPS: NOFIX</string>

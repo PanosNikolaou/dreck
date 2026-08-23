@@ -385,10 +385,16 @@ class DeadReckoning {
     }
 
     function getEastMeters() as Float {
+        if (eastMeters != eastMeters) {
+            return 0.0f;
+        }
         return eastMeters;
     }
 
     function getNorthMeters() as Float {
+        if (northMeters != northMeters) {
+            return 0.0f;
+        }
         return northMeters;
     }
 

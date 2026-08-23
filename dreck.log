@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.11.25)  21 AUG 2026 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.11.25)  23 AUG 2026 23:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -436,10 +436,6 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks26
 \@floatcapt=\box52
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplots 2018/03/28 v1.16 Data Visualization (1.16)
-
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
@@ -712,6 +708,10 @@ File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 zlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )))
+(/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2018/03/28 v1.16 Data Visualization (1.16)
+
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
 \t@pgfplots@toka=\toks39
@@ -861,22 +861,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./dreck.aux)
 \openout1 = `dreck.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
 
 -- Lines per column: 57 (approximate, difference = 2.56499pt).
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -937,7 +937,7 @@ e
 
 \c@lstlisting=\count324
 \AtBeginShipoutBox=\box67
-Package hyperref Info: Link coloring OFF on input line 51.
+Package hyperref Info: Link coloring OFF on input line 43.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -949,9 +949,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count325
 )
-LaTeX Info: Redefining \ref on input line 51.
-LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+LaTeX Info: Redefining \nameref on input line 43.
 
 (./dreck.out) (./dreck.out)
 \@outlinefile=\write4
@@ -963,124 +963,37 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.16}).
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 73.
+<resources/drawables/DRTrackFusion.png, id=47, 386.44376pt x 507.8975pt>
+File: resources/drawables/DRTrackFusion.png Graphic file (type png)
+<use resources/drawables/DRTrackFusion.png>
+Package pdftex.def Info: resources/drawables/DRTrackFusion.png  used on input l
+ine 52.
+(pdftex.def)             Requested size: 222.24898pt x 292.1008pt.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 68.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 73.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 68.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 73
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 81
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-<diagrams/png/sensor-data-flow.png, id=67, 786.94pt x 50.1875pt>
-File: diagrams/png/sensor-data-flow.png Graphic file (type png)
-<use diagrams/png/sensor-data-flow.png>
-Package pdftex.def Info: diagrams/png/sensor-data-flow.png  used on input line 
-83.
-(pdftex.def)             Requested size: 222.24898pt x 14.17339pt.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./diagrams/png/sensor-data-flow.png>]
-<diagrams/png/dr-overview.png, id=87, 786.94pt x 141.52875pt>
-File: diagrams/png/dr-overview.png Graphic file (type png)
-<use diagrams/png/dr-overview.png>
-Package pdftex.def Info: diagrams/png/dr-overview.png  used on input line 177.
-(pdftex.def)             Requested size: 227.18893pt x 40.85872pt.
-<diagrams/png/dr-state-vector.png, id=88, 786.94pt x 628.3475pt>
-File: diagrams/png/dr-state-vector.png Graphic file (type png)
-<use diagrams/png/dr-state-vector.png>
-Package pdftex.def Info: diagrams/png/dr-state-vector.png  used on input line 1
-83.
-(pdftex.def)             Requested size: 227.18893pt x 181.40114pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2 <./diagrams/png/dr-overview.png>]
-<diagrams/png/dr-predict-correct.png, id=103, 786.94pt x 289.08pt>
-File: diagrams/png/dr-predict-correct.png Graphic file (type png)
-<use diagrams/png/dr-predict-correct.png>
-Package pdftex.def Info: diagrams/png/dr-predict-correct.png  used on input lin
-e 189.
-(pdftex.def)             Requested size: 227.18893pt x 83.45612pt.
-<diagrams/png/dr-gps-correction.png, id=104, 539.01375pt x 716.6775pt>
-File: diagrams/png/dr-gps-correction.png Graphic file (type png)
-<use diagrams/png/dr-gps-correction.png>
-Package pdftex.def Info: diagrams/png/dr-gps-correction.png  used on input line
- 195.
-(pdftex.def)             Requested size: 227.18893pt x 302.07419pt.
-<diagrams/png/dr-track-plot.png, id=105, 702.625pt x 501.875pt>
-File: diagrams/png/dr-track-plot.png Graphic file (type png)
-<use diagrams/png/dr-track-plot.png>
-Package pdftex.def Info: diagrams/png/dr-track-plot.png  used on input line 201
-.
-(pdftex.def)             Requested size: 227.18893pt x 162.28036pt.
-
-Underfull \vbox (badness 6284) has occurred while \output is active []
-
-<diagrams/png/dr-local-frame-geometry.png, id=106, 786.94pt x 85.31876pt>
-File: diagrams/png/dr-local-frame-geometry.png Graphic file (type png)
-<use diagrams/png/dr-local-frame-geometry.png>
-Package pdftex.def Info: diagrams/png/dr-local-frame-geometry.png  used on inpu
-t line 207.
-(pdftex.def)             Requested size: 227.18893pt x 24.63113pt.
-Package pgfplots info on input line 226: Using 'lua backend=false' for axis: x 
-coord trafo unsupported.
-File: diagrams/png/dr-local-frame-geometry.png Graphic file (type png)
-<use diagrams/png/dr-local-frame-geometry.png>
-Package pdftex.def Info: diagrams/png/dr-local-frame-geometry.png  used on inpu
-t line 235.
-(pdftex.def)             Requested size: 227.18893pt x 24.63113pt.
-<diagrams/png/kalman-overview.png, id=107, 781.92125pt x 1038.88126pt>
-File: diagrams/png/kalman-overview.png Graphic file (type png)
-<use diagrams/png/kalman-overview.png>
-Package pdftex.def Info: diagrams/png/kalman-overview.png  used on input line 2
-43.
-(pdftex.def)             Requested size: 227.18893pt x 301.83852pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3 <./diagrams/png/dr-state-vector.png> <./diagrams/png/dr-predict-correct.png
-> <./diagrams/png/dr-gps-correction.png> <./diagrams/png/dr-track-plot.png> <./
-diagrams/png/dr-local-frame-geometry.png>]
-<diagrams/png/kalman-state.png, id=124, 570.13pt x 463.7325pt>
-File: diagrams/png/kalman-state.png Graphic file (type png)
-<use diagrams/png/kalman-state.png>
-Package pdftex.def Info: diagrams/png/kalman-state.png  used on input line 249.
-
-(pdftex.def)             Requested size: 227.18893pt x 184.78918pt.
-<diagrams/png/kalman-noise-tuning.png, id=125, 786.94pt x 422.57875pt>
-File: diagrams/png/kalman-noise-tuning.png Graphic file (type png)
-<use diagrams/png/kalman-noise-tuning.png>
-Package pdftex.def Info: diagrams/png/kalman-noise-tuning.png  used on input li
-ne 255.
-(pdftex.def)             Requested size: 227.18893pt x 121.99661pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (4.8346pt too wide) in paragraph at lines 309--310
+ <./resources/drawables/DRTrackFusion.png>]
+Overfull \hbox (1.04712pt too wide) in paragraph at lines 138--139
  [][] 
  []
 
-File: diagrams/png/kalman-overview.png Graphic file (type png)
-<use diagrams/png/kalman-overview.png>
-Package pdftex.def Info: diagrams/png/kalman-overview.png  used on input line 3
-15.
-(pdftex.def)             Requested size: 227.18893pt x 301.83852pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4 <./diagrams/png/kalman-overview.png> <./diagrams/png/kalman-state.png> <./d
-iagrams/png/kalman-noise-tuning.png>]
+[2]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1092,24 +1005,26 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
+[3
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 217.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 217.
  (./dreck.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 217.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 217.
 Package rerunfilecheck Info: File `dreck.out' has not changed.
-(rerunfilecheck)             Checksum: D8D1FA9387141433A0553AB1B77C8957;903.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
+(rerunfilecheck)             Checksum: C7931DFB36BD2AB397CC6B9EF3EF9641;586.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 217.
  ) 
 Here is how much of TeX's memory you used:
- 31397 strings out of 481239
- 728944 string characters out of 5920376
- 1108482 words of memory out of 5000000
- 46103 multiletter control sequences out of 15000+600000
- 637383 words of font info for 128 fonts, out of 8000000 for 9000
+ 31251 strings out of 481239
+ 725342 string characters out of 5920376
+ 1110476 words of memory out of 5000000
+ 45976 multiletter control sequences out of 15000+600000
+ 636247 words of font info for 127 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,19n,127p,1133b,2302s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 73i,19n,127p,768b,2287s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -1120,12 +1035,11 @@ amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/urw/times/utmri8a.pfb>
-Output written on dreck.pdf (5 pages, 378066 bytes).
+dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on dreck.pdf (3 pages, 243733 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
- 46 named destinations out of 1000 (max. 500000)
- 183 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
+ 98 words of extra memory for PDF output out of 10000 (max. 10000000)
 

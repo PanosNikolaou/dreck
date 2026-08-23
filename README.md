@@ -1,191 +1,92 @@
-# gsensros
+# DRFusionTrack
 
-Garmin Connect IQ dive-tracking app for underwater motion estimation, GPS-assisted dead reckoning, depth tracking, and FIT logging.
+DRFusionTrack is the Garmin Connect IQ watch app for underwater navigation, motion tracking, dead reckoning, and FIT logging. It combines pressure-derived depth, motion and heading estimation, GPS correction, and a lightweight local Kalman-style DR model to create a practical tracking solution for wrist-worn marine use.
 
 ## Overview
 
-`gsensros` is a wearable app for Garmin devices that combines pressure-derived depth, motion detection, heading estimation, local dead reckoning, and FIT recording. It is designed to work as a custom watch app for underwater and GPS-denied tracking rather than as a native Garmin dive-computer mode.
+DRFusionTrack is built for Garmin Instinct-class devices and is designed to run as a custom watch app rather than as a native Garmin dive-computer mode. The project is focused on three things:
 
-The app is designed to:
+- live underwater state detection,
+- local dead-reckoning position estimation when GPS is weak or unavailable,
+- export of a rich FIT stream for post-session analysis.
 
-- estimate current depth from pressure with a live baseline,
-- preserve realistic shallow values instead of zeroing them during startup,
-- detect underwater state using depth thresholds and hysteresis,
-- use the best available heading and speed source,
-- continue dead reckoning through GPS gaps,
-- expose a FIT log with custom developer fields for analysis.
+The current implementation is tuned for real-world constraints: noisy GPS over water, shallow depth transitions, wrist-mounted motion, and the need to keep the app responsive while still logging usable telemetry.
 
 ## Current implementation status
 
-The final implementation is the authoritative state of the project.
+The current codebase is the authoritative state of the project and includes the following improvements:
 
-The key fixes in the current codebase are:
+- pressure-first depth estimation with surface baseline from the first valid reading,
+- shallow depth values preserved instead of being discarded at startup,
+- underwater mode detection using hysteresis and shallow-water thresholds,
+- motion confidence and heading selection based on the strongest valid sensor source,
+- local East/North dead reckoning with GPS correction when the fix is usable,
+- custom FIT field export for DR position, depth, speed, GPS state, and motion status,
+- successful build validation against the Garmin Connect IQ SDK in this environment.
 
-- the first valid pressure sample becomes the live surface baseline immediately,
-- shallow pressure values are preserved instead of being discarded,
-- altitude is treated as a secondary validation signal, not the main depth source,
-- gyro and magnetometer registration match the actual runtime callback path,
-- the UKF uses conservative process and GPS noise values for water and multipath conditions,
-- the app builds successfully with the real Garmin SDK in this environment.
+## Core features
 
-## Core runtime model
+### Depth and dive-state tracking
+- ambient-pressure depth estimation as the primary source,
+- altitude used only as a secondary validation signal,
+- live surface reference established from the first valid pressure sample,
+- noise rejection and shallow-value preservation,
+- underwater/surface transitions with hysteresis and minimum time gating.
 
-The app follows a timer-driven processing loop with a few major subsystems:
+### Navigation and motion estimation
+- accelerometer, gyroscope, and magnetometer support,
+- adaptive motion confidence estimation,
+- best-source heading selection: true heading, mag heading, or gyro fallback,
+- GPS quality gating and local DR continuity during weak fixes.
 
-### 1. Sensor and GPS layer
-- accelerometer, gyroscope, and magnetometer sampling
-- GPS speed and quality checks
-- ambient pressure and altitude data
+### Sensor fusion and dead reckoning
+- local East/North state propagation,
+- conservative noise tuning for multipath-prone water conditions,
+- GPS correction only when fixes are fresh and usable,
+- synthetic local track generation for post-session reconstruction.
 
-### 2. Estimation layer
-- `updateDepth()`
-- `processDiveState()`
-- `getBestHeading()`
-- `getEstimatedSpeedMps()`
-- `updateMotionConfidence()`
-- `DeadReckoning` / `KalmanDR` integration
+### FIT logging and analysis
+- custom FIT fields for DR east/north, depth, heading, motion, GPS quality, and underwater state,
+- synthetic DR latitude/longitude output for review,
+- output suitable for later analysis in Python or external FIT tooling.
 
-### 3. Recording layer
-- FIT field creation
-- custom FIT writes on the active recording session
-- dive summary and risk tracking
+## Main runtime flow
 
-## Main processing flow
+1. startup initializes the app and sensor listeners,
+2. the timer loop reads GPS, motion, and pressure data,
+3. the app updates the depth estimate and dive state,
+4. heading and speed are resolved from the strongest available source,
+5. the local DR model predicts and corrects the track,
+6. FIT values are written for the active session,
+7. shutdown handles cleanup and final state save.
 
-1. `onShow()` starts calibration, starts sensors, and launches the periodic timer.
-2. `timerCallback()` runs every 500 ms and reads sensor and GPS state.
-3. `readSensors()` and `updateDepth()` refresh the live motion and depth estimates.
-4. `processDiveState()` classifies the user as underwater or at the surface.
-5. `updateMotionConfidence()` updates the movement confidence signal.
-6. DR and UKF values are advanced when the state is valid.
-7. FIT values are written to the active recording session.
-8. `onHide()` and `prepareToExit()` shut everything down cleanly.
+## Project files
 
-## Important design notes
-
-### Depth estimation
-The current depth estimate is pressure-first:
-
-- pressure is preferred as the primary depth source,
-- altitude is used for secondary validation,
-- negative pressure differences are clipped to zero,
-- non-physical spikes are rejected before smoothing.
-
-The core formulation is:
-
-$$
-depth \approx \frac{pressurePa - surfacePressurePa}{PA\_PER\_METER\_SEAWATER}
-$$
-
-with a low-pass filter applied after validation so the value follows real dive motion without reacting to transient noise.
-
-### Motion and heading
-The app chooses the strongest available source for heading and uses a conservative motion model to avoid false movement. Gyro and magnetometer inputs are both used, and the device only advances DR when the movement and heading state are valid.
-
-### UKF and GPS fusion
-The project uses a local East/North UKF to propagate position when GPS is weak or unavailable. The filter is tuned conservatively because water GPS and wrist-mounted motion both produce noisy data.
-
-### FIT output
-The app records custom FIT fields for DR position, depth, speed, motion, heading, GPS state, and underwater status. These values are used to reconstruct the dive context after the session is saved.
-
-## Relevant files
-
+- [source/gsensrosApp.mc](source/gsensrosApp.mc)
 - [source/gsensrosView.mc](source/gsensrosView.mc)
 - [source/DeadReckoning.mc](source/DeadReckoning.mc)
 - [source/KalmanDR.mc](source/KalmanDR.mc)
 - [source/NitrogenModel.mc](source/NitrogenModel.mc)
 - [manifest.xml](manifest.xml)
+- [resources/strings/strings.xml](resources/strings/strings.xml)
+- [resources/drawables/drawables.xml](resources/drawables/drawables.xml)
 - [docs/](docs/)
 
-## Verification status
+## Verification
 
-The project was validated by building with the real Garmin Connect IQ SDK installed in this environment.
-
-Verified command:
+The app was validated through the local Garmin SDK build process.
 
 ```bash
 cd /home/panagiotis/Documents/gsensors/gsensros
-/home/panagiotis/.Garmin/ConnectIQ/Sdks/connectiq-sdk-lin-9.2.0-2026-06-09-92a1605b2/bin/monkeyc -y /home/panagiotis/Documents/gsensors/gsensros/developer_key -o /tmp/gsensros_test.prg -d instinct2x -f monkey.jungle
+./run_simulation.sh --build-only
 ```
 
-Observed result:
+This confirms the project compiles successfully with the current toolchain and that the DRFusionTrack branding and app entry are consistent with the active source.
 
-```text
-BUILD SUCCESSFUL
-```
+## Notes
 
-This confirms the current code builds successfully with the actual installed toolchain.
+This project is a custom underwater navigation and dive-tracking app, not a certified commercial dive computer. It is intended for research, logging, and post-session analysis rather than as a medical or decompression system.
 
-## Runtime validation note
+---
 
-A full simulated dive run is limited by the available headless Linux environment. The watch simulator is available through the installed SDK, but without a desktop session or physical watch it is not practical to trigger a real dive session in this container. The build is therefore the verified proof in this environment; runtime device-side session validation remains the next stage on a GUI-enabled machine or actual watch.
-
-## Final note
-
-This project is now aligned with the actual implementation: pressure-first depth, corrected live sensor registration, conservative UKF tuning, and practical FIT logging for underwater analysis.
-
-5. **Hysteresis**  
-   Separate thresholds prevent noisy on/off switching.
-
-6. **Confidence tracking**  
-   Motion must persist before the app trusts it.
-
-This is a practical design for wearable tracking because it handles noise and brief sensor spikes much better than a single threshold.
-
-## FIT fields
-
-The following custom FIT fields are created:
-
-- `DR_East_m`
-- `DR_North_m`
-- `Depth_m`
-- `GPS_Lat`
-- `GPS_Lon`
-- `Motion_mg`
-- `Speed_Est`
-- `Underwater`
-- `GPS_Fix`
-- `Heading_deg`
-- `Moving`
-
-These fields make it possible to analyze motion, tracking, and sensor behavior after the session ends.
-
-## Data model
-
-The app maintains three important internal states:
-
-### Motion state
-Represents whether the user is likely moving and how strong that confidence is.
-
-### Tracking state
-Represents current heading, depth, GPS quality, underwater state, and dead reckoning position.
-
-### Recording state
-Represents whether a FIT session is active and what data fields are available.
-
-## Notes on performance
-
-The app is designed to reduce unnecessary processing by:
-
-- writing FIT fields only when values change enough,
-- using motion confidence instead of raw motion spikes,
-- smoothing sensor signals,
-- keeping expensive processing in a timer loop rather than inside the UI render path.
-
-## Known limitations
-
-- Accelerometer power is still noisy and device-dependent.
-- Heading can drift if true heading is unavailable.
-- Altitude-based depth is approximate.
-- Motion thresholds may need tuning per device.
-- Dead reckoning quality depends heavily on correct motion detection.
-
-## Suggested improvements
-
-If you want to refine the app further, the best next steps are:
-
-1. Split the motion logic into its own helper class.
-2. Make thresholds configurable.
-3. Add debug logs for raw motion and calibration data.
-4. Separate timer processing into smaller functions.
-5. Add device-specific tuning for motion and depth behavior.
+The final application behavior is intentionally conservative: the app favors stable live depth estimation, careful state transitions, and robust dead-reckoning continuity over aggressive corrections that would produce noisy or unstable tracks under imperfect GPS or sensor conditions.

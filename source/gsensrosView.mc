@@ -104,9 +104,9 @@ class gsensrosView extends WatchUi.View {
     var solarLux = 0.0f;                      // UI-only solar intensity readout for Instinct 2X Solar
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
-    const DEPTH_NOISE_FLOOR_M   = 0.02f;   // keep even very shallow Suunto-like values instead of forcing them to zero
-    const DIVE_START_DEPTH_M    = 0.10f;   // react sooner to the Suunto-style shallow start pattern
-    const SURFACE_STOP_DEPTH_M  = 0.18f;   // surface noise gate; actual stop uses return to start GPS point
+    const DEPTH_NOISE_FLOOR_M   = 0.01f;   // keep true shallow-water samples alive without letting pure noise through
+    const DIVE_START_DEPTH_M    = 0.03f;   // valid shallow-water dives were being blocked by the old 0.10m gate
+    const SURFACE_STOP_DEPTH_M  = 0.05f;   // tighter surface hysteresis; actual dive stop still depends on GPS return
     const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
@@ -2442,6 +2442,13 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         return true;
     }
 
+    function safeFormatFloat(value as Float or Null, pattern as String, fallback as String) as String {
+        if (value == null || !isFiniteValue(value)) {
+            return fallback;
+        }
+        return value.format(pattern);
+    }
+
     function writeFloatField(field as FitContributor.Field or Null, value as Float, lastValue as Float or Null, eps as Float) as Float or Null {
         if (field == null || !isFiniteValue(value)) {
             return lastValue;
@@ -2760,28 +2767,28 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             if (kalman != null) {
                 if (canDrawFieldRow(leftX, rightX, contentY)) {
                     dc.drawText(leftX, contentY, font, "KF E:", Graphics.TEXT_JUSTIFY_LEFT);
-                    dc.drawText(rightX, contentY, font, kalman.getEast().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, safeFormatFloat(kalman.getEast(), "%.1f", "0.0") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 }
                 contentY += rowH;
                 if (canDrawFieldRow(leftX, rightX, contentY)) {
                     dc.drawText(leftX, contentY, font, "KF N:", Graphics.TEXT_JUSTIFY_LEFT);
-                    dc.drawText(rightX, contentY, font, kalman.getNorth().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, safeFormatFloat(kalman.getNorth(), "%.1f", "0.0") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 }
                 contentY += rowH;
             } else if (dr != null) {
                 if (canDrawFieldRow(leftX, rightX, contentY)) {
                     dc.drawText(leftX, contentY, font, "DR E:", Graphics.TEXT_JUSTIFY_LEFT);
-                    dc.drawText(rightX, contentY, font, dr.getEastMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, safeFormatFloat(dr.getEastMeters(), "%.1f", "0.0") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 }
                 contentY += rowH;
                 if (canDrawFieldRow(leftX, rightX, contentY)) {
                     dc.drawText(leftX, contentY, font, "DR N:", Graphics.TEXT_JUSTIFY_LEFT);
-                    dc.drawText(rightX, contentY, font, dr.getNorthMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, safeFormatFloat(dr.getNorthMeters(), "%.1f", "0.0") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 }
                 contentY += rowH;
                 if (canDrawFieldRow(leftX, rightX, contentY)) {
                     dc.drawText(leftX, contentY, font, "Dist:", Graphics.TEXT_JUSTIFY_LEFT);
-                    dc.drawText(rightX, contentY, font, dr.getTotalDistanceMeters().format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, safeFormatFloat(dr.getTotalDistanceMeters(), "%.0f", "0") + "m", Graphics.TEXT_JUSTIFY_LEFT);
                 }
                 contentY += rowH;
             }

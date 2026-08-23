@@ -439,19 +439,40 @@ class KalmanDR {
         setP(3, 1, getP(1, 3));
     }
 
-    function getEast() as Float { return x[0]; }
-    function getNorth() as Float { return x[1]; }
+    function getEast() as Float {
+        if (x == null || x[0] != x[0]) {
+            return 0.0f;
+        }
+        return x[0];
+    }
+
+    function getNorth() as Float {
+        if (x == null || x[1] != x[1]) {
+            return 0.0f;
+        }
+        return x[1];
+    }
 
     function getSpeed() as Float {
-        return Math.sqrt(x[2] * x[2] + x[3] * x[3]);
+        var v = x[2] * x[2] + x[3] * x[3];
+        if (v != v) {
+            return 0.0f;
+        }
+        return Math.sqrt(v);
     }
 
     function getDRData() as Dictionary {
+        var east = getEast();
+        var north = getNorth();
+        var dist = (east * east) + (north * north);
+        if (dist != dist) {
+            dist = 0.0f;
+        }
         return {
-            :east => x[0],
-            :north => x[1],
-            :distance => Math.sqrt(x[0] * x[0] + x[1] * x[1]),
-            :speed => Math.sqrt(x[2] * x[2] + x[3] * x[3])
+            :east => east,
+            :north => north,
+            :distance => Math.sqrt(dist),
+            :speed => getSpeed()
         };
     }
 }

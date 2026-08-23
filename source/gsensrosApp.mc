@@ -2,7 +2,7 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class diveTrackApp extends Application.AppBase {
+class drFusionTrackApp extends Application.AppBase {
 
     // Stores the actual running view so onStop() can clean up the real
     // instance instead of a throwaway one created on the fly.
@@ -29,6 +29,6 @@ class diveTrackApp extends Application.AppBase {
     }
 }
 
-function getApp() as diveTrackApp {
-    return Application.getApp() as diveTrackApp;
+function getApp() as drFusionTrackApp {
+    return Application.getApp() as drFusionTrackApp;
 }

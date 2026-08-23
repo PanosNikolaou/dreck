@@ -1,15 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{System Overview}{}% 2
-\BOOKMARK [1][-]{section.3}{Pressure-First Depth Estimation}{}% 3
-\BOOKMARK [1][-]{section.4}{Sensor Registration and Runtime Data Flow}{}% 4
-\BOOKMARK [1][-]{section.5}{Motion and Heading Estimation}{}% 5
-\BOOKMARK [1][-]{section.6}{UKF Formulation}{}% 6
-\BOOKMARK [2][-]{subsection.6.1}{GPS-driven DR generation}{section.6}% 7
-\BOOKMARK [2][-]{subsection.6.2}{Dead Reckoning diagrams and plots}{section.6}% 8
-\BOOKMARK [2][-]{subsection.6.3}{Kalman filter overview diagram}{section.6}% 9
-\BOOKMARK [1][-]{section.7}{Dive-State Logic}{}% 10
-\BOOKMARK [1][-]{section.8}{FIT Recording}{}% 11
-\BOOKMARK [1][-]{section.9}{Nitrogen Risk Model}{}% 12
-\BOOKMARK [1][-]{section.10}{Validation}{}% 13
-\BOOKMARK [1][-]{section.11}{Limitations and Practical Use}{}% 14
-\BOOKMARK [1][-]{section.12}{Conclusion}{}% 15
+\BOOKMARK [1][-]{section.2}{Project Goals}{}% 2
+\BOOKMARK [1][-]{section.3}{System Architecture}{}% 3
+\BOOKMARK [1][-]{section.4}{Depth and Dive-State Detection}{}% 4
+\BOOKMARK [1][-]{section.5}{Motion, Heading, and Sensor Fusion}{}% 5
+\BOOKMARK [1][-]{section.6}{Dead Reckoning and GPS Correction}{}% 6
+\BOOKMARK [1][-]{section.7}{FIT Logging and Data Export}{}% 7
+\BOOKMARK [1][-]{section.8}{Validation and Build Status}{}% 8
+\BOOKMARK [1][-]{section.9}{Limitations and Practical Use}{}% 9
+\BOOKMARK [1][-]{section.10}{Conclusion}{}% 10

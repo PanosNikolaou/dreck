@@ -1,52 +1,60 @@
-# gsensros - Project Overview
+# DRFusionTrack - Project Overview
 
-gsensros is a Garmin Connect IQ app for dive/tracking workflows on wearable devices. It combines GPS, inertial sensing, pressure-derived depth estimation, and FIT export to build a practical underwater tracking and logging system for Garmin watches.
+DRFusionTrack is a Garmin Connect IQ app for underwater navigation, sensor fusion, and activity logging on wearable hardware. It combines ambient pressure, motion sensors, GPS quality gating, and a local dead-reckoning model to create a practical underwater tracking system for Garmin watches.
 
 ## Current status
 
-The most recent fix was the depth pipeline correction. The app now starts from a valid pressure baseline immediately instead of waiting for the full calibration cycle, which avoids the false zero-depth behavior seen when comparing against the Suunto Ocean reference log.
+The current implementation is the authoritative state of the project. It is designed around these principles:
+
+- pressure is the primary source for depth,
+- the live surface reference is created from the first valid pressure sample,
+- shallow values are preserved rather than discarded during startup,
+- underwater transitions are gated by hysteresis and time-based stability,
+- DR continues smoothly through GPS gaps and poor fix conditions,
+- FIT output contains the telemetry needed for later review and analysis.
 
 ## Key features
 
-- Pressure-first depth estimation with altitude fallback and validation
-- Startup calibration that keeps the first valid pressure sample as the live surface reference
-- Non-physical depth spike rejection and clamp logic
-- Dive-state detection with hysteresis and shallow-water logic
-- Motion detection using motion score, gyro magnitude, and adaptive baseline tracking
-- GPS quality gating and dead-reckoning fallback when the position signal degrades
-- FIT output for DR position, depth, speed, heading, motion, GPS fix, and underwater state
-- Nitrogen loading model and UI summary outputs
+- pressure-first depth estimation with altitude validation,
+- underwater and surface detection with stop/start hysteresis,
+- adaptive motion confidence tracking,
+- heading estimation from the strongest valid signal,
+- dead-reckoning propagation in a local East/North space,
+- GPS correction when fixes are fresh and usable,
+- custom FIT export for depth, motion, speed, heading, and GPS state,
+- UI and logging support for dive-style session review.
 
 ## Device and build info
 
 | Property | Value |
 |----------|-------|
+| App Name | DRFusionTrack |
 | App ID | `61261946-ed35-4393-ba9e-faa0acae21f5` |
-| Entry Class | `gsensrosApp` |
+| Entry Class | `drFusionTrackApp` |
 | Target Product | `instinct2x` |
 | Min API Level | `3.4.0` |
 | App Type | `watch-app` |
 | Build Output | `build/gsensros.prg` |
 | FIT Contributions | `build/gsensros-fit_contributions.json` |
 
-## Depth algorithm summary
+## Depth and motion model summary
 
-The current depth logic is designed to match realistic dive traces, not just the altitude sensor:
+The current depth logic is tuned to match real dive behavior rather than a noisy startup baseline:
 
-- primary source: ambient pressure
-- secondary source: altitude difference from a calibrated surface level
-- rejection: negative or impossible values are clipped to zero
-- filtering: a low-pass smoothing stage damps transient sensor spikes
-- calibration: first valid surface pressure becomes the baseline for the live dive trace
+- primary source: ambient pressure,
+- secondary source: altitude difference from a calibrated reference,
+- rejection: negative or impossible values are clipped,
+- filtering: a responsive low-pass stage stabilizes the depth trace,
+- calibration: the first valid surface pressure becomes the active baseline.
 
-This is the core change that corrected the discrepancy against the Suunto Ocean samples.
+The motion and heading logic uses the strongest available signal while staying conservative under noisy water conditions. This is critical because the app must remain stable when GPS is weak or when the user is moving in shallow water.
 
 ## Permissions required
 
 | Permission | Purpose |
 |------------|---------|
-| Sensor | Accelerometer, gyroscope, magnetometer, and pressure/altitude data |
-| Positioning | GPS location access |
+| Sensor | Raw motion, pressure, and orientation data |
+| Positioning | GPS fix access |
 | Fit | Activity session creation and FIT serialization |
 | FitContributor | Custom FIT field creation |
 | Communications | Bluetooth and app-to-device communication |
@@ -65,15 +73,13 @@ This is the core change that corrected the discrepancy against the Suunto Ocean 
 gsensros/
 ├── manifest.xml
 ├── monkey.jungle
-├── ConfirmStopDelegate.mc
 ├── source/
 │   ├── gsensrosApp.mc
 │   ├── gsensrosView.mc
-│   ├── gsensrosDelegate.mc
-│   ├── gsensrosMenuDelegate.mc
 │   ├── DeadReckoning.mc
 │   ├── KalmanDR.mc
-│   └── NitrogenModel.mc
+│   ├── NitrogenModel.mc
+│   └── ...
 ├── resources/
 │   ├── drawables/
 │   ├── layouts/
@@ -83,5 +89,7 @@ gsensros/
 ├── README.md
 ├── garmin_dive_app_documentation.md
 ├── Dead_Reckoning_Kalman_Garmin_Report.md
-└── build/
+├── dreck.tex
+├── build/
+└── fit/
 ```
