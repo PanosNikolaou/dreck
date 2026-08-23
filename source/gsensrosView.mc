@@ -213,6 +213,8 @@ class gsensrosView extends WatchUi.View {
 
     var diveLogKey = null as String or Null;
     var diveLogText = null as String or Null;
+    var diveLogLineCount = 0;
+    const MAX_DIVE_LOG_LINES = 200;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -448,12 +450,14 @@ class gsensrosView extends WatchUi.View {
 
             diveLogKey = "dive_log_" + stamp;
             diveLogText = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
+            diveLogLineCount = 1;
             Application.Storage.setValue(diveLogKey, diveLogText);
             System.println("Dive log started: " + diveLogKey);
         } catch (e) {
             System.println("openDiveLogFile error: " + errorToString(e));
             diveLogKey = null;
             diveLogText = null;
+            diveLogLineCount = 0;
         }
     }
 
@@ -464,6 +468,7 @@ class gsensrosView extends WatchUi.View {
             }
             diveLogKey = null;
             diveLogText = null;
+            diveLogLineCount = 0;
         }
     }
 
@@ -472,9 +477,18 @@ class gsensrosView extends WatchUi.View {
             return;
         }
 
+        if (diveLogLineCount >= MAX_DIVE_LOG_LINES) {
+            return;
+        }
+
         try {
             diveLogText += line + "\n";
-            Application.Storage.setValue(diveLogKey, diveLogText);
+            diveLogLineCount += 1;
+            if (diveLogLineCount < MAX_DIVE_LOG_LINES) {
+                Application.Storage.setValue(diveLogKey, diveLogText);
+            } else {
+                Application.Storage.setValue(diveLogKey, diveLogText + "[truncated]\n");
+            }
         } catch (e) {
             System.println("Dive log write error: " + errorToString(e));
         }
@@ -771,10 +785,6 @@ class gsensrosView extends WatchUi.View {
 
     function sensorDataCallback(sensorData as Sensor.SensorData) as Void {
         try {
-            if (sensorData == null) {
-                return;
-            }
-
             if (sensorData has :accelerometerData && sensorData.accelerometerData != null) {
                 var accData = sensorData.accelerometerData;
 
@@ -2553,7 +2563,10 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
 
     function canDrawFieldRow(labelX as Number, valueX as Number, y as Number) as Boolean {
         var rowY = y + 8;
-        return y >= LAYOUT_CONTENT_TOP && !isInsideTopRightCutout(labelX + 12, rowY) && !isInsideTopRightCutout(valueX + 14, rowY);
+        var rowBottom = y + 16;
+        return y >= LAYOUT_CONTENT_TOP && rowBottom <= 176 &&
+            !isInsideTopRightCutout(labelX + 12, rowY) &&
+            !isInsideTopRightCutout(valueX + 14, rowY);
     }
 
     function drawMiniStatusIcon(dc as Dc, x as Number, y as Number, color as Number, iconType as Number) as Void {
@@ -2589,6 +2602,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             var w = dc.getWidth();
             var leftX = LAYOUT_CONTENT_LEFT;
             var rowH = 18;
+            var headerTextLeft = LAYOUT_TOP_LEFT_X + 4;
             var noticeText = null as String or Null;
 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
@@ -2620,20 +2634,20 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
 
             var recStatusText = isRecording ? "ON" : "OFF";
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 6, Graphics.FONT_XTINY, "REC: " + recStatusText, Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 6, Graphics.FONT_XTINY, "REC: " + recStatusText, Graphics.TEXT_JUSTIFY_LEFT);
 
             var modeText = isUnderwater ? "DIVE" : "SURF";
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 20, Graphics.FONT_XTINY, "MODE: " + modeText, Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 20, Graphics.FONT_XTINY, "MODE: " + modeText, Graphics.TEXT_JUSTIFY_LEFT);
 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NOFIX"), Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NOFIX"), Graphics.TEXT_JUSTIFY_LEFT);
 
             if (noticeText != null) {
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 10, 14);
+                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 6, 14);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(LAYOUT_TOP_LEFT_X + 8, LAYOUT_TOP_LEFT_Y + 56, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 56, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
             }
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -2742,17 +2756,23 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 contentY += rowH;
             }
 
-            dc.drawText(leftX, contentY, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, contentY, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            }
             contentY += rowH;
 
             if (n2Model != null) {
-                dc.drawText(leftX, contentY, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, contentY, font, n2Model.getLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, n2Model.getLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                }
                 contentY += rowH;
 
-                dc.drawText(leftX, contentY, font, "Max:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, contentY, font, n2Model.getMaxLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Max:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, n2Model.getMaxLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                }
                 contentY += rowH;
 
                 var band = n2Model.getRiskBand();
@@ -2771,10 +2791,12 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 }
 
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(leftX, contentY, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.setColor(bandColor, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(rightX, contentY, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.setColor(bandColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(rightX, contentY, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                }
             }
         } catch (e) {
             System.println("Draw error: " + errorToString(e));

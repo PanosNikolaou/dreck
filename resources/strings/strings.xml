@@ -3,6 +3,9 @@
 
     <strings>
         <string id="AppName">DiveTrack</string>
+        <string id="rec_header">REC: OFF</string>
+        <string id="mode_header">MODE: SURF</string>
+        <string id="gps_header">GPS: NOFIX</string>
 
         <string id="menu_label_1">Start Dive</string>
         <string id="menu_label_2">Stop Dive</string>

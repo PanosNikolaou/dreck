@@ -1,2 +1,7 @@
 <layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <label id="HeaderStatus" x="8" y="8" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" color="Graphics.COLOR_BLACK" text="@Strings.rec_header" />
+    <label id="HeaderMode" x="8" y="22" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" color="Graphics.COLOR_BLACK" text="@Strings.mode_header" />
+    <label id="HeaderGps" x="8" y="36" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" color="Graphics.COLOR_BLACK" text="@Strings.gps_header" />
+    <label id="TopRightBadge" x="118" y="10" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" text="GPS" />
+    <label id="DataPanel" x="8" y="72" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" text="" />
 </layout>
