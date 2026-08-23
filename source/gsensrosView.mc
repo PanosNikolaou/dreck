@@ -101,6 +101,7 @@ class gsensrosView extends WatchUi.View {
 
     // Heart-rate (health data)
     var heartRate = 0;                        // NEW
+    var solarLux = 0.0f;                      // UI-only solar intensity readout for Instinct 2X Solar
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
     const DEPTH_NOISE_FLOOR_M   = 0.02f;   // keep even very shallow Suunto-like values instead of forcing them to zero
@@ -1088,6 +1089,15 @@ class gsensrosView extends WatchUi.View {
             // Ambient / water temperature
             if (info has :temperature && info.temperature != null) {
                 ambientTempC = info.temperature.toFloat();
+            }
+
+            // Solar intensity (UI-only, not a FIT field; keeps active field count at 15)
+            if (info has :solarIntensity && info.solarIntensity != null) {
+                solarLux = info.solarIntensity.toFloat();
+            } else if (info has :light && info.light != null) {
+                solarLux = info.light.toFloat();
+            } else {
+                solarLux = 0.0f;
             }
 
             if (info has :accel) {
@@ -2702,6 +2712,16 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 dc.drawText(leftX, contentY, font, "HR:", Graphics.TEXT_JUSTIFY_LEFT);
                 if (heartRate > 0) {
                     dc.drawText(rightX, contentY, font, heartRate.format("%d") + " bpm", Graphics.TEXT_JUSTIFY_LEFT);
+                } else {
+                    dc.drawText(rightX, contentY, font, "--", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Solar:", Graphics.TEXT_JUSTIFY_LEFT);
+                if (solarLux > 0.0f) {
+                    dc.drawText(rightX, contentY, font, solarLux.format("%.0f") + " lux", Graphics.TEXT_JUSTIFY_LEFT);
                 } else {
                     dc.drawText(rightX, contentY, font, "--", Graphics.TEXT_JUSTIFY_LEFT);
                 }
