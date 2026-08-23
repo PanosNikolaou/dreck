@@ -215,7 +215,8 @@ class gsensrosView extends WatchUi.View {
     var diveLogKey = null as String or Null;
     var diveLogText = null as String or Null;
     var diveLogLineCount = 0;
-    const MAX_DIVE_LOG_LINES = 200;
+    const MAX_DIVE_LOG_LINES = 80;
+    const MAX_DIVE_LOG_BYTES = 12000;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -483,15 +484,24 @@ class gsensrosView extends WatchUi.View {
         }
 
         try {
-            diveLogText += line + "\n";
-            diveLogLineCount += 1;
-            if (diveLogLineCount < MAX_DIVE_LOG_LINES) {
+            var candidate = diveLogText + line + "\n";
+            if (candidate.length() >= MAX_DIVE_LOG_BYTES || diveLogLineCount >= MAX_DIVE_LOG_LINES) {
+                diveLogText = "[truncated]\n" + line + "\n";
+                diveLogLineCount = 1;
                 Application.Storage.setValue(diveLogKey, diveLogText);
-            } else {
-                Application.Storage.setValue(diveLogKey, diveLogText + "[truncated]\n");
+                return;
+            }
+
+            diveLogText = candidate;
+            diveLogLineCount += 1;
+
+            if ((diveLogLineCount % 10) == 0 || diveLogLineCount >= MAX_DIVE_LOG_LINES) {
+                Application.Storage.setValue(diveLogKey, diveLogText);
             }
         } catch (e) {
             System.println("Dive log write error: " + errorToString(e));
+            diveLogText = "[truncated]\n";
+            diveLogLineCount = 1;
         }
     }
 
@@ -2653,13 +2663,13 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 20, Graphics.FONT_XTINY, "MODE: " + modeText, Graphics.TEXT_JUSTIFY_LEFT);
 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NOFIX"), Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NO FIX"), Graphics.TEXT_JUSTIFY_LEFT);
 
             if (noticeText != null) {
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 6, 14);
+                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 6, 12);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 56, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 55, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
             }
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
