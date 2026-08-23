@@ -293,8 +293,24 @@ class gsensrosView extends WatchUi.View {
 
     var scrollY = 0;
     const SCROLL_STEP = 20;
-    const SCROLL_MIN = -180;   // increased a bit for extra lines
+    const SCROLL_MIN = -180;
     const SCROLL_MAX = 0;
+
+    // Match the Instinct 2X layout1 SVG: top-left alert area, top-right GPS block,
+    // and a lower content region for system readings.
+    const LAYOUT_TOP_LEFT_X = 6;
+    const LAYOUT_TOP_LEFT_Y = 8;
+    const LAYOUT_TOP_LEFT_W = 108;
+    const LAYOUT_TOP_LEFT_H = 71;
+    const LAYOUT_TOP_RIGHT_X = 118;
+    const LAYOUT_TOP_RIGHT_Y = 10;
+    const LAYOUT_TOP_RIGHT_W = 52;
+    const LAYOUT_TOP_RIGHT_H = 52;
+    const LAYOUT_CONTENT_TOP = 72;
+    const LAYOUT_CONTENT_LEFT = 8;
+    const LAYOUT_CUTOUT_CENTER_X = 144;
+    const LAYOUT_CUTOUT_CENTER_Y = 31;
+    const LAYOUT_CUTOUT_RADIUS = 31;
 
     // --- Improved motion detection ---
     var lastAccelMag     = 0.0f;
@@ -768,13 +784,26 @@ class gsensrosView extends WatchUi.View {
                     // .size() and index access before we touch it.
                     if (accData has :x && accData.x != null) {
                         var xSamples = accData.x;
+                        var ySamples = (accData has :y && accData.y != null) ? accData.y : null;
+                        var zSamples = (accData has :z && accData.z != null) ? accData.z : null;
                         var count = xSamples.size();
+                        var yCount = (ySamples != null) ? ySamples.size() : 0;
+                        var zCount = (zSamples != null) ? zSamples.size() : 0;
                         if (count > 0) {
                             var i = 0;
                             while (i < count) {
-                                var ax = xSamples[i].toFloat();
-                                var ay = (accData has :y && accData.y != null) ? accData.y[i].toFloat() : 0.0f;
-                                var az = (accData has :z && accData.z != null) ? accData.z[i].toFloat() : 0.0f;
+                                var xVal = xSamples[i];
+                                var ax = (xVal != null) ? xVal.toFloat() : 0.0f;
+
+                                var ay = 0.0f;
+                                if (ySamples != null && i < yCount && ySamples[i] != null) {
+                                    ay = ySamples[i].toFloat();
+                                }
+
+                                var az = 0.0f;
+                                if (zSamples != null && i < zCount && zSamples[i] != null) {
+                                    az = zSamples[i].toFloat();
+                                }
 
                                 updateMotionFromAccel(ax, ay, az);
                                 i += 1;
@@ -812,13 +841,26 @@ class gsensrosView extends WatchUi.View {
                     var gyroData = sensorData.gyroscopeData;
                     if (gyroData has :x && gyroData.x != null) {
                         var xSamples = gyroData.x;
+                        var ySamples = (gyroData has :y && gyroData.y != null) ? gyroData.y : null;
+                        var zSamples = (gyroData has :z && gyroData.z != null) ? gyroData.z : null;
                         var count = xSamples.size();
+                        var yCount = (ySamples != null) ? ySamples.size() : 0;
+                        var zCount = (zSamples != null) ? zSamples.size() : 0;
                         if (count > 0) {
                             var i = 0;
                             while (i < count) {
-                                gyroX = (gyroData has :x && gyroData.x != null) ? xSamples[i].toFloat() : 0.0f;
-                                gyroY = (gyroData has :y && gyroData.y != null) ? gyroData.y[i].toFloat() : 0.0f;
-                                gyroZ = (gyroData has :z && gyroData.z != null) ? gyroData.z[i].toFloat() : 0.0f;
+                                var gx = xSamples[i];
+                                gyroX = (gx != null) ? gx.toFloat() : 0.0f;
+
+                                gyroY = 0.0f;
+                                if (ySamples != null && i < yCount && ySamples[i] != null) {
+                                    gyroY = ySamples[i].toFloat();
+                                }
+
+                                gyroZ = 0.0f;
+                                if (zSamples != null && i < zCount && zSamples[i] != null) {
+                                    gyroZ = zSamples[i].toFloat();
+                                }
                                 i += 1;
                             }
                         }
@@ -2503,25 +2545,63 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         }
     }
 
+    function isInsideTopRightCutout(x as Number, y as Number) as Boolean {
+        var dx = x - LAYOUT_CUTOUT_CENTER_X;
+        var dy = y - LAYOUT_CUTOUT_CENTER_Y;
+        return (dx * dx + dy * dy) <= (LAYOUT_CUTOUT_RADIUS * LAYOUT_CUTOUT_RADIUS);
+    }
+
+    function canDrawFieldRow(labelX as Number, valueX as Number, y as Number) as Boolean {
+        var rowY = y + 8;
+        return y >= LAYOUT_CONTENT_TOP && !isInsideTopRightCutout(labelX + 12, rowY) && !isInsideTopRightCutout(valueX + 14, rowY);
+    }
+
+    function drawMiniStatusIcon(dc as Dc, x as Number, y as Number, color as Number, iconType as Number) as Void {
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        if (iconType == 0) {
+            dc.fillCircle(x + 4, y + 4, 3);
+        } else if (iconType == 1) {
+            dc.fillRectangle(x + 2, y + 2, 5, 5);
+            dc.fillRectangle(x + 6, y + 2, 5, 5);
+            dc.fillRectangle(x + 2, y + 7, 5, 5);
+            dc.fillRectangle(x + 6, y + 7, 5, 5);
+        } else if (iconType == 2) {
+            dc.fillRectangle(x + 2, y + 5, 11, 2);
+            dc.fillRectangle(x + 6, y + 2, 3, 8);
+            dc.drawLine(x + 2, y + 9, x + 13, y + 9);
+        } else if (iconType == 3) {
+            dc.fillRectangle(x + 2, y + 2, 2, 10);
+            dc.fillRectangle(x + 7, y + 2, 2, 10);
+            dc.fillRectangle(x + 12, y + 2, 2, 10);
+        } else if (iconType == 4) {
+            dc.fillCircle(x + 6, y + 6, 4);
+            dc.drawLine(x + 6, y + 10, x + 6, y + 14);
+            dc.drawLine(x + 4, y + 8, x + 1, y + 5);
+            dc.drawLine(x + 8, y + 8, x + 11, y + 5);
+        }
+    }
+
     function onUpdate(dc as Dc) as Void {
         try {
             View.onUpdate(dc);
 
             var font = Graphics.FONT_XTINY;
             var w = dc.getWidth();
-            var leftX = 8;
-            var rightX = w / 2 + 4;
-            var y = 8 + scrollY;
+            var leftX = LAYOUT_CONTENT_LEFT;
             var rowH = 18;
             var noticeText = null as String or Null;
 
-            dc.setColor(isRecording ? Graphics.COLOR_GREEN : Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-            var statusText = isRecording ? "RECORDING" : "Stopped";
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(0, 0, w, 176);
+
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(LAYOUT_TOP_LEFT_X, LAYOUT_TOP_LEFT_Y, LAYOUT_TOP_LEFT_W, LAYOUT_TOP_LEFT_H);
+
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             if (isRecording && poiFlashMs > 0) {
                 var age = System.getTimer() - poiFlashMs;
                 if (age >= 0 && age < POI_FLASH_MS) {
-                    statusText = "POI #" + poiCount;
-                    dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                    dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
                 } else {
                     poiFlashMs = 0;
                 }
@@ -2534,61 +2614,91 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 } else {
                     noticeText = poiNoticeText;
                 }
+            } else if (!hasGpsFix && dr != null) {
+                noticeText = "GPS LOST - DR";
             }
-            dc.drawText(w / 2, y, font, statusText, Graphics.TEXT_JUSTIFY_CENTER);
+
+            var recStatusText = isRecording ? "ON" : "OFF";
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 6, Graphics.FONT_XTINY, "REC: " + recStatusText, Graphics.TEXT_JUSTIFY_LEFT);
+
+            var modeText = isUnderwater ? "DIVE" : "SURF";
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 20, Graphics.FONT_XTINY, "MODE: " + modeText, Graphics.TEXT_JUSTIFY_LEFT);
+
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(LAYOUT_TOP_LEFT_X + 4, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NOFIX"), Graphics.TEXT_JUSTIFY_LEFT);
 
             if (noticeText != null) {
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(LAYOUT_TOP_LEFT_X + 2, LAYOUT_TOP_LEFT_Y + 54, LAYOUT_TOP_LEFT_W - 10, 14);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(8, y + rowH - 4, w - 16, rowH - 4);
-                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(w / 2, y + rowH - 4, font, noticeText, Graphics.TEXT_JUSTIFY_CENTER);
+                dc.drawText(LAYOUT_TOP_LEFT_X + 8, LAYOUT_TOP_LEFT_Y + 56, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
             }
 
-            y += rowH;
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            var topRightLabel = hasGpsFix ? "GPS" : ((dr != null) ? "DR" : "NO");
+            var topRightMeta = hasGpsFix ? "Q" + gpsQuality : ((dr != null) ? "FALLB" : "FIX");
+            dc.drawText(LAYOUT_TOP_RIGHT_X + 26, LAYOUT_TOP_RIGHT_Y + 8, font, topRightLabel, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(LAYOUT_TOP_RIGHT_X + 26, LAYOUT_TOP_RIGHT_Y + 24, font, topRightMeta, Graphics.TEXT_JUSTIFY_CENTER);
+
+            var contentY = LAYOUT_CONTENT_TOP + scrollY;
+            var rightX = LAYOUT_CONTENT_LEFT + 66;
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             if (isRecording && poiCount > 0) {
-                dc.drawText(leftX, y, font, "POIs:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, "" + poiCount, Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "POIs:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, "" + poiCount, Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
             }
 
-            dc.drawText(leftX, y, font, "Mode:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, isUnderwater ? "Underwater" : "Land/Surf", Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "GPS:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, hasGpsFix ? "Yes" : "No", Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "Q:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, "" + gpsQuality, Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "Moving:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, ((movingConfidence >= MOVING_CONFIDENCE_ON && !isStationary()) ? "Yes" : "No"), Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "Depth:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, currentDepth.format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "Asc:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, currentAscentRateMps.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
-
-            y += rowH;
-            dc.drawText(leftX, y, font, "HR:", Graphics.TEXT_JUSTIFY_LEFT);
-            if (heartRate > 0) {
-                dc.drawText(rightX, y, font, heartRate.format("%d") + " bpm", Graphics.TEXT_JUSTIFY_LEFT);
-            } else {
-                dc.drawText(rightX, y, font, "--", Graphics.TEXT_JUSTIFY_LEFT);
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "GPS:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, hasGpsFix ? "Yes" : "No", Graphics.TEXT_JUSTIFY_LEFT);
             }
+            contentY += rowH;
 
-            y += rowH;
-            dc.drawText(leftX, y, font, "Motion:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, motionScoreMg.format("%.0f") + "mg", Graphics.TEXT_JUSTIFY_LEFT);
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Q:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, "" + gpsQuality, Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH;
 
-            y += rowH - 2;
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Moving:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, ((movingConfidence >= MOVING_CONFIDENCE_ON && !isStationary()) ? "Yes" : "No"), Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Depth:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, currentDepth.format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Asc:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, currentAscentRateMps.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "HR:", Graphics.TEXT_JUSTIFY_LEFT);
+                if (heartRate > 0) {
+                    dc.drawText(rightX, contentY, font, heartRate.format("%d") + " bpm", Graphics.TEXT_JUSTIFY_LEFT);
+                } else {
+                    dc.drawText(rightX, contentY, font, "--", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Motion:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, motionScoreMg.format("%.0f") + "mg", Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH - 2;
 
             if (calibrationActive) {
                 var elapsed = System.getTimer() - calibrationStartMs;
@@ -2596,63 +2706,74 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 if (remain < 0) {
                     remain = 0;
                 }
-                dc.drawText(leftX, y, font, "Cal:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, remain + "ms", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Cal:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, remain + "ms", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
             }
 
             if (kalman != null) {
-                dc.drawText(leftX, y, font, "KF E:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, kalman.getEast().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
-                dc.drawText(leftX, y, font, "KF N:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, kalman.getNorth().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "KF E:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, kalman.getEast().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "KF N:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, kalman.getNorth().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
             } else if (dr != null) {
-                dc.drawText(leftX, y, font, "DR E:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, dr.getEastMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
-                dc.drawText(leftX, y, font, "DR N:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, dr.getNorthMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
-                dc.drawText(leftX, y, font, "Dist:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, dr.getTotalDistanceMeters().format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
-                y += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "DR E:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, dr.getEastMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "DR N:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, dr.getNorthMeters().format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Dist:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, dr.getTotalDistanceMeters().format("%.0f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
             }
 
-            dc.drawText(leftX, y, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
-            dc.drawText(rightX, y, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(leftX, contentY, font, "Spd:", Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(rightX, contentY, font, speed.format("%.2f") + "m/s", Graphics.TEXT_JUSTIFY_LEFT);
+            contentY += rowH;
 
-            // Nitrogen Model display
             if (n2Model != null) {
-                y += rowH;
-                dc.drawText(leftX, y, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, n2Model.getLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(leftX, contentY, font, "N2:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, n2Model.getLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                contentY += rowH;
 
-                y += rowH;
-                dc.drawText(leftX, y, font, "Max:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, n2Model.getMaxLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(leftX, contentY, font, "Max:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, n2Model.getMaxLoading().format("%.0f") + "%", Graphics.TEXT_JUSTIFY_LEFT);
+                contentY += rowH;
 
-                y += rowH;
                 var band = n2Model.getRiskBand();
                 var bandText = "LOW";
-                var bandColor = Graphics.COLOR_GREEN;
+                var bandColor = Graphics.COLOR_WHITE;
 
                 if (band == 1) {
                     bandText = "MOD";
-                    bandColor = Graphics.COLOR_YELLOW;
+                    bandColor = Graphics.COLOR_LT_GRAY;
                 } else if (band == 2) {
                     bandText = "ELEV";
-                    bandColor = Graphics.COLOR_ORANGE;
+                    bandColor = Graphics.COLOR_DK_GRAY;
                 } else if (band == 3) {
                     bandText = "HIGH";
-                    bandColor = Graphics.COLOR_RED;
+                    bandColor = Graphics.COLOR_WHITE;
                 }
 
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(leftX, contentY, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.setColor(bandColor, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(leftX, y, font, "Risk:", Graphics.TEXT_JUSTIFY_LEFT);
-                dc.drawText(rightX, y, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
-
+                dc.drawText(rightX, contentY, font, bandText, Graphics.TEXT_JUSTIFY_LEFT);
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             }
         } catch (e) {
