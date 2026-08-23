@@ -1072,6 +1072,8 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
+            var stats = System.getSystemStats();
+
             // Heart rate (health data)
             if (info has :heartRate && info.heartRate != null) {
                 heartRate = info.heartRate;
@@ -1092,8 +1094,8 @@ class gsensrosView extends WatchUi.View {
             }
 
             // Solar intensity (UI-only, not a FIT field; keeps active field count at 15)
-            if (info has :solarIntensity && info.solarIntensity != null) {
-                solarLux = info.solarIntensity.toFloat();
+            if (stats != null && stats.solarIntensity != null) {
+                solarLux = stats.solarIntensity.toFloat();
             } else if (info has :light && info.light != null) {
                 solarLux = info.light.toFloat();
             } else {
