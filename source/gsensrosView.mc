@@ -15,6 +15,31 @@ import Toybox.Application;
 
 class gsensrosView extends WatchUi.View {
 
+    function isDebugLoggingEnabled() as Boolean {
+        var enabled = Application.Storage.getValue("debug_logs_enabled");
+        return (enabled == true);
+    }
+
+    function setDebugLoggingEnabled(enabled as Boolean) as Void {
+        Application.Storage.setValue("debug_logs_enabled", enabled);
+    }
+
+    function toggleDebugLogging() as Void {
+        var nextEnabled = !isDebugLoggingEnabled();
+        setDebugLoggingEnabled(nextEnabled);
+        if (nextEnabled) {
+            logDebug("Debug logging enabled");
+        } else {
+            logDebug("Debug logging disabled");
+        }
+    }
+
+    function logDebug(message as String) as Void {
+        if (message != null && isDebugLoggingEnabled()) {
+            System.println(message);
+        }
+    }
+
     var accelX = 0.0f;
     var accelY = 0.0f;
     var accelZ = 0.0f;
@@ -344,7 +369,7 @@ class gsensrosView extends WatchUi.View {
             }
             n2Model = new NitrogenModel();
         } catch (e) {
-            System.println("Init failed: " + errorToString(e));
+            logDebug("Init failed: " + errorToString(e));
         }
     }
 
@@ -352,13 +377,13 @@ class gsensrosView extends WatchUi.View {
         try {
             setLayout(Rez.Layouts.MainLayout(dc));
         } catch (e) {
-            System.println("Layout error: " + errorToString(e));
+            logDebug("Layout error: " + errorToString(e));
         }
     }
 
     function onShow() as Void {
         try {
-            System.println("=== DR Tracker Started ===");
+            logDebug("=== DR Tracker Started ===");
             resetDepthCalibration();
             resetMotionState();
             resetHeadingEstimate();
@@ -385,21 +410,21 @@ class gsensrosView extends WatchUi.View {
             updateTimer = new Timer.Timer();
             updateTimer.start(method(:timerCallback), TIMER_PERIOD_MS, true);
         } catch (e) {
-            System.println("onShow error: " + errorToString(e));
+            logDebug("onShow error: " + errorToString(e));
         }
     }
 
     function onHide() as Void {
         try {
-            System.println("=== HIDING VIEW ===");
+            logDebug("=== HIDING VIEW ===");
             if (drDiagCount > 0) {
-                System.println("DRDIAG summary: logged=" + drDiagCount);
+                logDebug("DRDIAG summary: logged=" + drDiagCount);
             }
             stopTimerOnly();
             stopMotionListener();
             stopGps();
         } catch (e) {
-            System.println("onHide error: " + errorToString(e));
+            logDebug("onHide error: " + errorToString(e));
         }
     }
 
@@ -432,7 +457,7 @@ class gsensrosView extends WatchUi.View {
         }
 
         calibrationActive = false;
-        System.println("Calibration complete");
+        logDebug("Calibration complete");
     }
 
     function openDiveLogFile() as Void {
@@ -454,9 +479,9 @@ class gsensrosView extends WatchUi.View {
             diveLogText = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
             diveLogLineCount = 1;
             Application.Storage.setValue(diveLogKey, diveLogText);
-            System.println("Dive log started: " + diveLogKey);
+            logDebug("Dive log started: " + diveLogKey);
         } catch (e) {
-            System.println("openDiveLogFile error: " + errorToString(e));
+            logDebug("openDiveLogFile error: " + errorToString(e));
             diveLogKey = null;
             diveLogText = null;
             diveLogLineCount = 0;
@@ -499,7 +524,7 @@ class gsensrosView extends WatchUi.View {
                 Application.Storage.setValue(diveLogKey, diveLogText);
             }
         } catch (e) {
-            System.println("Dive log write error: " + errorToString(e));
+            logDebug("Dive log write error: " + errorToString(e));
             diveLogText = "[truncated]\n";
             diveLogLineCount = 1;
         }
@@ -534,7 +559,7 @@ class gsensrosView extends WatchUi.View {
             spo2
         ]);
 
-        System.println(
+        logDebug(
             "DRDIAG #" + drDiagCount +
             " t=" + nowMs +
             " gps=" + (gpsUsable ? 1 : 0) +
@@ -653,7 +678,7 @@ class gsensrosView extends WatchUi.View {
                 }
             }
         } catch (e) {
-            System.println("CRITICAL Timer Error: " + errorToString(e));
+            logDebug("CRITICAL Timer Error: " + errorToString(e));
         }
 
         WatchUi.requestUpdate();
@@ -667,10 +692,10 @@ class gsensrosView extends WatchUi.View {
         try {
             Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
             gpsActive = true;
-            System.println("GPS continuous enabled");
+            logDebug("GPS continuous enabled");
         } catch (e) {
             gpsActive = false;
-            System.println("startGps error: " + errorToString(e));
+            logDebug("startGps error: " + errorToString(e));
         }
     }
 
@@ -685,7 +710,7 @@ class gsensrosView extends WatchUi.View {
         }
 
         gpsActive = false;
-        System.println("GPS disabled");
+        logDebug("GPS disabled");
     }
 
     function getPositionQuality(info as Position.Info or Null) as Number or Null {
@@ -708,7 +733,7 @@ class gsensrosView extends WatchUi.View {
             lastGpsEventMs = System.getTimer();
             updateGpsState(info, true);
         } catch (e) {
-            System.println("onPosition error: " + errorToString(e));
+            logDebug("onPosition error: " + errorToString(e));
         }
     }
 
@@ -743,7 +768,7 @@ class gsensrosView extends WatchUi.View {
             sensorListenerActive = true;
         } catch (e) {
             sensorListenerActive = false;
-            System.println("startMotionListener error: " + errorToString(e));
+            logDebug("startMotionListener error: " + errorToString(e));
         }
     }
 
@@ -853,7 +878,7 @@ class gsensrosView extends WatchUi.View {
                         }
                     }
                 } catch (e) {
-                    System.println("accelerometer payload parse error: " + errorToString(e));
+                    logDebug("accelerometer payload parse error: " + errorToString(e));
                 }
             }
 
@@ -887,7 +912,7 @@ class gsensrosView extends WatchUi.View {
                         }
                     }
                 } catch (e) {
-                    System.println("gyroscope payload parse error: " + errorToString(e));
+                    logDebug("gyroscope payload parse error: " + errorToString(e));
                 }
             }
 
@@ -919,7 +944,7 @@ class gsensrosView extends WatchUi.View {
             updateMotionState();
 
         } catch (e) {
-            System.println("sensorDataCallback error: " + errorToString(e));
+            logDebug("sensorDataCallback error: " + errorToString(e));
         }
     }
 
@@ -1202,7 +1227,7 @@ class gsensrosView extends WatchUi.View {
                 }
             }
         } catch (e) {
-            System.println("readSensors error: " + errorToString(e));
+            logDebug("readSensors error: " + errorToString(e));
         }
     }
 
@@ -1320,7 +1345,7 @@ class gsensrosView extends WatchUi.View {
                         surfaceAltitude = surfaceAltitudeSum / altitudeCalibrationSamples.toFloat();
                     }
                     depthFilter = 0.0f;
-                    System.println("Depth cal done: P0=" + surfacePressurePa.format("%.0f")
+                    logDebug("Depth cal done: P0=" + surfacePressurePa.format("%.0f")
                         + " Pa  alt0=" + surfaceAltitude.format("%.1f")
                         + " useP=" + usePressureDepth
                         + " pCal=" + pressureCalibrationSamples
@@ -1449,7 +1474,7 @@ class gsensrosView extends WatchUi.View {
 
             currentDepth = depthFilter;
         } catch (e) {
-            System.println("updateDepth error: " + errorToString(e));
+            logDebug("updateDepth error: " + errorToString(e));
         }
     }
 
@@ -1509,7 +1534,7 @@ class gsensrosView extends WatchUi.View {
 
             updateGpsState(posInfo, false);
         } catch (e) {
-            System.println("updateGPS error: " + errorToString(e));
+            logDebug("updateGPS error: " + errorToString(e));
             speed = 0.0f;
             latitude = 0.0f;
             longitude = 0.0f;
@@ -1590,7 +1615,7 @@ class gsensrosView extends WatchUi.View {
                 shallowSampleCount = 0;
             }
         } catch (e) {
-            System.println("processDiveState error: " + errorToString(e));
+            logDebug("processDiveState error: " + errorToString(e));
         }
     }
 
@@ -1897,14 +1922,14 @@ class gsensrosView extends WatchUi.View {
 
     function onSelect() as Boolean {
         try {
-            System.println("=== SELECT BUTTON PRESSED ===");
+            logDebug("=== SELECT BUTTON PRESSED ===");
             if (isRecording) {
                 stopSession();
             } else {
                 startSession();
             }
         } catch (e) {
-            System.println("Select button error: " + errorToString(e));
+            logDebug("Select button error: " + errorToString(e));
         }
         return true;
     }
@@ -1917,14 +1942,15 @@ class gsensrosView extends WatchUi.View {
 
     function handlePoiAction() as Boolean {
         try {
-            toggleDrDiagnosticsFit();
             if (!isRecording) {
-                System.println("POI ignored – not recording");
+                toggleDebugLogging();
+                showPoiNotice("DBG " + (isDebugLoggingEnabled() ? "ON" : "OFF"));
                 return true;
             }
+            toggleDrDiagnosticsFit();
             markPoi();
         } catch (e) {
-            System.println("onMenu/POI error: " + errorToString(e));
+            logDebug("onMenu/POI error: " + errorToString(e));
         }
         return true;
     }
@@ -1939,7 +1965,7 @@ class gsensrosView extends WatchUi.View {
             return;
         }
         if (poiCount >= MAX_POIS) {
-            System.println("POI limit reached (" + MAX_POIS + ")");
+            logDebug("POI limit reached (" + MAX_POIS + ")");
             poiFlashMs = System.getTimer(); // still flash so user knows press was seen
             showPoiNotice("POI limit");
             return;
@@ -2006,14 +2032,14 @@ class gsensrosView extends WatchUi.View {
         // POIs are stored as custom FIT record values only; do not create a lap split.
         poiFlashMs = System.getTimer();
         showPoiNotice("POI saved");
-        System.println("POI #" + poiCount + " E=" + eastVal.format("%.1f")
+        logDebug("POI #" + poiCount + " E=" + eastVal.format("%.1f")
             + " N=" + northVal.format("%.1f")
             + (haveLatLon ? (" lat=" + poiLat.format("%.5f") + " lon=" + poiLon.format("%.5f")) : ""));
     }
 
     function onBack() as Boolean {
         try {
-            System.println("=== BACK BUTTON ===");
+            logDebug("=== BACK BUTTON ===");
 
             if (isRecording) {
                 var dialog = new WatchUi.Confirmation("Stop & Save?");
@@ -2029,7 +2055,7 @@ class gsensrosView extends WatchUi.View {
             return false;
 
         } catch (e) {
-            System.println("Back button error: " + errorToString(e));
+            logDebug("Back button error: " + errorToString(e));
             return false;
         }
     }
@@ -2040,7 +2066,7 @@ class gsensrosView extends WatchUi.View {
                 return;
             }
 
-            System.println("MANUAL START");
+            logDebug("MANUAL START");
             startGps();
             captureEntryPosition();
             startRecording();
@@ -2090,15 +2116,17 @@ class gsensrosView extends WatchUi.View {
             lastUpdateMs = System.getTimer();
             WatchUi.requestUpdate();
         } catch (e) {
-            System.println("startSession error: " + errorToString(e));
+            logDebug("startSession error: " + errorToString(e));
         }
     }
 
     function stopSession() as Void {
         try {
+            stopTimerOnly();
             if (!isRecording) {
                 isUnderwater = false;
                 stopGps();
+                stopMotionListener();
                 return;
             }
             if (n2Model != null) {
@@ -2106,7 +2134,7 @@ class gsensrosView extends WatchUi.View {
             }
             lastDepthForAscent = 0.0f;
             currentAscentRateMps = 0.0f;
-            System.println("MANUAL STOP - Saving FIT");
+            logDebug("MANUAL STOP - Saving FIT");
             captureExitPosition();
             isUnderwater = false;
 
@@ -2135,7 +2163,7 @@ class gsensrosView extends WatchUi.View {
             heartRate = 0;
             WatchUi.requestUpdate();
         } catch (e) {
-            System.println("stopSession error: " + errorToString(e));
+            logDebug("stopSession error: " + errorToString(e));
         }
     }
 
@@ -2151,7 +2179,7 @@ class gsensrosView extends WatchUi.View {
                 hasEntryPosition = false;
             }
         } catch (e) {
-            System.println("captureEntryPosition error: " + errorToString(e));
+            logDebug("captureEntryPosition error: " + errorToString(e));
             hasEntryPosition = false;
         }
     }
@@ -2165,7 +2193,7 @@ class gsensrosView extends WatchUi.View {
                 exitLon = coords[1].toFloat();
             }
         } catch (e) {
-            System.println("captureExitPosition error: " + errorToString(e));
+            logDebug("captureExitPosition error: " + errorToString(e));
         }
     }
 
@@ -2179,10 +2207,10 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 :mesgType => FitContributor.MESG_TYPE_RECORD,
                 :units => u
             });
-            System.println("createField OK: " + name + " id=" + id);
+            logDebug("createField OK: " + name + " id=" + id);
             return f;
         } catch (e) {
-            System.println("createField failed: " + name + " id=" + id + " -> " + errorToString(e));
+            logDebug("createField failed: " + name + " id=" + id + " -> " + errorToString(e));
             return null;
         }
     }
@@ -2198,7 +2226,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 :units => u
             });
         } catch (e) {
-            System.println("createSessionField failed: " + name + " -> " + errorToString(e));
+            logDebug("createSessionField failed: " + name + " -> " + errorToString(e));
             return null;
         }
     }
@@ -2265,16 +2293,16 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             clearLastFitValues();
             poiCount = 0;
             poiFlashMs = 0;
-            System.println("Recording STARTED");
+            logDebug("Recording STARTED");
             openDiveLogFile();
         } else {
-            System.println("session.start() returned false");
+            logDebug("session.start() returned false");
             clearFitFields();
             session = null;
             isRecording = false;
         }
     } catch (e) {
-        System.println("Start recording error: " + errorToString(e));
+        logDebug("Start recording error: " + errorToString(e));
         clearFitFields();
         session = null;
         isRecording = false;
@@ -2291,13 +2319,13 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         try {
             if (session.isRecording()) {
                 session.stop();
-                System.println("session.stop() done");
+                logDebug("session.stop() done");
             }
 
             var saved = session.save();
-            System.println("session.save() returned: " + saved);
+            logDebug("session.save() returned: " + saved);
         } catch (e) {
-            System.println("session save error: " + errorToString(e));
+            logDebug("session save error: " + errorToString(e));
         }
 
         forceCleanup();
@@ -2404,16 +2432,16 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             lastDepthUpdateMs = 0;
             usePressureDepth = false;
         } catch (e) {
-            System.println("resetDepthCalibration error: " + errorToString(e));
+            logDebug("resetDepthCalibration error: " + errorToString(e));
         }
     }
 
     function toggleDrDiagnosticsFit() as Void {
         drDiagFitEnabled = !drDiagFitEnabled;
         if (!drDiagFitEnabled) {
-            System.println("DR diagnostics FIT disabled");
+            logDebug("DR diagnostics FIT disabled");
         } else {
-            System.println("DR diagnostics FIT enabled");
+            logDebug("DR diagnostics FIT enabled");
         }
     }
 
@@ -2560,7 +2588,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             lastFitTemp = writeFloatField(tempField, ambientTempC, lastFitTemp, 0.5f);
 
         } catch (e) {
-            System.println("FIT write error: " + errorToString(e));
+            logDebug("FIT write error: " + errorToString(e));
         }
     }
 
@@ -2672,9 +2700,12 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 34, Graphics.FONT_XTINY, "GPS: " + (hasGpsFix ? "FIX" : "NO FIX"), Graphics.TEXT_JUSTIFY_LEFT);
 
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 48, Graphics.FONT_XTINY, "DBG: " + (isDebugLoggingEnabled() ? "ON" : "OFF"), Graphics.TEXT_JUSTIFY_LEFT);
+
             if (noticeText != null) {
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 48, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 62, Graphics.FONT_XTINY, noticeText, Graphics.TEXT_JUSTIFY_LEFT);
             }
 
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -2836,15 +2867,15 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 }
             }
         } catch (e) {
-            System.println("Draw error: " + errorToString(e));
+            logDebug("Draw error: " + errorToString(e));
         }
     }
 
     function prepareToExit() as Void {
+        stopTimerOnly();
         if (isRecording) {
             stopSession();
         }
-        stopTimerOnly();
         stopMotionListener();
         stopGps();
     }

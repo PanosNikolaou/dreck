@@ -20,6 +20,7 @@ class drFusionTrackApp extends Application.AppBase {
         if (view != null && view has :prepareToExit) {
             view.prepareToExit();
         }
+        mainView = null;
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {

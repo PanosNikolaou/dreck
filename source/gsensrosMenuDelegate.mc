@@ -9,7 +9,7 @@ class gsensrosMenuDelegate extends WatchUi.MenuInputDelegate {
     }
 
     function onMenuItem(item as Symbol) as Void {
-        System.println("Menu delegate is not wired in this build");
+        // intentionally silent by default; debug logging is controlled by app storage
     }
 
 }

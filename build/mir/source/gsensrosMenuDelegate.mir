@@ -26,15 +26,6 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosMenuDelegate_mc_7_26
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 11; @symbol_functiondef = [onMenuItem,11,13,23]; @symbol_param<0> = [item,11,24,28]; @symbol_param<0>_type<0> = [Symbol,11,32,38]; ]
     function onMenuItem(item as Symbol) as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosMenuDelegate_mc_11_48_13_4_start:
-[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" 12 8 ]
-        symbol [ System %tmp.1 12 8 14 ];
-        %tmp.1 = getm $.Toybox.System;
-        symbol [ println %tmp.2 12 15 22 ];
-        %tmp.2 = getv function %tmp.1 :println;
-        %tmp.3 = "Menu delegate is not wired in this build";
-        invoke %tmp.1 %tmp.2(%tmp.3);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosMenuDelegate_mc_11_48_13_4_stop:
     }
 }
 [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 1; ]

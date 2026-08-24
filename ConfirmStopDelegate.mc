@@ -15,9 +15,9 @@ class ConfirmStopDelegate extends WatchUi.ConfirmationDelegate {
 
     function onResponse(response as WatchUi.Confirm) as Boolean {
         if (response == WatchUi.CONFIRM_YES) {
-            view.stopSession();
-            view.prepareToExit();
-            System.exit();
+            if (view != null) {
+                view.prepareToExit();
+            }
         }
         // CONFIRM_NO (or dismissed): just close the dialog and stay in the view.
         return true;
