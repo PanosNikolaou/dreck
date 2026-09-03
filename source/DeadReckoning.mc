@@ -24,7 +24,7 @@ class DeadReckoning {
     var lastPredictedHeadingRad = 0.0f;
     var lastHeadingErrorRad = 0.0f;
     var movementAccepted = false;
-    var isUnderwaterMode = false;
+    var isDepthMode = false;
     var headingSinCache = 0.0f;
     var headingCosCache = 0.0f;
     var lastHeadingCacheRad = 0.0f;
@@ -49,7 +49,7 @@ class DeadReckoning {
     const MAX_SPEED_MPS_LAND = 2.2f;
     const MAX_SPEED_MPS_SWIM = 2.8f;
     const SPEED_DEADBAND_MPS = 0.10f;
-    const UNDERWATER_SPEED_DEADBAND_MPS = 0.08f;
+    const DEPTH_MODE_SPEED_DEADBAND_MPS = 0.08f;
 
     const MIN_STEP_DISTANCE_M = 0.015f;
     const MAX_STEP_DISTANCE_M = 10.0f;
@@ -99,8 +99,8 @@ class DeadReckoning {
         speedMps = sanitizeSpeed(newSpeedMps);
     }
 
-    function setContext(isUnderwater as Boolean) as Void {
-        isUnderwaterMode = isUnderwater;
+    function setContext(isDepthActive as Boolean) as Void {
+        isDepthMode = isDepthActive;
     }
 
     function applyPositionCorrection(targetEast as Float, targetNorth as Float, alpha as Float) as Void {
@@ -200,7 +200,7 @@ class DeadReckoning {
         }
         var accelGain = 0.35f + (0.65f * clampFloat(accelDelta / 3.0f, 0.0f, 1.0f));
         var effectiveSpeed = clampedInputSpeed * accelGain;
-        var baseDeadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        var baseDeadband = isDepthMode ? DEPTH_MODE_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
         var deadband = getAdaptiveDeadband(baseDeadband, headingConfidence, clampedInputSpeed, dt, accelMagnitude);
         var verticalRatePenalty = 0.0f;
         var absVerticalRate = verticalVelocityMps;
@@ -246,8 +246,8 @@ class DeadReckoning {
             return;
         }
 
-        if (speedMps > (isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f) {
-            speedMps = (isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f;
+        if (speedMps > (isDepthMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f) {
+            speedMps = (isDepthMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND) * 0.70f;
         }
 
         eastMeters += stepEast;
@@ -485,8 +485,8 @@ class DeadReckoning {
     }
 
     function sanitizeSpeed(value as Float) as Float {
-        var maxSpeed = isUnderwaterMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND;
-        var deadband = isUnderwaterMode ? UNDERWATER_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
+        var maxSpeed = isDepthMode ? MAX_SPEED_MPS_SWIM : MAX_SPEED_MPS_LAND;
+        var deadband = isDepthMode ? DEPTH_MODE_SPEED_DEADBAND_MPS : SPEED_DEADBAND_MPS;
         var v = clampFloat(value, MIN_SPEED_MPS, maxSpeed);
         if (v < deadband) {
             return 0.0f;

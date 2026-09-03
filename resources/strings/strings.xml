@@ -7,8 +7,8 @@
         <string id="mode_header">MODE: SURF</string>
         <string id="gps_header">GPS: NOFIX</string>
 
-        <string id="menu_label_1">Start Dive</string>
-        <string id="menu_label_2">Stop Dive</string>
+        <string id="menu_label_1">Start Session</string>
+        <string id="menu_label_2">Stop Session</string>
 
         <string id="dr_east_label">DR East</string>
         <string id="dr_east_chart">Dead Reckoning East</string>

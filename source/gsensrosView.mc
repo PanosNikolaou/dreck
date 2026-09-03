@@ -76,7 +76,7 @@ class gsensrosView extends WatchUi.View {
 
     var session = null as ActivityRecording.Session or Null;
     var isRecording = false;
-    var isUnderwater = false;
+    var isDepthActive = false;
 
     var updateTimer = null as Timer.Timer or Null;
     var dr = null;
@@ -129,29 +129,29 @@ class gsensrosView extends WatchUi.View {
     var solarLux = 0.0f;                      // UI-only solar intensity readout for Instinct 2X Solar
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
-    const DEPTH_NOISE_FLOOR_M   = 0.01f;   // keep true shallow-water samples alive without letting pure noise through
-    const DIVE_START_DEPTH_M    = 0.03f;   // valid shallow-water dives were being blocked by the old 0.10m gate
-    const SURFACE_STOP_DEPTH_M  = 0.05f;   // tighter surface hysteresis; actual dive stop still depends on GPS return
+    const DEPTH_NOISE_FLOOR_M   = 0.01f;   // keep shallow samples alive without letting pure noise through
+    const DEPTH_START_THRESHOLD_M = 0.03f;   // threshold for entering active depth tracking
+    const SURFACE_STOP_DEPTH_M  = 0.05f;   // tighter surface hysteresis; tracking stops once the sensor returns near the start point
     const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
-    const MAX_DEPTH_M           = 80.0f;   // hard clamp (tech diving upper bound)
-    const MAX_DEPTH_RATE_MPS    = 4.0f;    // allow real dive motion without blocking normal shallow ascent/descent
+    const MAX_DEPTH_M           = 80.0f;   // hard clamp (deep tracking upper bound)
+    const MAX_DEPTH_RATE_MPS    = 4.0f;    // allow real depth motion without blocking normal shallow ascent/descent
     const MIN_VALID_ALT_M       = -120.0f; // reject GPS/baro altitude garbage
     const MAX_VALID_ALT_M       = 5000.0f;
     // Seawater approx: 1 m depth ≈ 10050 Pa over surface pressure
     const PA_PER_METER_SEAWATER = 10050.0f;
     const DEFAULT_SURFACE_PA    = 101325.0f;
 
-    // Dive-state hysteresis (prevents instant start->stop at the surface)
-    var diveStartMs = 0;
+    // Depth-state hysteresis (prevents instant start->stop at the surface)
+    var depthStartMs = 0;
     var shallowSampleCount = 0;
-    var diveStartConfidence = 0;
-    var diveStopConfidence = 0;
-    const MIN_DIVE_DURATION_MS = 10000;
+    var depthStartConfidence = 0;
+    var depthStopConfidence = 0;
+    const MIN_TRACK_DURATION_MS = 10000;
     const SHALLOW_SAMPLES_TO_STOP = 5;
-    const DIVE_START_CONFIDENCE_THRESHOLD = 2;
-    const DIVE_STOP_CONFIDENCE_THRESHOLD = 3;
+    const START_CONFIDENCE_THRESHOLD = 2;
+    const STOP_CONFIDENCE_THRESHOLD = 3;
 
     // Additional health data
     var spo2 = 0;                          // NEW - pulse oximetry, %
@@ -159,7 +159,7 @@ class gsensrosView extends WatchUi.View {
 
     // Session-summary tracking (written once at stopSession())
     var maxDepthSeen = 0.0f;                // NEW
-    var diveTimeMs = 0;                     // NEW - time spent underwater
+    var depthTrackingTimeMs = 0;            // time spent in active depth tracking
     var maxN2LoadSeen = 0.0f;               // NEW
 
     // FIT field IDs
@@ -170,7 +170,7 @@ class gsensrosView extends WatchUi.View {
     const FIELD_DEPTH      = 2;
     const FIELD_SPEED_EST  = 3;
     const FIELD_HEADING    = 4;
-    const FIELD_UNDERWATER = 5;
+    const FIELD_DEPTH_ACTIVE = 5;
     const FIELD_MOTION     = 6;
     const FIELD_MOVING     = 7;
     const FIELD_GPS_FIX    = 8;
@@ -190,7 +190,7 @@ class gsensrosView extends WatchUi.View {
     const FIELD_SPO2       = 21;
     const FIELD_TEMP       = 22;
     const FIELD_MAX_DEPTH  = 23;
-    const FIELD_DIVE_TIME  = 24;
+    const FIELD_TRACK_TIME = 24;
     const FIELD_MAX_N2     = 25;
     const FIELD_POI_EAST   = 26;
     const FIELD_POI_NORTH  = 27;
@@ -207,7 +207,7 @@ class gsensrosView extends WatchUi.View {
     var gpsLonField = null as FitContributor.Field or Null;
     var motionField = null as FitContributor.Field or Null;
     var speedEstField = null as FitContributor.Field or Null;
-    var underwaterField = null as FitContributor.Field or Null;
+    var depthActiveField = null as FitContributor.Field or Null;
     var gpsFixField = null as FitContributor.Field or Null;
     var headingField = null as FitContributor.Field or Null;
     var movingField = null as FitContributor.Field or Null;
@@ -218,7 +218,7 @@ class gsensrosView extends WatchUi.View {
 
     // Session-level summary fields (written once, not per-record)
     var maxDepthField = null as FitContributor.Field or Null;    // NEW
-    var diveTimeField = null as FitContributor.Field or Null;    // NEW
+    var trackTimeField = null as FitContributor.Field or Null;   // NEW
     var maxN2Field = null as FitContributor.Field or Null;       // NEW
 
     // POI marker fields (written once per mark into the record stream)
@@ -237,11 +237,11 @@ class gsensrosView extends WatchUi.View {
     const POI_NOTICE_MS = 1600;
     var drDiagFitEnabled = true;
 
-    var diveLogKey = null as String or Null;
-    var diveLogText = null as String or Null;
-    var diveLogLineCount = 0;
-    const MAX_DIVE_LOG_LINES = 80;
-    const MAX_DIVE_LOG_BYTES = 12000;
+    var traceLogKey = null as String or Null;
+    var traceLogText = null as String or Null;
+    var traceLogLineCount = 0;
+    const MAX_TRACE_LOG_LINES = 80;
+    const MAX_TRACE_LOG_BYTES = 12000;
 
     var surfaceAltitudeSum = 0.0f;
     var surfaceAltitude = 0.0f;
@@ -307,7 +307,7 @@ class gsensrosView extends WatchUi.View {
     var lastFitDepth = null as Float or Null;
     var lastFitMotion = null as Float or Null;
     var lastFitSpeedEst = null as Float or Null;
-    var lastFitUnderwater = null as Number or Null;
+    var lastFitDepthActive = null as Number or Null;
     var lastFitGpsFix = null as Number or Null;
     var lastFitHeading = null as Float or Null;
     var lastFitMoving = null as Number or Null;
@@ -365,7 +365,7 @@ class gsensrosView extends WatchUi.View {
             dr = new DeadReckoning();
             kalman = new KalmanDR();
             if (dr != null) {
-                dr.setContext(isUnderwater);
+                dr.setContext(isDepthActive);
             }
             n2Model = new NitrogenModel();
         } catch (e) {
@@ -460,9 +460,9 @@ class gsensrosView extends WatchUi.View {
         logDebug("Calibration complete");
     }
 
-    function openDiveLogFile() as Void {
+    function openTraceLogFile() as Void {
         try {
-            closeDiveLogFile();
+            closeTraceLogFile();
 
             var now = Time.now();
             var info = Gregorian.info(now, Time.FORMAT_SHORT);
@@ -475,58 +475,58 @@ class gsensrosView extends WatchUi.View {
                 info.sec.format("%02d")
             ]);
 
-            diveLogKey = "dive_log_" + stamp;
-            diveLogText = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
-            diveLogLineCount = 1;
-            Application.Storage.setValue(diveLogKey, diveLogText);
-            logDebug("Dive log started: " + diveLogKey);
+            traceLogKey = "trace_log_" + stamp;
+            traceLogText = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
+            traceLogLineCount = 1;
+            Application.Storage.setValue(traceLogKey, traceLogText);
+            logDebug("Trace log started: " + traceLogKey);
         } catch (e) {
-            logDebug("openDiveLogFile error: " + errorToString(e));
-            diveLogKey = null;
-            diveLogText = null;
-            diveLogLineCount = 0;
+            logDebug("openTraceLogFile error: " + errorToString(e));
+            traceLogKey = null;
+            traceLogText = null;
+            traceLogLineCount = 0;
         }
     }
 
-    function closeDiveLogFile() as Void {
-        if (diveLogKey != null) {
-            if (diveLogText != null) {
-                Application.Storage.setValue(diveLogKey, diveLogText);
+    function closeTraceLogFile() as Void {
+        if (traceLogKey != null) {
+            if (traceLogText != null) {
+                Application.Storage.setValue(traceLogKey, traceLogText);
             }
-            diveLogKey = null;
-            diveLogText = null;
-            diveLogLineCount = 0;
+            traceLogKey = null;
+            traceLogText = null;
+            traceLogLineCount = 0;
         }
     }
 
-    function writeDiveLogLine(line as String) as Void {
-        if (diveLogKey == null || diveLogText == null || line == null || line.length() == 0) {
+    function writeTraceLogLine(line as String) as Void {
+        if (traceLogKey == null || traceLogText == null || line == null || line.length() == 0) {
             return;
         }
 
-        if (diveLogLineCount >= MAX_DIVE_LOG_LINES) {
+        if (traceLogLineCount >= MAX_TRACE_LOG_LINES) {
             return;
         }
 
         try {
-            var candidate = diveLogText + line + "\n";
-            if (candidate.length() >= MAX_DIVE_LOG_BYTES || diveLogLineCount >= MAX_DIVE_LOG_LINES) {
-                diveLogText = "[truncated]\n" + line + "\n";
-                diveLogLineCount = 1;
-                Application.Storage.setValue(diveLogKey, diveLogText);
+            var candidate = traceLogText + line + "\n";
+            if (candidate.length() >= MAX_TRACE_LOG_BYTES || traceLogLineCount >= MAX_TRACE_LOG_LINES) {
+                traceLogText = "[truncated]\n" + line + "\n";
+                traceLogLineCount = 1;
+                Application.Storage.setValue(traceLogKey, traceLogText);
                 return;
             }
 
-            diveLogText = candidate;
-            diveLogLineCount += 1;
+            traceLogText = candidate;
+            traceLogLineCount += 1;
 
-            if ((diveLogLineCount % 10) == 0 || diveLogLineCount >= MAX_DIVE_LOG_LINES) {
-                Application.Storage.setValue(diveLogKey, diveLogText);
+            if ((traceLogLineCount % 10) == 0 || traceLogLineCount >= MAX_TRACE_LOG_LINES) {
+                Application.Storage.setValue(traceLogKey, traceLogText);
             }
         } catch (e) {
-            logDebug("Dive log write error: " + errorToString(e));
-            diveLogText = "[truncated]\n";
-            diveLogLineCount = 1;
+            logDebug("Trace log write error: " + errorToString(e));
+            traceLogText = "[truncated]\n";
+            traceLogLineCount = 1;
         }
     }
 
@@ -572,7 +572,7 @@ class gsensrosView extends WatchUi.View {
             " hr=" + heartRate +
             " spo2=" + spo2
         );
-        writeDiveLogLine(line);
+        writeTraceLogLine(line);
     }
 
     function timerCallback() as Void {
@@ -596,7 +596,7 @@ class gsensrosView extends WatchUi.View {
             readSensors(sensorInfo);
             updateDepth(sensorInfo);
             updateGPS(sensorInfo, posInfo);
-            processDiveState();
+            processDepthState();
             updateMotionConfidence();
 
             // Ascent rate (positive = ascending)
@@ -607,7 +607,7 @@ class gsensrosView extends WatchUi.View {
             lastDepthForAscent = currentDepth;
 
             if (n2Model != null) {
-                n2Model.update(currentDepth, dt, isUnderwater, currentAscentRateMps);
+                n2Model.update(currentDepth, dt, isDepthActive, currentAscentRateMps);
             }
 
             // Track session-summary values while recording
@@ -615,8 +615,8 @@ class gsensrosView extends WatchUi.View {
                 if (currentDepth > maxDepthSeen) {
                     maxDepthSeen = currentDepth;
                 }
-                if (isUnderwater) {
-                    diveTimeMs += (dt * 1000.0f).toNumber();
+                if (isDepthActive) {
+                    depthTrackingTimeMs += (dt * 1000.0f).toNumber();
                 }
                 if (n2Model != null && n2Model.getMaxLoading() > maxN2LoadSeen) {
                     maxN2LoadSeen = n2Model.getMaxLoading();
@@ -798,8 +798,8 @@ class gsensrosView extends WatchUi.View {
     }
 
     function updateMotionState() as Void {
-        var onTh  = isUnderwater ? 18.0f : MOTION_ON_MG;
-        var offTh = isUnderwater ?  8.0f : MOTION_OFF_MG;
+        var onTh  = isDepthActive ? 18.0f : MOTION_ON_MG;
+        var offTh = isDepthActive ?  8.0f : MOTION_OFF_MG;
 
         if (motionScoreMg >= onTh) {
             if (motionStateCount < CONF_RISE) {
@@ -1062,8 +1062,8 @@ class gsensrosView extends WatchUi.View {
         biometricHrBaseline = 0;
         biometricSpo2Baseline = 0.0f;
         biometricBaselineReady = false;
-        diveStartConfidence = 0;
-        diveStopConfidence = 0;
+        depthStartConfidence = 0;
+        depthStopConfidence = 0;
     }
 
     function resetHeadingEstimate() as Void {
@@ -1367,7 +1367,7 @@ class gsensrosView extends WatchUi.View {
             }
 
             // ---------- Continuous surface recalibration (only on surface) ----------
-            if (!isUnderwater && currentDepth <= DEPTH_NOISE_FLOOR_M) {
+            if (!isDepthActive && currentDepth <= DEPTH_NOISE_FLOOR_M) {
                 var stationaryForRecal = (movingConfidence < MOVING_CONFIDENCE_ON) || isStationary();
                 var shouldAutoRecalSurface = stationaryForRecal
                     && hasGpsFix
@@ -1561,61 +1561,61 @@ class gsensrosView extends WatchUi.View {
         return distanceM <= LAND_RETURN_RADIUS_M;
     }
 
-    function processDiveState() as Void {
+    function processDepthState() as Void {
         try {
             if (!isRecording) {
-                isUnderwater = false;
+                isDepthActive = false;
                 shallowSampleCount = 0;
-                diveStartConfidence = 0;
-                diveStopConfidence = 0;
+                depthStartConfidence = 0;
+                depthStopConfidence = 0;
                 return;
             }
 
-            if (!isUnderwater) {
-                if (currentDepth > DIVE_START_DEPTH_M && currentDepth <= MAX_DEPTH_M) {
-                    diveStartConfidence += 1;
-                    diveStopConfidence = 0;
-                    if (diveStartConfidence >= DIVE_START_CONFIDENCE_THRESHOLD) {
-                        isUnderwater = true;
-                        diveStartMs = System.getTimer();
+            if (!isDepthActive) {
+                if (currentDepth > DEPTH_START_THRESHOLD_M && currentDepth <= MAX_DEPTH_M) {
+                    depthStartConfidence += 1;
+                    depthStopConfidence = 0;
+                    if (depthStartConfidence >= START_CONFIDENCE_THRESHOLD) {
+                        isDepthActive = true;
+                        depthStartMs = System.getTimer();
                         shallowSampleCount = 0;
-                        diveStartConfidence = 0;
-                        diveStopConfidence = 0;
+                        depthStartConfidence = 0;
+                        depthStopConfidence = 0;
                     }
                 } else {
-                    diveStartConfidence = 0;
-                    diveStopConfidence = 0;
+                    depthStartConfidence = 0;
+                    depthStopConfidence = 0;
                 }
                 return;
             }
 
-            var elapsed = System.getTimer() - diveStartMs;
+            var elapsed = System.getTimer() - depthStartMs;
 
-            // Don't allow auto-stop until a minimum dive duration has passed;
+            // Don't allow auto-stop until a minimum duration has passed;
             // avoids the instant start->stop loop caused by depth noise.
-            if (elapsed < MIN_DIVE_DURATION_MS) {
+            if (elapsed < MIN_TRACK_DURATION_MS) {
                 return;
             }
 
             var backOnStartingLand = isNearEntryPosition();
             var nearSurface = currentDepth <= SURFACE_STOP_DEPTH_M;
 
-            // Only end the dive once we are shallow and back at the land position
+            // Only end tracking once we are shallow and back at the land position
             // where recording started and the GPS signal was captured.
             if (nearSurface && backOnStartingLand) {
-                diveStopConfidence += 1;
-                if (diveStopConfidence >= DIVE_STOP_CONFIDENCE_THRESHOLD) {
-                    isUnderwater = false;
+                depthStopConfidence += 1;
+                if (depthStopConfidence >= STOP_CONFIDENCE_THRESHOLD) {
+                    isDepthActive = false;
                     shallowSampleCount = 0;
-                    diveStopConfidence = 0;
-                    diveStartConfidence = 0;
+                    depthStopConfidence = 0;
+                    depthStartConfidence = 0;
                 }
             } else {
-                diveStopConfidence = 0;
+                depthStopConfidence = 0;
                 shallowSampleCount = 0;
             }
         } catch (e) {
-            logDebug("processDiveState error: " + errorToString(e));
+            logDebug("processDepthState error: " + errorToString(e));
         }
     }
 
@@ -1642,7 +1642,7 @@ class gsensrosView extends WatchUi.View {
 
             if (!hasGpsFix || isGpsRecoveryHoldActive()) {
                 var sensorTarget = 0.0f;
-                if (isUnderwater) {
+                if (isDepthActive) {
                     if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
                         sensorTarget = MIN_SWIM_SPEED_MPS * 0.45f;
                     } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
@@ -1685,7 +1685,7 @@ class gsensrosView extends WatchUi.View {
 
             // Priority 3: continuous intensity → speed map
             var target = 0.0f;
-            if (isUnderwater) {
+            if (isDepthActive) {
                 if (motionScoreMg <= MIN_MOTION_SWIM_MG) {
                     target = MIN_SWIM_SPEED_MPS;
                 } else if (motionScoreMg >= MAX_MOTION_SWIM_MG) {
@@ -1882,7 +1882,7 @@ class gsensrosView extends WatchUi.View {
 
         if (dr != null) {
             dr.updateVerticalState(currentAscentRateMps, dt);
-            dr.setContext(isUnderwater);
+            dr.setContext(isDepthActive);
         }
 
         if (hasUsableGps) {
@@ -2070,13 +2070,13 @@ class gsensrosView extends WatchUi.View {
             startGps();
             captureEntryPosition();
             startRecording();
-            openDiveLogFile();
+            openTraceLogFile();
 
             if (!isRecording) {
                 return;
             }
 
-            isUnderwater = (currentDepth > DIVE_START_DEPTH_M);
+            isDepthActive = (currentDepth > DEPTH_START_THRESHOLD_M);
             resetHeadingEstimate();
             resetMotionState();
             movingConfidence = 0;
@@ -2084,7 +2084,7 @@ class gsensrosView extends WatchUi.View {
             heartRate = 0;
             currentAscentRateMps = 0.0f;
             maxDepthSeen = 0.0f;
-            diveTimeMs = 0;
+            depthTrackingTimeMs = 0;
             maxN2LoadSeen = 0.0f;
             poiCount = 0;
             poiFlashMs = 0;
@@ -2124,7 +2124,7 @@ class gsensrosView extends WatchUi.View {
         try {
             stopTimerOnly();
             if (!isRecording) {
-                isUnderwater = false;
+                isDepthActive = false;
                 stopGps();
                 stopMotionListener();
                 return;
@@ -2136,23 +2136,23 @@ class gsensrosView extends WatchUi.View {
             currentAscentRateMps = 0.0f;
             logDebug("MANUAL STOP - Saving FIT");
             captureExitPosition();
-            isUnderwater = false;
+            isDepthActive = false;
 
             // Write session-level summary fields while the session is still open
             if (maxDepthField != null) {
                 maxDepthField.setData(maxDepthSeen);
             }
-            if (diveTimeField != null) {
-                diveTimeField.setData(diveTimeMs.toFloat() / 1000.0f);
+            if (trackTimeField != null) {
+                trackTimeField.setData(depthTrackingTimeMs.toFloat() / 1000.0f);
             }
             if (maxN2Field != null) {
                 maxN2Field.setData(maxN2LoadSeen);
             }
 
             shutdownSessionSafe();
-            closeDiveLogFile();
+            closeTraceLogFile();
             maxDepthSeen = 0.0f;
-            diveTimeMs = 0;
+            depthTrackingTimeMs = 0;
             maxN2LoadSeen = 0.0f;
             stopGps();
             stopMotionListener();
@@ -2259,7 +2259,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         depthField      = safeCreateField("Depth",     FIELD_DEPTH,      FitContributor.DATA_TYPE_FLOAT,  "m");
         speedEstField   = safeCreateField("Speed",     FIELD_SPEED_EST,  FitContributor.DATA_TYPE_FLOAT,  "m/s");
         headingField    = safeCreateField("Heading",   FIELD_HEADING,    FitContributor.DATA_TYPE_FLOAT,  "deg");
-        underwaterField = safeCreateField("Underwater",FIELD_UNDERWATER, FitContributor.DATA_TYPE_UINT32,  "");
+        depthActiveField = safeCreateField("DepthActive", FIELD_DEPTH_ACTIVE, FitContributor.DATA_TYPE_UINT32,  "");
         motionField     = safeCreateField("Motion",    FIELD_MOTION,     FitContributor.DATA_TYPE_FLOAT,  "mg");
         movingField     = safeCreateField("Moving",    FIELD_MOVING,     FitContributor.DATA_TYPE_UINT32,  "");
         gpsFixField     = safeCreateField("GpsFix",    FIELD_GPS_FIX,    FitContributor.DATA_TYPE_UINT32,  "");
@@ -2284,7 +2284,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         poiEastField = null;
         poiNorthField = null;
         maxDepthField = null;
-        diveTimeField = null;
+        trackTimeField = null;
         maxN2Field = null;
 
         var started = session.start();
@@ -2294,7 +2294,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             poiCount = 0;
             poiFlashMs = 0;
             logDebug("Recording STARTED");
-            openDiveLogFile();
+            openTraceLogFile();
         } else {
             logDebug("session.start() returned false");
             clearFitFields();
@@ -2362,7 +2362,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         session = null;
         isRecording = false;
         clearFitFields();
-        isUnderwater = false;
+        isDepthActive = false;
         hasGpsFix = false;
     }
 
@@ -2372,7 +2372,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         lastFitDepth = null;
         lastFitMotion = null;
         lastFitSpeedEst = null;
-        lastFitUnderwater = null;
+        lastFitDepthActive = null;
         lastFitGpsFix = null;
         lastFitHeading = null;
         lastFitMoving = null;
@@ -2393,7 +2393,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         gpsLonField = null;
         motionField = null;
         speedEstField = null;
-        underwaterField = null;
+        depthActiveField = null;
         gpsFixField = null;
         headingField = null;
         movingField = null;
@@ -2407,7 +2407,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
         spo2Field = null;
         tempField = null;
         maxDepthField = null;
-        diveTimeField = null;
+        trackTimeField = null;
         maxN2Field = null;
         poiIdField = null;
         poiLatField = null;
@@ -2515,7 +2515,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             var depthVal = currentDepth;
             var motionVal = motionScoreMg;
             var speedVal = estSpeed;
-            var underwaterVal = isUnderwater ? 1 : 0;
+            var depthActiveVal = isDepthActive ? 1 : 0;
             var gpsFixVal = hasGpsFix ? 1 : 0;
             var movingVal = (movingConfidence >= MOVING_CONFIDENCE_ON && !isStationary()) ? 1 : 0;
             var headingDegVal = bestHeading != null ? radToDeg(bestHeading) : -1.0f;
@@ -2525,7 +2525,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             lastFitDepth = writeFloatField(depthField, depthVal, lastFitDepth, 0.01f);
             lastFitMotion = writeFloatField(motionField, motionVal, lastFitMotion, 0.1f);
             lastFitSpeedEst = writeFloatField(speedEstField, speedVal, lastFitSpeedEst, 0.01f);
-            lastFitUnderwater = writeUIntField(underwaterField, underwaterVal, lastFitUnderwater);
+            lastFitDepthActive = writeUIntField(depthActiveField, depthActiveVal, lastFitDepthActive);
             lastFitGpsFix = writeUIntField(gpsFixField, gpsFixVal, lastFitGpsFix);
             lastFitMoving = writeUIntField(movingField, movingVal, lastFitMoving);
 
@@ -2574,13 +2574,13 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 lastFitN2Band = writeUIntField(n2BandField, n2Model.getRiskBand(), lastFitN2Band);
             }
 
-            // NEW health / dive metrics
+            // NEW health / depth-tracking metrics
             if (heartRate > 0) {
                 lastFitHr = writeUIntField(hrField, heartRate, lastFitHr);
             }
             lastFitAscent = writeFloatField(ascentField, currentAscentRateMps, lastFitAscent, 0.05f);
 
-            // SpO2 is optical/wrist-based and unreliable underwater - only log
+            // SpO2 is optical/wrist-based and unreliable in deeper tracking conditions - only log
             // when a real reading is present (0 means no reading this tick).
             if (spo2 > 0) {
                 lastFitSpo2 = writeUIntField(spo2Field, spo2, lastFitSpo2);
@@ -2693,7 +2693,7 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 6, Graphics.FONT_XTINY, "REC: " + recStatusText, Graphics.TEXT_JUSTIFY_LEFT);
 
-            var modeText = isUnderwater ? "DIVE" : "SURF";
+            var modeText = isDepthActive ? "DEPTH" : "SURFACE";
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(headerTextLeft, LAYOUT_TOP_LEFT_Y + 20, Graphics.FONT_XTINY, "MODE: " + modeText, Graphics.TEXT_JUSTIFY_LEFT);
 

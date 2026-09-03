@@ -28,7 +28,7 @@ class NitrogenModel {
         initialized = false;
     }
 
-    function update(depthM as Float, dtSec as Float, isUnderwater as Boolean, ascentRateMps as Float) as Float {
+    function update(depthM as Float, dtSec as Float, isDepthActive as Boolean, ascentRateMps as Float) as Float {
         if (dtSec <= 0.0f) {
             return loading;
         }
@@ -45,7 +45,7 @@ class NitrogenModel {
 
         // ----- On-gassing -----
         var onGas = 0.0f;
-        if (isUnderwater && depthM > 0.5f) {
+        if (isDepthActive && depthM > 0.5f) {
             // Very simple linear model: full rate at DEPTH_RESPONSE_M
             // Scale so that at 10 m you add ~1 % per minute (much more realistic)
             onGas = depthFactor * (dtSec / 60.0f) * 1.0f;   // ← was *100
@@ -59,11 +59,11 @@ class NitrogenModel {
         var halfLifeSec = SURFACE_HALF_LIFE_MIN * 60.0f;
         var offGas = 0.0f;
 
-        if (!isUnderwater || depthM <= 0.5f) {
+        if (!isDepthActive || depthM <= 0.5f) {
             // Surface: normal half-life
             offGas = loading * (1.0f - Math.pow(0.5f, dtSec / halfLifeSec));
         } else {
-            // Underwater: slower off-gassing (deeper = slower)
+            // Depth mode: slower off-gassing (deeper = slower)
             var deepHalfLife = halfLifeSec * (1.0f + 2.0f * depthFactor); // up to 3× longer
             offGas = loading * (1.0f - Math.pow(0.5f, dtSec / deepHalfLife));
         }

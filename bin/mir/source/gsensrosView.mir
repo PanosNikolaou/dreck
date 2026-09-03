@@ -142,9 +142,9 @@ class gsensrosView extends WatchUi.View {
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 210 8 ]
         %tmp.39 = null;
         %tmp.40 = as %tmp.39 FitContributor.Field or Null;
-        symbol [ FitContributor %tmp.40 210 34 48 ];
-        symbol [ Field %tmp.40 210 49 54 ];
-        putv self :underwaterField %tmp.40;
+        symbol [ FitContributor %tmp.40 210 35 49 ];
+        symbol [ Field %tmp.40 210 50 55 ];
+        putv self :depthActiveField %tmp.40;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 211 8 ]
         %tmp.41 = null;
         %tmp.42 = as %tmp.41 FitContributor.Field or Null;
@@ -196,9 +196,9 @@ class gsensrosView extends WatchUi.View {
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 221 8 ]
         %tmp.57 = null;
         %tmp.58 = as %tmp.57 FitContributor.Field or Null;
-        symbol [ FitContributor %tmp.58 221 32 46 ];
-        symbol [ Field %tmp.58 221 47 52 ];
-        putv self :diveTimeField %tmp.58;
+        symbol [ FitContributor %tmp.58 221 33 47 ];
+        symbol [ Field %tmp.58 221 48 53 ];
+        putv self :trackTimeField %tmp.58;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 222 8 ]
         %tmp.59 = null;
         %tmp.60 = as %tmp.59 FitContributor.Field or Null;
@@ -249,13 +249,13 @@ class gsensrosView extends WatchUi.View {
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 240 8 ]
         %tmp.75 = null;
         %tmp.76 = as %tmp.75 String or Null;
-        symbol [ String %tmp.76 240 29 35 ];
-        putv self :diveLogKey %tmp.76;
+        symbol [ String %tmp.76 240 30 36 ];
+        putv self :traceLogKey %tmp.76;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 241 8 ]
         %tmp.77 = null;
         %tmp.78 = as %tmp.77 String or Null;
-        symbol [ String %tmp.78 241 30 36 ];
-        putv self :diveLogText %tmp.78;
+        symbol [ String %tmp.78 241 31 37 ];
+        putv self :traceLogText %tmp.78;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 305 8 ]
         %tmp.79 = null;
         %tmp.80 = as %tmp.79 Float or Null;
@@ -284,8 +284,8 @@ class gsensrosView extends WatchUi.View {
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 310 8 ]
         %tmp.89 = null;
         %tmp.90 = as %tmp.89 Number or Null;
-        symbol [ Number %tmp.90 310 36 42 ];
-        putv self :lastFitUnderwater %tmp.90;
+        symbol [ Number %tmp.90 310 37 43 ];
+        putv self :lastFitDepthActive %tmp.90;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 311 8 ]
         %tmp.91 = null;
         %tmp.92 = as %tmp.91 Number or Null;
@@ -516,8 +516,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     var session;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 78; @position = 8; @symbol_vardef = [isRecording,78,8,19]; ]
     var isRecording = false;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 79; @position = 8; @symbol_vardef = [isUnderwater,79,8,20]; ]
-    var isUnderwater = false;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 79; @position = 8; @symbol_vardef = [isDepthActive,79,8,21]; ]
+    var isDepthActive = false;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 81; @position = 8; @symbol_vardef = [updateTimer,81,8,19]; ]
     var updateTimer;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 82; @position = 8; @symbol_vardef = [dr,82,8,10]; ]
@@ -598,8 +598,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     const SURFACE_RECAL_ALPHA = 0.02f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 132; @position = 10; @symbol_constdef = [DEPTH_NOISE_FLOOR_M,132,10,29]; ]
     const DEPTH_NOISE_FLOOR_M = 0.01f;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 133; @position = 10; @symbol_constdef = [DIVE_START_DEPTH_M,133,10,28]; ]
-    const DIVE_START_DEPTH_M = 0.03f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 133; @position = 10; @symbol_constdef = [DEPTH_START_THRESHOLD_M,133,10,33]; ]
+    const DEPTH_START_THRESHOLD_M = 0.03f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 134; @position = 10; @symbol_constdef = [SURFACE_STOP_DEPTH_M,134,10,30]; ]
     const SURFACE_STOP_DEPTH_M = 0.05f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 135; @position = 10; @symbol_constdef = [LAND_RETURN_RADIUS_M,135,10,30]; ]
@@ -616,30 +616,30 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     const PA_PER_METER_SEAWATER = 10050.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 144; @position = 10; @symbol_constdef = [DEFAULT_SURFACE_PA,144,10,28]; ]
     const DEFAULT_SURFACE_PA = 101325.0f;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 147; @position = 8; @symbol_vardef = [diveStartMs,147,8,19]; ]
-    var diveStartMs = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 147; @position = 8; @symbol_vardef = [depthStartMs,147,8,20]; ]
+    var depthStartMs = 0;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 148; @position = 8; @symbol_vardef = [shallowSampleCount,148,8,26]; ]
     var shallowSampleCount = 0;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 149; @position = 8; @symbol_vardef = [diveStartConfidence,149,8,27]; ]
-    var diveStartConfidence = 0;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 150; @position = 8; @symbol_vardef = [diveStopConfidence,150,8,26]; ]
-    var diveStopConfidence = 0;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 151; @position = 10; @symbol_constdef = [MIN_DIVE_DURATION_MS,151,10,30]; ]
-    const MIN_DIVE_DURATION_MS = 10000;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 149; @position = 8; @symbol_vardef = [depthStartConfidence,149,8,28]; ]
+    var depthStartConfidence = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 150; @position = 8; @symbol_vardef = [depthStopConfidence,150,8,27]; ]
+    var depthStopConfidence = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 151; @position = 10; @symbol_constdef = [MIN_TRACK_DURATION_MS,151,10,31]; ]
+    const MIN_TRACK_DURATION_MS = 10000;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 152; @position = 10; @symbol_constdef = [SHALLOW_SAMPLES_TO_STOP,152,10,33]; ]
     const SHALLOW_SAMPLES_TO_STOP = 5;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 153; @position = 10; @symbol_constdef = [DIVE_START_CONFIDENCE_THRESHOLD,153,10,41]; ]
-    const DIVE_START_CONFIDENCE_THRESHOLD = 2;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 154; @position = 10; @symbol_constdef = [DIVE_STOP_CONFIDENCE_THRESHOLD,154,10,40]; ]
-    const DIVE_STOP_CONFIDENCE_THRESHOLD = 3;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 153; @position = 10; @symbol_constdef = [START_CONFIDENCE_THRESHOLD,153,10,36]; ]
+    const START_CONFIDENCE_THRESHOLD = 2;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 154; @position = 10; @symbol_constdef = [STOP_CONFIDENCE_THRESHOLD,154,10,35]; ]
+    const STOP_CONFIDENCE_THRESHOLD = 3;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 157; @position = 8; @symbol_vardef = [spo2,157,8,12]; ]
     var spo2 = 0;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 158; @position = 8; @symbol_vardef = [ambientTempC,158,8,20]; ]
     var ambientTempC = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 161; @position = 8; @symbol_vardef = [maxDepthSeen,161,8,20]; ]
     var maxDepthSeen = 0.0f;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 162; @position = 8; @symbol_vardef = [diveTimeMs,162,8,18]; ]
-    var diveTimeMs = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 162; @position = 8; @symbol_vardef = [depthTrackingTimeMs,162,8,27]; ]
+    var depthTrackingTimeMs = 0;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 163; @position = 8; @symbol_vardef = [maxN2LoadSeen,163,8,21]; ]
     var maxN2LoadSeen = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 168; @position = 10; @symbol_constdef = [FIELD_DR_EAST,168,10,23]; ]
@@ -652,8 +652,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     const FIELD_SPEED_EST = 3;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 172; @position = 10; @symbol_constdef = [FIELD_HEADING,172,10,23]; ]
     const FIELD_HEADING = 4;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 173; @position = 10; @symbol_constdef = [FIELD_UNDERWATER,173,10,26]; ]
-    const FIELD_UNDERWATER = 5;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 173; @position = 10; @symbol_constdef = [FIELD_DEPTH_ACTIVE,173,10,28]; ]
+    const FIELD_DEPTH_ACTIVE = 5;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 174; @position = 10; @symbol_constdef = [FIELD_MOTION,174,10,22]; ]
     const FIELD_MOTION = 6;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 175; @position = 10; @symbol_constdef = [FIELD_MOVING,175,10,22]; ]
@@ -690,8 +690,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     const FIELD_TEMP = 22;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 192; @position = 10; @symbol_constdef = [FIELD_MAX_DEPTH,192,10,25]; ]
     const FIELD_MAX_DEPTH = 23;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 193; @position = 10; @symbol_constdef = [FIELD_DIVE_TIME,193,10,25]; ]
-    const FIELD_DIVE_TIME = 24;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 193; @position = 10; @symbol_constdef = [FIELD_TRACK_TIME,193,10,26]; ]
+    const FIELD_TRACK_TIME = 24;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 194; @position = 10; @symbol_constdef = [FIELD_MAX_N2,194,10,22]; ]
     const FIELD_MAX_N2 = 25;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 195; @position = 10; @symbol_constdef = [FIELD_POI_EAST,195,10,24]; ]
@@ -720,8 +720,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     var motionField;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 209; @position = 8; @symbol_vardef = [speedEstField,209,8,21]; ]
     var speedEstField;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 210; @position = 8; @symbol_vardef = [underwaterField,210,8,23]; ]
-    var underwaterField;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 210; @position = 8; @symbol_vardef = [depthActiveField,210,8,24]; ]
+    var depthActiveField;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 211; @position = 8; @symbol_vardef = [gpsFixField,211,8,19]; ]
     var gpsFixField;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 212; @position = 8; @symbol_vardef = [headingField,212,8,20]; ]
@@ -738,8 +738,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     var tempField;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 220; @position = 8; @symbol_vardef = [maxDepthField,220,8,21]; ]
     var maxDepthField;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 221; @position = 8; @symbol_vardef = [diveTimeField,221,8,21]; ]
-    var diveTimeField;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 221; @position = 8; @symbol_vardef = [trackTimeField,221,8,22]; ]
+    var trackTimeField;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 222; @position = 8; @symbol_vardef = [maxN2Field,222,8,18]; ]
     var maxN2Field;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 225; @position = 8; @symbol_vardef = [poiIdField,225,8,18]; ]
@@ -768,16 +768,16 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     const POI_NOTICE_MS = 1600;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 238; @position = 8; @symbol_vardef = [drDiagFitEnabled,238,8,24]; ]
     var drDiagFitEnabled = true;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 240; @position = 8; @symbol_vardef = [diveLogKey,240,8,18]; ]
-    var diveLogKey;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 241; @position = 8; @symbol_vardef = [diveLogText,241,8,19]; ]
-    var diveLogText;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 242; @position = 8; @symbol_vardef = [diveLogLineCount,242,8,24]; ]
-    var diveLogLineCount = 0;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 243; @position = 10; @symbol_constdef = [MAX_DIVE_LOG_LINES,243,10,28]; ]
-    const MAX_DIVE_LOG_LINES = 80;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 244; @position = 10; @symbol_constdef = [MAX_DIVE_LOG_BYTES,244,10,28]; ]
-    const MAX_DIVE_LOG_BYTES = 12000;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 240; @position = 8; @symbol_vardef = [traceLogKey,240,8,19]; ]
+    var traceLogKey;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 241; @position = 8; @symbol_vardef = [traceLogText,241,8,20]; ]
+    var traceLogText;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 242; @position = 8; @symbol_vardef = [traceLogLineCount,242,8,25]; ]
+    var traceLogLineCount = 0;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 243; @position = 10; @symbol_constdef = [MAX_TRACE_LOG_LINES,243,10,29]; ]
+    const MAX_TRACE_LOG_LINES = 80;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 244; @position = 10; @symbol_constdef = [MAX_TRACE_LOG_BYTES,244,10,29]; ]
+    const MAX_TRACE_LOG_BYTES = 12000;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 246; @position = 8; @symbol_vardef = [surfaceAltitudeSum,246,8,26]; ]
     var surfaceAltitudeSum = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 247; @position = 8; @symbol_vardef = [surfaceAltitude,247,8,23]; ]
@@ -886,8 +886,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_37_49_41_4_s
     var lastFitMotion;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 309; @position = 8; @symbol_vardef = [lastFitSpeedEst,309,8,23]; ]
     var lastFitSpeedEst;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 310; @position = 8; @symbol_vardef = [lastFitUnderwater,310,8,25]; ]
-    var lastFitUnderwater;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 310; @position = 8; @symbol_vardef = [lastFitDepthActive,310,8,26]; ]
+    var lastFitDepthActive;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 311; @position = 8; @symbol_vardef = [lastFitGpsFix,311,8,21]; ]
     var lastFitGpsFix;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 312; @position = 8; @symbol_vardef = [lastFitHeading,312,8,22]; ]
@@ -1008,8 +1008,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_367_28_369_1
         %tmp.18 = as %tmp.17 { (!Null) };
         symbol [ setContext %tmp.19 368 19 29 ];
         %tmp.19 = getv function %tmp.18 :setContext;
-        symbol [ isUnderwater %tmp.21 368 30 42 ];
-        %tmp.21 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.21 368 30 43 ];
+        %tmp.21 = getv ? :isDepthActive;
         invoke %tmp.18 %tmp.19(%tmp.21);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_367_28_369_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_367_12_369_12_if_end;
@@ -1553,17 +1553,17 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_453_8_457_8_
         invoke %tmp.46 %tmp.47(%tmp.48);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_446_48_461_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 463; @symbol_functiondef = [openDiveLogFile,463,13,28]; ]
-    function openDiveLogFile() as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_463_39_489_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 463; @symbol_functiondef = [openTraceLogFile,463,13,29]; ]
+    function openTraceLogFile() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_463_40_489_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 464 8 ]
         try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_beginTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_endTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_finally;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_beginTry:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 465 12 ]
         %tmp.1 = self;
-        symbol [ closeDiveLogFile %tmp.2 465 12 28 ];
-        %tmp.2 = getv function %tmp.1 :closeDiveLogFile;
+        symbol [ closeTraceLogFile %tmp.2 465 12 29 ];
+        %tmp.2 = getv function %tmp.1 :closeTraceLogFile;
         invoke %tmp.1 %tmp.2();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 467 12 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8_stop" ]
@@ -1667,20 +1667,20 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8
         lputv %stamp.3 %tmp.58;
         symbol [ stamp %stamp.3 469 16 21 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 478 12 ]
-        %tmp.59 = "dive_log_";
+        %tmp.59 = "trace_log_";
         %tmp.60 = lgetv %stamp.3;
-        symbol [ stamp %tmp.60 478 39 44 ];
+        symbol [ stamp %tmp.60 478 41 46 ];
         %tmp.61 = add %tmp.59 %tmp.60;
-        symbol [ diveLogKey ? 478 12 22 ];
-        putv self :diveLogKey %tmp.61;
+        symbol [ traceLogKey ? 478 12 23 ];
+        putv self :traceLogKey %tmp.61;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 479 12 ]
         %tmp.62 = "time_ms,gpsUsable,headingConf,motionScore,estSpeed,stepEast,stepNorth,depthM,heartRate,spo2\n";
-        symbol [ diveLogText ? 479 12 23 ];
-        putv self :diveLogText %tmp.62;
+        symbol [ traceLogText ? 479 12 24 ];
+        putv self :traceLogText %tmp.62;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 480 12 ]
         %tmp.63 = 1;
-        symbol [ diveLogLineCount ? 480 12 28 ];
-        putv self :diveLogLineCount %tmp.63;
+        symbol [ traceLogLineCount ? 480 12 29 ];
+        putv self :traceLogLineCount %tmp.63;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 481 12 ]
         symbol [ Application %tmp.64 481 12 23 ];
         %tmp.64 = getm $.Toybox.Application;
@@ -1688,18 +1688,18 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8
         %tmp.65 = getv %tmp.64 :Storage;
         symbol [ setValue %tmp.66 481 32 40 ];
         %tmp.66 = getv function %tmp.65 :setValue;
-        symbol [ diveLogKey %tmp.68 481 41 51 ];
-        %tmp.68 = getv ? :diveLogKey;
-        symbol [ diveLogText %tmp.70 481 53 64 ];
-        %tmp.70 = getv ? :diveLogText;
+        symbol [ traceLogKey %tmp.68 481 41 52 ];
+        %tmp.68 = getv ? :traceLogKey;
+        symbol [ traceLogText %tmp.70 481 54 66 ];
+        %tmp.70 = getv ? :traceLogText;
         invoke %tmp.65 %tmp.66(%tmp.68, %tmp.70);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 482 12 ]
         %tmp.71 = self;
         symbol [ logDebug %tmp.72 482 12 20 ];
         %tmp.72 = getv function %tmp.71 :logDebug;
-        %tmp.73 = "Dive log started: ";
-        symbol [ diveLogKey %tmp.75 482 44 54 ];
-        %tmp.75 = getv ? :diveLogKey;
+        %tmp.73 = "Trace log started: ";
+        symbol [ traceLogKey %tmp.75 482 45 56 ];
+        %tmp.75 = getv ? :traceLogKey;
         %tmp.76 = add %tmp.73 %tmp.75;
         invoke %tmp.71 %tmp.72(%tmp.76);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_12_483_8_stop:
@@ -1721,27 +1721,27 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_483_20_488_8
         %tmp.79 = self;
         symbol [ logDebug %tmp.80 484 12 20 ];
         %tmp.80 = getv function %tmp.79 :logDebug;
-        %tmp.81 = "openDiveLogFile error: ";
+        %tmp.81 = "openTraceLogFile error: ";
         %tmp.82 = self;
-        symbol [ errorToString %tmp.83 484 49 62 ];
+        symbol [ errorToString %tmp.83 484 50 63 ];
         %tmp.83 = getv function %tmp.82 :errorToString;
         %tmp.84 = lgetv %e.4;
-        symbol [ e %tmp.84 484 63 64 ];
+        symbol [ e %tmp.84 484 64 65 ];
         %tmp.85 = invoke %tmp.82 %tmp.83(%tmp.84);
         %tmp.86 = add %tmp.81 %tmp.85;
         invoke %tmp.79 %tmp.80(%tmp.86);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 485 12 ]
         %tmp.87 = null;
-        symbol [ diveLogKey ? 485 12 22 ];
-        putv self :diveLogKey %tmp.87;
+        symbol [ traceLogKey ? 485 12 23 ];
+        putv self :traceLogKey %tmp.87;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 486 12 ]
         %tmp.88 = null;
-        symbol [ diveLogText ? 486 12 23 ];
-        putv self :diveLogText %tmp.88;
+        symbol [ traceLogText ? 486 12 24 ];
+        putv self :traceLogText %tmp.88;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 487 12 ]
         %tmp.89 = 0;
-        symbol [ diveLogLineCount ? 487 12 28 ];
-        putv self :diveLogLineCount %tmp.89;
+        symbol [ traceLogLineCount ? 487 12 29 ];
+        putv self :traceLogLineCount %tmp.89;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_483_20_488_8_stop:
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_finally;
         pop;
@@ -1753,29 +1753,29 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_483_10_488_8
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_finally:
         jsrret;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_464_8_488_8_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_463_39_489_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_463_40_489_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 491; @symbol_functiondef = [closeDiveLogFile,491,13,29]; ]
-    function closeDiveLogFile() as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_491_40_500_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 491; @symbol_functiondef = [closeTraceLogFile,491,13,30]; ]
+    function closeTraceLogFile() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_491_41_500_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 492 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_8_499_8_if_stmt:
-        symbol [ diveLogKey %tmp.2 492 12 22 ];
-        %tmp.2 = getv ? :diveLogKey;
+        symbol [ traceLogKey %tmp.2 492 12 23 ];
+        %tmp.2 = getv ? :traceLogKey;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
         bf %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_8_499_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_8_499_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_32_499_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_33_499_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 493 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_12_495_12_if_stmt:
-        symbol [ diveLogText %tmp.6 493 16 27 ];
-        %tmp.6 = getv ? :diveLogText;
+        symbol [ traceLogText %tmp.6 493 16 28 ];
+        %tmp.6 = getv ? :traceLogText;
         %tmp.7 = null;
         %tmp.8 = ne %tmp.6 %tmp.7;
         bf %tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_12_495_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_12_495_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_37_495_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_38_495_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 494 16 ]
         symbol [ Application %tmp.9 494 16 27 ];
         %tmp.9 = getm $.Toybox.Application;
@@ -1783,97 +1783,97 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_37_495_1
         %tmp.10 = getv %tmp.9 :Storage;
         symbol [ setValue %tmp.11 494 36 44 ];
         %tmp.11 = getv function %tmp.10 :setValue;
-        symbol [ diveLogKey %tmp.13 494 45 55 ];
-        %tmp.13 = getv ? :diveLogKey;
+        symbol [ traceLogKey %tmp.13 494 45 56 ];
+        %tmp.13 = getv ? :traceLogKey;
         %tmp.14 = as %tmp.13 { (!Null) };
-        symbol [ diveLogText %tmp.16 494 57 68 ];
-        %tmp.16 = getv ? :diveLogText;
+        symbol [ traceLogText %tmp.16 494 58 70 ];
+        %tmp.16 = getv ? :traceLogText;
         %tmp.17 = as %tmp.16 { (!Null) };
         invoke %tmp.10 %tmp.11(%tmp.14, %tmp.17);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_37_495_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_38_495_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_12_495_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_493_12_495_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 496 12 ]
         %tmp.18 = null;
-        symbol [ diveLogKey ? 496 12 22 ];
-        putv self :diveLogKey %tmp.18;
+        symbol [ traceLogKey ? 496 12 23 ];
+        putv self :traceLogKey %tmp.18;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 497 12 ]
         %tmp.19 = null;
-        symbol [ diveLogText ? 497 12 23 ];
-        putv self :diveLogText %tmp.19;
+        symbol [ traceLogText ? 497 12 24 ];
+        putv self :traceLogText %tmp.19;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 498 12 ]
         %tmp.20 = 0;
-        symbol [ diveLogLineCount ? 498 12 28 ];
-        putv self :diveLogLineCount %tmp.20;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_32_499_8_stop:
+        symbol [ traceLogLineCount ? 498 12 29 ];
+        putv self :traceLogLineCount %tmp.20;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_33_499_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_8_499_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_492_8_499_8_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_491_40_500_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_491_41_500_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 502; @symbol_functiondef = [writeDiveLogLine,502,13,29]; @symbol_param<0> = [line,502,30,34]; @symbol_param<0>_type<0> = [String,502,38,44]; ]
-    function writeDiveLogLine(line as String) as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_502_54_531_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 502; @symbol_functiondef = [writeTraceLogLine,502,13,30]; @symbol_param<0> = [line,502,31,35]; @symbol_param<0>_type<0> = [String,502,39,45]; ]
+    function writeTraceLogLine(line as String) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_502_55_531_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 503 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_90_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_65_begin:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_49_begin:
-        symbol [ diveLogKey %tmp.2 503 12 22 ];
-        %tmp.2 = getv ? :diveLogKey;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_92_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_67_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_51_begin:
+        symbol [ traceLogKey %tmp.2 503 12 23 ];
+        %tmp.2 = getv ? :traceLogKey;
         %tmp.3 = null;
         %tmp.4 = eq %tmp.2 %tmp.3;
         bt %tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_34_503_49_false:
-        symbol [ diveLogText %tmp.6 503 34 45 ];
-        %tmp.6 = getv ? :diveLogText;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_35_503_51_false:
+        symbol [ traceLogText %tmp.6 503 35 47 ];
+        %tmp.6 = getv ? :traceLogText;
         %tmp.7 = null;
         %tmp.8 = eq %tmp.6 %tmp.7;
         push %tmp.8;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_34_503_49_end:
-        %tmp.9 = phi [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_49_begin] [%tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_34_503_49_false] [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_34_503_49_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_35_503_51_end:
+        %tmp.9 = phi [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_51_begin] [%tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_35_503_51_false] [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_35_503_51_end];
         bt %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_57_503_65_false:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_59_503_67_false:
         %tmp.10 = lgetv %line;
-        symbol [ line %tmp.10 503 57 61 ];
+        symbol [ line %tmp.10 503 59 63 ];
         %tmp.11 = null;
         %tmp.12 = eq %tmp.10 %tmp.11;
         push %tmp.12;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_57_503_65_end:
-        %tmp.13 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_65_begin] [%tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_57_503_65_false] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_57_503_65_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_59_503_67_end:
+        %tmp.13 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_67_begin] [%tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_59_503_67_false] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_59_503_67_end];
         bt %tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_73_503_90_false:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_75_503_92_false:
         %tmp.14 = lgetv %line;
-        symbol [ line %tmp.14 503 73 77 ];
+        symbol [ line %tmp.14 503 75 79 ];
         %tmp.15 = as %tmp.14 { (!Null) };
-        symbol [ length %tmp.16 503 78 84 ];
+        symbol [ length %tmp.16 503 80 86 ];
         %tmp.16 = getv function %tmp.15 :length;
         %tmp.17 = invoke %tmp.15 %tmp.16();
         %tmp.18 = 0;
         %tmp.19 = eq %tmp.17 %tmp.18;
         push %tmp.19;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_73_503_90_end:
-        %tmp.20 = phi [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_90_begin] [%tmp.19 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_73_503_90_false] [%tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_73_503_90_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_75_503_92_end:
+        %tmp.20 = phi [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_12_503_92_begin] [%tmp.19 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_75_503_92_false] [%tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_75_503_92_end];
         bf %tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_93_505_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_95_505_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 504 12 ]
         ret ?;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_93_505_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_95_505_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_503_8_505_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 507 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_8_509_8_if_stmt:
-        symbol [ diveLogLineCount %tmp.22 507 12 28 ];
-        %tmp.22 = getv ? :diveLogLineCount;
-        symbol [ MAX_DIVE_LOG_LINES %tmp.24 507 32 50 ];
-        %tmp.24 = getv ? :MAX_DIVE_LOG_LINES;
+        symbol [ traceLogLineCount %tmp.22 507 12 29 ];
+        %tmp.22 = getv ? :traceLogLineCount;
+        symbol [ MAX_TRACE_LOG_LINES %tmp.24 507 33 52 ];
+        %tmp.24 = getv ? :MAX_TRACE_LOG_LINES;
         %tmp.25 = gte %tmp.22 %tmp.24;
         bf %tmp.25 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_8_509_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_8_509_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_52_509_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_54_509_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 508 12 ]
         ret ?;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_52_509_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_54_509_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_8_509_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_507_8_509_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 511 8 ]
@@ -1884,10 +1884,10 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_12_526_8
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_12_526_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_12_526_8_stop" ]
         %candidate.1 = local;
         symbol [ candidate %candidate.1 512 16 25 ];
-        symbol [ diveLogText %tmp.27 512 28 39 ];
-        %tmp.27 = getv ? :diveLogText;
+        symbol [ traceLogText %tmp.27 512 28 40 ];
+        %tmp.27 = getv ? :traceLogText;
         %tmp.28 = lgetv %line;
-        symbol [ line %tmp.28 512 42 46 ];
+        symbol [ line %tmp.28 512 43 47 ];
         %tmp.29 = add %tmp.27 %tmp.28;
         %tmp.30 = "\n";
         %tmp.31 = add %tmp.29 %tmp.30;
@@ -1895,41 +1895,41 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_12_526_8
         symbol [ candidate %candidate.1 512 16 25 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 513 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_16_513_80_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_16_513_82_begin:
         %tmp.32 = lgetv %candidate.1;
         symbol [ candidate %tmp.32 513 16 25 ];
         symbol [ length %tmp.33 513 26 32 ];
         %tmp.33 = getv function %tmp.32 :length;
         %tmp.34 = invoke %tmp.32 %tmp.33();
-        symbol [ MAX_DIVE_LOG_BYTES %tmp.36 513 38 56 ];
-        %tmp.36 = getv ? :MAX_DIVE_LOG_BYTES;
+        symbol [ MAX_TRACE_LOG_BYTES %tmp.36 513 38 57 ];
+        %tmp.36 = getv ? :MAX_TRACE_LOG_BYTES;
         %tmp.37 = gte %tmp.34 %tmp.36;
         bt %tmp.37 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_60_513_80_false:
-        symbol [ diveLogLineCount %tmp.39 513 60 76 ];
-        %tmp.39 = getv ? :diveLogLineCount;
-        symbol [ MAX_DIVE_LOG_LINES %tmp.41 513 80 98 ];
-        %tmp.41 = getv ? :MAX_DIVE_LOG_LINES;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_61_513_82_false:
+        symbol [ traceLogLineCount %tmp.39 513 61 78 ];
+        %tmp.39 = getv ? :traceLogLineCount;
+        symbol [ MAX_TRACE_LOG_LINES %tmp.41 513 82 101 ];
+        %tmp.41 = getv ? :MAX_TRACE_LOG_LINES;
         %tmp.42 = gte %tmp.39 %tmp.41;
         push %tmp.42;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_60_513_80_end:
-        %tmp.43 = phi [%tmp.37 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_16_513_80_begin] [%tmp.42 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_60_513_80_false] [%tmp.43 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_60_513_80_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_61_513_82_end:
+        %tmp.43 = phi [%tmp.37 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_16_513_82_begin] [%tmp.42 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_61_513_82_false] [%tmp.43 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_61_513_82_end];
         bf %tmp.43 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_100_518_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_103_518_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 514 16 ]
         %tmp.44 = "[truncated]\n";
         %tmp.45 = lgetv %line;
-        symbol [ line %tmp.45 514 48 52 ];
+        symbol [ line %tmp.45 514 49 53 ];
         %tmp.46 = add %tmp.44 %tmp.45;
         %tmp.47 = "\n";
         %tmp.48 = add %tmp.46 %tmp.47;
-        symbol [ diveLogText ? 514 16 27 ];
-        putv self :diveLogText %tmp.48;
+        symbol [ traceLogText ? 514 16 28 ];
+        putv self :traceLogText %tmp.48;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 515 16 ]
         %tmp.49 = 1;
-        symbol [ diveLogLineCount ? 515 16 32 ];
-        putv self :diveLogLineCount %tmp.49;
+        symbol [ traceLogLineCount ? 515 16 33 ];
+        putv self :traceLogLineCount %tmp.49;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 516 16 ]
         symbol [ Application %tmp.50 516 16 27 ];
         %tmp.50 = getm $.Toybox.Application;
@@ -1937,51 +1937,51 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_100_518_
         %tmp.51 = getv %tmp.50 :Storage;
         symbol [ setValue %tmp.52 516 36 44 ];
         %tmp.52 = getv function %tmp.51 :setValue;
-        symbol [ diveLogKey %tmp.54 516 45 55 ];
-        %tmp.54 = getv ? :diveLogKey;
-        symbol [ diveLogText %tmp.56 516 57 68 ];
-        %tmp.56 = getv ? :diveLogText;
+        symbol [ traceLogKey %tmp.54 516 45 56 ];
+        %tmp.54 = getv ? :traceLogKey;
+        symbol [ traceLogText %tmp.56 516 58 70 ];
+        %tmp.56 = getv ? :traceLogText;
         invoke %tmp.51 %tmp.52(%tmp.54, %tmp.56);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 517 16 ]
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_8_530_8_finally;
         ret ?;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_100_518_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_103_518_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_513_12_518_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 520 12 ]
         %tmp.57 = lgetv %candidate.1;
-        symbol [ candidate %tmp.57 520 26 35 ];
-        symbol [ diveLogText ? 520 12 23 ];
-        putv self :diveLogText %tmp.57;
+        symbol [ candidate %tmp.57 520 27 36 ];
+        symbol [ traceLogText ? 520 12 24 ];
+        putv self :traceLogText %tmp.57;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 521 12 ]
-        symbol [ diveLogLineCount %tmp.58 521 12 28 ];
-        %tmp.58 = getv self :diveLogLineCount;
+        symbol [ traceLogLineCount %tmp.58 521 12 29 ];
+        %tmp.58 = getv self :traceLogLineCount;
         %tmp.59 = 1;
         %tmp.60 = add %tmp.58 %tmp.59;
-        symbol [ diveLogLineCount ? 521 12 28 ];
-        putv self :diveLogLineCount dup %tmp.60;
+        symbol [ traceLogLineCount ? 521 12 29 ];
+        putv self :traceLogLineCount dup %tmp.60;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 523 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_16_523_68_begin:
-        symbol [ diveLogLineCount %tmp.62 523 17 33 ];
-        %tmp.62 = getv ? :diveLogLineCount;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_16_523_70_begin:
+        symbol [ traceLogLineCount %tmp.62 523 17 34 ];
+        %tmp.62 = getv ? :traceLogLineCount;
         %tmp.63 = 10;
         %tmp.64 = mod %tmp.62 %tmp.63;
         %tmp.65 = 0;
         %tmp.66 = eq %tmp.64 %tmp.65;
         bt %tmp.66 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_48_523_68_false:
-        symbol [ diveLogLineCount %tmp.68 523 48 64 ];
-        %tmp.68 = getv ? :diveLogLineCount;
-        symbol [ MAX_DIVE_LOG_LINES %tmp.70 523 68 86 ];
-        %tmp.70 = getv ? :MAX_DIVE_LOG_LINES;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_49_523_70_false:
+        symbol [ traceLogLineCount %tmp.68 523 49 66 ];
+        %tmp.68 = getv ? :traceLogLineCount;
+        symbol [ MAX_TRACE_LOG_LINES %tmp.70 523 70 89 ];
+        %tmp.70 = getv ? :MAX_TRACE_LOG_LINES;
         %tmp.71 = gte %tmp.68 %tmp.70;
         push %tmp.71;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_48_523_68_end:
-        %tmp.72 = phi [%tmp.66 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_16_523_68_begin] [%tmp.71 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_48_523_68_false] [%tmp.72 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_48_523_68_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_49_523_70_end:
+        %tmp.72 = phi [%tmp.66 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_16_523_70_begin] [%tmp.71 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_49_523_70_false] [%tmp.72 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_49_523_70_end];
         bf %tmp.72 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_88_525_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_91_525_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 524 16 ]
         symbol [ Application %tmp.73 524 16 27 ];
         %tmp.73 = getm $.Toybox.Application;
@@ -1989,12 +1989,12 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_88_525_1
         %tmp.74 = getv %tmp.73 :Storage;
         symbol [ setValue %tmp.75 524 36 44 ];
         %tmp.75 = getv function %tmp.74 :setValue;
-        symbol [ diveLogKey %tmp.77 524 45 55 ];
-        %tmp.77 = getv ? :diveLogKey;
-        symbol [ diveLogText %tmp.79 524 57 68 ];
-        %tmp.79 = getv ? :diveLogText;
+        symbol [ traceLogKey %tmp.77 524 45 56 ];
+        %tmp.77 = getv ? :traceLogKey;
+        symbol [ traceLogText %tmp.79 524 58 70 ];
+        %tmp.79 = getv ? :traceLogText;
         invoke %tmp.74 %tmp.75(%tmp.77, %tmp.79);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_88_525_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_91_525_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_523_12_525_12_if_end:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_12_526_8_stop:
@@ -2016,23 +2016,23 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_526_20_530_8
         %tmp.82 = self;
         symbol [ logDebug %tmp.83 527 12 20 ];
         %tmp.83 = getv function %tmp.82 :logDebug;
-        %tmp.84 = "Dive log write error: ";
+        %tmp.84 = "Trace log write error: ";
         %tmp.85 = self;
-        symbol [ errorToString %tmp.86 527 48 61 ];
+        symbol [ errorToString %tmp.86 527 49 62 ];
         %tmp.86 = getv function %tmp.85 :errorToString;
         %tmp.87 = lgetv %e.2;
-        symbol [ e %tmp.87 527 62 63 ];
+        symbol [ e %tmp.87 527 63 64 ];
         %tmp.88 = invoke %tmp.85 %tmp.86(%tmp.87);
         %tmp.89 = add %tmp.84 %tmp.88;
         invoke %tmp.82 %tmp.83(%tmp.89);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 528 12 ]
         %tmp.90 = "[truncated]\n";
-        symbol [ diveLogText ? 528 12 23 ];
-        putv self :diveLogText %tmp.90;
+        symbol [ traceLogText ? 528 12 24 ];
+        putv self :traceLogText %tmp.90;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 529 12 ]
         %tmp.91 = 1;
-        symbol [ diveLogLineCount ? 529 12 28 ];
-        putv self :diveLogLineCount %tmp.91;
+        symbol [ traceLogLineCount ? 529 12 29 ];
+        putv self :traceLogLineCount %tmp.91;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_526_20_530_8_stop:
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_8_530_8_finally;
         pop;
@@ -2044,7 +2044,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_526_10_530_8
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_8_530_8_finally:
         jsrret;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_511_8_530_8_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_502_54_531_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_502_55_531_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 533; @symbol_functiondef = [logDrDiagnostics,533,13,29]; @symbol_param<0> = [nowMs,534,8,13]; @symbol_param<0>_type<0> = [Number,534,17,23]; @symbol_param<1> = [gpsUsable,535,8,17]; @symbol_param<1>_type<0> = [Boolean,535,21,28]; @symbol_param<2> = [headingConf,536,8,19]; @symbol_param<2>_type<0> = [Float,536,23,28]; @symbol_param<3> = [motionScore,537,8,19]; @symbol_param<3>_type<0> = [Float,537,23,28]; @symbol_param<4> = [estSpeed,538,8,16]; @symbol_param<4>_type<0> = [Float,538,20,25]; @symbol_param<5> = [stepEast,539,8,16]; @symbol_param<5>_type<0> = [Float,539,20,25]; @symbol_param<6> = [stepNorth,540,8,17]; @symbol_param<6>_type<0> = [Float,540,21,26]; @symbol_param<7> = [depthM,541,8,14]; @symbol_param<7>_type<0> = [Float,541,18,23]; ]
     function logDrDiagnostics(nowMs as Number, gpsUsable as Boolean, headingConf as Float, motionScore as Float, estSpeed as Float, stepEast as Float, stepNorth as Float, depthM as Float) as Void {
@@ -2264,10 +2264,10 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_565_23_565_3
         invoke %tmp.67 %tmp.68(%tmp.143);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 575 8 ]
         %tmp.144 = self;
-        symbol [ writeDiveLogLine %tmp.145 575 8 24 ];
-        %tmp.145 = getv function %tmp.144 :writeDiveLogLine;
+        symbol [ writeTraceLogLine %tmp.145 575 8 25 ];
+        %tmp.145 = getv function %tmp.144 :writeTraceLogLine;
         %tmp.146 = lgetv %line.1;
-        symbol [ line %tmp.146 575 25 29 ];
+        symbol [ line %tmp.146 575 26 30 ];
         invoke %tmp.144 %tmp.145(%tmp.146);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_542_14_576_4_stop:
     }
@@ -2402,8 +2402,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_588_12_591_1
         invoke %tmp.38 %tmp.39(%tmp.40, %tmp.41);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 599 12 ]
         %tmp.42 = self;
-        symbol [ processDiveState %tmp.43 599 12 28 ];
-        %tmp.43 = getv function %tmp.42 :processDiveState;
+        symbol [ processDepthState %tmp.43 599 12 29 ];
+        %tmp.43 = getv function %tmp.42 :processDepthState;
         invoke %tmp.42 %tmp.43();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 600 12 ]
         %tmp.44 = self;
@@ -2461,9 +2461,9 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_609_33_611_1
         %tmp.68 = getv ? :currentDepth;
         %tmp.69 = lgetv %dt.2;
         symbol [ dt %tmp.69 610 45 47 ];
-        symbol [ isUnderwater %tmp.71 610 49 61 ];
-        %tmp.71 = getv ? :isUnderwater;
-        symbol [ currentAscentRateMps %tmp.73 610 63 83 ];
+        symbol [ isDepthActive %tmp.71 610 49 62 ];
+        %tmp.71 = getv ? :isDepthActive;
+        symbol [ currentAscentRateMps %tmp.73 610 64 84 ];
         %tmp.73 = getv ? :currentAscentRateMps;
         invoke %tmp.65 %tmp.66(%tmp.68, %tmp.69, %tmp.71, %tmp.73);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_609_33_611_12_stop:
@@ -2496,25 +2496,25 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_615_49_617_1
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_615_16_617_16_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 618 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_16_620_16_if_stmt:
-        symbol [ isUnderwater %tmp.84 618 20 32 ];
-        %tmp.84 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.84 618 20 33 ];
+        %tmp.84 = getv ? :isDepthActive;
         bf %tmp.84 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_16_620_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_16_620_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_34_620_16_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_35_620_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 619 20 ]
-        symbol [ diveTimeMs %tmp.85 619 20 30 ];
-        %tmp.85 = getv self :diveTimeMs;
+        symbol [ depthTrackingTimeMs %tmp.85 619 20 39 ];
+        %tmp.85 = getv self :depthTrackingTimeMs;
         %tmp.86 = lgetv %dt.2;
-        symbol [ dt %tmp.86 619 35 37 ];
+        symbol [ dt %tmp.86 619 44 46 ];
         %tmp.87 = 1000.0f;
         %tmp.88 = mul %tmp.86 %tmp.87;
-        symbol [ toNumber %tmp.89 619 49 57 ];
+        symbol [ toNumber %tmp.89 619 58 66 ];
         %tmp.89 = getv function %tmp.88 :toNumber;
         %tmp.90 = invoke %tmp.88 %tmp.89();
         %tmp.91 = add %tmp.85 %tmp.90;
-        symbol [ diveTimeMs ? 619 20 30 ];
-        putv self :diveTimeMs dup %tmp.91;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_34_620_16_stop:
+        symbol [ depthTrackingTimeMs ? 619 20 39 ];
+        putv self :depthTrackingTimeMs dup %tmp.91;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_35_620_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_16_620_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_618_16_620_16_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 621 16 ]
@@ -3644,40 +3644,40 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_800_41_820_4
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_800_41_820_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_800_41_820_4_stop" ]
         %onTh.1 = local;
         symbol [ onTh %onTh.1 801 12 16 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_begin:
-        symbol [ isUnderwater %tmp.2 801 20 32 ];
-        %tmp.2 = getv ? :isUnderwater;
-        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_begin:
+        symbol [ isDepthActive %tmp.2 801 20 33 ];
+        %tmp.2 = getv ? :isDepthActive;
+        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_true:
         %tmp.3 = 18.0f;
         push %tmp.3;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_else_false:
-        symbol [ MOTION_ON_MG %tmp.5 801 43 55 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_else_false:
+        symbol [ MOTION_ON_MG %tmp.5 801 44 56 ];
         %tmp.5 = getv ? :MOTION_ON_MG;
         push %tmp.5;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_end:
-        %tmp.6 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_begin] [%tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_true] [%tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_else_false] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_43_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_end:
+        %tmp.6 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_begin] [%tmp.3 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_true] [%tmp.5 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_else_false] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_801_20_801_44_end];
         lputv %onTh.1 %tmp.6;
         symbol [ onTh %onTh.1 801 12 16 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 802 8 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_800_41_820_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_800_41_820_4_stop" ]
         %offTh.2 = local;
         symbol [ offTh %offTh.2 802 12 17 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_begin:
-        symbol [ isUnderwater %tmp.8 802 20 32 ];
-        %tmp.8 = getv ? :isUnderwater;
-        bf %tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_begin:
+        symbol [ isDepthActive %tmp.8 802 20 33 ];
+        %tmp.8 = getv ? :isDepthActive;
+        bf %tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_true:
         %tmp.9 = 8.0f;
         push %tmp.9;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_else_false:
-        symbol [ MOTION_OFF_MG %tmp.11 802 43 56 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_else_false:
+        symbol [ MOTION_OFF_MG %tmp.11 802 44 57 ];
         %tmp.11 = getv ? :MOTION_OFF_MG;
         push %tmp.11;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_end:
-        %tmp.12 = phi [%tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_begin] [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_true] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_else_false] [%tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_43_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_end:
+        %tmp.12 = phi [%tmp.8 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_begin] [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_true] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_else_false] [%tmp.12 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_802_20_802_44_end];
         lputv %offTh.2 %tmp.12;
         symbol [ offTh %offTh.2 802 12 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 804 8 ]
@@ -5696,12 +5696,12 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1051_40_1067
         putv self :biometricBaselineReady %tmp.13;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1065 8 ]
         %tmp.14 = 0;
-        symbol [ diveStartConfidence ? 1065 8 27 ];
-        putv self :diveStartConfidence %tmp.14;
+        symbol [ depthStartConfidence ? 1065 8 28 ];
+        putv self :depthStartConfidence %tmp.14;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1066 8 ]
         %tmp.15 = 0;
-        symbol [ diveStopConfidence ? 1066 8 26 ];
-        putv self :diveStopConfidence %tmp.15;
+        symbol [ depthStopConfidence ? 1066 8 27 ];
+        putv self :depthStopConfidence %tmp.15;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1051_40_1067_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 1069; @symbol_functiondef = [resetHeadingEstimate,1069,13,33]; ]
@@ -7773,25 +7773,25 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1315_56_1367
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1315_12_1367_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1370 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_16_1370_49_begin:
-        symbol [ isUnderwater %tmp.241 1370 17 29 ];
-        %tmp.241 = getv ? :isUnderwater;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_16_1370_50_begin:
+        symbol [ isDepthActive %tmp.241 1370 17 30 ];
+        %tmp.241 = getv ? :isDepthActive;
         %tmp.242 = not %tmp.241;
         bf %tmp.242 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_33_1370_49_true:
-        symbol [ currentDepth %tmp.244 1370 33 45 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_34_1370_50_true:
+        symbol [ currentDepth %tmp.244 1370 34 46 ];
         %tmp.244 = getv ? :currentDepth;
-        symbol [ DEPTH_NOISE_FLOOR_M %tmp.246 1370 49 68 ];
+        symbol [ DEPTH_NOISE_FLOOR_M %tmp.246 1370 50 69 ];
         %tmp.246 = getv ? :DEPTH_NOISE_FLOOR_M;
         %tmp.247 = lte %tmp.244 %tmp.246;
         push %tmp.247;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_33_1370_49_end:
-        %tmp.248 = phi [%tmp.242 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_16_1370_49_begin] [%tmp.247 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_33_1370_49_true] [%tmp.248 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_33_1370_49_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_34_1370_50_end:
+        %tmp.248 = phi [%tmp.242 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_16_1370_50_begin] [%tmp.247 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_34_1370_50_true] [%tmp.248 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_34_1370_50_end];
         bf %tmp.248 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1371 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_stop" ]
         %stationaryForRecal.9 = local;
         symbol [ stationaryForRecal %stationaryForRecal.9 1371 20 38 ];
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1371_41_1371_99_begin:
@@ -7814,7 +7814,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1371_86_1371
         lputv %stationaryForRecal.9 %tmp.259;
         symbol [ stationaryForRecal %stationaryForRecal.9 1371 20 38 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1372 16 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_stop" ]
         %shouldAutoRecalSurface.10 = local;
         symbol [ shouldAutoRecalSurface %shouldAutoRecalSurface.10 1372 20 42 ];
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1372_45_1375_63_begin:
@@ -7968,7 +7968,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1386_30_1389
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1386_30_1389_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1386_16_1389_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1386_16_1389_16_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_70_1390_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_71_1390_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1370_12_1390_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1393 12 ]
@@ -9145,9 +9145,9 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1554_8_1556_
         ret %tmp.58;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1546_46_1562_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 1564; @symbol_functiondef = [processDiveState,1564,13,29]; ]
-    function processDiveState() as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1564_40_1620_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 1564; @symbol_functiondef = [processDepthState,1564,13,30]; ]
+    function processDepthState() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1564_41_1620_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1565 8 ]
         try @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_beginTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_endTry @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_catch @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_finally;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_beginTry:
@@ -9162,20 +9162,20 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1566_12_1572
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1566_30_1572_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1567 16 ]
         %tmp.4 = false;
-        symbol [ isUnderwater ? 1567 16 28 ];
-        putv self :isUnderwater %tmp.4;
+        symbol [ isDepthActive ? 1567 16 29 ];
+        putv self :isDepthActive %tmp.4;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1568 16 ]
         %tmp.5 = 0;
         symbol [ shallowSampleCount ? 1568 16 34 ];
         putv self :shallowSampleCount %tmp.5;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1569 16 ]
         %tmp.6 = 0;
-        symbol [ diveStartConfidence ? 1569 16 35 ];
-        putv self :diveStartConfidence %tmp.6;
+        symbol [ depthStartConfidence ? 1569 16 36 ];
+        putv self :depthStartConfidence %tmp.6;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1570 16 ]
         %tmp.7 = 0;
-        symbol [ diveStopConfidence ? 1570 16 34 ];
-        putv self :diveStopConfidence %tmp.7;
+        symbol [ depthStopConfidence ? 1570 16 35 ];
+        putv self :depthStopConfidence %tmp.7;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1571 16 ]
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_finally;
         ret ?;
@@ -9184,99 +9184,99 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1566_30_1572
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1566_12_1572_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1574 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590_12_if_stmt:
-        symbol [ isUnderwater %tmp.9 1574 17 29 ];
-        %tmp.9 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.9 1574 17 30 ];
+        %tmp.9 = getv ? :isDepthActive;
         %tmp.10 = not %tmp.9;
         bf %tmp.10 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_31_1590_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_32_1590_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1575 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_20_1575_73_begin:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_20_1575_78_begin:
         symbol [ currentDepth %tmp.12 1575 20 32 ];
         %tmp.12 = getv ? :currentDepth;
-        symbol [ DIVE_START_DEPTH_M %tmp.14 1575 35 53 ];
-        %tmp.14 = getv ? :DIVE_START_DEPTH_M;
+        symbol [ DEPTH_START_THRESHOLD_M %tmp.14 1575 35 58 ];
+        %tmp.14 = getv ? :DEPTH_START_THRESHOLD_M;
         %tmp.15 = gt %tmp.12 %tmp.14;
         bf %tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_57_1575_73_true:
-        symbol [ currentDepth %tmp.17 1575 57 69 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_62_1575_78_true:
+        symbol [ currentDepth %tmp.17 1575 62 74 ];
         %tmp.17 = getv ? :currentDepth;
-        symbol [ MAX_DEPTH_M %tmp.19 1575 73 84 ];
+        symbol [ MAX_DEPTH_M %tmp.19 1575 78 89 ];
         %tmp.19 = getv ? :MAX_DEPTH_M;
         %tmp.20 = lte %tmp.17 %tmp.19;
         push %tmp.20;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_57_1575_73_end:
-        %tmp.21 = phi [%tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_20_1575_73_begin] [%tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_57_1575_73_true] [%tmp.21 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_57_1575_73_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_62_1575_78_end:
+        %tmp.21 = phi [%tmp.15 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_20_1575_78_begin] [%tmp.20 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_62_1575_78_true] [%tmp.21 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_62_1575_78_end];
         bf %tmp.21 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_else_false;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_86_1585_16_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_91_1585_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1576 20 ]
-        symbol [ diveStartConfidence %tmp.22 1576 20 39 ];
-        %tmp.22 = getv self :diveStartConfidence;
+        symbol [ depthStartConfidence %tmp.22 1576 20 40 ];
+        %tmp.22 = getv self :depthStartConfidence;
         %tmp.23 = 1;
         %tmp.24 = add %tmp.22 %tmp.23;
-        symbol [ diveStartConfidence ? 1576 20 39 ];
-        putv self :diveStartConfidence dup %tmp.24;
+        symbol [ depthStartConfidence ? 1576 20 40 ];
+        putv self :depthStartConfidence dup %tmp.24;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1577 20 ]
         %tmp.25 = 0;
-        symbol [ diveStopConfidence ? 1577 20 38 ];
-        putv self :diveStopConfidence %tmp.25;
+        symbol [ depthStopConfidence ? 1577 20 39 ];
+        putv self :depthStopConfidence %tmp.25;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1578 20 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_20_1584_20_if_stmt:
-        symbol [ diveStartConfidence %tmp.27 1578 24 43 ];
-        %tmp.27 = getv ? :diveStartConfidence;
-        symbol [ DIVE_START_CONFIDENCE_THRESHOLD %tmp.29 1578 47 78 ];
-        %tmp.29 = getv ? :DIVE_START_CONFIDENCE_THRESHOLD;
+        symbol [ depthStartConfidence %tmp.27 1578 24 44 ];
+        %tmp.27 = getv ? :depthStartConfidence;
+        symbol [ START_CONFIDENCE_THRESHOLD %tmp.29 1578 48 74 ];
+        %tmp.29 = getv ? :START_CONFIDENCE_THRESHOLD;
         %tmp.30 = gte %tmp.27 %tmp.29;
         bf %tmp.30 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_20_1584_20_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_20_1584_20_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_80_1584_20_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_76_1584_20_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1579 24 ]
         %tmp.31 = true;
-        symbol [ isUnderwater ? 1579 24 36 ];
-        putv self :isUnderwater %tmp.31;
+        symbol [ isDepthActive ? 1579 24 37 ];
+        putv self :isDepthActive %tmp.31;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1580 24 ]
-        symbol [ System %tmp.32 1580 38 44 ];
+        symbol [ System %tmp.32 1580 39 45 ];
         %tmp.32 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.33 1580 45 53 ];
+        symbol [ getTimer %tmp.33 1580 46 54 ];
         %tmp.33 = getv function %tmp.32 :getTimer;
         %tmp.34 = invoke %tmp.32 %tmp.33();
-        symbol [ diveStartMs ? 1580 24 35 ];
-        putv self :diveStartMs %tmp.34;
+        symbol [ depthStartMs ? 1580 24 36 ];
+        putv self :depthStartMs %tmp.34;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1581 24 ]
         %tmp.35 = 0;
         symbol [ shallowSampleCount ? 1581 24 42 ];
         putv self :shallowSampleCount %tmp.35;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1582 24 ]
         %tmp.36 = 0;
-        symbol [ diveStartConfidence ? 1582 24 43 ];
-        putv self :diveStartConfidence %tmp.36;
+        symbol [ depthStartConfidence ? 1582 24 44 ];
+        putv self :depthStartConfidence %tmp.36;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1583 24 ]
         %tmp.37 = 0;
-        symbol [ diveStopConfidence ? 1583 24 42 ];
-        putv self :diveStopConfidence %tmp.37;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_80_1584_20_stop:
+        symbol [ depthStopConfidence ? 1583 24 43 ];
+        putv self :depthStopConfidence %tmp.37;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_76_1584_20_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_20_1584_20_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1578_20_1584_20_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_86_1585_16_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_91_1585_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_else_false:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1585_23_1588_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1586 20 ]
         %tmp.38 = 0;
-        symbol [ diveStartConfidence ? 1586 20 39 ];
-        putv self :diveStartConfidence %tmp.38;
+        symbol [ depthStartConfidence ? 1586 20 40 ];
+        putv self :depthStartConfidence %tmp.38;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1587 20 ]
         %tmp.39 = 0;
-        symbol [ diveStopConfidence ? 1587 20 38 ];
-        putv self :diveStopConfidence %tmp.39;
+        symbol [ depthStopConfidence ? 1587 20 39 ];
+        putv self :depthStopConfidence %tmp.39;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1585_23_1588_16_stop:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1575_16_1588_16_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1589 16 ]
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_finally;
         ret ?;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_31_1590_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_32_1590_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1592 12 ]
@@ -9288,8 +9288,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590
         symbol [ getTimer %tmp.41 1592 33 41 ];
         %tmp.41 = getv function %tmp.40 :getTimer;
         %tmp.42 = invoke %tmp.40 %tmp.41();
-        symbol [ diveStartMs %tmp.44 1592 46 57 ];
-        %tmp.44 = getv ? :diveStartMs;
+        symbol [ depthStartMs %tmp.44 1592 46 58 ];
+        %tmp.44 = getv ? :depthStartMs;
         %tmp.45 = sub %tmp.42 %tmp.44;
         lputv %elapsed.1 %tmp.45;
         symbol [ elapsed %elapsed.1 1592 16 23 ];
@@ -9297,16 +9297,16 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1574_12_1590
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_12_1598_12_if_stmt:
         %tmp.46 = lgetv %elapsed.1;
         symbol [ elapsed %tmp.46 1596 16 23 ];
-        symbol [ MIN_DIVE_DURATION_MS %tmp.48 1596 26 46 ];
-        %tmp.48 = getv ? :MIN_DIVE_DURATION_MS;
+        symbol [ MIN_TRACK_DURATION_MS %tmp.48 1596 26 47 ];
+        %tmp.48 = getv ? :MIN_TRACK_DURATION_MS;
         %tmp.49 = lt %tmp.46 %tmp.48;
         bf %tmp.49 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_12_1598_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_12_1598_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_48_1598_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_49_1598_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1597 16 ]
         jsr @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_finally;
         ret ?;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_48_1598_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_49_1598_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_12_1598_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1596_12_1598_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1600 12 ]
@@ -9346,39 +9346,39 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1605_31_1605
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1605_12_1616_12_if_true:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1605_51_1613_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1606 16 ]
-        symbol [ diveStopConfidence %tmp.61 1606 16 34 ];
-        %tmp.61 = getv self :diveStopConfidence;
+        symbol [ depthStopConfidence %tmp.61 1606 16 35 ];
+        %tmp.61 = getv self :depthStopConfidence;
         %tmp.62 = 1;
         %tmp.63 = add %tmp.61 %tmp.62;
-        symbol [ diveStopConfidence ? 1606 16 34 ];
-        putv self :diveStopConfidence dup %tmp.63;
+        symbol [ depthStopConfidence ? 1606 16 35 ];
+        putv self :depthStopConfidence dup %tmp.63;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1607 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_16_1612_16_if_stmt:
-        symbol [ diveStopConfidence %tmp.65 1607 20 38 ];
-        %tmp.65 = getv ? :diveStopConfidence;
-        symbol [ DIVE_STOP_CONFIDENCE_THRESHOLD %tmp.67 1607 42 72 ];
-        %tmp.67 = getv ? :DIVE_STOP_CONFIDENCE_THRESHOLD;
+        symbol [ depthStopConfidence %tmp.65 1607 20 39 ];
+        %tmp.65 = getv ? :depthStopConfidence;
+        symbol [ STOP_CONFIDENCE_THRESHOLD %tmp.67 1607 43 68 ];
+        %tmp.67 = getv ? :STOP_CONFIDENCE_THRESHOLD;
         %tmp.68 = gte %tmp.65 %tmp.67;
         bf %tmp.68 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_16_1612_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_16_1612_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_74_1612_16_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_70_1612_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1608 20 ]
         %tmp.69 = false;
-        symbol [ isUnderwater ? 1608 20 32 ];
-        putv self :isUnderwater %tmp.69;
+        symbol [ isDepthActive ? 1608 20 33 ];
+        putv self :isDepthActive %tmp.69;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1609 20 ]
         %tmp.70 = 0;
         symbol [ shallowSampleCount ? 1609 20 38 ];
         putv self :shallowSampleCount %tmp.70;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1610 20 ]
         %tmp.71 = 0;
-        symbol [ diveStopConfidence ? 1610 20 38 ];
-        putv self :diveStopConfidence %tmp.71;
+        symbol [ depthStopConfidence ? 1610 20 39 ];
+        putv self :depthStopConfidence %tmp.71;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1611 20 ]
         %tmp.72 = 0;
-        symbol [ diveStartConfidence ? 1611 20 39 ];
-        putv self :diveStartConfidence %tmp.72;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_74_1612_16_stop:
+        symbol [ depthStartConfidence ? 1611 20 40 ];
+        putv self :depthStartConfidence %tmp.72;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_70_1612_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_16_1612_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1607_16_1612_16_if_end:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1605_51_1613_12_stop:
@@ -9387,8 +9387,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1605_12_1616
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1613_19_1616_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1614 16 ]
         %tmp.73 = 0;
-        symbol [ diveStopConfidence ? 1614 16 34 ];
-        putv self :diveStopConfidence %tmp.73;
+        symbol [ depthStopConfidence ? 1614 16 35 ];
+        putv self :depthStopConfidence %tmp.73;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1615 16 ]
         %tmp.74 = 0;
         symbol [ shallowSampleCount ? 1615 16 34 ];
@@ -9414,12 +9414,12 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1617_20_1619
         %tmp.77 = self;
         symbol [ logDebug %tmp.78 1618 12 20 ];
         %tmp.78 = getv function %tmp.77 :logDebug;
-        %tmp.79 = "processDiveState error: ";
+        %tmp.79 = "processDepthState error: ";
         %tmp.80 = self;
-        symbol [ errorToString %tmp.81 1618 50 63 ];
+        symbol [ errorToString %tmp.81 1618 51 64 ];
         %tmp.81 = getv function %tmp.80 :errorToString;
         %tmp.82 = lgetv %e.4;
-        symbol [ e %tmp.82 1618 64 65 ];
+        symbol [ e %tmp.82 1618 65 66 ];
         %tmp.83 = invoke %tmp.80 %tmp.81(%tmp.82);
         %tmp.84 = add %tmp.79 %tmp.83;
         invoke %tmp.77 %tmp.78(%tmp.84);
@@ -9434,7 +9434,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1617_10_1619
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_finally:
         jsrret;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1565_8_1619_8_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1564_40_1620_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1564_41_1620_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 1622; @symbol_functiondef = [getEstimatedSpeedMps,1622,13,33]; @symbol_return<0> = [Float,1622,39,44]; ]
     function getEstimatedSpeedMps() as Float {
@@ -9563,11 +9563,11 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1643_57_1684
         symbol [ sensorTarget %sensorTarget.1 1644 20 32 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1645 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_16_1665_16_if_stmt:
-        symbol [ isUnderwater %tmp.42 1645 20 32 ];
-        %tmp.42 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.42 1645 20 33 ];
+        %tmp.42 = getv ? :isDepthActive;
         bf %tmp.42 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_16_1665_16_if_else_false;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_16_1665_16_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_34_1655_16_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_35_1655_16_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1646 20 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1646_20_1654_20_if_stmt:
         symbol [ motionScoreMg %tmp.44 1646 24 37 ];
@@ -9649,7 +9649,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1650_27_1654
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1650_27_1654_20_stop:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1648_27_1654_20_if_end:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1646_20_1654_20_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_34_1655_16_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_35_1655_16_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_16_1665_16_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1645_16_1665_16_if_else_false:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1655_23_1665_16_start:
@@ -9877,11 +9877,11 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1643_12_1684
         symbol [ target %target.5 1687 16 22 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1688 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_12_1708_12_if_stmt:
-        symbol [ isUnderwater %tmp.189 1688 16 28 ];
-        %tmp.189 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.189 1688 16 29 ];
+        %tmp.189 = getv ? :isDepthActive;
         bf %tmp.189 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_12_1708_12_if_else_false;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_12_1708_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_30_1698_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_31_1698_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 1689 16 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1689_16_1697_16_if_stmt:
         symbol [ motionScoreMg %tmp.191 1689 20 33 ];
@@ -9953,7 +9953,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1693_23_1697
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1693_23_1697_16_stop:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1691_23_1697_16_if_end:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1689_16_1697_16_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_30_1698_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_31_1698_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_12_1708_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1688_12_1708_12_if_else_false:
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1698_19_1708_12_start:
@@ -11064,8 +11064,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1883_24_1886
         %tmp.128 = getv ? :dr;
         symbol [ setContext %tmp.129 1885 15 25 ];
         %tmp.129 = getv function %tmp.128 :setContext;
-        symbol [ isUnderwater %tmp.131 1885 26 38 ];
-        %tmp.131 = getv ? :isUnderwater;
+        symbol [ isDepthActive %tmp.131 1885 26 39 ];
+        %tmp.131 = getv ? :isDepthActive;
         invoke %tmp.128 %tmp.129(%tmp.131);
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1883_24_1886_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_1883_8_1886_8_if_end;
@@ -12341,8 +12341,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2065_12_2067
         invoke %tmp.10 %tmp.11();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2073 12 ]
         %tmp.12 = self;
-        symbol [ openDiveLogFile %tmp.13 2073 12 27 ];
-        %tmp.13 = getv function %tmp.12 :openDiveLogFile;
+        symbol [ openTraceLogFile %tmp.13 2073 12 28 ];
+        %tmp.13 = getv function %tmp.12 :openTraceLogFile;
         invoke %tmp.12 %tmp.13();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2075 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2075_12_2077_12_if_stmt:
@@ -12359,13 +12359,13 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2075_30_2077
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2075_12_2077_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2075_12_2077_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2079 12 ]
-        symbol [ currentDepth %tmp.18 2079 28 40 ];
+        symbol [ currentDepth %tmp.18 2079 29 41 ];
         %tmp.18 = getv ? :currentDepth;
-        symbol [ DIVE_START_DEPTH_M %tmp.20 2079 43 61 ];
-        %tmp.20 = getv ? :DIVE_START_DEPTH_M;
+        symbol [ DEPTH_START_THRESHOLD_M %tmp.20 2079 44 67 ];
+        %tmp.20 = getv ? :DEPTH_START_THRESHOLD_M;
         %tmp.21 = gt %tmp.18 %tmp.20;
-        symbol [ isUnderwater ? 2079 12 24 ];
-        putv self :isUnderwater %tmp.21;
+        symbol [ isDepthActive ? 2079 12 25 ];
+        putv self :isDepthActive %tmp.21;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2080 12 ]
         %tmp.22 = self;
         symbol [ resetHeadingEstimate %tmp.23 2080 12 32 ];
@@ -12398,8 +12398,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2075_12_2077
         putv self :maxDepthSeen %tmp.30;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2087 12 ]
         %tmp.31 = 0;
-        symbol [ diveTimeMs ? 2087 12 22 ];
-        putv self :diveTimeMs %tmp.31;
+        symbol [ depthTrackingTimeMs ? 2087 12 31 ];
+        putv self :depthTrackingTimeMs %tmp.31;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2088 12 ]
         %tmp.32 = 0.0f;
         symbol [ maxN2LoadSeen ? 2088 12 25 ];
@@ -12617,8 +12617,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2126_12_2131
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2126_30_2131_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2127 16 ]
         %tmp.6 = false;
-        symbol [ isUnderwater ? 2127 16 28 ];
-        putv self :isUnderwater %tmp.6;
+        symbol [ isDepthActive ? 2127 16 29 ];
+        putv self :isDepthActive %tmp.6;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2128 16 ]
         %tmp.7 = self;
         symbol [ stopGps %tmp.8 2128 16 23 ];
@@ -12675,8 +12675,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2132_12_2134
         invoke %tmp.24 %tmp.25();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2139 12 ]
         %tmp.26 = false;
-        symbol [ isUnderwater ? 2139 12 24 ];
-        putv self :isUnderwater %tmp.26;
+        symbol [ isDepthActive ? 2139 12 25 ];
+        putv self :isDepthActive %tmp.26;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2142 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2142_12_2144_12_if_stmt:
         symbol [ maxDepthField %tmp.28 2142 16 29 ];
@@ -12700,28 +12700,28 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2142_39_2144
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2142_12_2144_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2145 12 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_12_2147_12_if_stmt:
-        symbol [ diveTimeField %tmp.38 2145 16 29 ];
-        %tmp.38 = getv ? :diveTimeField;
+        symbol [ trackTimeField %tmp.38 2145 16 30 ];
+        %tmp.38 = getv ? :trackTimeField;
         %tmp.39 = null;
         %tmp.40 = ne %tmp.38 %tmp.39;
         bf %tmp.40 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_12_2147_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_12_2147_12_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_39_2147_12_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_40_2147_12_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2146 16 ]
-        symbol [ diveTimeField %tmp.42 2146 16 29 ];
-        %tmp.42 = getv ? :diveTimeField;
+        symbol [ trackTimeField %tmp.42 2146 16 30 ];
+        %tmp.42 = getv ? :trackTimeField;
         %tmp.43 = as %tmp.42 { (!Null) };
-        symbol [ setData %tmp.44 2146 30 37 ];
+        symbol [ setData %tmp.44 2146 31 38 ];
         %tmp.44 = getv function %tmp.43 :setData;
-        symbol [ diveTimeMs %tmp.46 2146 38 48 ];
-        %tmp.46 = getv ? :diveTimeMs;
-        symbol [ toFloat %tmp.47 2146 49 56 ];
+        symbol [ depthTrackingTimeMs %tmp.46 2146 39 58 ];
+        %tmp.46 = getv ? :depthTrackingTimeMs;
+        symbol [ toFloat %tmp.47 2146 59 66 ];
         %tmp.47 = getv function %tmp.46 :toFloat;
         %tmp.48 = invoke %tmp.46 %tmp.47();
         %tmp.49 = 1000.0f;
         %tmp.50 = div %tmp.48 %tmp.49;
         invoke %tmp.43 %tmp.44(%tmp.50);
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_39_2147_12_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_40_2147_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_12_2147_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2145_12_2147_12_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2148 12 ]
@@ -12752,8 +12752,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2148_12_2150
         invoke %tmp.61 %tmp.62();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2153 12 ]
         %tmp.63 = self;
-        symbol [ closeDiveLogFile %tmp.64 2153 12 28 ];
-        %tmp.64 = getv function %tmp.63 :closeDiveLogFile;
+        symbol [ closeTraceLogFile %tmp.64 2153 12 29 ];
+        %tmp.64 = getv function %tmp.63 :closeTraceLogFile;
         invoke %tmp.63 %tmp.64();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2154 12 ]
         %tmp.65 = 0.0f;
@@ -12761,8 +12761,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2148_12_2150
         putv self :maxDepthSeen %tmp.65;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2155 12 ]
         %tmp.66 = 0;
-        symbol [ diveTimeMs ? 2155 12 22 ];
-        putv self :diveTimeMs %tmp.66;
+        symbol [ depthTrackingTimeMs ? 2155 12 31 ];
+        putv self :depthTrackingTimeMs %tmp.66;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2156 12 ]
         %tmp.67 = 0.0f;
         symbol [ maxN2LoadSeen ? 2156 12 25 ];
@@ -13640,19 +13640,19 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2235_8_2304_
         putv self :headingField %tmp.111;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2262 8 ]
         %tmp.112 = self;
-        symbol [ safeCreateField %tmp.113 2262 26 41 ];
+        symbol [ safeCreateField %tmp.113 2262 27 42 ];
         %tmp.113 = getv function %tmp.112 :safeCreateField;
-        %tmp.114 = "Underwater";
-        symbol [ FIELD_UNDERWATER %tmp.116 2262 55 71 ];
-        %tmp.116 = getv ? :FIELD_UNDERWATER;
-        symbol [ FitContributor %tmp.117 2262 73 87 ];
+        %tmp.114 = "DepthActive";
+        symbol [ FIELD_DEPTH_ACTIVE %tmp.116 2262 58 76 ];
+        %tmp.116 = getv ? :FIELD_DEPTH_ACTIVE;
+        symbol [ FitContributor %tmp.117 2262 78 92 ];
         %tmp.117 = getm $.Toybox.FitContributor;
-        symbol [ DATA_TYPE_UINT32 %tmp.118 2262 88 104 ];
+        symbol [ DATA_TYPE_UINT32 %tmp.118 2262 93 109 ];
         %tmp.118 = getv %tmp.117 :DATA_TYPE_UINT32;
         %tmp.119 = "";
         %tmp.120 = invoke %tmp.112 %tmp.113(%tmp.114, %tmp.116, %tmp.118, %tmp.119);
-        symbol [ underwaterField ? 2262 8 23 ];
-        putv self :underwaterField %tmp.120;
+        symbol [ depthActiveField ? 2262 8 24 ];
+        putv self :depthActiveField %tmp.120;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2263 8 ]
         %tmp.121 = self;
         symbol [ safeCreateField %tmp.122 2263 26 41 ];
@@ -13850,8 +13850,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2271_26_2271
         putv self :maxDepthField %tmp.217;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2287 8 ]
         %tmp.218 = null;
-        symbol [ diveTimeField ? 2287 8 21 ];
-        putv self :diveTimeField %tmp.218;
+        symbol [ trackTimeField ? 2287 8 22 ];
+        putv self :trackTimeField %tmp.218;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2288 8 ]
         %tmp.219 = null;
         symbol [ maxN2Field ? 2288 8 18 ];
@@ -13899,8 +13899,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2291_21_2298
         invoke %tmp.230 %tmp.231(%tmp.232);
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2297 12 ]
         %tmp.233 = self;
-        symbol [ openDiveLogFile %tmp.234 2297 12 27 ];
-        %tmp.234 = getv function %tmp.233 :openDiveLogFile;
+        symbol [ openTraceLogFile %tmp.234 2297 12 28 ];
+        %tmp.234 = getv function %tmp.233 :openTraceLogFile;
         invoke %tmp.233 %tmp.234();
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2291_21_2298_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2291_8_2303_8_if_end;
@@ -14256,8 +14256,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2361_36_2367
         invoke %tmp.3 %tmp.4();
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2365 8 ]
         %tmp.5 = false;
-        symbol [ isUnderwater ? 2365 8 20 ];
-        putv self :isUnderwater %tmp.5;
+        symbol [ isDepthActive ? 2365 8 21 ];
+        putv self :isDepthActive %tmp.5;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2366 8 ]
         %tmp.6 = false;
         symbol [ hasGpsFix ? 2366 8 17 ];
@@ -14289,8 +14289,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2369_42_2386
         putv self :lastFitSpeedEst %tmp.5;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2375 8 ]
         %tmp.6 = null;
-        symbol [ lastFitUnderwater ? 2375 8 25 ];
-        putv self :lastFitUnderwater %tmp.6;
+        symbol [ lastFitDepthActive ? 2375 8 26 ];
+        putv self :lastFitDepthActive %tmp.6;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2376 8 ]
         %tmp.7 = null;
         symbol [ lastFitGpsFix ? 2376 8 21 ];
@@ -14366,8 +14366,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2388_38_2419
         putv self :speedEstField %tmp.7;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2396 8 ]
         %tmp.8 = null;
-        symbol [ underwaterField ? 2396 8 23 ];
-        putv self :underwaterField %tmp.8;
+        symbol [ depthActiveField ? 2396 8 24 ];
+        putv self :depthActiveField %tmp.8;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2397 8 ]
         %tmp.9 = null;
         symbol [ gpsFixField ? 2397 8 19 ];
@@ -14422,8 +14422,8 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2388_38_2419
         putv self :maxDepthField %tmp.21;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2410 8 ]
         %tmp.22 = null;
-        symbol [ diveTimeField ? 2410 8 21 ];
-        putv self :diveTimeField %tmp.22;
+        symbol [ trackTimeField ? 2410 8 22 ];
+        putv self :trackTimeField %tmp.22;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2411 8 ]
         %tmp.23 = null;
         symbol [ maxN2Field ? 2411 8 18 ];
@@ -15156,23 +15156,23 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2513_27_2513
         symbol [ speedVal %speedVal.5 2517 16 24 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2518 12 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2507_12_2590_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2507_12_2590_8_stop" ]
-        %underwaterVal.6 = local;
-        symbol [ underwaterVal %underwaterVal.6 2518 16 29 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_begin:
-        symbol [ isUnderwater %tmp.57 2518 32 44 ];
-        %tmp.57 = getv ? :isUnderwater;
-        bf %tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_true:
+        %depthActiveVal.6 = local;
+        symbol [ depthActiveVal %depthActiveVal.6 2518 16 30 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_begin:
+        symbol [ isDepthActive %tmp.57 2518 33 46 ];
+        %tmp.57 = getv ? :isDepthActive;
+        bf %tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_true:
         %tmp.58 = 1;
         push %tmp.58;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_else_false:
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_else_false:
         %tmp.59 = 0;
         push %tmp.59;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_end:
-        %tmp.60 = phi [%tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_begin] [%tmp.58 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_true] [%tmp.59 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_else_false] [%tmp.60 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_32_2518_51_end];
-        lputv %underwaterVal.6 %tmp.60;
-        symbol [ underwaterVal %underwaterVal.6 2518 16 29 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_end:
+        %tmp.60 = phi [%tmp.57 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_begin] [%tmp.58 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_true] [%tmp.59 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_else_false] [%tmp.60 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2518_33_2518_53_end];
+        lputv %depthActiveVal.6 %tmp.60;
+        symbol [ depthActiveVal %depthActiveVal.6 2518 16 30 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2519 12 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2507_12_2590_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2507_12_2590_8_stop" ]
         %gpsFixVal.7 = local;
@@ -15324,17 +15324,17 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2521_32_2521
         putv self :lastFitSpeedEst %tmp.133;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2528 12 ]
         %tmp.134 = self;
-        symbol [ writeUIntField %tmp.135 2528 32 46 ];
+        symbol [ writeUIntField %tmp.135 2528 33 47 ];
         %tmp.135 = getv function %tmp.134 :writeUIntField;
-        symbol [ underwaterField %tmp.137 2528 47 62 ];
-        %tmp.137 = getv ? :underwaterField;
-        %tmp.138 = lgetv %underwaterVal.6;
-        symbol [ underwaterVal %tmp.138 2528 64 77 ];
-        symbol [ lastFitUnderwater %tmp.140 2528 79 96 ];
-        %tmp.140 = getv ? :lastFitUnderwater;
+        symbol [ depthActiveField %tmp.137 2528 48 64 ];
+        %tmp.137 = getv ? :depthActiveField;
+        %tmp.138 = lgetv %depthActiveVal.6;
+        symbol [ depthActiveVal %tmp.138 2528 66 80 ];
+        symbol [ lastFitDepthActive %tmp.140 2528 82 100 ];
+        %tmp.140 = getv ? :lastFitDepthActive;
         %tmp.141 = invoke %tmp.134 %tmp.135(%tmp.137, %tmp.138, %tmp.140);
-        symbol [ lastFitUnderwater ? 2528 12 29 ];
-        putv self :lastFitUnderwater %tmp.141;
+        symbol [ lastFitDepthActive ? 2528 12 30 ];
+        putv self :lastFitDepthActive %tmp.141;
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2529 12 ]
         %tmp.142 = self;
         symbol [ writeUIntField %tmp.143 2529 28 42 ];
@@ -16835,19 +16835,19 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2692_32_2692
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2655_12_2869_8_start" "_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2655_12_2869_8_stop" ]
         %modeText.10 = local;
         symbol [ modeText %modeText.10 2696 16 24 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_begin:
-        symbol [ isUnderwater %tmp.133 2696 27 39 ];
-        %tmp.133 = getv ? :isUnderwater;
-        bf %tmp.133 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_true:
-        %tmp.134 = "DIVE";
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_begin:
+        symbol [ isDepthActive %tmp.133 2696 27 40 ];
+        %tmp.133 = getv ? :isDepthActive;
+        bf %tmp.133 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_true:
+        %tmp.134 = "DEPTH";
         push %tmp.134;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_else_false:
-        %tmp.135 = "SURF";
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_else_false:
+        %tmp.135 = "SURFACE";
         push %tmp.135;
-_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_end:
-        %tmp.136 = phi [%tmp.133 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_begin] [%tmp.134 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_true] [%tmp.135 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_else_false] [%tmp.136 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_51_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_end:
+        %tmp.136 = phi [%tmp.133 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_begin] [%tmp.134 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_true] [%tmp.135 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_else_false] [%tmp.136 @_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_2696_27_2696_53_end];
         lputv %modeText.10 %tmp.136;
         symbol [ modeText %modeText.10 2696 16 24 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc" 2697 12 ]
