@@ -130,9 +130,11 @@ class gsensrosView extends WatchUi.View {
 
     const SURFACE_RECAL_ALPHA   = 0.02f;   // how fast surface reference adapts on land
     const DEPTH_NOISE_FLOOR_M   = 0.01f;   // keep shallow samples alive without letting pure noise through
-    const DEPTH_START_THRESHOLD_M = 0.03f;   // threshold for entering active depth tracking
-    const SURFACE_STOP_DEPTH_M  = 0.05f;   // tighter surface hysteresis; tracking stops once the sensor returns near the start point
+    const DEPTH_START_THRESHOLD_M = 0.08f;   // require a meaningful shallow depth signal before starting tracking
+    const SURFACE_STOP_DEPTH_M  = 0.10f;   // surface hysteresis should stay stable above noise while still allowing near-surface stops
     const LAND_RETURN_RADIUS_M  = 5.0f;    // stop only when back within 5m of the start GPS point
+    const MIN_SURFACE_PRESSURE_PA = 98000.0f;  // reject obvious underwater samples as calibration baselines
+    const MAX_SURFACE_PRESSURE_PA = 104500.0f;
 
     // Physical limits – stops the 100–2000 m spikes seen in FIT telemetry
     const MAX_DEPTH_M           = 80.0f;   // hard clamp (deep tracking upper bound)
@@ -148,10 +150,10 @@ class gsensrosView extends WatchUi.View {
     var shallowSampleCount = 0;
     var depthStartConfidence = 0;
     var depthStopConfidence = 0;
-    const MIN_TRACK_DURATION_MS = 10000;
+    const MIN_TRACK_DURATION_MS = 3000;
     const SHALLOW_SAMPLES_TO_STOP = 5;
-    const START_CONFIDENCE_THRESHOLD = 2;
-    const STOP_CONFIDENCE_THRESHOLD = 3;
+    const START_CONFIDENCE_THRESHOLD = 1;
+    const STOP_CONFIDENCE_THRESHOLD = 2;
 
     // Additional health data
     var spo2 = 0;                          // NEW - pulse oximetry, %
@@ -1313,10 +1315,14 @@ class gsensrosView extends WatchUi.View {
 
             // ---------- Initial surface calibration ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
-                if (hasPressure && pressurePa > 70000.0f && pressurePa < 120000.0f) {
-                    // Lock a live baseline immediately using the first valid pressure sample.
-                    // This keeps reactive shallow depth values alive instead of waiting for the
-                    // full startup calibration window to complete.
+                var plausibleSurfacePressure = hasPressure
+                    && pressurePa >= MIN_SURFACE_PRESSURE_PA
+                    && pressurePa <= MAX_SURFACE_PRESSURE_PA;
+
+                if (plausibleSurfacePressure) {
+                    // Only use a genuine surface sample as the baseline. If the watch is
+                    // already underwater, or the sensor is noisy, a single pressure sample
+                    // should not flatten the whole depth estimate toward 0.1–0.2 m.
                     if (pressureCalibrationSamples == 0 || !usePressureDepth) {
                         surfacePressurePa = pressurePa;
                         usePressureDepth = true;
@@ -1353,14 +1359,20 @@ class gsensrosView extends WatchUi.View {
                 }
                 // If we already have a valid initial pressure baseline, keep the live depth
                 // estimate running instead of returning zero during the warm-up window.
-                if (pressureCalibrationSamples > 0 && usePressureDepth) {
-                    if (hasPressure && pressurePa > 50000.0f) {
+                if (hasPressure && pressurePa > 50000.0f) {
+                    if (usePressureDepth) {
                         currentDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
                         if (currentDepth < 0.0f) {
                             currentDepth = 0.0f;
                         }
                         return;
                     }
+                    // Use the nominal surface pressure if no true-surface calibration exists yet.
+                    currentDepth = (pressurePa - DEFAULT_SURFACE_PA) / PA_PER_METER_SEAWATER;
+                    if (currentDepth < 0.0f) {
+                        currentDepth = 0.0f;
+                    }
+                    return;
                 }
                 currentDepth = 0.0f;
                 return;
