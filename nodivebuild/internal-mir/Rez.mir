@@ -1,0 +1,1990 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
+using Toybox.Graphics;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
+module Rez {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
+    module Drawables {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 8; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,9,27,39]; @symbol_type<0> = [ResourceId,9,43,53]; ]
+        var LauncherIcon as ResourceId;
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 12; @symbol_moduledef = [Layouts,12,11,18]; ]
+    module Layouts {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 12; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 13; @symbol_functiondef = [MainLayout,13,17,27]; @symbol_param<0> = [dc,13,28,30]; @symbol_param<0>_type<0> = [Graphics,13,34,42]; @symbol_param<0>_type<1> = [Dc,13,43,45]; @symbol_return<0> = [Array,13,50,55]; @symbol_return<1> = [WatchUi,13,56,63]; @symbol_return<2> = [Drawable,13,64,72]; ]
+        function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 14 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start" "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop" ]
+            %rez_cmp_local_text_HeaderStatus.1 = local;
+            symbol [ rez_cmp_local_text_HeaderStatus %rez_cmp_local_text_HeaderStatus.1 14 16 47 ];
+            symbol [ WatchUi %tmp.3 14 54 61 ];
+            %tmp.3 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.4 14 62 66 ];
+            %tmp.4 = getv function ? %tmp.3 :Text;
+            %tmp.5 = newd 7;
+            %tmp.7 = const :identifier;
+            symbol [ identifier %tmp.7 14 69 79 const ];
+            %tmp.8 = "HeaderStatus";
+            %tmp.9 = dup %tmp.5;
+            %tmp.10 = aputv %tmp.9 %tmp.7 %tmp.8;
+            %tmp.12 = const :color;
+            symbol [ color %tmp.12 14 98 103 const ];
+            symbol [ Graphics %tmp.13 14 105 113 ];
+            %tmp.13 = getm $.Toybox.Graphics;
+            symbol [ COLOR_BLACK %tmp.14 14 114 125 ];
+            %tmp.14 = getv %tmp.13 :COLOR_BLACK;
+            %tmp.15 = dup %tmp.10;
+            %tmp.16 = aputv %tmp.15 %tmp.12 %tmp.14;
+            %tmp.18 = const :locX;
+            symbol [ locX %tmp.18 14 128 132 const ];
+            %tmp.19 = 8;
+            %tmp.20 = dup %tmp.16;
+            %tmp.21 = aputv %tmp.20 %tmp.18 %tmp.19;
+            %tmp.23 = const :locY;
+            symbol [ locY %tmp.23 14 138 142 const ];
+            %tmp.24 = 8;
+            %tmp.25 = dup %tmp.21;
+            %tmp.26 = aputv %tmp.25 %tmp.23 %tmp.24;
+            %tmp.28 = const :text;
+            symbol [ text %tmp.28 14 148 152 const ];
+            symbol [ $ %tmp.29 14 154 155 ];
+            %tmp.29 = getm $;
+            symbol [ Rez %tmp.30 14 156 159 ];
+            %tmp.30 = getv %tmp.29 :Rez;
+            symbol [ Strings %tmp.31 14 160 167 ];
+            %tmp.31 = getv %tmp.30 :Strings;
+            symbol [ rec_header %tmp.32 14 168 178 ];
+            %tmp.32 = getv %tmp.31 :rec_header;
+            %tmp.33 = dup %tmp.26;
+            %tmp.34 = aputv %tmp.33 %tmp.28 %tmp.32;
+            %tmp.36 = const :justification;
+            symbol [ justification %tmp.36 14 181 194 const ];
+            symbol [ Graphics %tmp.37 14 196 204 ];
+            %tmp.37 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_LEFT %tmp.38 14 205 222 ];
+            %tmp.38 = getv %tmp.37 :TEXT_JUSTIFY_LEFT;
+            %tmp.39 = dup %tmp.34;
+            %tmp.40 = aputv %tmp.39 %tmp.36 %tmp.38;
+            %tmp.42 = const :font;
+            symbol [ font %tmp.42 14 225 229 const ];
+            symbol [ Graphics %tmp.43 14 231 239 ];
+            %tmp.43 = getm $.Toybox.Graphics;
+            symbol [ FONT_XTINY %tmp.44 14 240 250 ];
+            %tmp.44 = getv %tmp.43 :FONT_XTINY;
+            %tmp.45 = dup %tmp.40;
+            %tmp.46 = aputv %tmp.45 %tmp.42 %tmp.44;
+            %tmp.1 = newc %tmp.4 (%tmp.46);
+            lputv %rez_cmp_local_text_HeaderStatus.1 %tmp.1;
+            symbol [ rez_cmp_local_text_HeaderStatus %rez_cmp_local_text_HeaderStatus.1 14 16 47 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 16 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start" "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop" ]
+            %rez_cmp_local_text_HeaderMode.2 = local;
+            symbol [ rez_cmp_local_text_HeaderMode %rez_cmp_local_text_HeaderMode.2 16 16 45 ];
+            symbol [ WatchUi %tmp.49 16 52 59 ];
+            %tmp.49 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.50 16 60 64 ];
+            %tmp.50 = getv function ? %tmp.49 :Text;
+            %tmp.51 = newd 7;
+            %tmp.53 = const :identifier;
+            symbol [ identifier %tmp.53 16 67 77 const ];
+            %tmp.54 = "HeaderMode";
+            %tmp.55 = dup %tmp.51;
+            %tmp.56 = aputv %tmp.55 %tmp.53 %tmp.54;
+            %tmp.58 = const :color;
+            symbol [ color %tmp.58 16 94 99 const ];
+            symbol [ Graphics %tmp.59 16 101 109 ];
+            %tmp.59 = getm $.Toybox.Graphics;
+            symbol [ COLOR_BLACK %tmp.60 16 110 121 ];
+            %tmp.60 = getv %tmp.59 :COLOR_BLACK;
+            %tmp.61 = dup %tmp.56;
+            %tmp.62 = aputv %tmp.61 %tmp.58 %tmp.60;
+            %tmp.64 = const :locX;
+            symbol [ locX %tmp.64 16 124 128 const ];
+            %tmp.65 = 8;
+            %tmp.66 = dup %tmp.62;
+            %tmp.67 = aputv %tmp.66 %tmp.64 %tmp.65;
+            %tmp.69 = const :locY;
+            symbol [ locY %tmp.69 16 134 138 const ];
+            %tmp.70 = 22;
+            %tmp.71 = dup %tmp.67;
+            %tmp.72 = aputv %tmp.71 %tmp.69 %tmp.70;
+            %tmp.74 = const :text;
+            symbol [ text %tmp.74 16 145 149 const ];
+            symbol [ $ %tmp.75 16 151 152 ];
+            %tmp.75 = getm $;
+            symbol [ Rez %tmp.76 16 153 156 ];
+            %tmp.76 = getv %tmp.75 :Rez;
+            symbol [ Strings %tmp.77 16 157 164 ];
+            %tmp.77 = getv %tmp.76 :Strings;
+            symbol [ mode_header %tmp.78 16 165 176 ];
+            %tmp.78 = getv %tmp.77 :mode_header;
+            %tmp.79 = dup %tmp.72;
+            %tmp.80 = aputv %tmp.79 %tmp.74 %tmp.78;
+            %tmp.82 = const :justification;
+            symbol [ justification %tmp.82 16 179 192 const ];
+            symbol [ Graphics %tmp.83 16 194 202 ];
+            %tmp.83 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_LEFT %tmp.84 16 203 220 ];
+            %tmp.84 = getv %tmp.83 :TEXT_JUSTIFY_LEFT;
+            %tmp.85 = dup %tmp.80;
+            %tmp.86 = aputv %tmp.85 %tmp.82 %tmp.84;
+            %tmp.88 = const :font;
+            symbol [ font %tmp.88 16 223 227 const ];
+            symbol [ Graphics %tmp.89 16 229 237 ];
+            %tmp.89 = getm $.Toybox.Graphics;
+            symbol [ FONT_XTINY %tmp.90 16 238 248 ];
+            %tmp.90 = getv %tmp.89 :FONT_XTINY;
+            %tmp.91 = dup %tmp.86;
+            %tmp.92 = aputv %tmp.91 %tmp.88 %tmp.90;
+            %tmp.47 = newc %tmp.50 (%tmp.92);
+            lputv %rez_cmp_local_text_HeaderMode.2 %tmp.47;
+            symbol [ rez_cmp_local_text_HeaderMode %rez_cmp_local_text_HeaderMode.2 16 16 45 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 18 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start" "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop" ]
+            %rez_cmp_local_text_HeaderGps.3 = local;
+            symbol [ rez_cmp_local_text_HeaderGps %rez_cmp_local_text_HeaderGps.3 18 16 44 ];
+            symbol [ WatchUi %tmp.95 18 51 58 ];
+            %tmp.95 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.96 18 59 63 ];
+            %tmp.96 = getv function ? %tmp.95 :Text;
+            %tmp.97 = newd 7;
+            %tmp.99 = const :identifier;
+            symbol [ identifier %tmp.99 18 66 76 const ];
+            %tmp.100 = "HeaderGps";
+            %tmp.101 = dup %tmp.97;
+            %tmp.102 = aputv %tmp.101 %tmp.99 %tmp.100;
+            %tmp.104 = const :color;
+            symbol [ color %tmp.104 18 92 97 const ];
+            symbol [ Graphics %tmp.105 18 99 107 ];
+            %tmp.105 = getm $.Toybox.Graphics;
+            symbol [ COLOR_BLACK %tmp.106 18 108 119 ];
+            %tmp.106 = getv %tmp.105 :COLOR_BLACK;
+            %tmp.107 = dup %tmp.102;
+            %tmp.108 = aputv %tmp.107 %tmp.104 %tmp.106;
+            %tmp.110 = const :locX;
+            symbol [ locX %tmp.110 18 122 126 const ];
+            %tmp.111 = 8;
+            %tmp.112 = dup %tmp.108;
+            %tmp.113 = aputv %tmp.112 %tmp.110 %tmp.111;
+            %tmp.115 = const :locY;
+            symbol [ locY %tmp.115 18 132 136 const ];
+            %tmp.116 = 36;
+            %tmp.117 = dup %tmp.113;
+            %tmp.118 = aputv %tmp.117 %tmp.115 %tmp.116;
+            %tmp.120 = const :text;
+            symbol [ text %tmp.120 18 143 147 const ];
+            symbol [ $ %tmp.121 18 149 150 ];
+            %tmp.121 = getm $;
+            symbol [ Rez %tmp.122 18 151 154 ];
+            %tmp.122 = getv %tmp.121 :Rez;
+            symbol [ Strings %tmp.123 18 155 162 ];
+            %tmp.123 = getv %tmp.122 :Strings;
+            symbol [ gps_header %tmp.124 18 163 173 ];
+            %tmp.124 = getv %tmp.123 :gps_header;
+            %tmp.125 = dup %tmp.118;
+            %tmp.126 = aputv %tmp.125 %tmp.120 %tmp.124;
+            %tmp.128 = const :justification;
+            symbol [ justification %tmp.128 18 176 189 const ];
+            symbol [ Graphics %tmp.129 18 191 199 ];
+            %tmp.129 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_LEFT %tmp.130 18 200 217 ];
+            %tmp.130 = getv %tmp.129 :TEXT_JUSTIFY_LEFT;
+            %tmp.131 = dup %tmp.126;
+            %tmp.132 = aputv %tmp.131 %tmp.128 %tmp.130;
+            %tmp.134 = const :font;
+            symbol [ font %tmp.134 18 220 224 const ];
+            symbol [ Graphics %tmp.135 18 226 234 ];
+            %tmp.135 = getm $.Toybox.Graphics;
+            symbol [ FONT_XTINY %tmp.136 18 235 245 ];
+            %tmp.136 = getv %tmp.135 :FONT_XTINY;
+            %tmp.137 = dup %tmp.132;
+            %tmp.138 = aputv %tmp.137 %tmp.134 %tmp.136;
+            %tmp.93 = newc %tmp.96 (%tmp.138);
+            lputv %rez_cmp_local_text_HeaderGps.3 %tmp.93;
+            symbol [ rez_cmp_local_text_HeaderGps %rez_cmp_local_text_HeaderGps.3 18 16 44 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 20 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start" "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop" ]
+            %rez_cmp_local_text_TopRightBadge.4 = local;
+            symbol [ rez_cmp_local_text_TopRightBadge %rez_cmp_local_text_TopRightBadge.4 20 16 48 ];
+            symbol [ WatchUi %tmp.141 20 55 62 ];
+            %tmp.141 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.142 20 63 67 ];
+            %tmp.142 = getv function ? %tmp.141 :Text;
+            %tmp.143 = newd 7;
+            %tmp.145 = const :identifier;
+            symbol [ identifier %tmp.145 20 70 80 const ];
+            %tmp.146 = "TopRightBadge";
+            %tmp.147 = dup %tmp.143;
+            %tmp.148 = aputv %tmp.147 %tmp.145 %tmp.146;
+            %tmp.150 = const :color;
+            symbol [ color %tmp.150 20 100 105 const ];
+            symbol [ Graphics %tmp.151 20 107 115 ];
+            %tmp.151 = getm $.Toybox.Graphics;
+            symbol [ COLOR_WHITE %tmp.152 20 116 127 ];
+            %tmp.152 = getv %tmp.151 :COLOR_WHITE;
+            %tmp.153 = dup %tmp.148;
+            %tmp.154 = aputv %tmp.153 %tmp.150 %tmp.152;
+            %tmp.156 = const :locX;
+            symbol [ locX %tmp.156 20 130 134 const ];
+            %tmp.157 = 118;
+            %tmp.158 = dup %tmp.154;
+            %tmp.159 = aputv %tmp.158 %tmp.156 %tmp.157;
+            %tmp.161 = const :locY;
+            symbol [ locY %tmp.161 20 142 146 const ];
+            %tmp.162 = 10;
+            %tmp.163 = dup %tmp.159;
+            %tmp.164 = aputv %tmp.163 %tmp.161 %tmp.162;
+            %tmp.166 = const :text;
+            symbol [ text %tmp.166 20 153 157 const ];
+            %tmp.167 = "GPS";
+            %tmp.168 = dup %tmp.164;
+            %tmp.169 = aputv %tmp.168 %tmp.166 %tmp.167;
+            %tmp.171 = const :justification;
+            symbol [ justification %tmp.171 20 167 180 const ];
+            symbol [ Graphics %tmp.172 20 182 190 ];
+            %tmp.172 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_CENTER %tmp.173 20 191 210 ];
+            %tmp.173 = getv %tmp.172 :TEXT_JUSTIFY_CENTER;
+            %tmp.174 = dup %tmp.169;
+            %tmp.175 = aputv %tmp.174 %tmp.171 %tmp.173;
+            %tmp.177 = const :font;
+            symbol [ font %tmp.177 20 213 217 const ];
+            symbol [ Graphics %tmp.178 20 219 227 ];
+            %tmp.178 = getm $.Toybox.Graphics;
+            symbol [ FONT_XTINY %tmp.179 20 228 238 ];
+            %tmp.179 = getv %tmp.178 :FONT_XTINY;
+            %tmp.180 = dup %tmp.175;
+            %tmp.181 = aputv %tmp.180 %tmp.177 %tmp.179;
+            %tmp.139 = newc %tmp.142 (%tmp.181);
+            lputv %rez_cmp_local_text_TopRightBadge.4 %tmp.139;
+            symbol [ rez_cmp_local_text_TopRightBadge %rez_cmp_local_text_TopRightBadge.4 20 16 48 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 22 12 ]
+            [ "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_start" "_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop" ]
+            %rez_cmp_local_text_DataPanel.5 = local;
+            symbol [ rez_cmp_local_text_DataPanel %rez_cmp_local_text_DataPanel.5 22 16 44 ];
+            symbol [ WatchUi %tmp.184 22 51 58 ];
+            %tmp.184 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.185 22 59 63 ];
+            %tmp.185 = getv function ? %tmp.184 :Text;
+            %tmp.186 = newd 6;
+            %tmp.188 = const :identifier;
+            symbol [ identifier %tmp.188 22 66 76 const ];
+            %tmp.189 = "DataPanel";
+            %tmp.190 = dup %tmp.186;
+            %tmp.191 = aputv %tmp.190 %tmp.188 %tmp.189;
+            %tmp.193 = const :color;
+            symbol [ color %tmp.193 22 92 97 const ];
+            symbol [ Graphics %tmp.194 22 99 107 ];
+            %tmp.194 = getm $.Toybox.Graphics;
+            symbol [ COLOR_WHITE %tmp.195 22 108 119 ];
+            %tmp.195 = getv %tmp.194 :COLOR_WHITE;
+            %tmp.196 = dup %tmp.191;
+            %tmp.197 = aputv %tmp.196 %tmp.193 %tmp.195;
+            %tmp.199 = const :locX;
+            symbol [ locX %tmp.199 22 122 126 const ];
+            %tmp.200 = 8;
+            %tmp.201 = dup %tmp.197;
+            %tmp.202 = aputv %tmp.201 %tmp.199 %tmp.200;
+            %tmp.204 = const :locY;
+            symbol [ locY %tmp.204 22 132 136 const ];
+            %tmp.205 = 72;
+            %tmp.206 = dup %tmp.202;
+            %tmp.207 = aputv %tmp.206 %tmp.204 %tmp.205;
+            %tmp.209 = const :justification;
+            symbol [ justification %tmp.209 22 143 156 const ];
+            symbol [ Graphics %tmp.210 22 158 166 ];
+            %tmp.210 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_LEFT %tmp.211 22 167 184 ];
+            %tmp.211 = getv %tmp.210 :TEXT_JUSTIFY_LEFT;
+            %tmp.212 = dup %tmp.207;
+            %tmp.213 = aputv %tmp.212 %tmp.209 %tmp.211;
+            %tmp.215 = const :font;
+            symbol [ font %tmp.215 22 187 191 const ];
+            symbol [ Graphics %tmp.216 22 193 201 ];
+            %tmp.216 = getm $.Toybox.Graphics;
+            symbol [ FONT_XTINY %tmp.217 22 202 212 ];
+            %tmp.217 = getv %tmp.216 :FONT_XTINY;
+            %tmp.218 = dup %tmp.213;
+            %tmp.219 = aputv %tmp.218 %tmp.215 %tmp.217;
+            %tmp.182 = newc %tmp.185 (%tmp.219);
+            lputv %rez_cmp_local_text_DataPanel.5 %tmp.182;
+            symbol [ rez_cmp_local_text_DataPanel %rez_cmp_local_text_DataPanel.5 22 16 44 ];
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 24 12 ]
+            %tmp.220 = newa 5 Array<WatchUi.Drawable>;
+            symbol [ Array %tmp.220 24 181 186 ];
+            symbol [ WatchUi %tmp.220 24 187 194 ];
+            symbol [ Drawable %tmp.220 24 195 203 ];
+            %tmp.221 = lgetv %rez_cmp_local_text_HeaderStatus.1;
+            symbol [ rez_cmp_local_text_HeaderStatus %tmp.221 24 20 51 ];
+            %tmp.222 = dup %tmp.220;
+            %tmp.223 = aputv %tmp.222 0 %tmp.221;
+            %tmp.224 = lgetv %rez_cmp_local_text_HeaderMode.2;
+            symbol [ rez_cmp_local_text_HeaderMode %tmp.224 24 53 82 ];
+            %tmp.225 = dup %tmp.223;
+            %tmp.226 = aputv %tmp.225 1 %tmp.224;
+            %tmp.227 = lgetv %rez_cmp_local_text_HeaderGps.3;
+            symbol [ rez_cmp_local_text_HeaderGps %tmp.227 24 84 112 ];
+            %tmp.228 = dup %tmp.226;
+            %tmp.229 = aputv %tmp.228 2 %tmp.227;
+            %tmp.230 = lgetv %rez_cmp_local_text_TopRightBadge.4;
+            symbol [ rez_cmp_local_text_TopRightBadge %tmp.230 24 114 146 ];
+            %tmp.231 = dup %tmp.229;
+            %tmp.232 = aputv %tmp.231 3 %tmp.230;
+            %tmp.233 = lgetv %rez_cmp_local_text_DataPanel.5;
+            symbol [ rez_cmp_local_text_DataPanel %tmp.233 24 148 176 ];
+            %tmp.234 = dup %tmp.232;
+            %tmp.235 = aputv %tmp.234 4 %tmp.233;
+            ret %tmp.235;
+_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_13_74_25_8_stop:
+        }
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 28; @symbol_moduledef = [Menus,28,11,16]; ]
+    module Menus {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 28; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 29; @symbol_classdef = [MainMenu,29,14,22]; @symbol_extends<0> = [WatchUi,29,31,38]; @symbol_extends<1> = [Menu,29,39,43]; ]
+        class MainMenu extends WatchUi.Menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 29; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 29; ]
+            static
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 30; @symbol_functiondef = [initialize,30,21,31]; ]
+            function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_30_34_34_12_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 31 16 ]
+                symbol [ Menu %tmp.2 31 16 20 ];
+                %tmp.2 = getv ? :Menu;
+                symbol [ initialize %tmp.3 31 21 31 ];
+                %tmp.3 = getv function %tmp.2 :initialize;
+                invoke %tmp.2 %tmp.3();
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 32 16 ]
+                %tmp.4 = self;
+                symbol [ addItem %tmp.5 32 16 23 ];
+                %tmp.5 = getv function %tmp.4 :addItem;
+                symbol [ WatchUi %tmp.6 32 25 32 ];
+                %tmp.6 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.7 32 33 45 ];
+                %tmp.7 = getv function %tmp.6 :loadResource;
+                symbol [ $ %tmp.8 32 46 47 ];
+                %tmp.8 = getm $;
+                symbol [ Rez %tmp.9 32 48 51 ];
+                %tmp.9 = getv %tmp.8 :Rez;
+                symbol [ Strings %tmp.10 32 52 59 ];
+                %tmp.10 = getv %tmp.9 :Strings;
+                symbol [ menu_label_1 %tmp.11 32 60 72 ];
+                %tmp.11 = getv %tmp.10 :menu_label_1;
+                %tmp.12 = invoke %tmp.6 %tmp.7(%tmp.11);
+                %tmp.13 = as %tmp.12 String;
+                symbol [ String %tmp.13 32 77 83 ];
+                %tmp.15 = const :item_1;
+                symbol [ item_1 %tmp.15 32 87 93 const ];
+                invoke %tmp.4 %tmp.5(%tmp.13, %tmp.15);
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 33 16 ]
+                %tmp.16 = self;
+                symbol [ addItem %tmp.17 33 16 23 ];
+                %tmp.17 = getv function %tmp.16 :addItem;
+                symbol [ WatchUi %tmp.18 33 25 32 ];
+                %tmp.18 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.19 33 33 45 ];
+                %tmp.19 = getv function %tmp.18 :loadResource;
+                symbol [ $ %tmp.20 33 46 47 ];
+                %tmp.20 = getm $;
+                symbol [ Rez %tmp.21 33 48 51 ];
+                %tmp.21 = getv %tmp.20 :Rez;
+                symbol [ Strings %tmp.22 33 52 59 ];
+                %tmp.22 = getv %tmp.21 :Strings;
+                symbol [ menu_label_2 %tmp.23 33 60 72 ];
+                %tmp.23 = getv %tmp.22 :menu_label_2;
+                %tmp.24 = invoke %tmp.18 %tmp.19(%tmp.23);
+                %tmp.25 = as %tmp.24 String;
+                symbol [ String %tmp.25 33 77 83 ];
+                %tmp.27 = const :item_2;
+                symbol [ item_2 %tmp.27 33 87 93 const ];
+                invoke %tmp.16 %tmp.17(%tmp.25, %tmp.27);
+_home_panagiotis_Documents_gsensors_gsensros_nodivebuild_gen_006_B4394_00_source_Rez_mcgen_30_34_34_12_stop:
+            }
+        }
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 38; @symbol_moduledef = [Strings,38,11,18]; ]
+    module Strings {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 38; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 39; @position = 27; initialized = true; @symbol_vardef = [motion_score_chart,39,27,45]; @symbol_type<0> = [ResourceId,39,49,59]; ]
+        var motion_score_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 40; @position = 27; initialized = true; @symbol_vardef = [dr_north_label,40,27,41]; @symbol_type<0> = [ResourceId,40,45,55]; ]
+        var dr_north_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 41; @position = 27; initialized = true; @symbol_vardef = [dr_east_label,41,27,40]; @symbol_type<0> = [ResourceId,41,44,54]; ]
+        var dr_east_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 42; @position = 27; initialized = true; @symbol_vardef = [mode_header,42,27,38]; @symbol_type<0> = [ResourceId,42,42,52]; ]
+        var mode_header as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 43; @position = 27; initialized = true; @symbol_vardef = [mg_units,43,27,35]; @symbol_type<0> = [ResourceId,43,39,49]; ]
+        var mg_units as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 44; @position = 27; initialized = true; @symbol_vardef = [gps_lon_chart,44,27,40]; @symbol_type<0> = [ResourceId,44,44,54]; ]
+        var gps_lon_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 45; @position = 27; initialized = true; @symbol_vardef = [flag_units,45,27,37]; @symbol_type<0> = [ResourceId,45,41,51]; ]
+        var flag_units as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 46; @position = 27; initialized = true; @symbol_vardef = [gps_header,46,27,37]; @symbol_type<0> = [ResourceId,46,41,51]; ]
+        var gps_header as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 47; @position = 27; initialized = true; @symbol_vardef = [AppName,47,27,34]; @symbol_type<0> = [ResourceId,47,38,48]; ]
+        var AppName as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 48; @position = 27; initialized = true; @symbol_vardef = [gps_lat_label,48,27,40]; @symbol_type<0> = [ResourceId,48,44,54]; ]
+        var gps_lat_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 49; @position = 27; initialized = true; @symbol_vardef = [degrees_units,49,27,40]; @symbol_type<0> = [ResourceId,49,44,54]; ]
+        var degrees_units as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 50; @position = 27; initialized = true; @symbol_vardef = [gps_lat_chart,50,27,40]; @symbol_type<0> = [ResourceId,50,44,54]; ]
+        var gps_lat_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 51; @position = 27; initialized = true; @symbol_vardef = [motion_score_label,51,27,45]; @symbol_type<0> = [ResourceId,51,49,59]; ]
+        var motion_score_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 52; @position = 27; initialized = true; @symbol_vardef = [speed_est_chart,52,27,42]; @symbol_type<0> = [ResourceId,52,46,56]; ]
+        var speed_est_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 53; @position = 27; initialized = true; @symbol_vardef = [meters_units,53,27,39]; @symbol_type<0> = [ResourceId,53,43,53]; ]
+        var meters_units as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 54; @position = 27; initialized = true; @symbol_vardef = [dr_east_chart,54,27,40]; @symbol_type<0> = [ResourceId,54,44,54]; ]
+        var dr_east_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 55; @position = 27; initialized = true; @symbol_vardef = [motion_state_chart,55,27,45]; @symbol_type<0> = [ResourceId,55,49,59]; ]
+        var motion_state_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 56; @position = 27; initialized = true; @symbol_vardef = [speed_est_label,56,27,42]; @symbol_type<0> = [ResourceId,56,46,56]; ]
+        var speed_est_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 57; @position = 27; initialized = true; @symbol_vardef = [heading_label,57,27,40]; @symbol_type<0> = [ResourceId,57,44,54]; ]
+        var heading_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 58; @position = 27; initialized = true; @symbol_vardef = [rec_header,58,27,37]; @symbol_type<0> = [ResourceId,58,41,51]; ]
+        var rec_header as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 59; @position = 27; initialized = true; @symbol_vardef = [depth_chart,59,27,38]; @symbol_type<0> = [ResourceId,59,42,52]; ]
+        var depth_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 60; @position = 27; initialized = true; @symbol_vardef = [depth_label,60,27,38]; @symbol_type<0> = [ResourceId,60,42,52]; ]
+        var depth_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 61; @position = 27; initialized = true; @symbol_vardef = [mps_units,61,27,36]; @symbol_type<0> = [ResourceId,61,40,50]; ]
+        var mps_units as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 62; @position = 27; initialized = true; @symbol_vardef = [motion_state_label,62,27,45]; @symbol_type<0> = [ResourceId,62,49,59]; ]
+        var motion_state_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 63; @position = 27; initialized = true; @symbol_vardef = [menu_label_1,63,27,39]; @symbol_type<0> = [ResourceId,63,43,53]; ]
+        var menu_label_1 as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 64; @position = 27; initialized = true; @symbol_vardef = [menu_label_2,64,27,39]; @symbol_type<0> = [ResourceId,64,43,53]; ]
+        var menu_label_2 as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 65; @position = 27; initialized = true; @symbol_vardef = [gps_lon_label,65,27,40]; @symbol_type<0> = [ResourceId,65,44,54]; ]
+        var gps_lon_label as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 66; @position = 27; initialized = true; @symbol_vardef = [heading_chart,66,27,40]; @symbol_type<0> = [ResourceId,66,44,54]; ]
+        var heading_chart as ResourceId;
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 67; @position = 27; initialized = true; @symbol_vardef = [dr_north_chart,67,27,41]; @symbol_type<0> = [ResourceId,67,45,55]; ]
+        var dr_north_chart as ResourceId;
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 70; @symbol_moduledef = [Styles,70,11,17]; ]
+    module Styles {
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 70; ]
+        <init> {
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 71; @symbol_moduledef = [prompt_font_enhanced_readability__body_with_title,71,15,64]; ]
+        module prompt_font_enhanced_readability__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 71; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 72; @position = 18; @symbol_constdef = [exclude,72,18,25]; @symbol_type<0> = [Boolean,72,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 75; @symbol_moduledef = [system_size__menu_header,75,15,39]; ]
+        module system_size__menu_header {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 75; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 76; @position = 18; @symbol_constdef = [width,76,18,23]; @symbol_type<0> = [Number,76,27,33]; ]
+            const width as Number = 175;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 77; @position = 18; @symbol_constdef = [height,77,18,24]; @symbol_type<0> = [Number,77,28,34]; ]
+            const height as Number = 62;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 80; @symbol_moduledef = [system_loc__hint_button_left_bottom,80,15,50]; ]
+        module system_loc__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 80; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 81; @position = 18; @symbol_constdef = [exclude,81,18,25]; @symbol_type<0> = [Boolean,81,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 84; @symbol_moduledef = [prompt_font_enhanced_readability__body_no_title,84,15,62]; ]
+        module prompt_font_enhanced_readability__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 84; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 85; @position = 18; @symbol_constdef = [exclude,85,18,25]; @symbol_type<0> = [Boolean,85,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 88; @symbol_moduledef = [prompt_loc__body_no_title,88,15,40]; ]
+        module prompt_loc__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 88; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 89; @position = 18; @symbol_constdef = [x,89,18,19]; @symbol_type<0> = [Number,89,23,29]; ]
+            const x as Number = 5;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 90; @position = 18; @symbol_constdef = [y,90,18,19]; @symbol_type<0> = [Number,90,23,29]; ]
+            const y as Number = 77;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 93; @symbol_moduledef = [system_icon_dark__about,93,15,38]; ]
+        module system_icon_dark__about {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 93; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 94; @position = 18; @symbol_constdef = [filename,94,18,26]; @symbol_type<0> = [String,94,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__about.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 95; @position = 18; @symbol_constdef = [disableTransparency,95,18,37]; @symbol_type<0> = [Boolean,95,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 96; @position = 18; @symbol_constdef = [dithering,96,18,27]; @symbol_type<0> = [String,96,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 97; @position = 18; @symbol_constdef = [automaticPalette,97,18,34]; @symbol_type<0> = [Boolean,97,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 100; @symbol_moduledef = [system_icon_light__question,100,15,42]; ]
+        module system_icon_light__question {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 100; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 101; @position = 18; @symbol_constdef = [filename,101,18,26]; @symbol_type<0> = [String,101,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__question.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 102; @position = 18; @symbol_constdef = [disableTransparency,102,18,37]; @symbol_type<0> = [Boolean,102,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 103; @position = 18; @symbol_constdef = [dithering,103,18,27]; @symbol_type<0> = [String,103,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 104; @position = 18; @symbol_constdef = [automaticPalette,104,18,34]; @symbol_type<0> = [Boolean,104,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 107; @symbol_moduledef = [system_loc__hint_button_left_top,107,15,47]; ]
+        module system_loc__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 107; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 108; @position = 18; @symbol_constdef = [exclude,108,18,25]; @symbol_type<0> = [Boolean,108,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 111; @symbol_moduledef = [prompt_font__title,111,15,33]; ]
+        module prompt_font__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 111; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 112 18 ]
+                symbol [ Graphics %tmp.28 112 34 42 ];
+                %tmp.28 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_RIGHT %tmp.29 112 43 61 ];
+                %tmp.29 = getv %tmp.28 :TEXT_JUSTIFY_RIGHT;
+                symbol [ Graphics %tmp.30 112 62 70 ];
+                %tmp.30 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.31 112 71 91 ];
+                %tmp.31 = getv %tmp.30 :TEXT_JUSTIFY_VCENTER;
+                %tmp.32 = bitor %tmp.29 %tmp.31;
+                putv self :justification %tmp.32;
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 113 18 ]
+                symbol [ Graphics %tmp.33 113 25 33 ];
+                %tmp.33 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.34 113 34 43 ];
+                %tmp.34 = getv %tmp.33 :FONT_TINY;
+                putv self :font %tmp.34;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 112; @position = 18; @symbol_constdef = [justification,112,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 113; @position = 18; @symbol_constdef = [font,113,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 116; @symbol_moduledef = [system_icon_dark__discard,116,15,40]; ]
+        module system_icon_dark__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 116; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 117; @position = 18; @symbol_constdef = [filename,117,18,26]; @symbol_type<0> = [String,117,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 118; @position = 18; @symbol_constdef = [disableTransparency,118,18,37]; @symbol_type<0> = [Boolean,118,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 119; @position = 18; @symbol_constdef = [dithering,119,18,27]; @symbol_type<0> = [String,119,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 120; @position = 18; @symbol_constdef = [automaticPalette,120,18,34]; @symbol_type<0> = [Boolean,120,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 123; @symbol_moduledef = [system_size__menu_item,123,15,37]; ]
+        module system_size__menu_item {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 123; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 124; @position = 18; @symbol_constdef = [width,124,18,23]; @symbol_type<0> = [Number,124,27,33]; ]
+            const width as Number = 175;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 125; @position = 18; @symbol_constdef = [height,125,18,24]; @symbol_type<0> = [Number,125,28,34]; ]
+            const height as Number = 58;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 128; @symbol_moduledef = [system_color_dark__text,128,15,38]; ]
+        module system_color_dark__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 128; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 130 18 ]
+                symbol [ Graphics %tmp.35 130 31 39 ];
+                %tmp.35 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.36 130 40 57 ];
+                %tmp.36 = getv %tmp.35 :COLOR_TRANSPARENT;
+                putv self :background %tmp.36;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 129; @position = 18; @symbol_constdef = [color,129,18,23]; @symbol_type<0> = [Number,129,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 130; @position = 18; @symbol_constdef = [background,130,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 133; @symbol_moduledef = [system_icon_destructive__discard,133,15,47]; ]
+        module system_icon_destructive__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 133; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 134; @position = 18; @symbol_constdef = [filename,134,18,26]; @symbol_type<0> = [String,134,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 135; @position = 18; @symbol_constdef = [disableTransparency,135,18,37]; @symbol_type<0> = [Boolean,135,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 136; @position = 18; @symbol_constdef = [dithering,136,18,27]; @symbol_type<0> = [String,136,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 137; @position = 18; @symbol_constdef = [automaticPalette,137,18,34]; @symbol_type<0> = [Boolean,137,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 140; @symbol_moduledef = [system_icon_dark__hint_action_menu,140,15,49]; ]
+        module system_icon_dark__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 140; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 141; @position = 18; @symbol_constdef = [filename,141,18,26]; @symbol_type<0> = [String,141,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 142; @position = 18; @symbol_constdef = [disableTransparency,142,18,37]; @symbol_type<0> = [Boolean,142,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 143; @position = 18; @symbol_constdef = [dithering,143,18,27]; @symbol_type<0> = [String,143,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 144; @position = 18; @symbol_constdef = [automaticPalette,144,18,34]; @symbol_type<0> = [Boolean,144,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 147; @symbol_moduledef = [prompt_size__title,147,15,33]; ]
+        module prompt_size__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 147; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 148; @position = 18; @symbol_constdef = [width,148,18,23]; @symbol_type<0> = [Number,148,27,33]; ]
+            const width as Number = 67;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 149; @position = 18; @symbol_constdef = [height,149,18,24]; @symbol_type<0> = [Number,149,28,34]; ]
+            const height as Number = 60;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 152; @symbol_moduledef = [confirmation_font__body,152,15,38]; ]
+        module confirmation_font__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 152; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 153 18 ]
+                symbol [ Graphics %tmp.37 153 34 42 ];
+                %tmp.37 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.38 153 43 62 ];
+                %tmp.38 = getv %tmp.37 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.38;
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 154 18 ]
+                symbol [ Graphics %tmp.39 154 25 33 ];
+                %tmp.39 = getm $.Toybox.Graphics;
+                symbol [ FONT_XTINY %tmp.40 154 34 44 ];
+                %tmp.40 = getv %tmp.39 :FONT_XTINY;
+                putv self :font %tmp.40;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 153; @position = 18; @symbol_constdef = [justification,153,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 154; @position = 18; @symbol_constdef = [font,154,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 157; @symbol_moduledef = [system_color_dark__background,157,15,44]; ]
+        module system_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 157; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 158; @position = 18; @symbol_constdef = [color,158,18,23]; @symbol_type<0> = [Number,158,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 159; @position = 18; @symbol_constdef = [background,159,18,28]; @symbol_type<0> = [Number,159,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 162; @symbol_moduledef = [system_icon_destructive__hint_button_left_top,162,15,60]; ]
+        module system_icon_destructive__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 162; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 163; @position = 18; @symbol_constdef = [exclude,163,18,25]; @symbol_type<0> = [Boolean,163,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 166; @symbol_moduledef = [system_size__launch_icon,166,15,39]; ]
+        module system_size__launch_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 166; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 167; @position = 18; @symbol_constdef = [scaleX,167,18,24]; @symbol_type<0> = [Number,167,28,34]; ]
+            const scaleX as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 168; @position = 18; @symbol_constdef = [scaleY,168,18,24]; @symbol_type<0> = [Number,168,28,34]; ]
+            const scaleY as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 169; @position = 18; @symbol_constdef = [scaleRelativeTo,169,18,33]; @symbol_type<0> = [String,169,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 172; @symbol_moduledef = [confirmation_input__confirm,172,15,42]; ]
+        module confirmation_input__confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 172; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 173 18 ]
+                symbol [ WatchUi %tmp.41 173 27 34 ];
+                %tmp.41 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.42 173 35 44 ];
+                %tmp.42 = getv %tmp.41 :KEY_ENTER;
+                putv self :button %tmp.42;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 173; @position = 18; @symbol_constdef = [button,173,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 176; @symbol_moduledef = [prompt_font__body_with_title,176,15,43]; ]
+        module prompt_font__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 176; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 177 18 ]
+                symbol [ Graphics %tmp.43 177 34 42 ];
+                %tmp.43 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.44 177 43 62 ];
+                %tmp.44 = getv %tmp.43 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.44;
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 178 18 ]
+                symbol [ Graphics %tmp.45 178 25 33 ];
+                %tmp.45 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.46 178 34 43 ];
+                %tmp.46 = getv %tmp.45 :FONT_TINY;
+                putv self :font %tmp.46;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 177; @position = 18; @symbol_constdef = [justification,177,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 178; @position = 18; @symbol_constdef = [font,178,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 181; @symbol_moduledef = [confirmation_loc__body,181,15,37]; ]
+        module confirmation_loc__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 181; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 182; @position = 18; @symbol_constdef = [x,182,18,19]; @symbol_type<0> = [Number,182,23,29]; ]
+            const x as Number = 2;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 183; @position = 18; @symbol_constdef = [y,183,18,19]; @symbol_type<0> = [Number,183,23,29]; ]
+            const y as Number = 81;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 186; @symbol_moduledef = [system_icon_destructive__hint_button_left_bottom,186,15,63]; ]
+        module system_icon_destructive__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 186; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 187; @position = 18; @symbol_constdef = [exclude,187,18,25]; @symbol_type<0> = [Boolean,187,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 190; @symbol_moduledef = [prompt_color_dark__background,190,15,44]; ]
+        module prompt_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 190; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 191; @position = 18; @symbol_constdef = [background,191,18,28]; @symbol_type<0> = [Number,191,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 194; @symbol_moduledef = [system_icon_destructive__hint_action_menu,194,15,56]; ]
+        module system_icon_destructive__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 194; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 195; @position = 18; @symbol_constdef = [filename,195,18,26]; @symbol_type<0> = [String,195,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 196; @position = 18; @symbol_constdef = [disableTransparency,196,18,37]; @symbol_type<0> = [Boolean,196,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 197; @position = 18; @symbol_constdef = [dithering,197,18,27]; @symbol_type<0> = [String,197,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 198; @position = 18; @symbol_constdef = [automaticPalette,198,18,34]; @symbol_type<0> = [Boolean,198,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 201; @symbol_moduledef = [system_loc__hint_action_menu,201,15,43]; ]
+        module system_loc__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 201; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 202; @position = 18; @symbol_constdef = [x,202,18,19]; @symbol_type<0> = [Number,202,23,29]; ]
+            const x as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 203; @position = 18; @symbol_constdef = [y,203,18,19]; @symbol_type<0> = [Number,203,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 204; @position = 18; @symbol_constdef = [horizontalJustification,204,18,41]; @symbol_type<0> = [String,204,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 205; @position = 18; @symbol_constdef = [verticalJustification,205,18,39]; @symbol_type<0> = [String,205,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 208; @symbol_moduledef = [confirmation_icon__hint_confirm,208,15,46]; ]
+        module confirmation_icon__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 208; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 209; @position = 18; @symbol_constdef = [filename,209,18,26]; @symbol_type<0> = [String,209,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 210; @position = 18; @symbol_constdef = [disableTransparency,210,18,37]; @symbol_type<0> = [Boolean,210,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 211; @position = 18; @symbol_constdef = [dithering,211,18,27]; @symbol_type<0> = [String,211,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 212; @position = 18; @symbol_constdef = [automaticPalette,212,18,34]; @symbol_type<0> = [Boolean,212,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 215; @symbol_moduledef = [system_loc__hint_button_left_middle,215,15,50]; ]
+        module system_loc__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 215; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 216; @position = 18; @symbol_constdef = [exclude,216,18,25]; @symbol_type<0> = [Boolean,216,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 219; @symbol_moduledef = [prompt_size__body_no_title,219,15,41]; ]
+        module prompt_size__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 219; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 220; @position = 18; @symbol_constdef = [width,220,18,23]; @symbol_type<0> = [Number,220,27,33]; ]
+            const width as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 221; @position = 18; @symbol_constdef = [height,221,18,24]; @symbol_type<0> = [Number,221,28,34]; ]
+            const height as Number = 99;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 224; @symbol_moduledef = [system_icon_light__hint_button_left_top,224,15,54]; ]
+        module system_icon_light__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 224; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 225; @position = 18; @symbol_constdef = [exclude,225,18,25]; @symbol_type<0> = [Boolean,225,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 228; @symbol_moduledef = [prompt_color_light__background,228,15,45]; ]
+        module prompt_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 228; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 229; @position = 18; @symbol_constdef = [background,229,18,28]; @symbol_type<0> = [Number,229,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 232; @symbol_moduledef = [confirmation_input__delete,232,15,41]; ]
+        module confirmation_input__delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 232; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 233 18 ]
+                symbol [ WatchUi %tmp.47 233 27 34 ];
+                %tmp.47 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.48 233 35 44 ];
+                %tmp.48 = getv %tmp.47 :KEY_ENTER;
+                putv self :button %tmp.48;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 233; @position = 18; @symbol_constdef = [button,233,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 236; @symbol_moduledef = [system_icon_dark__hint_button_left_top,236,15,53]; ]
+        module system_icon_dark__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 236; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 237; @position = 18; @symbol_constdef = [exclude,237,18,25]; @symbol_type<0> = [Boolean,237,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 240; @symbol_moduledef = [system_input__action_menu,240,15,40]; ]
+        module system_input__action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 240; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 241 18 ]
+                symbol [ WatchUi %tmp.49 241 27 34 ];
+                %tmp.49 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.50 241 35 44 ];
+                %tmp.50 = getv %tmp.49 :KEY_ENTER;
+                putv self :button %tmp.50;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 241; @position = 18; @symbol_constdef = [button,241,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 244; @symbol_moduledef = [system_icon_light__save,244,15,38]; ]
+        module system_icon_light__save {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 244; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 245; @position = 18; @symbol_constdef = [filename,245,18,26]; @symbol_type<0> = [String,245,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__save.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 246; @position = 18; @symbol_constdef = [disableTransparency,246,18,37]; @symbol_type<0> = [Boolean,246,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 247; @position = 18; @symbol_constdef = [dithering,247,18,27]; @symbol_type<0> = [String,247,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 248; @position = 18; @symbol_constdef = [automaticPalette,248,18,34]; @symbol_type<0> = [Boolean,248,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 251; @symbol_moduledef = [prompt_color_light__body,251,15,39]; ]
+        module prompt_color_light__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 251; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 253 18 ]
+                symbol [ Graphics %tmp.51 253 31 39 ];
+                %tmp.51 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.52 253 40 57 ];
+                %tmp.52 = getv %tmp.51 :COLOR_TRANSPARENT;
+                putv self :background %tmp.52;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 252; @position = 18; @symbol_constdef = [color,252,18,23]; @symbol_type<0> = [Number,252,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 253; @position = 18; @symbol_constdef = [background,253,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 256; @symbol_moduledef = [system_loc__subwindow,256,15,36]; ]
+        module system_loc__subwindow {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 256; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 257; @position = 18; @symbol_constdef = [x,257,18,19]; @symbol_type<0> = [Number,257,23,29]; ]
+            const x as Number = 114;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 258; @position = 18; @symbol_constdef = [y,258,18,19]; @symbol_type<0> = [Number,258,23,29]; ]
+            const y as Number = 0;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 261; @symbol_moduledef = [system_icon_light__warning,261,15,41]; ]
+        module system_icon_light__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 261; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 262; @position = 18; @symbol_constdef = [filename,262,18,26]; @symbol_type<0> = [String,262,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 263; @position = 18; @symbol_constdef = [disableTransparency,263,18,37]; @symbol_type<0> = [Boolean,263,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 264; @position = 18; @symbol_constdef = [dithering,264,18,27]; @symbol_type<0> = [String,264,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 265; @position = 18; @symbol_constdef = [automaticPalette,265,18,34]; @symbol_type<0> = [Boolean,265,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 268; @symbol_moduledef = [confirmation_color_light__body,268,15,45]; ]
+        module confirmation_color_light__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 268; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 270 18 ]
+                symbol [ Graphics %tmp.53 270 31 39 ];
+                %tmp.53 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.54 270 40 57 ];
+                %tmp.54 = getv %tmp.53 :COLOR_TRANSPARENT;
+                putv self :background %tmp.54;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 269; @position = 18; @symbol_constdef = [color,269,18,23]; @symbol_type<0> = [Number,269,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 270; @position = 18; @symbol_constdef = [background,270,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 273; @symbol_moduledef = [confirmation_icon_light__hint_keep,273,15,49]; ]
+        module confirmation_icon_light__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 273; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 274; @position = 18; @symbol_constdef = [filename,274,18,26]; @symbol_type<0> = [String,274,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 275; @position = 18; @symbol_constdef = [disableTransparency,275,18,37]; @symbol_type<0> = [Boolean,275,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 276; @position = 18; @symbol_constdef = [dithering,276,18,27]; @symbol_type<0> = [String,276,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 277; @position = 18; @symbol_constdef = [automaticPalette,277,18,34]; @symbol_type<0> = [Boolean,277,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 280; @symbol_moduledef = [activity_color_light__background,280,15,47]; ]
+        module activity_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 280; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 281; @position = 18; @symbol_constdef = [color,281,18,23]; @symbol_type<0> = [Number,281,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 282; @position = 18; @symbol_constdef = [background,282,18,28]; @symbol_type<0> = [Number,282,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 285; @symbol_moduledef = [system_icon_positive__hint_button_right_top,285,15,58]; ]
+        module system_icon_positive__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 285; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 286; @position = 18; @symbol_constdef = [filename,286,18,26]; @symbol_type<0> = [String,286,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 287; @position = 18; @symbol_constdef = [disableTransparency,287,18,37]; @symbol_type<0> = [Boolean,287,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 288; @position = 18; @symbol_constdef = [dithering,288,18,27]; @symbol_type<0> = [String,288,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 289; @position = 18; @symbol_constdef = [automaticPalette,289,18,34]; @symbol_type<0> = [Boolean,289,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 292; @symbol_moduledef = [system_size__screen,292,15,34]; ]
+        module system_size__screen {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 292; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 293; @position = 18; @symbol_constdef = [width,293,18,23]; @symbol_type<0> = [Number,293,27,33]; ]
+            const width as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 294; @position = 18; @symbol_constdef = [height,294,18,24]; @symbol_type<0> = [Number,294,28,34]; ]
+            const height as Number = 176;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 297; @symbol_moduledef = [system_icon_destructive__hint_button_right_bottom,297,15,64]; ]
+        module system_icon_destructive__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 297; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 298; @position = 18; @symbol_constdef = [exclude,298,18,25]; @symbol_type<0> = [Boolean,298,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 301; @symbol_moduledef = [system_color_light__background,301,15,45]; ]
+        module system_color_light__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 301; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 302; @position = 18; @symbol_constdef = [color,302,18,23]; @symbol_type<0> = [Number,302,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 303; @position = 18; @symbol_constdef = [background,303,18,28]; @symbol_type<0> = [Number,303,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 306; @symbol_moduledef = [system_icon_destructive__hint_button_right_top,306,15,61]; ]
+        module system_icon_destructive__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 306; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 307; @position = 18; @symbol_constdef = [filename,307,18,26]; @symbol_type<0> = [String,307,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 308; @position = 18; @symbol_constdef = [disableTransparency,308,18,37]; @symbol_type<0> = [Boolean,308,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 309; @position = 18; @symbol_constdef = [dithering,309,18,27]; @symbol_type<0> = [String,309,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 310; @position = 18; @symbol_constdef = [automaticPalette,310,18,34]; @symbol_type<0> = [Boolean,310,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 313; @symbol_moduledef = [confirmation_loc__hint_confirm,313,15,45]; ]
+        module confirmation_loc__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 313; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 314; @position = 18; @symbol_constdef = [x,314,18,19]; @symbol_type<0> = [Number,314,23,29]; ]
+            const x as Number = 113;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 315; @position = 18; @symbol_constdef = [y,315,18,19]; @symbol_type<0> = [Number,315,23,29]; ]
+            const y as Number = 1;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 318; @symbol_moduledef = [activity_color_dark__text,318,15,40]; ]
+        module activity_color_dark__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 318; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 320 18 ]
+                symbol [ Graphics %tmp.55 320 31 39 ];
+                %tmp.55 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.56 320 40 57 ];
+                %tmp.56 = getv %tmp.55 :COLOR_TRANSPARENT;
+                putv self :background %tmp.56;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 319; @position = 18; @symbol_constdef = [color,319,18,23]; @symbol_type<0> = [Number,319,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 320; @position = 18; @symbol_constdef = [background,320,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 323; @symbol_moduledef = [confirmation_input__keep,323,15,39]; ]
+        module confirmation_input__keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 323; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 324 18 ]
+                symbol [ WatchUi %tmp.57 324 27 34 ];
+                %tmp.57 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.58 324 35 43 ];
+                %tmp.58 = getv %tmp.57 :KEY_DOWN;
+                putv self :button %tmp.58;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 324; @position = 18; @symbol_constdef = [button,324,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 327; @symbol_moduledef = [prompt_loc__body_with_title,327,15,42]; ]
+        module prompt_loc__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 327; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 328; @position = 18; @symbol_constdef = [x,328,18,19]; @symbol_type<0> = [Number,328,23,29]; ]
+            const x as Number = 5;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 329; @position = 18; @symbol_constdef = [y,329,18,19]; @symbol_type<0> = [Number,329,23,29]; ]
+            const y as Number = 77;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 332; @symbol_moduledef = [system_icon_dark__search,332,15,39]; ]
+        module system_icon_dark__search {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 332; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 333; @position = 18; @symbol_constdef = [filename,333,18,26]; @symbol_type<0> = [String,333,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__search.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 334; @position = 18; @symbol_constdef = [disableTransparency,334,18,37]; @symbol_type<0> = [Boolean,334,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 335; @position = 18; @symbol_constdef = [dithering,335,18,27]; @symbol_type<0> = [String,335,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 336; @position = 18; @symbol_constdef = [automaticPalette,336,18,34]; @symbol_type<0> = [Boolean,336,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 339; @symbol_moduledef = [activity_color_light__text,339,15,41]; ]
+        module activity_color_light__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 339; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 341 18 ]
+                symbol [ Graphics %tmp.59 341 31 39 ];
+                %tmp.59 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.60 341 40 57 ];
+                %tmp.60 = getv %tmp.59 :COLOR_TRANSPARENT;
+                putv self :background %tmp.60;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 340; @position = 18; @symbol_constdef = [color,340,18,23]; @symbol_type<0> = [Number,340,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 341; @position = 18; @symbol_constdef = [background,341,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 344; @symbol_moduledef = [confirmation_icon__hint_keep,344,15,43]; ]
+        module confirmation_icon__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 344; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 345; @position = 18; @symbol_constdef = [filename,345,18,26]; @symbol_type<0> = [String,345,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 346; @position = 18; @symbol_constdef = [disableTransparency,346,18,37]; @symbol_type<0> = [Boolean,346,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 347; @position = 18; @symbol_constdef = [dithering,347,18,27]; @symbol_type<0> = [String,347,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 348; @position = 18; @symbol_constdef = [automaticPalette,348,18,34]; @symbol_type<0> = [Boolean,348,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 351; @symbol_moduledef = [system_icon_dark__save,351,15,37]; ]
+        module system_icon_dark__save {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 351; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 352; @position = 18; @symbol_constdef = [filename,352,18,26]; @symbol_type<0> = [String,352,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__save.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 353; @position = 18; @symbol_constdef = [disableTransparency,353,18,37]; @symbol_type<0> = [Boolean,353,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 354; @position = 18; @symbol_constdef = [dithering,354,18,27]; @symbol_type<0> = [String,354,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 355; @position = 18; @symbol_constdef = [automaticPalette,355,18,34]; @symbol_type<0> = [Boolean,355,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 358; @symbol_moduledef = [system_icon_destructive__hint_button_left_middle,358,15,63]; ]
+        module system_icon_destructive__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 358; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 359; @position = 18; @symbol_constdef = [exclude,359,18,25]; @symbol_type<0> = [Boolean,359,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 362; @symbol_moduledef = [system_icon_light__search,362,15,40]; ]
+        module system_icon_light__search {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 362; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 363; @position = 18; @symbol_constdef = [filename,363,18,26]; @symbol_type<0> = [String,363,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__search.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 364; @position = 18; @symbol_constdef = [disableTransparency,364,18,37]; @symbol_type<0> = [Boolean,364,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 365; @position = 18; @symbol_constdef = [dithering,365,18,27]; @symbol_type<0> = [String,365,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 366; @position = 18; @symbol_constdef = [automaticPalette,366,18,34]; @symbol_type<0> = [Boolean,366,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 369; @symbol_moduledef = [system_icon_dark__hint_button_left_bottom,369,15,56]; ]
+        module system_icon_dark__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 369; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 370; @position = 18; @symbol_constdef = [exclude,370,18,25]; @symbol_type<0> = [Boolean,370,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 373; @symbol_moduledef = [system_icon_positive__hint_button_left_top,373,15,57]; ]
+        module system_icon_positive__hint_button_left_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 373; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 374; @position = 18; @symbol_constdef = [exclude,374,18,25]; @symbol_type<0> = [Boolean,374,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 377; @symbol_moduledef = [system_loc__hint_button_right_bottom,377,15,51]; ]
+        module system_loc__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 377; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 378; @position = 18; @symbol_constdef = [exclude,378,18,25]; @symbol_type<0> = [Boolean,378,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 381; @symbol_moduledef = [confirmation_icon_dark__hint_reject,381,15,50]; ]
+        module confirmation_icon_dark__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 381; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 382; @position = 18; @symbol_constdef = [filename,382,18,26]; @symbol_type<0> = [String,382,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 383; @position = 18; @symbol_constdef = [disableTransparency,383,18,37]; @symbol_type<0> = [Boolean,383,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 384; @position = 18; @symbol_constdef = [dithering,384,18,27]; @symbol_type<0> = [String,384,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 385; @position = 18; @symbol_constdef = [automaticPalette,385,18,34]; @symbol_type<0> = [Boolean,385,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 388; @symbol_moduledef = [confirmation_color_dark__body,388,15,44]; ]
+        module confirmation_color_dark__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 388; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 390 18 ]
+                symbol [ Graphics %tmp.61 390 31 39 ];
+                %tmp.61 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.62 390 40 57 ];
+                %tmp.62 = getv %tmp.61 :COLOR_TRANSPARENT;
+                putv self :background %tmp.62;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 389; @position = 18; @symbol_constdef = [color,389,18,23]; @symbol_type<0> = [Number,389,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 390; @position = 18; @symbol_constdef = [background,390,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 393; @symbol_moduledef = [confirmation_icon_light__hint_confirm,393,15,52]; ]
+        module confirmation_icon_light__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 393; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 394; @position = 18; @symbol_constdef = [filename,394,18,26]; @symbol_type<0> = [String,394,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 395; @position = 18; @symbol_constdef = [disableTransparency,395,18,37]; @symbol_type<0> = [Boolean,395,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 396; @position = 18; @symbol_constdef = [dithering,396,18,27]; @symbol_type<0> = [String,396,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 397; @position = 18; @symbol_constdef = [automaticPalette,397,18,34]; @symbol_type<0> = [Boolean,397,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 400; @symbol_moduledef = [prompt_color_dark__title,400,15,39]; ]
+        module prompt_color_dark__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 400; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 402 18 ]
+                symbol [ Graphics %tmp.63 402 31 39 ];
+                %tmp.63 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.64 402 40 57 ];
+                %tmp.64 = getv %tmp.63 :COLOR_TRANSPARENT;
+                putv self :background %tmp.64;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 401; @position = 18; @symbol_constdef = [color,401,18,23]; @symbol_type<0> = [Number,401,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 402; @position = 18; @symbol_constdef = [background,402,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 405; @symbol_moduledef = [system_icon_destructive__cancel,405,15,46]; ]
+        module system_icon_destructive__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 405; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 406; @position = 18; @symbol_constdef = [filename,406,18,26]; @symbol_type<0> = [String,406,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 407; @position = 18; @symbol_constdef = [disableTransparency,407,18,37]; @symbol_type<0> = [Boolean,407,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 408; @position = 18; @symbol_constdef = [dithering,408,18,27]; @symbol_type<0> = [String,408,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 409; @position = 18; @symbol_constdef = [automaticPalette,409,18,34]; @symbol_type<0> = [Boolean,409,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 412; @symbol_moduledef = [system_icon_light__hint_button_right_bottom,412,15,58]; ]
+        module system_icon_light__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 412; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 413; @position = 18; @symbol_constdef = [exclude,413,18,25]; @symbol_type<0> = [Boolean,413,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 416; @symbol_moduledef = [prompt_loc__title,416,15,32]; ]
+        module prompt_loc__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 416; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 417; @position = 18; @symbol_constdef = [x,417,18,19]; @symbol_type<0> = [Number,417,23,29]; ]
+            const x as Number = 25;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 418; @position = 18; @symbol_constdef = [y,418,18,19]; @symbol_type<0> = [Number,418,23,29]; ]
+            const y as Number = 9;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 421; @symbol_moduledef = [confirmation_font_enhanced_readability__body,421,15,59]; ]
+        module confirmation_font_enhanced_readability__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 421; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 422; @position = 18; @symbol_constdef = [exclude,422,18,25]; @symbol_type<0> = [Boolean,422,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 425; @symbol_moduledef = [prompt_color_light__title,425,15,40]; ]
+        module prompt_color_light__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 425; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 427 18 ]
+                symbol [ Graphics %tmp.65 427 31 39 ];
+                %tmp.65 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.66 427 40 57 ];
+                %tmp.66 = getv %tmp.65 :COLOR_TRANSPARENT;
+                putv self :background %tmp.66;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 426; @position = 18; @symbol_constdef = [color,426,18,23]; @symbol_type<0> = [Number,426,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 427; @position = 18; @symbol_constdef = [background,427,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 430; @symbol_moduledef = [system_icon_dark__hint_button_right_top,430,15,54]; ]
+        module system_icon_dark__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 430; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 431; @position = 18; @symbol_constdef = [filename,431,18,26]; @symbol_type<0> = [String,431,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 432; @position = 18; @symbol_constdef = [disableTransparency,432,18,37]; @symbol_type<0> = [Boolean,432,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 433; @position = 18; @symbol_constdef = [dithering,433,18,27]; @symbol_type<0> = [String,433,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 434; @position = 18; @symbol_constdef = [automaticPalette,434,18,34]; @symbol_type<0> = [Boolean,434,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 437; @symbol_moduledef = [system_icon_dark__hint_button_left_middle,437,15,56]; ]
+        module system_icon_dark__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 437; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 438; @position = 18; @symbol_constdef = [exclude,438,18,25]; @symbol_type<0> = [Boolean,438,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 441; @symbol_moduledef = [confirmation_icon_dark__hint_keep,441,15,48]; ]
+        module confirmation_icon_dark__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 441; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 442; @position = 18; @symbol_constdef = [filename,442,18,26]; @symbol_type<0> = [String,442,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 443; @position = 18; @symbol_constdef = [disableTransparency,443,18,37]; @symbol_type<0> = [Boolean,443,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 444; @position = 18; @symbol_constdef = [dithering,444,18,27]; @symbol_type<0> = [String,444,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 445; @position = 18; @symbol_constdef = [automaticPalette,445,18,34]; @symbol_type<0> = [Boolean,445,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 448; @symbol_moduledef = [system_icon_light__cancel,448,15,40]; ]
+        module system_icon_light__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 448; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 449; @position = 18; @symbol_constdef = [filename,449,18,26]; @symbol_type<0> = [String,449,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 450; @position = 18; @symbol_constdef = [disableTransparency,450,18,37]; @symbol_type<0> = [Boolean,450,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 451; @position = 18; @symbol_constdef = [dithering,451,18,27]; @symbol_type<0> = [String,451,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 452; @position = 18; @symbol_constdef = [automaticPalette,452,18,34]; @symbol_type<0> = [Boolean,452,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 455; @symbol_moduledef = [confirmation_icon_light__hint_reject,455,15,51]; ]
+        module confirmation_icon_light__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 455; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 456; @position = 18; @symbol_constdef = [filename,456,18,26]; @symbol_type<0> = [String,456,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 457; @position = 18; @symbol_constdef = [disableTransparency,457,18,37]; @symbol_type<0> = [Boolean,457,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 458; @position = 18; @symbol_constdef = [dithering,458,18,27]; @symbol_type<0> = [String,458,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 459; @position = 18; @symbol_constdef = [automaticPalette,459,18,34]; @symbol_type<0> = [Boolean,459,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 462; @symbol_moduledef = [system_icon_light__about,462,15,39]; ]
+        module system_icon_light__about {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 462; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 463; @position = 18; @symbol_constdef = [filename,463,18,26]; @symbol_type<0> = [String,463,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__about.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 464; @position = 18; @symbol_constdef = [disableTransparency,464,18,37]; @symbol_type<0> = [Boolean,464,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 465; @position = 18; @symbol_constdef = [dithering,465,18,27]; @symbol_type<0> = [String,465,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 466; @position = 18; @symbol_constdef = [automaticPalette,466,18,34]; @symbol_type<0> = [Boolean,466,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 469; @symbol_moduledef = [system_size__toast_icon,469,15,38]; ]
+        module system_size__toast_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 469; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 470; @position = 18; @symbol_constdef = [width,470,18,23]; @symbol_type<0> = [Number,470,27,33]; ]
+            const width as Number = 40;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 471; @position = 18; @symbol_constdef = [scaleRelativeTo,471,18,33]; @symbol_type<0> = [String,471,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 474; @symbol_moduledef = [system_icon_dark__hint_button_right_middle,474,15,57]; ]
+        module system_icon_dark__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 474; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 475; @position = 18; @symbol_constdef = [exclude,475,18,25]; @symbol_type<0> = [Boolean,475,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 478; @symbol_moduledef = [confirmation_icon__hint_reject,478,15,45]; ]
+        module confirmation_icon__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 478; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 479; @position = 18; @symbol_constdef = [filename,479,18,26]; @symbol_type<0> = [String,479,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 480; @position = 18; @symbol_constdef = [disableTransparency,480,18,37]; @symbol_type<0> = [Boolean,480,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 481; @position = 18; @symbol_constdef = [dithering,481,18,27]; @symbol_type<0> = [String,481,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 482; @position = 18; @symbol_constdef = [automaticPalette,482,18,34]; @symbol_type<0> = [Boolean,482,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 485; @symbol_moduledef = [system_icon_light__hint_action_menu,485,15,50]; ]
+        module system_icon_light__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 485; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 486; @position = 18; @symbol_constdef = [filename,486,18,26]; @symbol_type<0> = [String,486,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 487; @position = 18; @symbol_constdef = [disableTransparency,487,18,37]; @symbol_type<0> = [Boolean,487,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 488; @position = 18; @symbol_constdef = [dithering,488,18,27]; @symbol_type<0> = [String,488,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 489; @position = 18; @symbol_constdef = [automaticPalette,489,18,34]; @symbol_type<0> = [Boolean,489,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 492; @symbol_moduledef = [system_icon_light__hint_button_right_middle,492,15,58]; ]
+        module system_icon_light__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 492; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 493; @position = 18; @symbol_constdef = [exclude,493,18,25]; @symbol_type<0> = [Boolean,493,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 496; @symbol_moduledef = [system_icon_destructive__hint_button_right_middle,496,15,64]; ]
+        module system_icon_destructive__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 496; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 497; @position = 18; @symbol_constdef = [exclude,497,18,25]; @symbol_type<0> = [Boolean,497,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 500; @symbol_moduledef = [confirmation_loc__hint_reject,500,15,44]; ]
+        module confirmation_loc__hint_reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 500; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 501; @position = 18; @symbol_constdef = [x,501,18,19]; @symbol_type<0> = [Number,501,23,29]; ]
+            const x as Number = 0;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 502; @position = 18; @symbol_constdef = [y,502,18,19]; @symbol_type<0> = [Number,502,23,29]; ]
+            const y as Number = 138;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 505; @symbol_moduledef = [confirmation_icon_dark__hint_delete,505,15,50]; ]
+        module confirmation_icon_dark__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 505; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 506; @position = 18; @symbol_constdef = [filename,506,18,26]; @symbol_type<0> = [String,506,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 507; @position = 18; @symbol_constdef = [disableTransparency,507,18,37]; @symbol_type<0> = [Boolean,507,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 508; @position = 18; @symbol_constdef = [dithering,508,18,27]; @symbol_type<0> = [String,508,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 509; @position = 18; @symbol_constdef = [automaticPalette,509,18,34]; @symbol_type<0> = [Boolean,509,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 512; @symbol_moduledef = [activity_color_dark__background,512,15,46]; ]
+        module activity_color_dark__background {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 512; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 513; @position = 18; @symbol_constdef = [color,513,18,23]; @symbol_type<0> = [Number,513,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 514; @position = 18; @symbol_constdef = [background,514,18,28]; @symbol_type<0> = [Number,514,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 517; @symbol_moduledef = [system_icon_light__hint_button_left_bottom,517,15,57]; ]
+        module system_icon_light__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 517; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 518; @position = 18; @symbol_constdef = [exclude,518,18,25]; @symbol_type<0> = [Boolean,518,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 521; @symbol_moduledef = [system_icon_positive__hint_button_left_middle,521,15,60]; ]
+        module system_icon_positive__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 521; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 522; @position = 18; @symbol_constdef = [exclude,522,18,25]; @symbol_type<0> = [Boolean,522,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 525; @symbol_moduledef = [system_size__menu_icon,525,15,37]; ]
+        module system_size__menu_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 525; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 526; @position = 18; @symbol_constdef = [scaleX,526,18,24]; @symbol_type<0> = [Number,526,28,34]; ]
+            const scaleX as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 527; @position = 18; @symbol_constdef = [scaleY,527,18,24]; @symbol_type<0> = [Number,527,28,34]; ]
+            const scaleY as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 528; @position = 18; @symbol_constdef = [scaleRelativeTo,528,18,33]; @symbol_type<0> = [String,528,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 531; @symbol_moduledef = [system_icon_destructive__warning,531,15,47]; ]
+        module system_icon_destructive__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 531; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 532; @position = 18; @symbol_constdef = [filename,532,18,26]; @symbol_type<0> = [String,532,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 533; @position = 18; @symbol_constdef = [disableTransparency,533,18,37]; @symbol_type<0> = [Boolean,533,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 534; @position = 18; @symbol_constdef = [dithering,534,18,27]; @symbol_type<0> = [String,534,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 535; @position = 18; @symbol_constdef = [automaticPalette,535,18,34]; @symbol_type<0> = [Boolean,535,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 538; @symbol_moduledef = [system_loc__hint_button_right_middle,538,15,51]; ]
+        module system_loc__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 538; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 539; @position = 18; @symbol_constdef = [exclude,539,18,25]; @symbol_type<0> = [Boolean,539,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 542; @symbol_moduledef = [system_icon_dark__cancel,542,15,39]; ]
+        module system_icon_dark__cancel {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 542; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 543; @position = 18; @symbol_constdef = [filename,543,18,26]; @symbol_type<0> = [String,543,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__cancel.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 544; @position = 18; @symbol_constdef = [disableTransparency,544,18,37]; @symbol_type<0> = [Boolean,544,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 545; @position = 18; @symbol_constdef = [dithering,545,18,27]; @symbol_type<0> = [String,545,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 546; @position = 18; @symbol_constdef = [automaticPalette,546,18,34]; @symbol_type<0> = [Boolean,546,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 549; @symbol_moduledef = [prompt_size__body_with_title,549,15,43]; ]
+        module prompt_size__body_with_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 549; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 550; @position = 18; @symbol_constdef = [width,550,18,23]; @symbol_type<0> = [Number,550,27,33]; ]
+            const width as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 551; @position = 18; @symbol_constdef = [height,551,18,24]; @symbol_type<0> = [Number,551,28,34]; ]
+            const height as Number = 99;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 554; @symbol_moduledef = [system_loc__hint_button_right_top,554,15,48]; ]
+        module system_loc__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 554; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 555; @position = 18; @symbol_constdef = [x,555,18,19]; @symbol_type<0> = [Number,555,23,29]; ]
+            const x as Number = 166;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 556; @position = 18; @symbol_constdef = [y,556,18,19]; @symbol_type<0> = [Number,556,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 557; @position = 18; @symbol_constdef = [horizontalJustification,557,18,41]; @symbol_type<0> = [String,557,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 558; @position = 18; @symbol_constdef = [verticalJustification,558,18,39]; @symbol_type<0> = [String,558,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 561; @symbol_moduledef = [system_color_light__text,561,15,39]; ]
+        module system_color_light__text {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 561; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 563 18 ]
+                symbol [ Graphics %tmp.67 563 31 39 ];
+                %tmp.67 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.68 563 40 57 ];
+                %tmp.68 = getv %tmp.67 :COLOR_TRANSPARENT;
+                putv self :background %tmp.68;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 562; @position = 18; @symbol_constdef = [color,562,18,23]; @symbol_type<0> = [Number,562,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 563; @position = 18; @symbol_constdef = [background,563,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 566; @symbol_moduledef = [system_icon_light__check,566,15,39]; ]
+        module system_icon_light__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 566; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 567; @position = 18; @symbol_constdef = [filename,567,18,26]; @symbol_type<0> = [String,567,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 568; @position = 18; @symbol_constdef = [disableTransparency,568,18,37]; @symbol_type<0> = [Boolean,568,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 569; @position = 18; @symbol_constdef = [dithering,569,18,27]; @symbol_type<0> = [String,569,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 570; @position = 18; @symbol_constdef = [automaticPalette,570,18,34]; @symbol_type<0> = [Boolean,570,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 573; @symbol_moduledef = [confirmation_input__reject,573,15,41]; ]
+        module confirmation_input__reject {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 573; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 574 18 ]
+                symbol [ WatchUi %tmp.69 574 27 34 ];
+                %tmp.69 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.70 574 35 43 ];
+                %tmp.70 = getv %tmp.69 :KEY_DOWN;
+                putv self :button %tmp.70;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 574; @position = 18; @symbol_constdef = [button,574,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 577; @symbol_moduledef = [system_icon_light__revert,577,15,40]; ]
+        module system_icon_light__revert {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 577; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 578; @position = 18; @symbol_constdef = [filename,578,18,26]; @symbol_type<0> = [String,578,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__revert.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 579; @position = 18; @symbol_constdef = [disableTransparency,579,18,37]; @symbol_type<0> = [Boolean,579,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 580; @position = 18; @symbol_constdef = [dithering,580,18,27]; @symbol_type<0> = [String,580,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 581; @position = 18; @symbol_constdef = [automaticPalette,581,18,34]; @symbol_type<0> = [Boolean,581,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 584; @symbol_moduledef = [system_size__subwindow,584,15,37]; ]
+        module system_size__subwindow {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 584; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 585; @position = 18; @symbol_constdef = [width,585,18,23]; @symbol_type<0> = [Number,585,27,33]; ]
+            const width as Number = 62;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 586; @position = 18; @symbol_constdef = [height,586,18,24]; @symbol_type<0> = [Number,586,28,34]; ]
+            const height as Number = 62;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 589; @symbol_moduledef = [system_icon_positive__hint_button_left_bottom,589,15,60]; ]
+        module system_icon_positive__hint_button_left_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 589; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 590; @position = 18; @symbol_constdef = [exclude,590,18,25]; @symbol_type<0> = [Boolean,590,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 593; @symbol_moduledef = [system_icon_dark__check,593,15,38]; ]
+        module system_icon_dark__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 593; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 594; @position = 18; @symbol_constdef = [filename,594,18,26]; @symbol_type<0> = [String,594,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 595; @position = 18; @symbol_constdef = [disableTransparency,595,18,37]; @symbol_type<0> = [Boolean,595,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 596; @position = 18; @symbol_constdef = [dithering,596,18,27]; @symbol_type<0> = [String,596,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 597; @position = 18; @symbol_constdef = [automaticPalette,597,18,34]; @symbol_type<0> = [Boolean,597,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 600; @symbol_moduledef = [confirmation_loc__hint_keep,600,15,42]; ]
+        module confirmation_loc__hint_keep {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 600; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 601; @position = 18; @symbol_constdef = [x,601,18,19]; @symbol_type<0> = [Number,601,23,29]; ]
+            const x as Number = 0;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 602; @position = 18; @symbol_constdef = [y,602,18,19]; @symbol_type<0> = [Number,602,23,29]; ]
+            const y as Number = 138;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 605; @symbol_moduledef = [confirmation_loc__hint_delete,605,15,44]; ]
+        module confirmation_loc__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 605; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 606; @position = 18; @symbol_constdef = [verticallJustification,606,18,40]; @symbol_type<0> = [String,606,44,50]; ]
+            const verticallJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 607; @position = 18; @symbol_constdef = [x,607,18,19]; @symbol_type<0> = [Number,607,23,29]; ]
+            const x as Number = 146;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 608; @position = 18; @symbol_constdef = [y,608,18,19]; @symbol_type<0> = [Number,608,23,29]; ]
+            const y as Number = 15;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 609; @position = 18; @symbol_constdef = [horizontalJustification,609,18,41]; @symbol_type<0> = [String,609,45,51]; ]
+            const horizontalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 612; @symbol_moduledef = [system_icon_positive__hint_action_menu,612,15,53]; ]
+        module system_icon_positive__hint_action_menu {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 612; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 613; @position = 18; @symbol_constdef = [filename,613,18,26]; @symbol_type<0> = [String,613,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 614; @position = 18; @symbol_constdef = [disableTransparency,614,18,37]; @symbol_type<0> = [Boolean,614,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 615; @position = 18; @symbol_constdef = [dithering,615,18,27]; @symbol_type<0> = [String,615,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 616; @position = 18; @symbol_constdef = [automaticPalette,616,18,34]; @symbol_type<0> = [Boolean,616,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 619; @symbol_moduledef = [system_icon_positive__hint_button_right_middle,619,15,61]; ]
+        module system_icon_positive__hint_button_right_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 619; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 620; @position = 18; @symbol_constdef = [exclude,620,18,25]; @symbol_type<0> = [Boolean,620,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 623; @symbol_moduledef = [system_icon_light__hint_button_left_middle,623,15,57]; ]
+        module system_icon_light__hint_button_left_middle {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 623; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 624; @position = 18; @symbol_constdef = [exclude,624,18,25]; @symbol_type<0> = [Boolean,624,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 627; @symbol_moduledef = [system_icon_dark__hint_button_right_bottom,627,15,57]; ]
+        module system_icon_dark__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 627; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 628; @position = 18; @symbol_constdef = [exclude,628,18,25]; @symbol_type<0> = [Boolean,628,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 631; @symbol_moduledef = [system_icon_positive__hint_button_right_bottom,631,15,61]; ]
+        module system_icon_positive__hint_button_right_bottom {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 631; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 632; @position = 18; @symbol_constdef = [exclude,632,18,25]; @symbol_type<0> = [Boolean,632,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 635; @symbol_moduledef = [system_icon_dark__revert,635,15,39]; ]
+        module system_icon_dark__revert {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 635; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 636; @position = 18; @symbol_constdef = [filename,636,18,26]; @symbol_type<0> = [String,636,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__revert.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 637; @position = 18; @symbol_constdef = [disableTransparency,637,18,37]; @symbol_type<0> = [Boolean,637,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 638; @position = 18; @symbol_constdef = [dithering,638,18,27]; @symbol_type<0> = [String,638,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 639; @position = 18; @symbol_constdef = [automaticPalette,639,18,34]; @symbol_type<0> = [Boolean,639,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 642; @symbol_moduledef = [confirmation_icon_light__hint_delete,642,15,51]; ]
+        module confirmation_icon_light__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 642; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 643; @position = 18; @symbol_constdef = [filename,643,18,26]; @symbol_type<0> = [String,643,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 644; @position = 18; @symbol_constdef = [disableTransparency,644,18,37]; @symbol_type<0> = [Boolean,644,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 645; @position = 18; @symbol_constdef = [dithering,645,18,27]; @symbol_type<0> = [String,645,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 646; @position = 18; @symbol_constdef = [automaticPalette,646,18,34]; @symbol_type<0> = [Boolean,646,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 649; @symbol_moduledef = [system_icon_dark__question,649,15,41]; ]
+        module system_icon_dark__question {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 649; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 650; @position = 18; @symbol_constdef = [filename,650,18,26]; @symbol_type<0> = [String,650,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__question.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 651; @position = 18; @symbol_constdef = [disableTransparency,651,18,37]; @symbol_type<0> = [Boolean,651,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 652; @position = 18; @symbol_constdef = [dithering,652,18,27]; @symbol_type<0> = [String,652,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 653; @position = 18; @symbol_constdef = [automaticPalette,653,18,34]; @symbol_type<0> = [Boolean,653,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 656; @symbol_moduledef = [system_icon_light__discard,656,15,41]; ]
+        module system_icon_light__discard {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 656; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 657; @position = 18; @symbol_constdef = [filename,657,18,26]; @symbol_type<0> = [String,657,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__discard.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 658; @position = 18; @symbol_constdef = [disableTransparency,658,18,37]; @symbol_type<0> = [Boolean,658,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 659; @position = 18; @symbol_constdef = [dithering,659,18,27]; @symbol_type<0> = [String,659,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 660; @position = 18; @symbol_constdef = [automaticPalette,660,18,34]; @symbol_type<0> = [Boolean,660,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 663; @symbol_moduledef = [device_info,663,15,26]; ]
+        module device_info {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 663; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 665 18 ]
+                symbol [ Toybox %tmp.72 665 32 38 ];
+                %tmp.72 = getv ? :Toybox;
+                symbol [ System %tmp.73 665 39 45 ];
+                %tmp.73 = getv %tmp.72 :System;
+                symbol [ SCREEN_SHAPE_SEMI_OCTAGON %tmp.74 665 46 71 ];
+                %tmp.74 = getv %tmp.73 :SCREEN_SHAPE_SEMI_OCTAGON;
+                putv self :screenShape %tmp.74;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 664; @position = 18; @symbol_constdef = [screenWidth,664,18,29]; @symbol_type<0> = [Number,664,33,39]; ]
+            const screenWidth as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 665; @position = 18; @symbol_constdef = [screenShape,665,18,29]; ]
+            const screenShape;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 666; @position = 18; @symbol_constdef = [hasNightMode,666,18,30]; @symbol_type<0> = [Boolean,666,34,41]; ]
+            const hasNightMode as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 667; @position = 18; @symbol_constdef = [hasGpu,667,18,24]; @symbol_type<0> = [Boolean,667,28,35]; ]
+            const hasGpu as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 668; @position = 18; @symbol_constdef = [screenHeight,668,18,30]; @symbol_type<0> = [Number,668,34,40]; ]
+            const screenHeight as Number = 176;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 669; @position = 18; @symbol_constdef = [hasTouchScreen,669,18,32]; @symbol_type<0> = [Boolean,669,36,43]; ]
+            const hasTouchScreen as Boolean = false;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 670; @position = 18; @symbol_constdef = [hasEnhancedReadabilityMode,670,18,44]; @symbol_type<0> = [Boolean,670,48,55]; ]
+            const hasEnhancedReadabilityMode as Boolean = false;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 673; @symbol_moduledef = [confirmation_icon_dark__hint_confirm,673,15,51]; ]
+        module confirmation_icon_dark__hint_confirm {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 673; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 674; @position = 18; @symbol_constdef = [filename,674,18,26]; @symbol_type<0> = [String,674,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 675; @position = 18; @symbol_constdef = [disableTransparency,675,18,37]; @symbol_type<0> = [Boolean,675,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 676; @position = 18; @symbol_constdef = [dithering,676,18,27]; @symbol_type<0> = [String,676,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 677; @position = 18; @symbol_constdef = [automaticPalette,677,18,34]; @symbol_type<0> = [Boolean,677,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 680; @symbol_moduledef = [prompt_font__body_no_title,680,15,41]; ]
+        module prompt_font__body_no_title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 680; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 681 18 ]
+                symbol [ Graphics %tmp.75 681 34 42 ];
+                %tmp.75 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.76 681 43 62 ];
+                %tmp.76 = getv %tmp.75 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.76;
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 682 18 ]
+                symbol [ Graphics %tmp.77 682 25 33 ];
+                %tmp.77 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.78 682 34 43 ];
+                %tmp.78 = getv %tmp.77 :FONT_TINY;
+                putv self :font %tmp.78;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 681; @position = 18; @symbol_constdef = [justification,681,18,31]; ]
+            const justification;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 682; @position = 18; @symbol_constdef = [font,682,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 685; @symbol_moduledef = [prompt_size__title_icon,685,15,38]; ]
+        module prompt_size__title_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 685; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 686; @position = 18; @symbol_constdef = [scaleX,686,18,24]; @symbol_type<0> = [Number,686,28,34]; ]
+            const scaleX as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 687; @position = 18; @symbol_constdef = [scaleY,687,18,24]; @symbol_type<0> = [Number,687,28,34]; ]
+            const scaleY as Number = 38;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 688; @position = 18; @symbol_constdef = [scaleRelativeTo,688,18,33]; @symbol_type<0> = [String,688,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 691; @symbol_moduledef = [system_icon_dark__warning,691,15,40]; ]
+        module system_icon_dark__warning {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 691; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 692; @position = 18; @symbol_constdef = [filename,692,18,26]; @symbol_type<0> = [String,692,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__warning.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 693; @position = 18; @symbol_constdef = [disableTransparency,693,18,37]; @symbol_type<0> = [Boolean,693,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 694; @position = 18; @symbol_constdef = [dithering,694,18,27]; @symbol_type<0> = [String,694,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 695; @position = 18; @symbol_constdef = [automaticPalette,695,18,34]; @symbol_type<0> = [Boolean,695,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 698; @symbol_moduledef = [prompt_loc__title_icon,698,15,37]; ]
+        module prompt_loc__title_icon {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 698; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 699; @position = 18; @symbol_constdef = [x,699,18,19]; @symbol_type<0> = [Number,699,23,29]; ]
+            const x as Number = 145;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 700; @position = 18; @symbol_constdef = [y,700,18,19]; @symbol_type<0> = [Number,700,23,29]; ]
+            const y as Number = 31;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 701; @position = 18; @symbol_constdef = [horizontalJustification,701,18,41]; @symbol_type<0> = [String,701,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 702; @position = 18; @symbol_constdef = [verticalJustification,702,18,39]; @symbol_type<0> = [String,702,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 705; @symbol_moduledef = [prompt_font_enhanced_readability__title,705,15,54]; ]
+        module prompt_font_enhanced_readability__title {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 705; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 706; @position = 18; @symbol_constdef = [exclude,706,18,25]; @symbol_type<0> = [Boolean,706,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 709; @symbol_moduledef = [prompt_color_dark__body,709,15,38]; ]
+        module prompt_color_dark__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 709; ]
+            <init> {
+[ "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen" 711 18 ]
+                symbol [ Graphics %tmp.79 711 31 39 ];
+                %tmp.79 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.80 711 40 57 ];
+                %tmp.80 = getv %tmp.79 :COLOR_TRANSPARENT;
+                putv self :background %tmp.80;
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 710; @position = 18; @symbol_constdef = [color,710,18,23]; @symbol_type<0> = [Number,710,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 711; @position = 18; @symbol_constdef = [background,711,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 714; @symbol_moduledef = [confirmation_icon__hint_delete,714,15,45]; ]
+        module confirmation_icon__hint_delete {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 714; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 715; @position = 18; @symbol_constdef = [filename,715,18,26]; @symbol_type<0> = [String,715,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 716; @position = 18; @symbol_constdef = [disableTransparency,716,18,37]; @symbol_type<0> = [Boolean,716,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 717; @position = 18; @symbol_constdef = [dithering,717,18,27]; @symbol_type<0> = [String,717,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 718; @position = 18; @symbol_constdef = [automaticPalette,718,18,34]; @symbol_type<0> = [Boolean,718,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 721; @symbol_moduledef = [system_icon_light__hint_button_right_top,721,15,55]; ]
+        module system_icon_light__hint_button_right_top {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 721; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 722; @position = 18; @symbol_constdef = [filename,722,18,26]; @symbol_type<0> = [String,722,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 723; @position = 18; @symbol_constdef = [disableTransparency,723,18,37]; @symbol_type<0> = [Boolean,723,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 724; @position = 18; @symbol_constdef = [dithering,724,18,27]; @symbol_type<0> = [String,724,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 725; @position = 18; @symbol_constdef = [automaticPalette,725,18,34]; @symbol_type<0> = [Boolean,725,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 728; @symbol_moduledef = [confirmation_size__body,728,15,38]; ]
+        module confirmation_size__body {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 728; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 729; @position = 18; @symbol_constdef = [width,729,18,23]; @symbol_type<0> = [Number,729,27,33]; ]
+            const width as Number = 173;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 730; @position = 18; @symbol_constdef = [height,730,18,24]; @symbol_type<0> = [Number,730,28,34]; ]
+            const height as Number = 63;
+        }
+        [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 733; @symbol_moduledef = [system_icon_positive__check,733,15,42]; ]
+        module system_icon_positive__check {
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 733; ]
+            <init> {
+            }
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 734; @position = 18; @symbol_constdef = [filename,734,18,26]; @symbol_type<0> = [String,734,30,36]; ]
+            const filename as String = "/home/panagiotis/.Garmin/ConnectIQ/Devices/instinct2x/system_icon_dark__check.svg";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 735; @position = 18; @symbol_constdef = [disableTransparency,735,18,37]; @symbol_type<0> = [Boolean,735,41,48]; ]
+            const disableTransparency as Boolean = true;
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 736; @position = 18; @symbol_constdef = [dithering,736,18,27]; @symbol_type<0> = [String,736,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 737; @position = 18; @symbol_constdef = [automaticPalette,737,18,34]; @symbol_type<0> = [Boolean,737,38,45]; ]
+            const automaticPalette as Boolean = true;
+        }
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/nodivebuild/gen/006-B4394-00/source/Rez.mcgen"; @line = 1; ]
+<init> {
+}

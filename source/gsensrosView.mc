@@ -1304,13 +1304,36 @@ class gsensrosView extends WatchUi.View {
             lastDepthUpdateMs = nowMs;
 
             // Prefer ambient pressure (Pa) when the device exposes it.
-            // Altitude alone is polluted by GPS and hard-clamped near -500 m,
-            // which produced the 100–2000 m depth spikes in the FIT logs.
-            var hasPressure = (info has :pressure) && (info.pressure != null);
-            var pressurePa = hasPressure ? info.pressure.toFloat() : 0.0f;
+            // Some devices report pressure as ambientPressure and/or in hPa or kPa,
+            // so normalize to Pa before applying the depth model.
+            var pressureReading = null as Float or Null;
+            if ((info has :pressure) && (info.pressure != null)) {
+                pressureReading = info.pressure.toFloat();
+            } else if ((info has :ambientPressure) && (info.ambientPressure != null)) {
+                pressureReading = info.ambientPressure.toFloat();
+            }
 
-            var hasAlt = (info has :altitude) && (info.altitude != null);
-            var rawAlt = hasAlt ? info.altitude.toFloat() : 0.0f;
+            var hasPressure = pressureReading != null;
+            var pressurePa = 0.0f;
+            if (hasPressure) {
+                pressurePa = pressureReading;
+                // Typical sea-level pressure can appear as ~1013 (hPa) or ~101 (kPa).
+                if (pressurePa > 800.0f && pressurePa < 1200.0f) {
+                    pressurePa *= 100.0f;   // hPa -> Pa
+                } else if (pressurePa > 80.0f && pressurePa < 120.0f) {
+                    pressurePa *= 1000.0f;  // kPa -> Pa
+                }
+            }
+
+            var hasAlt = false;
+            var rawAlt = 0.0f;
+            if ((info has :altitude) && (info.altitude != null)) {
+                rawAlt = info.altitude.toFloat();
+                hasAlt = true;
+            } else if ((info has :enhancedAltitude) && (info.enhancedAltitude != null)) {
+                rawAlt = info.enhancedAltitude.toFloat();
+                hasAlt = true;
+            }
             var altValid = hasAlt && rawAlt >= MIN_VALID_ALT_M && rawAlt <= MAX_VALID_ALT_M;
 
             // ---------- Initial surface calibration ----------

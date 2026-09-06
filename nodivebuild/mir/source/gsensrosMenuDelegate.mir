@@ -1,0 +1,33 @@
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [System,2,14,20]; ]
+import Toybox.System;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 5; @symbol_classdef = [gsensrosMenuDelegate,5,6,26]; @symbol_extends<0> = [WatchUi,5,35,42]; @symbol_extends<1> = [MenuInputDelegate,5,43,60]; ]
+class gsensrosMenuDelegate extends WatchUi.MenuInputDelegate {
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 5; ]
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 7; @symbol_functiondef = [initialize,7,13,23]; ]
+    function initialize() as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosMenuDelegate_mc_7_26_9_4_start:
+[ "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc" 8 8 ]
+        symbol [ MenuInputDelegate %tmp.2 8 8 25 ];
+        %tmp.2 = getv ? :MenuInputDelegate;
+        symbol [ initialize %tmp.3 8 26 36 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_home_panagiotis_Documents_gsensors_gsensros_source_gsensrosMenuDelegate_mc_7_26_9_4_stop:
+    }
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 11; @symbol_functiondef = [onMenuItem,11,13,23]; @symbol_param<0> = [item,11,24,28]; @symbol_param<0>_type<0> = [Symbol,11,32,38]; ]
+    function onMenuItem(item as Symbol) as Void {
+    }
+}
+[ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosMenuDelegate.mc"; @line = 1; ]
+<init> {
+}
