@@ -1,92 +1,61 @@
 # DRFusionTrack
 
-DRFusionTrack is the Garmin Connect IQ watch app for underwater navigation, motion tracking, dead reckoning, and FIT logging. It combines pressure-derived depth, motion and heading estimation, GPS correction, and a lightweight local Kalman-style DR model to create a practical tracking solution for wrist-worn marine use.
+DRFusionTrack is a Garmin Connect IQ watch app for underwater navigation, motion tracking, dead reckoning, and FIT logging. It targets Instinct-class devices and is designed for robust field telemetry and post-session analysis.
 
-## Overview
+## What Is New (Latest 3-4 Commits)
 
-DRFusionTrack is built for Garmin Instinct-class devices and is designed to run as a custom watch app rather than as a native Garmin dive-computer mode. The project is focused on three things:
+- Added explicit depth source tracking in runtime (`P`, `D`, `ALT`, `GPS_ALT`, `SIM`, `NONE`).
+- Refactored motion thresholds and added Kalman-derived motion fallback so movement can still be inferred when simulator IMU feeds are weak.
+- Added simulator-safe synthetic depth fallback when pressure/direct-depth is unavailable and altitude is flat.
+- Expanded diagnostics (`DEPTHDBG`) and improved session logging/trace visibility.
+- Added and integrated delegates for interaction flow:
+	- [source/gsensrosDelegate.mc](source/gsensrosDelegate.mc)
+	- [source/gsensrosMenuDelegate.mc](source/gsensrosMenuDelegate.mc)
 
-- live underwater state detection,
-- local dead-reckoning position estimation when GPS is weak or unavailable,
-- export of a rich FIT stream for post-session analysis.
+## Core Runtime Behavior
 
-The current implementation is tuned for real-world constraints: noisy GPS over water, shallow depth transitions, wrist-mounted motion, and the need to keep the app responsive while still logging usable telemetry.
+Depth source priority in [source/gsensrosView.mc](source/gsensrosView.mc):
 
-## Current implementation status
+1. direct depth (`depth` or `enhancedDepth`) if present
+2. pressure-derived depth (`pressure` or `ambientPressure`, unit-normalized to Pa)
+3. altitude-derived depth (`altitude`, `enhancedAltitude`, or `Position.Info.altitude`)
+4. simulator synthetic depth fallback (only when no real pressure/direct-depth and altitude is flat)
 
-The current codebase is the authoritative state of the project and includes the following improvements:
+Motion state combines IMU evidence and fallback cues:
 
-- pressure-first depth estimation with surface baseline from the first valid reading,
-- shallow depth values preserved instead of being discarded at startup,
-- underwater mode detection using hysteresis and shallow-water thresholds,
-- motion confidence and heading selection based on the strongest valid sensor source,
-- local East/North dead reckoning with GPS correction when the fix is usable,
-- custom FIT field export for DR position, depth, speed, GPS state, and motion status,
-- successful build validation against the Garmin Connect IQ SDK in this environment.
+- motion score from accelerometer/gyro pipeline
+- GPS speed when valid
+- Kalman displacement-derived speed fallback in low-sensor simulation cases
 
-## Core features
+## Main Components
 
-### Depth and dive-state tracking
-- ambient-pressure depth estimation as the primary source,
-- altitude used only as a secondary validation signal,
-- live surface reference established from the first valid pressure sample,
-- noise rejection and shallow-value preservation,
-- underwater/surface transitions with hysteresis and minimum time gating.
+- [source/gsensrosApp.mc](source/gsensrosApp.mc): app entry and view wiring
+- [source/gsensrosView.mc](source/gsensrosView.mc): primary runtime loop, depth, motion, DR/KF, FIT write
+- [source/gsensrosDelegate.mc](source/gsensrosDelegate.mc): key/button behavior
+- [source/gsensrosMenuDelegate.mc](source/gsensrosMenuDelegate.mc): menu flow bindings
+- [source/DeadReckoning.mc](source/DeadReckoning.mc): DR propagation
+- [source/KalmanDR.mc](source/KalmanDR.mc): local filter and corrections
+- [source/NitrogenModel.mc](source/NitrogenModel.mc): lightweight N2/risk telemetry model
 
-### Navigation and motion estimation
-- accelerometer, gyroscope, and magnetometer support,
-- adaptive motion confidence estimation,
-- best-source heading selection: true heading, mag heading, or gyro fallback,
-- GPS quality gating and local DR continuity during weak fixes.
-
-### Sensor fusion and dead reckoning
-- local East/North state propagation,
-- conservative noise tuning for multipath-prone water conditions,
-- GPS correction only when fixes are fresh and usable,
-- synthetic local track generation for post-session reconstruction.
-
-### FIT logging and analysis
-- custom FIT fields for DR east/north, depth, heading, motion, GPS quality, and underwater state,
-- synthetic DR latitude/longitude output for review,
-- output suitable for later analysis in Python or external FIT tooling.
-
-## Main runtime flow
-
-1. startup initializes the app and sensor listeners,
-2. the timer loop reads GPS, motion, and pressure data,
-3. the app updates the depth estimate and dive state,
-4. heading and speed are resolved from the strongest available source,
-5. the local DR model predicts and corrects the track,
-6. FIT values are written for the active session,
-7. shutdown handles cleanup and final state save.
-
-## Project files
-
-- [source/gsensrosApp.mc](source/gsensrosApp.mc)
-- [source/gsensrosView.mc](source/gsensrosView.mc)
-- [source/DeadReckoning.mc](source/DeadReckoning.mc)
-- [source/KalmanDR.mc](source/KalmanDR.mc)
-- [source/NitrogenModel.mc](source/NitrogenModel.mc)
-- [manifest.xml](manifest.xml)
-- [resources/strings/strings.xml](resources/strings/strings.xml)
-- [resources/drawables/drawables.xml](resources/drawables/drawables.xml)
-- [docs/](docs/)
-
-## Verification
-
-The app was validated through the local Garmin SDK build process.
+## Build And Run
 
 ```bash
 cd /home/panagiotis/Documents/gsensors/gsensros
 ./run_simulation.sh --build-only
+./run_simulation.sh --run-only
 ```
 
-This confirms the project compiles successfully with the current toolchain and that the DRFusionTrack branding and app entry are consistent with the active source.
+If `.run_simulation.sh` is used (missing `/`), the shell returns command not found. Use `./run_simulation.sh`.
 
-## Notes
+## Documentation
 
-This project is a custom underwater navigation and dive-tracking app, not a certified commercial dive computer. It is intended for research, logging, and post-session analysis rather than as a medical or decompression system.
+- [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)
+- [docs/overview.md](docs/overview.md)
+- [docs/architecture.md](docs/architecture.md)
+- [docs/data-flow.md](docs/data-flow.md)
+- [docs/fit-fields-and-formulas.md](docs/fit-fields-and-formulas.md)
+- [docs/version-changes-2026-08-14.md](docs/version-changes-2026-08-14.md)
 
----
+## Safety Note
 
-The final application behavior is intentionally conservative: the app favors stable live depth estimation, careful state transitions, and robust dead-reckoning continuity over aggressive corrections that would produce noisy or unstable tracks under imperfect GPS or sensor conditions.
+This app is for research and telemetry analysis. It is not a certified dive computer and must not be used as a sole life-support or decompression-planning instrument.

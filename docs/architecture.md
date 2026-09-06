@@ -1,85 +1,70 @@
 # DRFusionTrack Architecture
 
-## Layer design
-
-The app follows a layered design that separates sensor input, estimation, and recording while keeping them connected through a central runtime controller.
-
-### 1. Lifecycle layer
-
-Handles app startup, view creation, shutdown, and session cleanup.
-
-- `drFusionTrackApp`: application entry point
-- `gsensrosView`: core runtime state machine and sensor polling
-- `gsensrosDelegate`: button/input handling
-- `ConfirmStopDelegate`: stop confirmation flow
-
-### 2. Sensor and input layer
-
-Collects raw data from the watch hardware and the environment.
-
-- accelerometer, gyroscope, and magnetometer readings,
-- ambient pressure and altitude data,
-- GPS position and quality data,
-- timer-driven sampling for the main state loop.
-
-### 3. Estimation layer
-
-Transforms raw measurements into valid state estimates.
-
-- `updateDepth()`: pressure-based depth with live baseline calibration,
-- `processDiveState()`: underwater vs surface classification with hysteresis,
-- `getBestHeading()`: strongest valid heading source selection,
-- `getEstimatedSpeedMps()`: motion and GPS speed fusion,
-- `updateMotionConfidence()`: movement confidence and stability gating,
-- `DeadReckoning` and `KalmanDR`: local navigation and GPS-corrected track generation,
-- `NitrogenModel`: UI-oriented risk model for monitoring and logging.
-
-### 4. Recording layer
-
-Stores the final state into the FIT stream for analysis.
-
-- custom FIT fields for DR east/north, depth, speed, heading, GPS fix, and underwater state,
-- throttled writes for efficiency and data integrity,
-- session summaries and live UI telemetry.
-
-## Core architecture
+## Component Graph
 
 ```text
 drFusionTrackApp
-  └── creates gsensrosView and delegates
+  └── creates gsensrosView + delegates
         ├── gsensrosView
         │     ├── DeadReckoning
         │     ├── KalmanDR
         │     ├── NitrogenModel
-        │     ├── Sensor + Position listeners
-        │     └── Timer callback
+        │     ├── Sensor.getInfo + sensor listener
+        │     ├── Position.getInfo + position events
+        │     └── timerCallback (500 ms)
         ├── gsensrosDelegate
+        ├── gsensrosMenuDelegate
         └── ConfirmStopDelegate
 ```
 
-## Depth architecture
+## Layers
 
-The depth model is designed around pressure as the primary signal:
+### 1. Lifecycle and Input Delegates
 
-- first valid pressure sample becomes the active surface reference,
-- pressure is the main depth source,
-- altitude is secondary and used only as validation,
-- negative or impossible jumps are clipped,
-- low-pass smoothing keeps the signal stable without removing real motion.
+- [../source/gsensrosApp.mc](../source/gsensrosApp.mc): app entry
+- [../source/gsensrosView.mc](../source/gsensrosView.mc): runtime state owner
+- [../source/gsensrosDelegate.mc](../source/gsensrosDelegate.mc): key/select/menu behavior
+- [../source/gsensrosMenuDelegate.mc](../source/gsensrosMenuDelegate.mc): menu-specific actions
+- [../ConfirmStopDelegate.mc](../ConfirmStopDelegate.mc): stop-session confirmation flow
 
-This is the core fix that makes the app behave like a practical underwater tracker rather than a noisy startup artifact.
+### 2. Sensor and Position Acquisition
 
-## Runtime flow
+- periodic pull via `Sensor.getInfo()` and `Position.getInfo()`
+- event updates via location listener and sensor data callback
+- null-safe handling of sparse simulator payloads
 
-1. startup begins sensor listeners and timer scheduling,
-2. the 500 ms loop reads the latest sensor and GPS inputs,
-3. `updateDepth()` produces a live depth estimate,
-4. `processDiveState()` decides whether the user is underwater,
-5. motion confidence and heading are recalculated,
-6. DR and Kalman filters advance the local track,
-7. FIT writes occur when enough state change is present,
-8. shutdown ends listeners and preserves the session cleanly.
+### 3. Estimation and State
+
+- depth source tracker with tagged source (`P`, `D`, `ALT`, `GPS_ALT`, `SIM`, `NONE`)
+- pressure normalization (Pa/hPa/kPa)
+- altitude and pressure blending when both exist
+- simulator-only synthetic depth when no real source exists and altitude is flat
+- motion confidence from IMU + GPS + Kalman displacement fallback
+- DR + Kalman local east/north propagation and correction
+
+### 4. Recording and Diagnostics
+
+- FIT record fields for depth, motion, moving, GPS fix, heading, DR coordinates, and POIs
+- write helpers avoid redundant values
+- runtime diagnostics include `DRDIAG` and `DEPTHDBG` for source-level tracing
+
+## Depth Design (Current)
+
+Priority order in [../source/gsensrosView.mc](../source/gsensrosView.mc):
+
+1. direct depth (`depth` or `enhancedDepth`)
+2. pressure depth from (`pressure` or `ambientPressure`)
+3. altitude depth from (`altitude`, `enhancedAltitude`, or `Position.Info.altitude`)
+4. simulator synthetic depth fallback for testability
+
+Depth is clamped, rate-limited, and low-pass filtered before becoming `currentDepth`.
+
+## Motion Design (Current)
+
+- IMU motion score remains primary for real hardware.
+- If IMU is weak in simulator, Kalman displacement-derived speed is used as a fallback signal.
+- Moving state gates DR advancement and feeds FIT `Moving` telemetry.
 
 ## Constraints
 
-Garmin Connect IQ is not a native dive-computer API. DRFusionTrack therefore behaves as a custom wearable tracker: it estimates depth and underwater motion using a conservative heuristic model, then uses a local DR estimator and sparse GPS corrections to build a useful post-session route.
+The app is a custom Connect IQ watch app, not a certified dive-computer runtime. Design choices favor stable telemetry and debuggable behavior under mixed sensor quality.
