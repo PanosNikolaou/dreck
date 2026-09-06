@@ -255,6 +255,7 @@ class gsensrosView extends WatchUi.View {
     var calibrationSamples = 0;
     const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
     var currentDepth = 0.0f;
+    var depthSourceTag = "NONE";
     var lastDepthUpdateMs = 0;
     var lastSurfacePressureRecalMs = 0;
     var usePressureDepth = false;   // true once we have a pressure-based surface cal
@@ -303,6 +304,9 @@ class gsensrosView extends WatchUi.View {
     const MOTION_FILTER_ALPHA = 0.55f; // slightly more responsive motion score
 
     var filteredSpeedEst = 0.0f;       // smoothed output of getEstimatedSpeedMps
+    var kfDerivedSpeedMps = 0.0f;
+    var prevKfEast = null as Float or Null;
+    var prevKfNorth = null as Float or Null;
 
     var lastFitEast = null as Float or Null;
     var lastFitNorth = null as Float or Null;
@@ -596,7 +600,7 @@ class gsensrosView extends WatchUi.View {
             var posInfo = Position.getInfo();
 
             readSensors(sensorInfo);
-            updateDepth(sensorInfo);
+            updateDepth(sensorInfo, posInfo);
             updateGPS(sensorInfo, posInfo);
             processDepthState();
             updateMotionConfidence();
@@ -662,6 +666,26 @@ class gsensrosView extends WatchUi.View {
                 );
                 var drSpeed = drFusion.get(:drSpeed) as Float;
                 var drHeadingConfidence = drFusion.get(:drHeadingConfidence) as Float;
+
+                if (kalman != null && dt > 0.0f) {
+                    var kfEastNow = kalman.getEast();
+                    var kfNorthNow = kalman.getNorth();
+                    if (isFiniteValue(kfEastNow) && isFiniteValue(kfNorthNow)
+                        && prevKfEast != null && prevKfNorth != null) {
+                        var dE = kfEastNow - prevKfEast;
+                        var dN = kfNorthNow - prevKfNorth;
+                        var dM = Math.sqrt((dE * dE) + (dN * dN));
+                        kfDerivedSpeedMps = dM / dt;
+                    } else {
+                        kfDerivedSpeedMps = 0.0f;
+                    }
+                    prevKfEast = kfEastNow;
+                    prevKfNorth = kfNorthNow;
+                } else {
+                    kfDerivedSpeedMps = 0.0f;
+                    prevKfEast = null;
+                    prevKfNorth = null;
+                }
 
                 if (gpsSignalLost) {
                     var diagStepEast = 0.0f;
@@ -954,6 +978,9 @@ class gsensrosView extends WatchUi.View {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return false;
         }
+        if (kfDerivedSpeedMps >= DR_MOVE_SPEED_THRESHOLD_MPS) {
+            return false;
+        }
         var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
         if (gyroMag > STATIONARY_GYRO_MAG_RAD_S) {
             return false;
@@ -1035,6 +1062,9 @@ class gsensrosView extends WatchUi.View {
         if (isProbablyMoving()) {
             evidence += 1;
         }
+        if (kfDerivedSpeedMps >= DR_MOVE_SPEED_THRESHOLD_MPS) {
+            evidence += 1;
+        }
         if (biometricMotionBoost >= 1.0f) {
             evidence += 1;
         }
@@ -1060,6 +1090,9 @@ class gsensrosView extends WatchUi.View {
         isMotionDetected    = false;
         movingConfidence    = 0;
         filteredSpeedEst    = 0.0f;
+        kfDerivedSpeedMps   = 0.0f;
+        prevKfEast          = null;
+        prevKfNorth         = null;
         biometricMotionBoost = 0.0f;
         biometricHrBaseline = 0;
         biometricSpo2Baseline = 0.0f;
@@ -1288,9 +1321,11 @@ class gsensrosView extends WatchUi.View {
         return a * 57.2957795f;
     }
 
-    function updateDepth(info as Sensor.Info or Null) as Void {
+    function updateDepth(info as Sensor.Info or Null, posInfo as Position.Info or Null) as Void {
         try {
-            if (info == null) {
+            depthSourceTag = "NONE";
+
+            if (info == null && posInfo == null) {
                 return;
             }
 
@@ -1307,15 +1342,16 @@ class gsensrosView extends WatchUi.View {
             // Some devices report pressure as ambientPressure and/or in hPa or kPa,
             // so normalize to Pa before applying the depth model.
             var pressureReading = null as Float or Null;
-            if ((info has :pressure) && (info.pressure != null)) {
+            if (info != null && (info has :pressure) && (info.pressure != null)) {
                 pressureReading = info.pressure.toFloat();
-            } else if ((info has :ambientPressure) && (info.ambientPressure != null)) {
+            } else if (info != null && (info has :ambientPressure) && (info.ambientPressure != null)) {
                 pressureReading = info.ambientPressure.toFloat();
             }
 
             var hasPressure = pressureReading != null;
             var pressurePa = 0.0f;
             if (hasPressure) {
+                depthSourceTag = "P";
                 pressurePa = pressureReading;
                 // Typical sea-level pressure can appear as ~1013 (hPa) or ~101 (kPa).
                 if (pressurePa > 800.0f && pressurePa < 1200.0f) {
@@ -1325,14 +1361,43 @@ class gsensrosView extends WatchUi.View {
                 }
             }
 
+            // Some device profiles expose direct depth instead of pressure.
+            var directDepth = null as Float or Null;
+            if (info != null && (info has :depth) && (info.depth != null)) {
+                directDepth = info.depth.toFloat();
+            } else if (info != null && (info has :enhancedDepth) && (info.enhancedDepth != null)) {
+                directDepth = info.enhancedDepth.toFloat();
+            }
+            if (directDepth != null) {
+                depthSourceTag = "D";
+                if (directDepth < 0.0f) {
+                    directDepth = 0.0f;
+                } else if (directDepth > MAX_DEPTH_M) {
+                    directDepth = MAX_DEPTH_M;
+                }
+            }
+
             var hasAlt = false;
             var rawAlt = 0.0f;
-            if ((info has :altitude) && (info.altitude != null)) {
+            if (info != null && (info has :altitude) && (info.altitude != null)) {
                 rawAlt = info.altitude.toFloat();
                 hasAlt = true;
-            } else if ((info has :enhancedAltitude) && (info.enhancedAltitude != null)) {
+                if (depthSourceTag.equals("NONE")) {
+                    depthSourceTag = "ALT";
+                }
+            } else if (info != null && (info has :enhancedAltitude) && (info.enhancedAltitude != null)) {
                 rawAlt = info.enhancedAltitude.toFloat();
                 hasAlt = true;
+                if (depthSourceTag.equals("NONE")) {
+                    depthSourceTag = "ALT";
+                }
+            } else if (posInfo != null && (posInfo has :altitude) && (posInfo.altitude != null)) {
+                // Simulator profiles often expose altitude on position samples rather than Sensor.Info.
+                rawAlt = posInfo.altitude.toFloat();
+                hasAlt = true;
+                if (depthSourceTag.equals("NONE")) {
+                    depthSourceTag = "GPS_ALT";
+                }
             }
             var altValid = hasAlt && rawAlt >= MIN_VALID_ALT_M && rawAlt <= MAX_VALID_ALT_M;
 
@@ -1379,6 +1444,11 @@ class gsensrosView extends WatchUi.View {
                         + " useP=" + usePressureDepth
                         + " pCal=" + pressureCalibrationSamples
                         + " aCal=" + altitudeCalibrationSamples);
+                }
+                if (directDepth != null) {
+                    currentDepth = directDepth;
+                    depthFilter = directDepth;
+                    return;
                 }
                 // If we already have a valid initial pressure baseline, keep the live depth
                 // estimate running instead of returning zero during the warm-up window.
@@ -1427,6 +1497,10 @@ class gsensrosView extends WatchUi.View {
             // ---------- Raw depth ----------
             var pressureDepth = null as Float or Null;
             var altitudeDepth = null as Float or Null;
+
+            if (directDepth != null) {
+                pressureDepth = directDepth;
+            }
 
             if (usePressureDepth && hasPressure && pressurePa > 50000.0f) {
                 pressureDepth = (pressurePa - surfacePressurePa) / PA_PER_METER_SEAWATER;
@@ -2782,6 +2856,12 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             if (canDrawFieldRow(leftX, rightX, contentY)) {
                 dc.drawText(leftX, contentY, font, "Depth:", Graphics.TEXT_JUSTIFY_LEFT);
                 dc.drawText(rightX, contentY, font, currentDepth.format("%.1f") + "m", Graphics.TEXT_JUSTIFY_LEFT);
+            }
+            contentY += rowH;
+
+            if (canDrawFieldRow(leftX, rightX, contentY)) {
+                dc.drawText(leftX, contentY, font, "Dsrc:", Graphics.TEXT_JUSTIFY_LEFT);
+                dc.drawText(rightX, contentY, font, depthSourceTag, Graphics.TEXT_JUSTIFY_LEFT);
             }
             contentY += rowH;
 
