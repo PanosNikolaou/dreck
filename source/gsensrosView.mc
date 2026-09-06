@@ -282,6 +282,7 @@ class gsensrosView extends WatchUi.View {
     const GPS_ZERO_SPEED_MPS = 0.20f;
     const MIN_VALID_GPS_SPEED_MPS = 0.35f;
     const DR_MOVE_SPEED_THRESHOLD_MPS = 0.12f;
+    const KF_MOTION_MIN_SPEED_MPS = 0.03f;
     const GPS_LOSS_DAMPING_FACTOR = 0.35f;
     const MIN_SENSOR_MOTION_MG = 20.0f;
     const MIN_SENSOR_CONFIDENCE = 6;
@@ -978,7 +979,7 @@ class gsensrosView extends WatchUi.View {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
             return false;
         }
-        if (kfDerivedSpeedMps >= DR_MOVE_SPEED_THRESHOLD_MPS) {
+        if (kfDerivedSpeedMps >= KF_MOTION_MIN_SPEED_MPS) {
             return false;
         }
         var gyroMag = Math.sqrt(gyroX * gyroX + gyroY * gyroY + gyroZ * gyroZ);
@@ -1007,6 +1008,9 @@ class gsensrosView extends WatchUi.View {
 
     function isProbablyMoving() as Boolean {
         if (speed >= MIN_VALID_GPS_SPEED_MPS) {
+            return true;
+        }
+        if (kfDerivedSpeedMps >= KF_MOTION_MIN_SPEED_MPS) {
             return true;
         }
         return isMotionDetected;
@@ -1062,7 +1066,7 @@ class gsensrosView extends WatchUi.View {
         if (isProbablyMoving()) {
             evidence += 1;
         }
-        if (kfDerivedSpeedMps >= DR_MOVE_SPEED_THRESHOLD_MPS) {
+        if (kfDerivedSpeedMps >= KF_MOTION_MIN_SPEED_MPS) {
             evidence += 1;
         }
         if (biometricMotionBoost >= 1.0f) {
