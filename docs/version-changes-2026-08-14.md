@@ -1,44 +1,64 @@
 # Version Changes - 2026-08-21
 
-## Release summary
-This update fixes the core depth mismatch against the Suunto Ocean reference and aligns the app’s documented depth model with the actual observed dive trace.
+## Release Summary
 
-## What changed
+This revision consolidates the last implementation wave: depth-source correction, motion-state hardening, simulator fallback for depth-path validation, and documentation alignment.
 
-### 1. Pressure-first depth baseline was corrected
-- The app now initializes `surfacePressurePa` from the first valid pressure sample instead of waiting for the full calibration window.
-- Live pressure-based depth updates remain active during startup calibration when the pressure signal is valid.
-- Negative pressure differences are clipped to zero so false negative depths are not reported.
+## Code Changes
 
-### 2. Altitude is now secondary, not primary
-- The altitude estimate is still used when valid, but it no longer dominates the underwater trace.
-- Pressure is treated as the authoritative depth signal for real dive depth estimation.
+### 1. Depth Source Resolution Reworked
 
-### 3. Low-pass smoothing was tuned
-- The filtering response was adjusted to track actual dive motion more quickly while still suppressing transient spikes.
-- This keeps the trace responsive without the flat-zero startup artifact.
+- `updateDepth(info, posInfo)` now resolves sources in explicit priority order:
+	- direct depth (`depth`, `enhancedDepth`)
+	- pressure (`pressure`, `ambientPressure`)
+	- altitude (`altitude`, `enhancedAltitude`, GPS altitude)
+	- simulator synthetic fallback (`SIM`) when no real source is available
+- Pressure unit normalization is now robust for Pa/hPa/kPa-like inputs.
+- Altitude-only mode uses sign-robust handling to avoid baseline polarity mistakes.
 
-### 4. The earlier drift bug was clearly isolated
-- The Garmin export previously flattened to zero because the app’s startup calibration logic was discarding real pressure values too early.
-- The corrected implementation is consistent with Suunto Ocean data and the realistic shallow-depth trace seen in the reference logs.
+### 2. Depth Stuck-at-Zero Failure Path Fixed
 
-## Comparison to Suunto reference
+- Real-device depth now starts from first valid pressure baseline and is no longer blocked by startup sequencing.
+- Clamping and filtering behavior was retained but applied after stronger source validation.
+- Runtime diagnostics now make source and intermediate computations observable.
 
-The Suunto Ocean log contains realistic depth values around:
+### 3. Motion Confidence Updated with KF Fallback
 
-- 1.56 m
-- 3.96 m
-- 4.47 m
-- 5.91 m
+- `isStationary`, `isProbablyMoving`, and `updateMotionConfidence` now include Kalman displacement-derived speed fallback.
+- This avoids false stationary lock in simulator sessions where IMU payload is sparse but DR/KF displacement exists.
 
-The fixed implementation now follows that style of trace instead of stalling at 0 m while the calibration gate is waiting to complete.
+### 4. Simulator Validation Path Added
 
-## Impact
+- When simulator has no pressure and flat altitude, runtime can emit synthetic depth (`SIM`) during recording.
+- This is an explicit simulator-only continuity mechanism to validate UI/FIT plumbing; it is not a replacement for real pressure depth.
 
-- Depth values are now much closer to the real dive trace.
-- The app is less likely to report flat zero-depth behavior during initial calibration.
-- The documented algorithm better reflects what the watch is actually doing in the field.
+### 5. Diagnostics and UI Visibility
 
-## Relevant notes
+- `DEPTHDBG` logs include source tag and intermediate values (altitude baseline, normalized pressure, pressure depth, altitude depth, final depth).
+- `Dsrc` was surfaced on-screen to verify active source in real time.
+- Debug logging defaults were made safer for investigation when settings are absent.
 
-This update supersedes the earlier altitude-heavy explanation in the older release notes. The current app behavior is pressure-first and tuned to a realistic dive profile rather than a starter calibration artifact.
+## Validation Outcomes
+
+- Build verification succeeded repeatedly via `./run_simulation.sh --build-only`.
+- Python simulation suite passed (`tests/test_simulation_suite.py`: 6 tests).
+- Logs confirmed simulator constraints (`pPa=NA`, flat altitude) and subsequent non-zero depth under `SIM` source.
+
+## Documentation Synchronization
+
+The following docs were updated to match implementation:
+
+- `README.md`
+- `docs/overview.md`
+- `docs/architecture.md`
+- `docs/data-flow.md`
+- `docs/DOCUMENTATION.md`
+- `docs/fit-fields-and-formulas.md`
+- `developerguide.md`
+- `docs/command-reference.md`
+- this file (`docs/version-changes-2026-08-14.md`)
+
+## Operational Notes
+
+- Prefer `./run_simulation.sh` for build/run because it tracks current SDK layout and avoids stale hardcoded SDK paths.
+- Simulator evidence should be interpreted as pipeline validation; depth truth evaluation must come from real-device sensor streams.

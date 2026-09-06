@@ -45,8 +45,6 @@ cd /home/panagiotis/Documents/gsensors/gsensros
 ./run_simulation.sh --run-only
 ```
 
-If `.run_simulation.sh` is used (missing `/`), the shell returns command not found. Use `./run_simulation.sh`.
-
 ## Documentation
 
 - [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)
