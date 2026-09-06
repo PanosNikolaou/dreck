@@ -17,6 +17,9 @@ class gsensrosView extends WatchUi.View {
 
     function isDebugLoggingEnabled() as Boolean {
         var enabled = Application.Storage.getValue("debug_logs_enabled");
+        if (enabled == null) {
+            return true;
+        }
         return (enabled == true);
     }
 
@@ -256,6 +259,10 @@ class gsensrosView extends WatchUi.View {
     const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
     var currentDepth = 0.0f;
     var depthSourceTag = "NONE";
+    var lastDepthDiagLogMs = 0;
+    var lastAltSample = null as Float or Null;
+    var flatAltSampleCount = 0;
+    var simulatedDepthM = 0.0f;
     var lastDepthUpdateMs = 0;
     var lastSurfacePressureRecalMs = 0;
     var usePressureDepth = false;   // true once we have a pressure-based surface cal
@@ -264,6 +271,12 @@ class gsensrosView extends WatchUi.View {
     const ALT_DEPTH_WEIGHT = 0.05f;
     const ALT_DEPTH_BLEND_FULL_DIFF_M = 2.0f;
     const ALT_DEPTH_BLEND_OFF_DIFF_M = 6.0f;
+    const SIM_DEPTH_ENABLE = true;
+    const SIM_DEPTH_MIN_FLAT_SAMPLES = 8;
+    const SIM_DEPTH_ALT_EPSILON_M = 0.02f;
+    const SIM_DEPTH_MAX_M = 2.5f;
+    const SIM_DEPTH_RISE_GAIN = 0.20f;
+    const SIM_DEPTH_FALL_GAIN = 0.28f;
 
     var motionScoreMg = 0.0f;
     var motionBaselineMg = 0.0f;
@@ -1404,6 +1417,17 @@ class gsensrosView extends WatchUi.View {
                 }
             }
             var altValid = hasAlt && rawAlt >= MIN_VALID_ALT_M && rawAlt <= MAX_VALID_ALT_M;
+            if (altValid) {
+                if (lastAltSample != null && absFloat(rawAlt - lastAltSample) <= SIM_DEPTH_ALT_EPSILON_M) {
+                    flatAltSampleCount += 1;
+                } else {
+                    flatAltSampleCount = 0;
+                }
+                lastAltSample = rawAlt;
+            } else {
+                lastAltSample = null;
+                flatAltSampleCount = 0;
+            }
 
             // ---------- Initial surface calibration ----------
             if (calibrationSamples < CALIBRATION_COUNT) {
@@ -1482,6 +1506,7 @@ class gsensrosView extends WatchUi.View {
                     && hasGpsFix
                     && isGpsQualityUsable(gpsQuality)
                     && (nowMs - lastSurfacePressureRecalMs) >= SURFACE_PRESSURE_RECAL_INTERVAL_MS;
+                var altitudeOnlyMode = (!hasPressure) && (directDepth == null);
 
                 if (usePressureDepth && hasPressure
                     && pressurePa > 80000.0f && pressurePa < 110000.0f) {
@@ -1492,7 +1517,9 @@ class gsensrosView extends WatchUi.View {
                         surfacePressurePa = (0.90f * surfacePressurePa) + (0.10f * pressurePa);
                     }
                 }
-                if (altValid) {
+                // In altitude-only mode while recording, keep a stable baseline.
+                // Otherwise the baseline follows raw altitude and collapses depth to ~0.
+                if (altValid && (!altitudeOnlyMode || !isRecording)) {
                     surfaceAltitude = (1.0f - SURFACE_RECAL_ALPHA) * surfaceAltitude
                                     + SURFACE_RECAL_ALPHA * rawAlt;
                 }
@@ -1514,9 +1541,21 @@ class gsensrosView extends WatchUi.View {
             }
 
             if (altValid) {
-                altitudeDepth = surfaceAltitude - rawAlt;
-                if (altitudeDepth < 0.0f) {
-                    altitudeDepth = 0.0f;
+                // Some profiles report altitude with opposite sign versus depth.
+                // Evaluate both directions and keep the physically plausible positive one.
+                var altitudeDepthA = surfaceAltitude - rawAlt;
+                if (altitudeDepthA < 0.0f) {
+                    altitudeDepthA = 0.0f;
+                }
+
+                var altitudeDepthB = rawAlt - surfaceAltitude;
+                if (altitudeDepthB < 0.0f) {
+                    altitudeDepthB = 0.0f;
+                }
+
+                altitudeDepth = altitudeDepthA;
+                if (pressureDepth == null && altitudeDepthB > altitudeDepthA) {
+                    altitudeDepth = altitudeDepthB;
                 }
             }
 
@@ -1540,6 +1579,33 @@ class gsensrosView extends WatchUi.View {
             } else {
                 // No usable sensor this tick – hold previous filtered value
                 return;
+            }
+
+            var altitudeOnlyMode = (!hasPressure) && (directDepth == null);
+            if (SIM_DEPTH_ENABLE && altitudeOnlyMode && altValid
+                && flatAltSampleCount >= SIM_DEPTH_MIN_FLAT_SAMPLES && isRecording) {
+                var movingForSimDepth = (kfDerivedSpeedMps >= KF_MOTION_MIN_SPEED_MPS)
+                    || (movingConfidence >= MOVING_CONFIDENCE_ON);
+                if (movingForSimDepth) {
+                    simulatedDepthM += (kfDerivedSpeedMps + 0.05f) * SIM_DEPTH_RISE_GAIN * dt;
+                    if (simulatedDepthM > SIM_DEPTH_MAX_M) {
+                        simulatedDepthM = SIM_DEPTH_MAX_M;
+                    }
+                } else {
+                    simulatedDepthM -= SIM_DEPTH_FALL_GAIN * dt;
+                    if (simulatedDepthM < 0.0f) {
+                        simulatedDepthM = 0.0f;
+                    }
+                }
+
+                var wobble = 0.06f * Math.sin(nowMs.toFloat() / 1200.0f);
+                rawDepth = simulatedDepthM + wobble;
+                if (rawDepth < 0.0f) {
+                    rawDepth = 0.0f;
+                }
+                depthSourceTag = "SIM";
+            } else if (!altitudeOnlyMode) {
+                simulatedDepthM = 0.0f;
             }
 
             // Reject non-physical jumps (GPS altitude jumps, baro glitches)
@@ -1586,6 +1652,22 @@ class gsensrosView extends WatchUi.View {
             }
 
             currentDepth = depthFilter;
+
+            if (isDebugLoggingEnabled() && (nowMs - lastDepthDiagLogMs) >= 1000) {
+                lastDepthDiagLogMs = nowMs;
+                var rawAltText = hasAlt ? rawAlt.format("%.2f") : "NA";
+                var pText = hasPressure ? pressurePa.format("%.0f") : "NA";
+                var pDepthText = (pressureDepth != null) ? pressureDepth.format("%.2f") : "NA";
+                var aDepthText = (altitudeDepth != null) ? altitudeDepth.format("%.2f") : "NA";
+                logDebug("DEPTHDBG src=" + depthSourceTag
+                    + " rec=" + isRecording
+                    + " rawAlt=" + rawAltText
+                    + " alt0=" + surfaceAltitude.format("%.2f")
+                    + " pPa=" + pText
+                    + " pDepth=" + pDepthText
+                    + " aDepth=" + aDepthText
+                    + " depth=" + currentDepth.format("%.2f"));
+            }
         } catch (e) {
             logDebug("updateDepth error: " + errorToString(e));
         }
@@ -2542,6 +2624,9 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
             depthFilter = 0.0f;
             calibrationSamples = 0;
             currentDepth = 0.0f;
+            simulatedDepthM = 0.0f;
+            lastAltSample = null;
+            flatAltSampleCount = 0;
             lastDepthUpdateMs = 0;
             usePressureDepth = false;
         } catch (e) {
