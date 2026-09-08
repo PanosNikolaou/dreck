@@ -60,9 +60,9 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_24_29_29_4_
         putv self :initialized %tmp.4;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_24_29_29_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc"; @line = 31; @symbol_functiondef = [update,31,13,19]; @symbol_param<0> = [depthM,31,20,26]; @symbol_param<0>_type<0> = [Float,31,30,35]; @symbol_param<1> = [dtSec,31,37,42]; @symbol_param<1>_type<0> = [Float,31,46,51]; @symbol_param<2> = [isUnderwater,31,53,65]; @symbol_param<2>_type<0> = [Boolean,31,69,76]; @symbol_param<3> = [ascentRateMps,31,78,91]; @symbol_param<3>_type<0> = [Float,31,95,100]; @symbol_return<0> = [Float,31,105,110]; ]
-    function update(depthM as Float, dtSec as Float, isUnderwater as Boolean, ascentRateMps as Float) as Float {
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc"; @line = 31; @symbol_functiondef = [update,31,13,19]; @symbol_param<0> = [depthM,31,20,26]; @symbol_param<0>_type<0> = [Float,31,30,35]; @symbol_param<1> = [dtSec,31,37,42]; @symbol_param<1>_type<0> = [Float,31,46,51]; @symbol_param<2> = [isDepthActive,31,53,66]; @symbol_param<2>_type<0> = [Boolean,31,70,77]; @symbol_param<3> = [ascentRateMps,31,79,92]; @symbol_param<3>_type<0> = [Float,31,96,101]; @symbol_return<0> = [Float,31,106,111]; ]
+    function update(depthM as Float, dtSec as Float, isDepthActive as Boolean, ascentRateMps as Float) as Float {
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 32 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_32_8_34_8_if_stmt:
         %tmp.1 = lgetv %dtSec;
@@ -100,7 +100,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_36_26_39_8_
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_36_8_39_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_36_8_39_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 42 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_stop" ]
         %depthFactor.1 = local;
         symbol [ depthFactor %depthFactor.1 42 12 23 ];
         %tmp.11 = lgetv %depthM;
@@ -143,7 +143,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_44_32_44_54
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_44_8_44_54_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_44_8_44_54_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 47 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_stop" ]
         %onGas.2 = local;
         symbol [ onGas %onGas.2 47 12 17 ];
         %tmp.23 = 0.0f;
@@ -151,21 +151,21 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_44_8_44_54_
         symbol [ onGas %onGas.2 47 12 17 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 48 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_12_48_37_begin:
-        %tmp.24 = lgetv %isUnderwater;
-        symbol [ isUnderwater %tmp.24 48 12 24 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_12_48_38_begin:
+        %tmp.24 = lgetv %isDepthActive;
+        symbol [ isDepthActive %tmp.24 48 12 25 ];
         bf %tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_28_48_37_true:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_29_48_38_true:
         %tmp.25 = lgetv %depthM;
-        symbol [ depthM %tmp.25 48 28 34 ];
+        symbol [ depthM %tmp.25 48 29 35 ];
         %tmp.26 = 0.5f;
         %tmp.27 = gt %tmp.25 %tmp.26;
         push %tmp.27;
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_28_48_37_end:
-        %tmp.28 = phi [%tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_12_48_37_begin] [%tmp.27 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_28_48_37_true] [%tmp.28 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_28_48_37_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_29_48_38_end:
+        %tmp.28 = phi [%tmp.24 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_12_48_38_begin] [%tmp.27 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_29_48_38_true] [%tmp.28 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_29_48_38_end];
         bf %tmp.28 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_43_56_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_44_56_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 51 12 ]
         %tmp.29 = lgetv %depthFactor.1;
         symbol [ depthFactor %tmp.29 51 20 31 ];
@@ -199,11 +199,11 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_53_36_55_12
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_53_36_55_12_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_53_12_55_12_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_53_12_55_12_if_end:
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_43_56_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_44_56_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 59 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_stop" ]
         %halfLifeSec.3 = local;
         symbol [ halfLifeSec %halfLifeSec.3 59 12 23 ];
         symbol [ SURFACE_HALF_LIFE_MIN %tmp.45 59 26 47 ];
@@ -213,7 +213,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_i
         lputv %halfLifeSec.3 %tmp.47;
         symbol [ halfLifeSec %halfLifeSec.3 59 12 23 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 60 8 ]
-        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_stop" ]
+        [ "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_stop" ]
         %offGas.4 = local;
         symbol [ offGas %offGas.4 60 12 18 ];
         %tmp.48 = 0.0f;
@@ -221,22 +221,22 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_48_8_56_8_i
         symbol [ offGas %offGas.4 60 12 18 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 62 8 ]
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_stmt:
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_12_62_39_begin:
-        %tmp.49 = lgetv %isUnderwater;
-        symbol [ isUnderwater %tmp.49 62 13 25 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_12_62_40_begin:
+        %tmp.49 = lgetv %isDepthActive;
+        symbol [ isDepthActive %tmp.49 62 13 26 ];
         %tmp.50 = not %tmp.49;
         bt %tmp.50 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_true;
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_29_62_39_false:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_30_62_40_false:
         %tmp.51 = lgetv %depthM;
-        symbol [ depthM %tmp.51 62 29 35 ];
+        symbol [ depthM %tmp.51 62 30 36 ];
         %tmp.52 = 0.5f;
         %tmp.53 = lte %tmp.51 %tmp.52;
         push %tmp.53;
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_29_62_39_end:
-        %tmp.54 = phi [%tmp.50 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_12_62_39_begin] [%tmp.53 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_29_62_39_false] [%tmp.54 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_29_62_39_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_30_62_40_end:
+        %tmp.54 = phi [%tmp.50 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_12_62_40_begin] [%tmp.53 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_30_62_40_false] [%tmp.54 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_30_62_40_end];
         bf %tmp.54 @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_else_false;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_45_65_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_46_65_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc" 64 12 ]
         symbol [ loading %tmp.56 64 21 28 ];
         %tmp.56 = getv ? :loading;
@@ -256,7 +256,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_45_65_8_
         %tmp.66 = mul %tmp.56 %tmp.65;
         lputv %offGas.4 %tmp.66;
         symbol [ offGas %offGas.4 64 12 18 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_45_65_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_46_65_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_62_8_69_8_if_else_false:
 _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_65_15_69_8_start:
@@ -388,7 +388,7 @@ _home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_80_8_80_58_
         symbol [ loading %tmp.120 83 15 22 ];
         %tmp.120 = getv ? :loading;
         ret %tmp.120;
-_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_111_84_4_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_NitrogenModel_mc_31_112_84_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/NitrogenModel.mc"; @line = 86; @symbol_functiondef = [getLoading,86,13,23]; @symbol_return<0> = [Float,86,29,34]; ]
     function getLoading() as Float {

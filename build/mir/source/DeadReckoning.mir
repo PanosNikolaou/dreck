@@ -45,8 +45,8 @@ class DeadReckoning {
     var lastHeadingErrorRad = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 26; @position = 8; @symbol_vardef = [movementAccepted,26,8,24]; ]
     var movementAccepted = false;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 27; @position = 8; @symbol_vardef = [isUnderwaterMode,27,8,24]; ]
-    var isUnderwaterMode = false;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 27; @position = 8; @symbol_vardef = [isDepthMode,27,8,19]; ]
+    var isDepthMode = false;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 28; @position = 8; @symbol_vardef = [headingSinCache,28,8,23]; ]
     var headingSinCache = 0.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 29; @position = 8; @symbol_vardef = [headingCosCache,29,8,23]; ]
@@ -87,8 +87,8 @@ class DeadReckoning {
     const MAX_SPEED_MPS_SWIM = 2.8f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 51; @position = 10; @symbol_constdef = [SPEED_DEADBAND_MPS,51,10,28]; ]
     const SPEED_DEADBAND_MPS = 0.10f;
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 52; @position = 10; @symbol_constdef = [UNDERWATER_SPEED_DEADBAND_MPS,52,10,39]; ]
-    const UNDERWATER_SPEED_DEADBAND_MPS = 0.08f;
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 52; @position = 10; @symbol_constdef = [DEPTH_MODE_SPEED_DEADBAND_MPS,52,10,39]; ]
+    const DEPTH_MODE_SPEED_DEADBAND_MPS = 0.08f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 54; @position = 10; @symbol_constdef = [MIN_STEP_DISTANCE_M,54,10,29]; ]
     const MIN_STEP_DISTANCE_M = 0.015f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 55; @position = 10; @symbol_constdef = [MAX_STEP_DISTANCE_M,55,10,29]; ]
@@ -255,15 +255,15 @@ _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_98_60_100_4
         putv self :speedMps %tmp.4;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_98_60_100_4_stop:
     }
-    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 102; @symbol_functiondef = [setContext,102,13,23]; @symbol_param<0> = [isUnderwater,102,24,36]; @symbol_param<0>_type<0> = [Boolean,102,40,47]; ]
-    function setContext(isUnderwater as Boolean) as Void {
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_102_57_104_4_start:
+    [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 102; @symbol_functiondef = [setContext,102,13,23]; @symbol_param<0> = [isDepthActive,102,24,37]; @symbol_param<0>_type<0> = [Boolean,102,41,48]; ]
+    function setContext(isDepthActive as Boolean) as Void {
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_102_58_104_4_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 103 8 ]
-        %tmp.1 = lgetv %isUnderwater;
-        symbol [ isUnderwater %tmp.1 103 27 39 ];
-        symbol [ isUnderwaterMode ? 103 8 24 ];
-        putv self :isUnderwaterMode %tmp.1;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_102_57_104_4_stop:
+        %tmp.1 = lgetv %isDepthActive;
+        symbol [ isDepthActive %tmp.1 103 22 35 ];
+        symbol [ isDepthMode ? 103 8 19 ];
+        putv self :isDepthMode %tmp.1;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_102_58_104_4_stop:
     }
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc"; @line = 106; @symbol_functiondef = [applyPositionCorrection,106,13,36]; @symbol_param<0> = [targetEast,106,37,47]; @symbol_param<0>_type<0> = [Float,106,51,56]; @symbol_param<1> = [targetNorth,106,58,69]; @symbol_param<1>_type<0> = [Float,106,73,78]; @symbol_param<2> = [alpha,106,80,85]; @symbol_param<2>_type<0> = [Float,106,89,94]; ]
     function applyPositionCorrection(targetEast as Float, targetNorth as Float, alpha as Float) as Void {
@@ -852,21 +852,21 @@ _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_198_8_200_8
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_136_14_261_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_136_14_261_4_stop" ]
         %baseDeadband.13 = local;
         symbol [ baseDeadband %baseDeadband.13 203 12 24 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_begin:
-        symbol [ isUnderwaterMode %tmp.163 203 27 43 ];
-        %tmp.163 = getv ? :isUnderwaterMode;
-        bf %tmp.163 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_true:
-        symbol [ UNDERWATER_SPEED_DEADBAND_MPS %tmp.165 203 46 75 ];
-        %tmp.165 = getv ? :UNDERWATER_SPEED_DEADBAND_MPS;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_begin:
+        symbol [ isDepthMode %tmp.163 203 27 38 ];
+        %tmp.163 = getv ? :isDepthMode;
+        bf %tmp.163 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_true:
+        symbol [ DEPTH_MODE_SPEED_DEADBAND_MPS %tmp.165 203 41 70 ];
+        %tmp.165 = getv ? :DEPTH_MODE_SPEED_DEADBAND_MPS;
         push %tmp.165;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_else_false:
-        symbol [ SPEED_DEADBAND_MPS %tmp.167 203 78 96 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_else_false:
+        symbol [ SPEED_DEADBAND_MPS %tmp.167 203 73 91 ];
         %tmp.167 = getv ? :SPEED_DEADBAND_MPS;
         push %tmp.167;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_end:
-        %tmp.168 = phi [%tmp.163 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_begin] [%tmp.165 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_true] [%tmp.167 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_else_false] [%tmp.168 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_78_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_end:
+        %tmp.168 = phi [%tmp.163 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_begin] [%tmp.165 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_true] [%tmp.167 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_else_false] [%tmp.168 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_203_27_203_73_end];
         lputv %baseDeadband.13 %tmp.168;
         symbol [ baseDeadband %baseDeadband.13 203 12 24 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 204 8 ]
@@ -1181,48 +1181,48 @@ _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_245_8_247_8
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_8_251_8_if_stmt:
         symbol [ speedMps %tmp.279 249 12 20 ];
         %tmp.279 = getv ? :speedMps;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_begin:
-        symbol [ isUnderwaterMode %tmp.281 249 24 40 ];
-        %tmp.281 = getv ? :isUnderwaterMode;
-        bf %tmp.281 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_true:
-        symbol [ MAX_SPEED_MPS_SWIM %tmp.283 249 43 61 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_begin:
+        symbol [ isDepthMode %tmp.281 249 24 35 ];
+        %tmp.281 = getv ? :isDepthMode;
+        bf %tmp.281 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_true:
+        symbol [ MAX_SPEED_MPS_SWIM %tmp.283 249 38 56 ];
         %tmp.283 = getv ? :MAX_SPEED_MPS_SWIM;
         push %tmp.283;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_else_false:
-        symbol [ MAX_SPEED_MPS_LAND %tmp.285 249 64 82 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_else_false:
+        symbol [ MAX_SPEED_MPS_LAND %tmp.285 249 59 77 ];
         %tmp.285 = getv ? :MAX_SPEED_MPS_LAND;
         push %tmp.285;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_end:
-        %tmp.286 = phi [%tmp.281 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_begin] [%tmp.283 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_true] [%tmp.285 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_else_false] [%tmp.286 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_64_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_end:
+        %tmp.286 = phi [%tmp.281 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_begin] [%tmp.283 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_true] [%tmp.285 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_else_false] [%tmp.286 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_24_249_59_end];
         %tmp.287 = 0.70f;
         %tmp.288 = mul %tmp.286 %tmp.287;
         %tmp.289 = gt %tmp.279 %tmp.288;
         bf %tmp.289 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_8_251_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_8_251_8_if_true:
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_93_251_8_start:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_88_251_8_start:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 250 12 ]
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_begin:
-        symbol [ isUnderwaterMode %tmp.291 250 24 40 ];
-        %tmp.291 = getv ? :isUnderwaterMode;
-        bf %tmp.291 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_true:
-        symbol [ MAX_SPEED_MPS_SWIM %tmp.293 250 43 61 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_begin:
+        symbol [ isDepthMode %tmp.291 250 24 35 ];
+        %tmp.291 = getv ? :isDepthMode;
+        bf %tmp.291 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_true:
+        symbol [ MAX_SPEED_MPS_SWIM %tmp.293 250 38 56 ];
         %tmp.293 = getv ? :MAX_SPEED_MPS_SWIM;
         push %tmp.293;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_else_false:
-        symbol [ MAX_SPEED_MPS_LAND %tmp.295 250 64 82 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_else_false:
+        symbol [ MAX_SPEED_MPS_LAND %tmp.295 250 59 77 ];
         %tmp.295 = getv ? :MAX_SPEED_MPS_LAND;
         push %tmp.295;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_end:
-        %tmp.296 = phi [%tmp.291 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_begin] [%tmp.293 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_true] [%tmp.295 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_else_false] [%tmp.296 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_64_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_end:
+        %tmp.296 = phi [%tmp.291 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_begin] [%tmp.293 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_true] [%tmp.295 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_else_false] [%tmp.296 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_250_24_250_59_end];
         %tmp.297 = 0.70f;
         %tmp.298 = mul %tmp.296 %tmp.297;
         symbol [ speedMps ? 250 12 20 ];
         putv self :speedMps %tmp.298;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_93_251_8_stop:
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_88_251_8_stop:
         goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_8_251_8_if_end;
 _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_249_8_251_8_if_end:
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 253 8 ]
@@ -2475,42 +2475,42 @@ _home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop" ]
         %maxSpeed.1 = local;
         symbol [ maxSpeed %maxSpeed.1 488 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_begin:
-        symbol [ isUnderwaterMode %tmp.2 488 23 39 ];
-        %tmp.2 = getv ? :isUnderwaterMode;
-        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_true:
-        symbol [ MAX_SPEED_MPS_SWIM %tmp.4 488 42 60 ];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_begin:
+        symbol [ isDepthMode %tmp.2 488 23 34 ];
+        %tmp.2 = getv ? :isDepthMode;
+        bf %tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_true:
+        symbol [ MAX_SPEED_MPS_SWIM %tmp.4 488 37 55 ];
         %tmp.4 = getv ? :MAX_SPEED_MPS_SWIM;
         push %tmp.4;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false:
-        symbol [ MAX_SPEED_MPS_LAND %tmp.6 488 63 81 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_else_false:
+        symbol [ MAX_SPEED_MPS_LAND %tmp.6 488 58 76 ];
         %tmp.6 = getv ? :MAX_SPEED_MPS_LAND;
         push %tmp.6;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end:
-        %tmp.7 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_begin] [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_true] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_else_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_63_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_end:
+        %tmp.7 = phi [%tmp.2 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_begin] [%tmp.4 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_true] [%tmp.6 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_else_false] [%tmp.7 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_488_23_488_58_end];
         lputv %maxSpeed.1 %tmp.7;
         symbol [ maxSpeed %maxSpeed.1 488 12 20 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 489 8 ]
         [ "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_start" "_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_487_52_495_4_stop" ]
         %deadband.2 = local;
         symbol [ deadband %deadband.2 489 12 20 ];
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_begin:
-        symbol [ isUnderwaterMode %tmp.9 489 23 39 ];
-        %tmp.9 = getv ? :isUnderwaterMode;
-        bf %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_true:
-        symbol [ UNDERWATER_SPEED_DEADBAND_MPS %tmp.11 489 42 71 ];
-        %tmp.11 = getv ? :UNDERWATER_SPEED_DEADBAND_MPS;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_begin:
+        symbol [ isDepthMode %tmp.9 489 23 34 ];
+        %tmp.9 = getv ? :isDepthMode;
+        bf %tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_else_false;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_true:
+        symbol [ DEPTH_MODE_SPEED_DEADBAND_MPS %tmp.11 489 37 66 ];
+        %tmp.11 = getv ? :DEPTH_MODE_SPEED_DEADBAND_MPS;
         push %tmp.11;
-        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false:
-        symbol [ SPEED_DEADBAND_MPS %tmp.13 489 74 92 ];
+        goto @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_end;
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_else_false:
+        symbol [ SPEED_DEADBAND_MPS %tmp.13 489 69 87 ];
         %tmp.13 = getv ? :SPEED_DEADBAND_MPS;
         push %tmp.13;
-_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end:
-        %tmp.14 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_begin] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_true] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_else_false] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_74_end];
+_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_end:
+        %tmp.14 = phi [%tmp.9 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_begin] [%tmp.11 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_true] [%tmp.13 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_else_false] [%tmp.14 @_home_panagiotis_Documents_gsensors_gsensros_source_DeadReckoning_mc_489_23_489_69_end];
         lputv %deadband.2 %tmp.14;
         symbol [ deadband %deadband.2 489 12 20 ];
 [ "/home/panagiotis/Documents/gsensors/gsensros/source/DeadReckoning.mc" 490 8 ]

@@ -147,6 +147,8 @@ class gsensrosView extends WatchUi.View {
     // Seawater approx: 1 m depth ≈ 10050 Pa over surface pressure
     const PA_PER_METER_SEAWATER = 10050.0f;
     const DEFAULT_SURFACE_PA    = 101325.0f;
+    const MIN_PHYS_PRESSURE_PA  = 50000.0f;
+    const MAX_PHYS_PRESSURE_PA  = 400000.0f;
 
     // Depth-state hysteresis (prevents instant start->stop at the surface)
     var depthStartMs = 0;
@@ -259,6 +261,9 @@ class gsensrosView extends WatchUi.View {
     const CALIBRATION_COUNT = 20;   // a bit longer for a stable surface reference
     var currentDepth = 0.0f;
     var depthSourceTag = "NONE";
+    var uiPressureRaw = null as Float or Null;
+    var uiPressurePa = null as Float or Null;
+    var uiPressureUnitTag = "--";
     var lastDepthDiagLogMs = 0;
     var lastAltSample = null as Float or Null;
     var flatAltSampleCount = 0;
@@ -1338,9 +1343,44 @@ class gsensrosView extends WatchUi.View {
         return a * 57.2957795f;
     }
 
+    function normalizePressureToPa(rawPressure as Float) as Float {
+        var p = rawPressure;
+
+        // Common watch/profile pressure units observed across devices:
+        // Pa (~101325), hPa/mbar (~1013), kPa (~101), deci-hPa (~10132),
+        // and occasionally normalized atmosphere/bar (~1.0).
+        if (p > 0.7f && p < 1.4f) {
+            p *= DEFAULT_SURFACE_PA;       // atm or bar-like normalized value
+        } else if (p >= 80.0f && p < 120.0f) {
+            p *= 1000.0f;                  // kPa -> Pa
+        } else if (p >= 800.0f && p < 1200.0f) {
+            p *= 100.0f;                   // hPa/mbar -> Pa
+        } else if (p >= 8000.0f && p < 12000.0f) {
+            p *= 10.0f;                    // deci-hPa -> Pa
+        }
+
+        return p;
+    }
+
+    function detectPressureUnitTag(rawPressure as Float) as String {
+        if (rawPressure > 0.7f && rawPressure < 1.4f) {
+            return "ATM";
+        } else if (rawPressure >= 80.0f && rawPressure < 120.0f) {
+            return "KPA";
+        } else if (rawPressure >= 800.0f && rawPressure < 1200.0f) {
+            return "HPA";
+        } else if (rawPressure >= 8000.0f && rawPressure < 12000.0f) {
+            return "DHPA";
+        }
+        return "PA";
+    }
+
     function updateDepth(info as Sensor.Info or Null, posInfo as Position.Info or Null) as Void {
         try {
             depthSourceTag = "NONE";
+            uiPressureRaw = null;
+            uiPressurePa = null;
+            uiPressureUnitTag = "--";
 
             if (info == null && posInfo == null) {
                 return;
@@ -1367,14 +1407,21 @@ class gsensrosView extends WatchUi.View {
 
             var hasPressure = pressureReading != null;
             var pressurePa = 0.0f;
+            var pressureRaw = 0.0f;
             if (hasPressure) {
-                depthSourceTag = "P";
-                pressurePa = pressureReading;
-                // Typical sea-level pressure can appear as ~1013 (hPa) or ~101 (kPa).
-                if (pressurePa > 800.0f && pressurePa < 1200.0f) {
-                    pressurePa *= 100.0f;   // hPa -> Pa
-                } else if (pressurePa > 80.0f && pressurePa < 120.0f) {
-                    pressurePa *= 1000.0f;  // kPa -> Pa
+                pressureRaw = pressureReading;
+                pressurePa = normalizePressureToPa(pressureRaw);
+                uiPressureRaw = pressureRaw;
+                uiPressurePa = pressurePa;
+                uiPressureUnitTag = detectPressureUnitTag(pressureRaw);
+
+                if (pressurePa >= MIN_PHYS_PRESSURE_PA && pressurePa <= MAX_PHYS_PRESSURE_PA) {
+                    depthSourceTag = "P";
+                } else {
+                    uiPressureUnitTag = uiPressureUnitTag + "!";
+                    // Ignore pressure samples that cannot represent absolute ambient pressure.
+                    hasPressure = false;
+                    pressurePa = 0.0f;
                 }
             }
 
@@ -1657,12 +1704,14 @@ class gsensrosView extends WatchUi.View {
                 lastDepthDiagLogMs = nowMs;
                 var rawAltText = hasAlt ? rawAlt.format("%.2f") : "NA";
                 var pText = hasPressure ? pressurePa.format("%.0f") : "NA";
+                var pRawText = (pressureReading != null) ? pressureRaw.format("%.2f") : "NA";
                 var pDepthText = (pressureDepth != null) ? pressureDepth.format("%.2f") : "NA";
                 var aDepthText = (altitudeDepth != null) ? altitudeDepth.format("%.2f") : "NA";
                 logDebug("DEPTHDBG src=" + depthSourceTag
                     + " rec=" + isRecording
                     + " rawAlt=" + rawAltText
                     + " alt0=" + surfaceAltitude.format("%.2f")
+                    + " pRaw=" + pRawText
                     + " pPa=" + pText
                     + " pDepth=" + pDepthText
                     + " aDepth=" + aDepthText
@@ -2953,6 +3002,30 @@ function safeCreateField(name as String, id as Number, type as Number, units as 
                 dc.drawText(rightX, contentY, font, depthSourceTag, Graphics.TEXT_JUSTIFY_LEFT);
             }
             contentY += rowH;
+
+            if (isRecording && isDebugLoggingEnabled()) {
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Praw:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font,
+                        (uiPressureRaw != null ? uiPressureRaw.format("%.1f") : "--"),
+                        Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Ppa:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font,
+                        (uiPressurePa != null ? uiPressurePa.format("%.0f") : "--"),
+                        Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+
+                if (canDrawFieldRow(leftX, rightX, contentY)) {
+                    dc.drawText(leftX, contentY, font, "Punit:", Graphics.TEXT_JUSTIFY_LEFT);
+                    dc.drawText(rightX, contentY, font, uiPressureUnitTag, Graphics.TEXT_JUSTIFY_LEFT);
+                }
+                contentY += rowH;
+            }
 
             if (canDrawFieldRow(leftX, rightX, contentY)) {
                 dc.drawText(leftX, contentY, font, "Asc:", Graphics.TEXT_JUSTIFY_LEFT);
