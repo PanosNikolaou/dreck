@@ -381,8 +381,8 @@ class gsensrosView extends WatchUi.View {
 
     const MOTION_ON_MG         = 24.0f;
     const MOTION_OFF_MG        = 12.0f;
-    const CONF_RISE            = 3;       // samples to declare moving
-    const CONF_FALL            = 6;       // samples to declare stationary (stickier off)
+    const CONF_RISE            = 12;      // require sustained motion before declaring moving
+    const CONF_FALL            = 20;      // require sustained low motion before declaring stationary
 
     function initialize() {
         View.initialize();
@@ -534,24 +534,16 @@ class gsensrosView extends WatchUi.View {
         }
 
         try {
-            var candidate = traceLogText + line + "\n";
-            if (candidate.length() >= MAX_TRACE_LOG_BYTES || traceLogLineCount >= MAX_TRACE_LOG_LINES) {
-                traceLogText = "[truncated]\n" + line + "\n";
-                traceLogLineCount = 1;
-                Application.Storage.setValue(traceLogKey, traceLogText);
-                return;
+            var lineText = line + "\n";
+            if (lineText.length() >= MAX_TRACE_LOG_BYTES) {
+                lineText = "[truncated]\n";
             }
 
-            traceLogText = candidate;
+            traceLogText = lineText;
             traceLogLineCount += 1;
-
-            if ((traceLogLineCount % 10) == 0 || traceLogLineCount >= MAX_TRACE_LOG_LINES) {
-                Application.Storage.setValue(traceLogKey, traceLogText);
-            }
+            Application.Storage.setValue(traceLogKey, traceLogText);
         } catch (e) {
-            logDebug("Trace log write error: " + errorToString(e));
-            traceLogText = "[truncated]\n";
-            traceLogLineCount = 1;
+            traceLogText = null;
         }
     }
 
