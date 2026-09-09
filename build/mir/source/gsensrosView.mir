@@ -1049,9 +1049,9 @@ _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_40_49_44_4_s
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 383; @position = 10; @symbol_constdef = [MOTION_OFF_MG,383,10,23]; ]
     const MOTION_OFF_MG = 12.0f;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 384; @position = 10; @symbol_constdef = [CONF_RISE,384,10,19]; ]
-    const CONF_RISE = 3;
+    const CONF_RISE = 12;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 385; @position = 10; @symbol_constdef = [CONF_FALL,385,10,19]; ]
-    const CONF_FALL = 6;
+    const CONF_FALL = 20;
     [ @file = "/home/panagiotis/Documents/gsensors/gsensros/source/gsensrosView.mc"; @line = 387; @symbol_functiondef = [initialize,387,13,23]; ]
     function initialize() as Void {
 _home_panagiotis_Documents_gsensors_gsensros_source_gsensrosView_mc_387_26_399_4_start:
