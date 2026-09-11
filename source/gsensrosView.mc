@@ -825,6 +825,10 @@ class gsensrosView extends WatchUi.View {
     function updateMotionFromAccel(ax as Float, ay as Float, az as Float) as Void {
         var mag = Math.sqrt(ax * ax + ay * ay + az * az);
 
+        if (mag > 50.0f) {
+            mag *= 0.001f;
+        }
+
         // High-pass filter (removes gravity)
         var hp = mag - lastAccelMag;
         lastAccelMag = (1.0f - MOTION_HP_ALPHA) * lastAccelMag + MOTION_HP_ALPHA * mag;
